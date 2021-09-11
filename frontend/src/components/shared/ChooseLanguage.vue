@@ -7,13 +7,13 @@
       </div>
     </div>
     <ul v-if="isShowDropdownList" class="dropdown-list">
-      <li class="item">
+      <li @click="changeLanguage('TR')" class="item">
         <img class="flag" src="@/assets/flags/tr.png" alt="tr-flag">
         <div class="txt">
           Turkish
         </div>
       </li>
-      <li class="item">
+      <li @click="changeLanguage('EN')" class="item">
         <img class="flag" src="@/assets/flags/us.png" alt="tr-flag">
         <div class="txt">
           English
@@ -28,15 +28,28 @@ export default {
   name: 'ChooseLanguage',
   data() {
     return {
-      isShowDropdownList: true
-    }
+      isShowDropdownList: false
+    };
   },
   methods: {
     handleDropdownList() {
-      this.isShowDropdownList = !this.isShowDropdownList
+      this.isShowDropdownList = !this.isShowDropdownList;
+    },
+    changeLanguage(lang) {
+      alert(lang);
     }
+  },
+  created() {
+    let self = this;
+    window.addEventListener('click', function (e) {
+      // Todo:Helper class'a alma ?
+      if (!self.$el.contains(e.target)) {
+        console.log('out click çalıştırma her zamna çalışıyor!!!!');
+        self.isShowDropdownList = false;
+      }
+    });
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -53,6 +66,11 @@ export default {
     padding: 3px 7px;
     border-radius: 4px;
     cursor: pointer;
+    background-color: #f1f4fa;
+
+    &:hover {
+      background-color: #e7ebf3;
+    }
 
     .txt {
       margin-left: 3px;
@@ -70,7 +88,16 @@ export default {
     width: 130px;
     border-radius: 4px;
     background-color: white;
-    border: 1px solid black;
+    border-color: #d0d9ee;
+    overflow: auto;
+    font-size: 14px;
+
+    box-shadow: 0 0px 0.4px rgba(0, 0, 0, 0.017),
+    0 0px 0.9px rgba(0, 0, 0, 0.024),
+    0 0px 1.8px rgba(0, 0, 0, 0.03),
+    0 0px 3.1px rgba(0, 0, 0, 0.036),
+    0 0px 5.8px rgba(0, 0, 0, 0.043),
+    0 0px 14px rgba(0, 0, 0, 0.06);
 
     .item {
       display: flex;
@@ -78,8 +105,8 @@ export default {
       cursor: pointer;
       padding: 5px 10px;
 
-      &:hover{
-        background-color: #e2e5ea;
+      &:hover {
+        background-color: #f1f4fa;
       }
 
       .txt {

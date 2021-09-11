@@ -13,5 +13,10 @@ html, body {
 * {
   box-sizing: border-box;
   outline: none;
+  text-decoration: none;
+}
+
+a:visited {
+  color: inherit;
 }
 </style>

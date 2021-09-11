@@ -1,15 +1,21 @@
 <template>
   <div class="top-header">
     <div class="logo">
-      <img src="@/assets/logo.png">
+      <img src="@/assets/logos/voteam.png">
     </div>
     <div class="links">
-      <div class="item">
+      <router-link
+          class="item selected"
+          tag="div"
+          :to="{name:'Home'}">
         Anasayfa
-      </div>
-      <div class="item">
+      </router-link>
+      <router-link
+          class="item"
+          tag="div"
+          :to="{name:'Prices'}">
         Fiyatlar
-      </div>
+      </router-link>
       <div class="item">
         Hakkımızda
       </div>
@@ -27,22 +33,26 @@
 </template>
 
 <script>
-import ChooseLanguage from '@/components/shared/ChooseLanguage'
 
 export default {
   name: 'Top',
   components: {
-    ChooseLanguage
+    //!!!
+    ChooseLanguage: () => import('../shared/ChooseLanguage')
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
 .top-header {
-  position: relative;
+  position: sticky;
+  z-index: 10;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: space-around;
+  padding: 15px 0;
+  background-color: white;
   box-shadow: 0 0.5px 1.3px rgba(0, 0, 0, 0.014),
   0 1.3px 3.1px rgba(0, 0, 0, 0.02),
   0 2.4px 5.8px rgba(0, 0, 0, 0.025),
@@ -53,7 +63,7 @@ export default {
 
   .logo {
     img {
-      width: 80px;
+      width: 160px;
     }
   }
 
@@ -62,9 +72,22 @@ export default {
     color: #02273D;
 
     .item {
-      margin: 0 7px;
+      margin: 0 14px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 15px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid white;
+      transition: .3s;
+
+      &:hover {
+        border-bottom-color: #d0d0d0;
+      }
+
+      &.selected {
+        color: #2575f1;
+        border-bottom-color: #d0d0d0;
+      }
+
     }
   }
 
@@ -73,7 +96,7 @@ export default {
     align-items: center;
 
     div {
-      margin: 0 4px;
+      margin: 0 10px;
       cursor: pointer;
       font-weight: 400;
     }
@@ -85,10 +108,22 @@ export default {
       color: white;
       padding: 5px 10px;
       border-radius: 5px;
+      transition: .3s;
+
+      &:hover {
+        background-color: #1d6ce7;
+        transform: scale(1.03);
+      }
     }
 
     .register {
       color: #2575f1;
+      padding: 5px 10px;
+      border-radius: 5px;
+
+      &:hover {
+        background-color: #f0f6ff;
+      }
     }
   }
 

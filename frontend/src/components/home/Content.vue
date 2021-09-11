@@ -3,7 +3,7 @@
     <div class="item main">
       <div class="text">
         <div class="title">
-          Title Tİtle Doksdfsf Sosdfjısdfds
+          votem takım yönetimine demokrasi getirir.
         </div>
         <div class="info">
           loreldksa ajd ajsdsadjask jaskdhasjkdhas oıertuer tıertuıertu ejdfghjdf
@@ -64,27 +64,33 @@
 </template>
 
 <script>
-import '@lottiefiles/lottie-player'
+import '@lottiefiles/lottie-player';
 
 export default {
   name: 'Content'
-}
+};
 </script>
 
 <style lang="scss" scoped>
 .content {
+  padding: 0 20px;
 
   .item {
-    margin: 0 5px;
+    margin: 7px 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #02273D;
 
     .text {
       .title {
         font-weight: 600;
-        font-size: 33px;
-        color: #02273D;
+        font-size: 35px;
+      }
+
+      .info {
+        font-weight: 300;
+        font-size: 15px;
       }
     }
 
