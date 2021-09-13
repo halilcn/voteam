@@ -80,7 +80,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #02273D;
+    color: $df-dark-blue-color;
 
     .text {
       .title {
