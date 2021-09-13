@@ -8,16 +8,16 @@
           class="item selected"
           tag="div"
           :to="{name:'Home'}">
-        Anasayfa
+        {{ $t('homePage.topHeader.links.home') }}
       </router-link>
       <router-link
           class="item"
           tag="div"
           :to="{name:'Prices'}">
-        Fiyatlar
+        {{ $t('homePage.topHeader.links.pricing') }}
       </router-link>
       <div class="item">
-        Hakkımızda
+        {{ $t('homePage.topHeader.links.about') }}
       </div>
     </div>
     <div class="user-actions">
@@ -33,12 +33,13 @@
 </template>
 
 <script>
+import ChooseLanguage from '../shared/ChooseLanguage';
 
 export default {
   name: 'Top',
   components: {
-    //!!!
-    ChooseLanguage: () => import('../shared/ChooseLanguage')
+    //!!! !!!!!!!!!!!
+    ChooseLanguage: ChooseLanguage
   }
 };
 </script>

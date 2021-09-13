@@ -1,6 +1,11 @@
 export default {
-  welcomeMessage: 'türkçe çalıştı',
-  highlights: {
-    approachable: 'tükrçe 2 çalıştır!'
+  homePage: {
+    topHeader: {
+      links: {
+        home: 'Anasayfa',
+        pricing: 'Fiyatlar',
+        about: 'Hakkında'
+      }
+    }
   }
-}
+};

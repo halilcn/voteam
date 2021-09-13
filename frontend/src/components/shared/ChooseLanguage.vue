@@ -1,20 +1,20 @@
 <template>
   <div class="choose-lang">
     <div @click="handleDropdownList" class="selected-lang">
-      <img class="flag" src="@/assets/flags/tr.png" alt="tr-flag">
+      <img class="flag" :src="`../../assets/flags/${getSelectedLang}.png`" alt="lang-flag">
       <div class="txt">
-        TR
+        {{ getSelectedLang }}
       </div>
     </div>
     <ul v-if="isShowDropdownList" class="dropdown-list">
-      <li @click="changeLanguage('TR')" class="item">
+      <li @click="changeLanguage('tr')" class="item">
         <img class="flag" src="@/assets/flags/tr.png" alt="tr-flag">
         <div class="txt">
           Turkish
         </div>
       </li>
-      <li @click="changeLanguage('EN')" class="item">
-        <img class="flag" src="@/assets/flags/us.png" alt="tr-flag">
+      <li @click="changeLanguage('en')" class="item">
+        <img class="flag" src="@/assets/flags/en.png" alt="tr-flag">
         <div class="txt">
           English
         </div>
@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import helpers from '../../helpers';
+
 export default {
   name: 'ChooseLanguage',
   data() {
@@ -36,7 +38,14 @@ export default {
       this.isShowDropdownList = !this.isShowDropdownList;
     },
     changeLanguage(lang) {
-      alert(lang);
+      helpers.setLanguage(lang);
+      this.$i18n.locale = lang;
+      this.handleDropdownList();
+    }
+  },
+  computed: {
+    getSelectedLang() {
+      return this.$i18n.locale;
     }
   },
   created() {
