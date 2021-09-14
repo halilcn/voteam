@@ -1,19 +1,30 @@
 <template>
   <div class="top-header">
-    <div class="logo">
+    <router-link
+        tag="div"
+        :to="{name:'Home'}"
+        class="desktop-logo">
       <img src="@/assets/logos/voteam.png">
-    </div>
+    </router-link>
+    <router-link
+        tag="div"
+        :to="{name:'Home'}"
+        class="mobile-logo">
+      logo
+    </router-link>
     <div class="links">
       <router-link
-          class="item selected"
+          class="item"
           tag="div"
-          :to="{name:'Home'}">
+          :to="{name:'Home'}"
+          exact-active-class="selected">
         {{ $t('homePage.topHeader.links.home') }}
       </router-link>
       <router-link
           class="item"
           tag="div"
-          :to="{name:'Prices'}">
+          :to="{name:'Prices'}"
+          exact-active-class="selected">
         {{ $t('homePage.topHeader.links.pricing') }}
       </router-link>
       <div class="item">
@@ -52,20 +63,28 @@ export default {
   top: 0;
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  padding: 15px 0;
+  padding: 15px $df-dsktp-lr-width-pdn;
   background-color: white;
+  width: 100%;
 
-
-  .logo {
+  .desktop-logo {
     img {
       width: 160px;
+    }
+  }
+
+  .mobile-logo {
+    display: none;
+
+    img {
+
     }
   }
 
   .links {
     display: flex;
     color: $df-dark-blue-color;
+    margin: 0 auto;
 
     .item {
       margin: 0 14px;
@@ -95,14 +114,14 @@ export default {
       margin: 0 10px;
       cursor: pointer;
       font-weight: 400;
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: .3s;
     }
 
     .login {
       background-color: $df-blue-color;
       color: white;
-      padding: 5px 10px;
-      border-radius: 5px;
-      transition: .3s;
 
       &:hover {
         background-color: $df-blue-color-hover-dark;
@@ -112,8 +131,6 @@ export default {
 
     .register {
       color: $df-blue-color;
-      padding: 5px 10px;
-      border-radius: 5px;
 
       &:hover {
         background-color: #f0f6ff;
@@ -122,8 +139,47 @@ export default {
   }
 
   .choose-language {
-    position: absolute;
-    right: 10px;
   }
 }
+
+@media only screen and (max-width: 900px) {
+  .top-header {
+    justify-content: flex-start;
+    padding: 10px $df-mbl-lr-width-pdn;
+
+    .desktop-logo {
+      display: none;
+    }
+
+    .mobile-logo {
+      display: block;
+    }
+
+    .links {
+      position: absolute;
+      bottom: -39px;
+      background-color: white;
+      width: 100%;
+      right: 0;
+      padding: 7px;
+      justify-content: center;
+      @include center-md-box-shadow;
+
+      .item {
+        border: 0 !important;
+      }
+    }
+
+    .user-actions {
+      margin-left: auto;
+
+      div {
+        margin: 0 5px;
+        font-size: 13px;
+        padding: 3px 7px;
+      }
+    }
+  }
+}
+
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="choose-lang">
     <div @click="handleDropdownList" class="selected-lang">
-      <img class="flag" :src="`../../assets/flags/${getSelectedLang}.png`" alt="lang-flag">
+      <img class="flag" :src="require(`../../assets/flags/${getSelectedLang}.png`)" alt="lang-flag">
       <div class="txt">
         {{ getSelectedLang }}
       </div>

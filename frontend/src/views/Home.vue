@@ -1,17 +1,20 @@
 <template>
   <top-header/>
-  <content2/>
+  <middle-content/>
+  <bottom-footer/>
 </template>
 
 <script>
 import TopHeader from '../components/home/TopHeader';
 import Content from '../components/home/Content';
+import Footer from '../components/shared/Footer';
 
 export default {
   name: 'Home',
   components: {
-    TopHeader: TopHeader, //import('@/components/home/TopHeader'),
-    Content2: Content//import('@/components/home/TopHeader'),
+    TopHeader,
+    BottomFooter: Footer,
+    MiddleContent: Content
   }
 };
 </script>

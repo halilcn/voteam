@@ -5,9 +5,10 @@
 <style lang="scss">
 //farklı dosyaya alma ? index html unutma !!
 html, body {
-  margin: 0;
   height: 100%;
   font-family: 'Poppins', sans-serif;
+  max-width: 1500px;
+  margin: 0 auto;
 }
 
 * {
