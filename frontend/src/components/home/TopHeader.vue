@@ -4,7 +4,7 @@
         tag="div"
         :to="{name:'Home'}"
         class="desktop-logo">
-      <img src="@/assets/logos/voteam.png">
+      <img src="../../assets/logos/voteam.png" alt="logo"/>
     </router-link>
     <router-link
         tag="div"
@@ -39,7 +39,7 @@
         Giriş Yap
       </div>
     </div>
-    <choose-language class="choose-language"/>
+    <choose-language/>
   </div>
 </template>
 
@@ -49,7 +49,6 @@ import ChooseLanguage from '../shared/ChooseLanguage';
 export default {
   name: 'Top',
   components: {
-    //!!! !!!!!!!!!!!
     ChooseLanguage: ChooseLanguage
   }
 };
@@ -108,7 +107,6 @@ export default {
 
   .user-actions {
     display: flex;
-    align-items: center;
 
     div {
       margin: 0 10px;
@@ -125,7 +123,8 @@ export default {
 
       &:hover {
         background-color: $df-blue-color-hover-dark;
-        transform: scale(1.03);
+        transform: translateY(-1px);
+        @include bottom-lr-box-shadow;
       }
     }
 
@@ -136,9 +135,6 @@ export default {
         background-color: #f0f6ff;
       }
     }
-  }
-
-  .choose-language {
   }
 }
 

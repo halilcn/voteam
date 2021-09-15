@@ -7,6 +7,14 @@
   0 19px 46px rgba(0, 0, 0, 0.05);
 }
 
+@mixin bottom-lr-box-shadow {
+  box-shadow: 0px 0.2px 0.7px rgba(0, 0, 0, 0.031),
+  0px 0.6px 1.7px rgba(0, 0, 0, 0.044),
+  0px 1.2px 3.4px rgba(0, 0, 0, 0.056),
+  0px 2.6px 6.9px rgba(0, 0, 0, 0.069),
+  0px 7px 19px rgba(0, 0, 0, 0.1);
+}
+
 @mixin center-md-box-shadow {
   box-shadow: 0 0px 0.4px rgba(0, 0, 0, 0.022),
   0 0px 1px rgba(0, 0, 0, 0.032),

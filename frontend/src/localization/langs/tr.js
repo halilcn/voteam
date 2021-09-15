@@ -7,5 +7,8 @@ export default {
         about: 'Hakkında'
       }
     }
+  },
+  footer: {
+    text: '© Copyright 2021. Tüm hakları saklıdır.'
   }
 };

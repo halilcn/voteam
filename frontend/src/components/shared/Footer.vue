@@ -1,7 +1,6 @@
 <template>
   <footer>
-    © Copyright 2021. All rights reserved.
-    © Copyright 2021. Tüm hakları saklıdır.
+    {{ $t('footer.text') }}
   </footer>
 </template>
 

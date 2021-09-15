@@ -1,5 +1,5 @@
 <template>
-  <top-header></top-header>
+  <top-header/>
   <div class="prices">
     <div class="free-title">
       Ömür boyu tamamen <span>ücretsiz</span> !
@@ -39,7 +39,7 @@ import TopHeader from '../components/home/TopHeader';
 export default {
   name: 'Prices',
   components: {
-    TopHeader: TopHeader
+    TopHeader
   }
 };
 </script>
@@ -65,7 +65,6 @@ export default {
 
   .features-list {
     @include center-md-box-shadow;
-    background-color: white;
     width: 45%;
     padding: 10px;
     border-radius: 5px;
@@ -86,6 +85,5 @@ export default {
       }
     }
   }
-
 }
 </style>

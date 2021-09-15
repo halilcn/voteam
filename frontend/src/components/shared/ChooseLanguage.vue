@@ -8,13 +8,13 @@
     </div>
     <ul v-if="isShowDropdownList" class="dropdown-list">
       <li @click="changeLanguage('tr')" class="item">
-        <img class="flag" src="@/assets/flags/tr.png" alt="tr-flag">
+        <img class="flag" src="../../assets/flags/tr.png" alt="tr-flag">
         <div class="txt">
           Turkish
         </div>
       </li>
       <li @click="changeLanguage('en')" class="item">
-        <img class="flag" src="@/assets/flags/en.png" alt="tr-flag">
+        <img class="flag" src="../../assets/flags/en.png" alt="en-flag">
         <div class="txt">
           English
         </div>
@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import helpers from '../../helpers';
 
 export default {
   name: 'ChooseLanguage',
@@ -38,7 +37,7 @@ export default {
       this.isShowDropdownList = !this.isShowDropdownList;
     },
     changeLanguage(lang) {
-      helpers.setLanguage(lang);
+      this.$helpers.setLanguage(lang);
       this.$i18n.locale = lang;
       this.handleDropdownList();
     }
@@ -49,14 +48,7 @@ export default {
     }
   },
   created() {
-    let self = this;
-    window.addEventListener('click', function (e) {
-      // Todo:Helper class'a alma ?
-      if (!self.$el.contains(e.target)) {
-        console.log('out click çalıştırma her zamna çalışıyor!!!!');
-        self.isShowDropdownList = false;
-      }
-    });
+    this.$helpers.clickOutside(this, 'isShowDropdownList');
   }
 };
 </script>
@@ -75,7 +67,7 @@ export default {
     padding: 3px 7px;
     border-radius: 4px;
     cursor: pointer;
-    background-color: #f1f4fa;
+    background-color: $df-very-light-blue-color;
 
     &:hover {
       background-color: #e7ebf3;
@@ -83,12 +75,13 @@ export default {
 
     .txt {
       margin-left: 3px;
-      color: #2c3e50;
+      color: $df-dark-blue-color;
       font-weight: 500;
     }
   }
 
   .dropdown-list {
+    @include center-md-box-shadow;
     position: absolute;
     list-style-type: none;
     margin: 0;
@@ -97,16 +90,9 @@ export default {
     width: 130px;
     border-radius: 4px;
     background-color: white;
-    border-color: #d0d9ee;
+    border-color: $df-very-light-blue-color;
     overflow: auto;
     font-size: 14px;
-
-    box-shadow: 0 0px 0.4px rgba(0, 0, 0, 0.017),
-    0 0px 0.9px rgba(0, 0, 0, 0.024),
-    0 0px 1.8px rgba(0, 0, 0, 0.03),
-    0 0px 3.1px rgba(0, 0, 0, 0.036),
-    0 0px 5.8px rgba(0, 0, 0, 0.043),
-    0 0px 14px rgba(0, 0, 0, 0.06);
 
     .item {
       display: flex;
@@ -115,7 +101,7 @@ export default {
       padding: 5px 10px;
 
       &:hover {
-        background-color: #f1f4fa;
+        background-color: $df-very-light-blue-color;
       }
 
       .txt {

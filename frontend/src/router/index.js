@@ -15,6 +15,7 @@ const routes = [
     path: '/user-actions',
     name: 'UserActions',
     component: () => import('../views/UserActions.vue'),
+    redirect: { name: 'Login' },
     children: [
       {
         path: 'login',

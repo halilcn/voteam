@@ -8,8 +8,7 @@ export default {
       }
     }
   },
-  welcomeMessage: 'The Progressive JavaScript Framework',
-  highlights: {
-    approachable: 'Approachable'
+  footer: {
+    text: '© Copyright 2021. All rights reserved.'
   }
 };

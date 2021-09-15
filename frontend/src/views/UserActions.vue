@@ -36,14 +36,11 @@ export default {
   height: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
 
   .content-container {
     @include center-md-box-shadow;
-    margin: 60px 0; //!!!!! geçici
-    background-color: white;
     width: 450px;
-    display: flex;
-    flex-direction: column;
     border-radius: 5px;
     overflow: auto;
 

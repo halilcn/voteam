@@ -13,7 +13,7 @@ helpers.getLanguage = () => {
   if (storedLang !== null) return storedLang;
 
   const defaultLang = window.navigator.language || process.env.DEFAULT_LANGUAGE;
-  localStorage.setItem(constants.STORAGE_LANGUAGE, defaultLang);
+  this.setLanguage(defaultLang);
   return defaultLang;
 };
 
@@ -22,6 +22,17 @@ helpers.getLanguage = () => {
  */
 helpers.setLanguage = (lang) => {
   localStorage.setItem(constants.STORAGE_LANGUAGE, lang);
+};
+
+/**
+ * When clicked it puts dataName's data false
+ */
+helpers.clickOutside = (self, dataName) => {
+  window.addEventListener('click', function (e) {
+    if (!self.$el.contains(e.target)) {
+      self[dataName] = false;
+    }
+  });
 };
 
 export default helpers;

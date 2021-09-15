@@ -67,8 +67,6 @@
 </template>
 
 <script>
-import '@lottiefiles/lottie-player';
-
 export default {
   name: 'Content'
 };
@@ -82,7 +80,6 @@ export default {
     margin: 7px 0;
     display: flex;
     align-items: center;
-    justify-content: center;
     color: $df-dark-blue-color;
 
     .text {
@@ -124,7 +121,7 @@ export default {
   }
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: $df-mobile-width) {
   .content {
     padding: $df-mbl-lr-width-pdn;
 
