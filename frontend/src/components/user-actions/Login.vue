@@ -5,13 +5,13 @@
     </div>
     <div class="content">
       <div class="data-field-container">
-        <input class="data-field has-error" placeholder="E-mail">
-        <error :content="['Geçersiz e-mail']"/>
+        <input class="data-field" placeholder="E-mail">
       </div>
       <div class="data-field-container">
-        <input class="data-field" placeholder="Şifre">
+        <input class="data-field has-error" placeholder="Şifre">
+        <errors is-input-error="true" :content="['test test test test','sdadka dkjasjdashda hdsa']"/>
       </div>
-      <error :content="getErrors"/>
+      <errors :content="getErrors"/>
       <standart-button
           class="continue-btn"
           text="devam"
@@ -22,7 +22,7 @@
 
 <script>
 import StandartButton from '../shared/elements/StandartButton';
-import Error from '../shared/Errors';
+import Errors from '../shared/Errors';
 
 export default {
   name: 'Login',
@@ -33,7 +33,7 @@ export default {
   },
   components: {
     StandartButton,
-    Error
+    Errors
   },
   computed: {
     getErrors() {
@@ -45,7 +45,6 @@ export default {
 
 <style lang="scss" scoped>
 .login {
-
 
   //Ortak ??
   .title {
@@ -60,22 +59,16 @@ export default {
       margin: 10px 0;
 
       input {
-        @include standart-input;
+        @include std-input;
 
         &.has-error {
-          border-color: $df-very-light-red-color;
+          @include std-input-has-error;
         }
       }
-
     }
 
     .continue-btn {
       margin-top: 5px;
-    }
-
-    .errors {
-
-
     }
   }
 }

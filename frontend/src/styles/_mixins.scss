@@ -30,7 +30,7 @@
   box-shadow: 0px 0px 3px 0px rgba(37, 117, 241, 1);
 }
 
-@mixin standart-input {
+@mixin std-input {
   width: 100%;
   padding: 7px;
   border-radius: 4px;
@@ -43,4 +43,13 @@
   &:focus {
     border-color: $df-blue-color;
   }
+
+  &:hover:not(:focus) {
+    background-color: #f6f6f6;;
+  }
+}
+
+@mixin std-input-has-error {
+  border-color: $df-very-light-red-color;
+  border-radius: 4px 4px 0 0;
 }

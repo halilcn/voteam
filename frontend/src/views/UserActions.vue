@@ -1,5 +1,11 @@
 <template>
   <div class="user-actions">
+    <router-link
+        class="logo"
+        tag="div"
+        :to="{name:'Home'}">
+      <img src="../assets/logos/voteam.png" alt="votem-logo"/>
+    </router-link>
     <div class="content-container">
       <div class="action-list">
         <router-link
@@ -19,6 +25,12 @@
       </div>
       <div class="form-content">
         <router-view/>
+        <router-link
+            class="forget-password"
+            tag="div"
+            :to="{name:'ForgotPassword'}">
+          Şifremi sıfırla
+        </router-link>
       </div>
     </div>
   </div>
@@ -35,8 +47,16 @@ export default {
 .user-actions {
   height: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+
+  .logo {
+    margin: 50px 0;
+
+    img {
+      width: 200px;
+    }
+  }
 
   .content-container {
     @include center-md-box-shadow;
@@ -66,7 +86,21 @@ export default {
     }
 
     .form-content {
+      display: flex;
+      flex-direction: column;
       padding: 20px;
+
+      .forget-password {
+        color: #808080;
+        font-weight: 300;
+        font-size: 14px;
+        margin: 15px 0;
+
+        &:hover {
+          color: #626262;
+          text-decoration: underline;
+        }
+      }
     }
   }
 }

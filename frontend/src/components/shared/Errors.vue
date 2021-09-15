@@ -1,5 +1,5 @@
 <template>
-  <div class="errors">
+  <div :class="{'input-error':isInputError}" class="errors">
     <div v-for="(item,key) in content" :key="key" class="item">
       <i class="bi bi-x-circle-fill"></i>
       {{ item }}
@@ -14,16 +14,26 @@ export default {
     content: {
       required: true,
       type: Array
+    },
+    isInputError: {
+      required: false,
+      default: false,
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+
+
 .errors {
   padding: 7px;
   background-color: $df-very-light-red-color;
-  border-radius: 3px;
+  border-radius: 4px;
+
+  &.input-error {
+    border-radius: 0 0 4px 4px;
+  }
 
   .item {
     display: flex;

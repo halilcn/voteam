@@ -15,14 +15,14 @@ export default {
       type: String
     },
     isDisable: {
-      default: false
+      default: false,
+      type: Boolean
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-//dinamikleştirme !!
 .btn {
   background-color: $df-blue-color;
   color: white;
@@ -33,6 +33,10 @@ export default {
   cursor: pointer;
   border-radius: 5px;
   transition: .3s;
+
+  &:hover {
+    background-color: $df-blue-color-hover-light;
+  }
 
   &.disable {
     background-color: $df-light-black;
