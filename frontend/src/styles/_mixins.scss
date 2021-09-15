@@ -21,3 +21,18 @@
   -moz-box-shadow: 0px 0px 3px 0px rgba(37, 117, 241, 1);
   box-shadow: 0px 0px 3px 0px rgba(37, 117, 241, 1);
 }
+
+@mixin standart-input {
+  width: 100%;
+  padding: 7px;
+  border-radius: 4px;
+  border: 2px solid $df-light-black;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  color: #4f565d;
+  transition: .3s;
+
+  &:focus {
+    border-color: $df-blue-color;
+  }
+}

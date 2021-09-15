@@ -10,6 +10,23 @@ const routes = [
     path: '/prices',
     name: 'Prices',
     component: () => import('../views/Prices.vue')
+  },
+  {
+    path: '/user-actions',
+    name: 'UserActions',
+    component: () => import('../views/UserActions.vue'),
+    children: [
+      {
+        path: 'login',
+        name: 'Login',
+        component: () => import('../components/user-actions/Login.vue')
+      },
+      {
+        path: 'register',
+        name: 'Register',
+        component: () => import('../components/user-actions/Register.vue')
+      }
+    ]
   }
 ];
 
