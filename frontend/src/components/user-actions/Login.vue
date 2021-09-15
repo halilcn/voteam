@@ -4,7 +4,14 @@
       Takım oluşturabilmek veya takımlara katılabilmek için kayıt olun
     </div>
     <div class="content">
-      <input placeholder="E-mail">
+      <div class="data-field-container">
+        <input class="data-field has-error" placeholder="E-mail">
+        <error :content="['Geçersiz e-mail']"/>
+      </div>
+      <div class="data-field-container">
+        <input class="data-field" placeholder="Şifre">
+      </div>
+      <error :content="getErrors"/>
       <standart-button
           class="continue-btn"
           text="devam"
@@ -15,6 +22,7 @@
 
 <script>
 import StandartButton from '../shared/elements/StandartButton';
+import Error from '../shared/Errors';
 
 export default {
   name: 'Login',
@@ -24,7 +32,13 @@ export default {
     };
   },
   components: {
-    StandartButton
+    StandartButton,
+    Error
+  },
+  computed: {
+    getErrors() {
+      return ['hata gata hata ver!', 'bir hata oluştu!'];
+    }
   }
 };
 </script>
@@ -37,15 +51,31 @@ export default {
   .title {
     font-size: 13px;
     font-weight: 400;
+    color: $df-dark-blue-color;
+    margin-bottom: 10px;
   }
 
   .content {
-    input {
-      @include standart-input;
+    .data-field-container {
+      margin: 10px 0;
+
+      input {
+        @include standart-input;
+
+        &.has-error {
+          border-color: $df-very-light-red-color;
+        }
+      }
+
     }
 
     .continue-btn {
-      margin-top: 10px;
+      margin-top: 5px;
+    }
+
+    .errors {
+
+
     }
   }
 }
