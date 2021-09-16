@@ -10,10 +10,14 @@
             class="data-field"
             placeholder="Ad ve Soyad">
       </div>
-      <div class="data-field-container">
+      <div class="data-field-container email-confirmation">
         <input
             class="data-field"
             placeholder="E-mail">
+        <div class="send-code-btn disable">
+          <i class="bi bi-cursor-fill"></i>
+          Kod Gönder
+        </div>
       </div>
       <div class="data-field-container">
         <input
@@ -37,6 +41,11 @@ import StandartButton from '../shared/elements/StandartButton';
 
 export default {
   name: 'Register',
+  data() {
+    return {
+
+    };
+  },
   components: {
     StandartButton
   }
@@ -45,44 +54,38 @@ export default {
 
 <style lang="scss" scoped>
 .register {
-
-  .title {
-    font-size: 13px;
-    font-weight: 400;
-    color: $df-mdl-dark-black-color;
-    margin-bottom: 10px;
-  }
+  @include user-actions-content;
 
   .content {
-    .data-field-container {
-      margin: 10px 0;
+    .email-confirmation {
+      display: flex;
 
-      input {
-        @include std-input;
-
-        &.has-error {
-          @include std-input-has-error;
-        }
-      }
-    }
-
-    .terms-info {
-      font-weight: 200;
-      font-size: 13px;
-      color: $df-dark-blue-color;
-
-      span {
-        color: $df-blue-color;
+      .send-code-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $df-green-color;
+        color: white;
+        width: 150px;
+        font-size: 13px;
         cursor: pointer;
+        border-radius: 4px;
+        margin-left: 5px;
+        padding: 5px;
 
         &:hover {
-          text-decoration: underline;
+          background-color: $df-light-green-color;
+        }
+
+        &.disable {
+          opacity: .3;
+          pointer-events: none;
+        }
+
+        i {
+          margin-right: 5px;
         }
       }
-    }
-
-    .continue-btn {
-      margin-top: 25px;
     }
   }
 }

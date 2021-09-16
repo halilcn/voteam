@@ -1,3 +1,5 @@
+//Global mixins
+
 @mixin bottom-md-box-shadow {
   box-shadow: 0 0.5px 1.3px rgba(0, 0, 0, 0.014),
   0 1.3px 3.1px rgba(0, 0, 0, 0.02),
@@ -52,4 +54,48 @@
 @mixin std-input-has-error {
   border-color: $df-very-light-red-color;
   border-radius: 4px 4px 0 0;
+}
+
+//Custom mixins
+
+@mixin user-actions-content {
+  .title {
+    font-size: 13px;
+    font-weight: 400;
+    color: $df-mdl-dark-black-color;
+    margin-bottom: 10px;
+  }
+
+  .content {
+    .data-field-container {
+      margin: 10px 0;
+
+      input {
+        @include std-input;
+
+        &.has-error {
+          @include std-input-has-error;
+        }
+      }
+    }
+
+    .terms-info {
+      font-weight: 200;
+      font-size: 13px;
+      color: $df-dark-blue-color;
+
+      span {
+        color: $df-blue-color;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .continue-btn {
+      margin-top: 25px;
+    }
+  }
 }

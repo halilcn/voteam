@@ -79,33 +79,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-//TODO: Aynısı Register Comp kullanılıyor. Dynamic hale getirme ? !!!!
 .login {
-
-  .title {
-    font-size: 13px;
-    font-weight: 400;
-    color: $df-mdl-dark-black-color;
-    margin-bottom: 10px;
-  }
-
-  .content {
-    .data-field-container {
-      margin: 10px 0;
-
-      input {
-        @include std-input;
-
-        &.has-error {
-          @include std-input-has-error;
-        }
-      }
-    }
-
-    .continue-btn {
-      margin-top: 25px;
-    }
-  }
+  @include user-actions-content;
 }
 </style>
