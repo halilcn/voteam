@@ -1,25 +1,36 @@
 <template>
   <div class="login">
     <div class="title">
-      Takım oluşturabilmek veya takımlara katılabilmek için kayıt olun
+      Takım oluşturabilmek veya takımlara katılabilmek kayıt olmanız gerekir.
     </div>
     <div class="content">
       <div class="data-field-container">
-        <input class="data-field" placeholder="E-mail">
+        <input
+            v-model="v$.user.email.$model"
+            class="data-field"
+            :class="{'has-error':v$.user.email.$error}"
+            placeholder="E-mail">
+        <errors
+            v-if="v$.user.email.$error"
+            is-input-error="true"
+            :content="$helpers.getOnlyErrors(v$.user.email.$errors)"/>
       </div>
-      <!--       <div class="data-field-container">
-        <input class="data-field has-error" placeholder="Şifre">
-        <errors is-input-error="true" :content="['test test test test','sdadka dkjasjdashda hdsa']"/>
-      </div>
--->
       <div class="data-field-container">
-        <input class="data-field" placeholder="Şifre">
+        <input
+            v-model="v$.user.password.$model"
+            class="data-field"
+            :class="{'has-error':v$.user.password.$error}"
+            placeholder="Şifre">
+        <errors
+            v-if="v$.user.password.$error"
+            is-input-error="true"
+            :content="$helpers.getOnlyErrors(v$.user.password.$errors)"/>
       </div>
-      <errors :content="getErrors"/>
+      <!-- <errors content="E-mail ya da Şifre yanlış"/>-->
       <standart-button
           class="continue-btn"
           text="devam"
-          :is-disable="isButtonDisable"/>
+          :is-disable="v$.user.$invalid"/>
     </div>
   </div>
 </template>
@@ -27,13 +38,33 @@
 <script>
 import StandartButton from '../shared/elements/StandartButton';
 import Errors from '../shared/Errors';
+import useVuelidate from '@vuelidate/core';
+import { required, email } from '@vuelidate/validators';
 
 export default {
   name: 'Login',
+  //Todo: Global setup ?
+  setup() {
+    return { v$: useVuelidate() };
+  },
   data() {
     return {
-      isButtonDisable: true
+      user: {
+        email: '',
+        password: ''
+      }
     };
+  },
+  validations: {
+    user: {
+      email: {
+        required,
+        email
+      },
+      password: {
+        required
+      }
+    }
   },
   components: {
     StandartButton,
@@ -48,6 +79,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+//TODO: Aynısı Register Comp kullanılıyor. Dynamic hale getirme ? !!!!
 .login {
 
   .title {
@@ -71,7 +104,7 @@ export default {
     }
 
     .continue-btn {
-      margin-top: 5px;
+      margin-top: 25px;
     }
   }
 }

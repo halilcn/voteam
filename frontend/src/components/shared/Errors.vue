@@ -1,6 +1,6 @@
 <template>
   <div :class="{'input-error':isInputError}" class="errors">
-    <div v-for="(item,key) in content" :key="key" class="item">
+    <div v-for="(item,key) in processedContent" :key="key" class="item">
       <i class="bi bi-x-circle-fill"></i>
       {{ item }}
     </div>
@@ -13,11 +13,18 @@ export default {
   props: {
     content: {
       required: true,
-      type: Array
+      type: [String, Object]
     },
     isInputError: {
       required: false,
-      default: false,
+      default: false
+    }
+  },
+  computed: {
+    processedContent() {
+      const { content } = this;
+      if (typeof content === 'string') return [content];
+      return content;
     }
   }
 };
