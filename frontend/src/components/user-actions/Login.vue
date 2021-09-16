@@ -7,9 +7,13 @@
       <div class="data-field-container">
         <input class="data-field" placeholder="E-mail">
       </div>
-      <div class="data-field-container">
+      <!--       <div class="data-field-container">
         <input class="data-field has-error" placeholder="Şifre">
         <errors is-input-error="true" :content="['test test test test','sdadka dkjasjdashda hdsa']"/>
+      </div>
+-->
+      <div class="data-field-container">
+        <input class="data-field" placeholder="Şifre">
       </div>
       <errors :content="getErrors"/>
       <standart-button
@@ -46,11 +50,10 @@ export default {
 <style lang="scss" scoped>
 .login {
 
-  //Ortak ??
   .title {
     font-size: 13px;
     font-weight: 400;
-    color: $df-dark-blue-color;
+    color: $df-mdl-dark-black-color;
     margin-bottom: 10px;
   }
 

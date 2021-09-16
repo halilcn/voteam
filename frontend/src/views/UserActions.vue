@@ -1,5 +1,7 @@
 <template>
   <div class="user-actions">
+    <img src="../assets/illustrations/work.png" class="bg-image left-illustration"/>
+    <img src="../assets/illustrations/graphic.png" class="bg-image right-illustration"/>
     <router-link
         class="logo"
         tag="div"
@@ -29,7 +31,7 @@
             class="forget-password"
             tag="div"
             :to="{name:'ForgotPassword'}">
-          Şifremi sıfırla
+          Şifren mi unuttun ?
         </router-link>
       </div>
     </div>
@@ -50,6 +52,20 @@ export default {
   flex-direction: column;
   align-items: center;
 
+  .bg-image {
+    width: 370px;
+    position: fixed;
+    bottom: 0;
+
+    &.left-illustration {
+      left: 0;
+    }
+
+    &.right-illustration {
+      right: 0;
+    }
+  }
+
   .logo {
     margin: 50px 0;
 
@@ -62,25 +78,33 @@ export default {
     @include center-md-box-shadow;
     width: 450px;
     border-radius: 5px;
-    overflow: auto;
 
     .action-list {
       background-color: white;
       display: flex;
+      justify-content: space-around;
+      margin: 8px 0;
 
       a {
-        background-color: $df-blue-color;
-        width: 100%;
+        color: $df-blue-color;
+        width: 45%;
         text-align: center;
         padding: 10px;
         cursor: pointer;
-        color: white;
         transition: .3s;
         font-weight: 500;
+        background-color: $df-very-light-blue-color;
+        border-radius: 4px;
+
+        &:hover{
+          background-color: #e7f0ff;
+        }
 
         &.selected {
-          background-color: white;
-          color: $df-blue-color;
+          @include bottom-lr-box-shadow;
+          color: white;
+          background-color: $df-blue-color;
+          transform: scale(1.02);
         }
       }
     }
@@ -91,13 +115,13 @@ export default {
       padding: 20px;
 
       .forget-password {
-        color: #808080;
+        color: $df-mdl-dark-black-color;
         font-weight: 300;
         font-size: 14px;
         margin: 15px 0;
 
         &:hover {
-          color: #626262;
+          color: #414141;
           text-decoration: underline;
         }
       }
