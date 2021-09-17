@@ -1,3 +1,5 @@
+import errors from './errors';
+
 export default {
   homePage: {
     topHeader: {
@@ -10,5 +12,6 @@ export default {
   },
   footer: {
     text: '© Copyright 2021. Tüm hakları saklıdır.'
-  }
+  },
+  errors
 };

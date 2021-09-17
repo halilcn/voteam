@@ -38,12 +38,14 @@
 <script>
 import StandartButton from '../shared/elements/StandartButton';
 import Errors from '../shared/Errors';
-import useVuelidate from '@vuelidate/core';
 import { required, email } from '@vuelidate/validators';
+import errorMixin from '../../mixins/errorMixin';
+import useVuelidate from '@vuelidate/core';
 
 export default {
   name: 'Login',
-  //Todo: Global setup ?
+  mixins: [errorMixin],
+  //TODO: Dynamic ?
   setup() {
     return { v$: useVuelidate() };
   },
@@ -55,16 +57,18 @@ export default {
       }
     };
   },
-  validations: {
-    user: {
-      email: {
-        required,
-        email
-      },
-      password: {
-        required
+  validations() {
+    return {
+      user: {
+        email: {
+          required: this.multipleLangError('errors.required', required),
+          email: this.multipleLangError('errors.email', email)
+        },
+        password: {
+          required: this.multipleLangError('errors.required', required)
+        }
       }
-    }
+    };
   },
   components: {
     StandartButton,
