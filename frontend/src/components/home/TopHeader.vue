@@ -27,17 +27,25 @@
           exact-active-class="selected">
         {{ $t('homePage.topHeader.links.pricing') }}
       </router-link>
-      <div class="item">
+      <router-link
+          class="item"
+          tag="div"
+          :to="{name:'About'}"
+          exact-active-class="selected">
         {{ $t('homePage.topHeader.links.about') }}
-      </div>
+      </router-link>
     </div>
     <div class="user-actions">
-      <div class="register">
+      <router-link
+          class="register"
+          :to="{name:'Register'}">
         Kayıt Ol
-      </div>
-      <div class="login">
+      </router-link>
+      <router-link
+          class="login"
+          :to="{name:'Login'}">
         Giriş Yap
-      </div>
+      </router-link>
     </div>
     <choose-language/>
   </div>
@@ -108,7 +116,7 @@ export default {
   .user-actions {
     display: flex;
 
-    div {
+    a {
       margin: 0 10px;
       cursor: pointer;
       font-weight: 400;
@@ -169,7 +177,7 @@ export default {
     .user-actions {
       margin-left: auto;
 
-      div {
+      a {
         margin: 0 5px;
         font-size: 13px;
         padding: 3px 7px;

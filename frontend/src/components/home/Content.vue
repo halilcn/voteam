@@ -3,7 +3,7 @@
     <div class="item main reverse-order">
       <div class="text">
         <div class="title">
-          votem takım yönetimini grupça yapmayı sağlar
+          votem takım yönetimini demokratikleştirir
         </div>
         <div class="info">
           loreldksa ajd ajsdsadjask jaskdhasjkdhas oıertuer tıertuıertu ejdfghjdfdsadjask jaskdhasjkdhas oıertuer
@@ -37,9 +37,12 @@
       </div>
       <div class="text">
         <div class="title">
-          Oylar gizli kalsın
+          Oylar gizli ve farklı güçtedirler
         </div>
         <div class="info">
+          loreldksa ajd ajsdsadjask jaskdhasjkdhas oıertuer tıertuıertu ejdfghjdf
+          loreldksa ajd ajsdsadjask jaskdhasjkdhas oıertuer tıertuıertu ejdfghjdf
+          loreldksa ajd ajsdsadjask jaskdhasjkdhas oıertuer tıertuıertu ejdfghjdf
           loreldksa ajd ajsdsadjask jaskdhasjkdhas oıertuer tıertuıertu ejdfghjdf
         </div>
       </div>
@@ -47,9 +50,11 @@
     <div class="item reverse-order">
       <div class="text">
         <div class="title">
-          Takım bütünlüğü sağlansın
+          Takım bütünlüğü sağlar
         </div>
         <div class="info">
+          loreldksa ajd ajsdsadjask jaskdhasjkdhas oıertuer tıertuıertu ejdfghjdf
+          loreldksa ajd ajsdsadjask jaskdhasjkdhas oıertuer tıertuıertu ejdfghjdf
           loreldksa ajd ajsdsadjask jaskdhasjkdhas oıertuer tıertuıertu ejdfghjdf
         </div>
       </div>
@@ -93,6 +98,7 @@ export default {
       .info {
         font-weight: 300;
         font-size: 15px;
+        margin-top: 5px;
       }
     }
 
@@ -106,8 +112,8 @@ export default {
     .create-team-btn {
       font-weight: 500;
       display: inline-block;
-      padding: 6px 20px;
-      margin-top: 20px;
+      padding: 10px 35px;
+      margin-top: 35px;
       background-color: $df-blue-color;
       color: white;
       border-radius: 20px;
@@ -126,15 +132,20 @@ export default {
     padding: $df-mbl-lr-width-pdn;
 
     .item {
+      margin: 20px 0;
       flex-direction: column;
 
+      &.reverse-order {
+        flex-direction: column-reverse;
+      }
+
       .text {
-        div {
-          text-align: center;
-        }
+        width: 100%;
+        text-align: center;
+        margin: 5px 0;
 
         .title {
-          font-size: 30px;
+          font-size: 23px;
         }
 
         .info {
@@ -143,12 +154,9 @@ export default {
       }
 
       .animation {
+        height: 200px;
         width: 100%;
       }
-    }
-
-    .item.reverse-order {
-      flex-direction: column-reverse;
     }
   }
 }

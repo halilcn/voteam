@@ -9,37 +9,40 @@
         <div class="icon">
           <i class="bi bi-patch-check-fill"></i>
         </div>
-        <div class="txt">Sınırsız takım oluşturabilme.</div>
+        <div class="txt">
+          Demokratik takım yönetimi
+        </div>
       </div>
       <div class="item">
         <div class="icon">
           <i class="bi bi-patch-check-fill"></i>
         </div>
-        <div class="txt">Takımlara sınırsız üye ekleyebilme.</div>
+        <div class="txt">
+          Sınırsız takım oluşturabilme/katılabilme
+        </div>
       </div>
       <div class="item">
         <div class="icon">
           <i class="bi bi-patch-check-fill"></i>
         </div>
-        <div class="txt">öözelli dsasdla okdaodadjkas dadlaldajsd as</div>
-      </div>
-      <div class="item">
-        <div class="icon">
-          <i class="bi bi-patch-check-fill"></i>
+        <div class="txt">
+          Belli zamanlarda hatırlatıcı e-mail gönderebilme
         </div>
-        <div class="txt">öözelli dsasdla okdaodadjkas asasdsa as</div>
       </div>
     </div>
   </div>
+  <bottom-footer/>
 </template>
 
 <script>
 import TopHeader from '../components/home/TopHeader';
+import Footer from '../components/shared/Footer';
 
 export default {
   name: 'Prices',
   components: {
-    TopHeader
+    TopHeader,
+    BottomFooter: Footer
   }
 };
 </script>
@@ -50,6 +53,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100%;
 
   .free-title {
     font-weight: 500;
@@ -65,16 +69,16 @@ export default {
 
   .features-list {
     @include center-md-box-shadow;
-    width: 45%;
-    padding: 10px;
+    width: 400px;
+    padding: 15px;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 15px;
 
     .item {
       color: $df-dark-blue-color;
       font-weight: 300;
       display: flex;
-      margin: 3px 0;
+      margin: 5px 0;
 
       .icon {
         color: $df-green-color;
@@ -83,6 +87,23 @@ export default {
       .txt {
         margin-left: 6px;
       }
+    }
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .prices {
+    padding: $df-mbl-lr-width-pdn;
+
+    .free-title {
+      margin-top: 50px;
+      font-size: 21px;
+    }
+
+    .features-list {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
     }
   }
 }
