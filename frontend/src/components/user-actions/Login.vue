@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <div class="title">
-      Takım oluşturabilmek veya takımlara katılabilmek kayıt olmanız gerekir.
+      Hoşgeldin!
     </div>
     <div class="content">
       <div class="data-field-container">

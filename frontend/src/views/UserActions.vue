@@ -1,7 +1,7 @@
 <template>
   <div class="user-actions">
-    <img src="../assets/illustrations/work.png" class="bg-image left-illustration"/>
-    <img src="../assets/illustrations/graphic.png" class="bg-image right-illustration"/>
+    <img src="../assets/illustrations/work.png" class="bg-image left-illustration" alt="bg-image"/>
+    <img src="../assets/illustrations/graphic.png" class="bg-image right-illustration" alt="bg-image"/>
     <router-link
         class="logo"
         tag="div"
@@ -35,6 +35,29 @@
         </router-link>
       </div>
     </div>
+    <div class="helpful-links">
+      <router-link
+          class="item"
+          :to="{name:'Home'}">
+        Anasayfa
+      </router-link>
+      <div class="circle">
+        &#9679;
+      </div>
+      <router-link
+          class="item"
+          :to="{name:'Prices'}">
+        Fiyatlar
+      </router-link>
+      <div class="circle">
+        &#9679;
+      </div>
+      <router-link
+          class="item"
+          :to="{name:'About'}">
+        Hakkında
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -47,10 +70,11 @@ export default {
 
 <style lang="scss" scoped>
 .user-actions {
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 450px;
+  margin: 0 auto;
 
   .bg-image {
     width: 370px;
@@ -76,14 +100,18 @@ export default {
 
   .content-container {
     @include center-md-box-shadow;
-    width: 450px;
     border-radius: 5px;
+    background-color: white;
+    z-index: 1;
+    width: 100%;
 
     .action-list {
       background-color: white;
       display: flex;
       justify-content: space-around;
       margin: 8px 0;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #f1f1f1;
 
       a {
         color: $df-blue-color;
@@ -96,7 +124,7 @@ export default {
         background-color: $df-very-light-blue-color;
         border-radius: 4px;
 
-        &:hover{
+        &:hover {
           background-color: #e7f0ff;
         }
 
@@ -112,7 +140,7 @@ export default {
     .form-content {
       display: flex;
       flex-direction: column;
-      padding: 20px;
+      padding: 0px 20px;
 
       .forget-password {
         color: $df-mdl-dark-black-color;
@@ -125,6 +153,63 @@ export default {
           text-decoration: underline;
         }
       }
+    }
+  }
+
+  .helpful-links {
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 300;
+    color: #171717;
+    margin: 40px 0;
+
+    .circle {
+      margin: 0 20px;
+    }
+
+    .item {
+      color: $df-mdl-dark-black-color;
+
+      &:hover {
+        text-decoration: underline;
+        color: $df-dark-blue-color;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .user-actions {
+    width: 90%;
+
+    .logo {
+      img {
+        width: 170px;
+      }
+    }
+
+    .content-container {
+      .action-list {
+        justify-content: space-around;
+
+        a {
+          font-size: 14px;
+          padding: 8px;
+        }
+      }
+    }
+
+    .helpful-links {
+      font-size: 12px;
+
+      .circle {
+        margin: 0 7px;
+      }
+    }
+
+    .bg-image {
+      display: none;
     }
   }
 }

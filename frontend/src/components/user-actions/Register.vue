@@ -1,7 +1,7 @@
 <template>
   <div class="register">
     <div class="title">
-      Takım oluşturabilmek veya takımlara katılabilmek kayıt olmanız gerekir.
+      Takım oluşturabilmek veya takımlara katılabilmek için kayıt olmak gerekir.
     </div>
     <div class="content">
       <div class="data-field-container">
@@ -145,4 +145,20 @@ export default {
     }
   }
 }
+
+@media only screen and (max-width: 900px) {
+  .register {
+    .content {
+      .email-confirmation {
+        .send-code-btn {
+          width: 130px !important;
+          font-size: 10px !important;
+          margin-left: 5px;
+          padding: 11px 5px !important;
+        }
+      }
+    }
+  }
+}
+
 </style>
