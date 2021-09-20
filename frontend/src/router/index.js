@@ -38,6 +38,23 @@ const routes = [
         component: () => import('../components/user-actions/ForgotPassword.vue')
       }
     ]
+  },
+  {
+    path: '/',
+    name: 'Dashboard',
+    component: () => import('../views/Dashboard.vue'),
+    children: [
+      {
+        path: '/team/:teamId/home',
+        name: 'TeamDashboardHome',
+        component: () => import('../components/dashboard/team/Home')
+      },
+      {
+        path: '/team/:teamId/settings',
+        name: 'TeamDashboardSettings',
+        component: () => import('../components/dashboard/team/Settings')
+      }
+    ]
   }
 ];
 
