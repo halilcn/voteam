@@ -4,7 +4,7 @@
       <div class="icon">
         <i class="bi bi-bell-fill"></i>
       </div>
-      <div class="notifications-list">
+      <div v-if="isShowNotificationListDropdown" class="notifications-list-dropdown">
         <div class="item">
           notificationasokdoas sdfjks ofdsf
         </div>
@@ -13,10 +13,10 @@
         </div>
       </div>
     </div>
-    <div class="user-info">
+    <div @click="handleUserMenuDropdown" class="user-info">
       <img class="image" src="../../assets/test/me.jpg" height="460" width="460"/>
       <div class="name">Halil Can</div>
-      <div class="menu-dropdown">
+      <div v-if="isShowUserMenuDropdown" class="menu-dropdown">
         <div class="item">
           Profili Düzenle
         </div>
@@ -30,17 +30,28 @@
 
 <script>
 export default {
-  name: 'TopHeader'
+  name: 'TopHeader',
+  data() {
+    return {
+      isShowUserMenuDropdown: false,
+      isShowNotificationListDropdown: false
+    };
+  },
+  methods: {
+    handleUserMenuDropdown() {
+      this.isShowUserMenuDropdown = !this.isShowUserMenuDropdown;
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 .top-header {
   background-color: white;
-  border-bottom: 1px solid #d7d7d7;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  margin-top: 5px;
 
   .user-notifications {
     position: relative;
@@ -50,7 +61,7 @@ export default {
       font-size: 18px;
     }
 
-    .notifications-list {
+    .notifications-list-dropdown {
       @include center-md-box-shadow;
       font-size: 14px;
       padding: 7px;
@@ -65,18 +76,21 @@ export default {
     position: relative;
     display: flex;
     align-items: center;
-    background-color: red;
+    background-color: #f3f3f3;
     cursor: pointer;
+    padding: 7px 13px;
+    border-radius: 5px;
 
     .image {
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
       border-radius: 100%;
     }
 
     .name {
       margin-left: 7px;
-      font-size: 14px;
+      font-size: 13px;
+      color: $df-dark-blue-color;
     }
 
     .menu-dropdown {
@@ -88,7 +102,6 @@ export default {
       position: absolute;
       background-color: white;
       border-radius: 5px;
-      display: none;
 
       .item {
 
