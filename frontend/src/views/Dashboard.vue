@@ -6,7 +6,6 @@
       <router-view/>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -30,7 +29,7 @@ export default {
 
   .content {
     width: 100%;
-    padding: 0 20px;
+    padding: 0 7px;
   }
 }
 </style>

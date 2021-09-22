@@ -33,12 +33,15 @@
       <div class="create-team-btn">
         <i class="bi bi-plus-lg"></i>
       </div>
-      <div class="item active">
-        <img class="team-image" src="../../assets/test/team.png"/>
-      </div>
-      <div class="item">
-        <img class="team-image" src="../../assets/test/team.png"/>
-      </div>
+      <img class="item active" src="../../assets/test/team.png"/>
+      <img class="item" src="../../assets/test/team.png"/>
+      <img class="item" src="../../assets/test/team.png"/>
+      <img class="item" src="../../assets/test/team.png"/>
+      <img class="item" src="../../assets/test/team.png"/>
+      <img class="item" src="../../assets/test/team.png"/>
+      <img class="item" src="../../assets/test/team.png"/>
+      <img class="item" src="../../assets/test/team.png"/>
+      <img class="item" src="../../assets/test/team.png"/>
     </div>
   </div>
 </template>
@@ -57,7 +60,6 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   border-radius: 0 10px 10px 0;
 
   .logo {
@@ -65,6 +67,9 @@ export default {
   }
 
   .menu {
+    margin-top: auto;
+    margin-bottom: auto;
+
     .item {
       position: relative;
       display: flex;
@@ -123,33 +128,39 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    height: 150px;
+    overflow-y: auto;
 
     div {
       cursor: pointer;
     }
 
     .create-team-btn {
+      padding: 10px 14px;
+      border-radius: 100%;
+      color: #657179;
+      transition: .2s;
+
+      &:hover {
+        background-color: #edf0f3;
+      }
     }
 
     .item {
-      margin: 3px 0;
-      background-color: red;
+      cursor: pointer;
+      margin: 5px 0;
+      background-color: #c5d4de;
+      width: 40px;
+      height: 40px;
+      border-radius: 100%;
+      transition: .2s;
 
-
-      &.active {
-        /* .team-image {
-           background-color: #e5e5e5;
-           border-radius: 20px;
-         }*/
+      &:not(.active):hover {
+        transform: scale(1.04);
       }
 
-      .team-image {
-        width: 50px;
-        height: 50px;
-        padding: 5px;
-        border-radius: 100%;
-        background-color: black;
+      &.active {
+        padding: 4px;
       }
     }
   }

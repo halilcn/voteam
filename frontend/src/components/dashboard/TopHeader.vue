@@ -1,6 +1,6 @@
 <template>
   <div class="top-header">
-    <div class="user-notifications">
+    <div @click="handleNotificationListDropdown" class="user-notifications">
       <div class="icon">
         <i class="bi bi-bell-fill"></i>
       </div>
@@ -18,10 +18,12 @@
       <div class="name">Halil Can</div>
       <div v-if="isShowUserMenuDropdown" class="menu-dropdown">
         <div class="item">
+          <i class="bi bi-person"></i>
           Profili Düzenle
         </div>
-        <div class="item">
-          çıkış
+        <div class="item close">
+          <i class="bi bi-door-closed"></i>
+          Çıkış
         </div>
       </div>
     </div>
@@ -40,6 +42,9 @@ export default {
   methods: {
     handleUserMenuDropdown() {
       this.isShowUserMenuDropdown = !this.isShowUserMenuDropdown;
+    },
+    handleNotificationListDropdown() {
+      this.isShowNotificationListDropdown = !this.isShowNotificationListDropdown;
     }
   }
 };
@@ -47,11 +52,14 @@ export default {
 
 <style lang="scss" scoped>
 .top-header {
-  background-color: white;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   margin-top: 5px;
+  background-color: #fafafa;
+  border: 1px solid #f5f5f5;
+  border-radius: 5px;
+  padding: 5px;
 
   .user-notifications {
     position: relative;
@@ -59,6 +67,14 @@ export default {
 
     .icon {
       font-size: 18px;
+      color: $df-blue-color;
+      padding: 5px 9px;
+      border-radius: 100%;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #e0edff;
+      }
     }
 
     .notifications-list-dropdown {
@@ -76,10 +92,13 @@ export default {
     position: relative;
     display: flex;
     align-items: center;
-    background-color: #f3f3f3;
     cursor: pointer;
     padding: 7px 13px;
     border-radius: 5px;
+
+    &:hover {
+      background-color: #f3f3f3;
+    }
 
     .image {
       width: 30px;
@@ -95,16 +114,36 @@ export default {
 
     .menu-dropdown {
       @include center-md-box-shadow;
-      padding: 5px;
       top: 45px;
       width: 200px;
       right: 0;
       position: absolute;
       background-color: white;
       border-radius: 5px;
+      overflow: hidden;
 
       .item {
+        font-size: 13px;
+        padding: 7px 10px;
+        display: flex;
+        align-items: center;
 
+        &.close {
+          color: $df-red-color;
+
+          &:hover {
+            background-color: #fff5f5;;
+          }
+        }
+
+        &:hover {
+          background-color: #f5f5f5;
+        }
+
+        i {
+          font-size: 15px;
+          margin-right: 7px;
+        }
       }
     }
   }
