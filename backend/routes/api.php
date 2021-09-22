@@ -21,9 +21,13 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'v1'], function () {
     Route::post('register', [RegisterController::class, 'handle']);
     Route::post('login', [LoginController::class, 'handle']);
+
+
+    Route::group(['middleware' => 'auth:sanctum'], function () {
+        Route::get('/test', function () {
+            return "ok";
+        });
+    });
 });
 
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});

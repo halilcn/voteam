@@ -30,6 +30,7 @@
       <standart-button
           class="continue-btn"
           text="devam"
+          @click="login"
           :is-disable="v$.user.$invalid"/>
     </div>
   </div>
@@ -41,6 +42,7 @@ import Errors from '../shared/Errors';
 import { required, email } from '@vuelidate/validators';
 import errorMixin from '../../mixins/errorMixin';
 import useVuelidate from '@vuelidate/core';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'Login',
@@ -51,6 +53,7 @@ export default {
   },
   data() {
     return {
+      isLoadingLogin: false,
       user: {
         email: '',
         password: ''
@@ -69,6 +72,15 @@ export default {
         }
       }
     };
+  },
+  methods: {
+    ...mapActions(['postLogin']),
+    async login() {
+      this.$notify.error('hata');
+      /*  this.isLoadingLogin = true;
+        await this.postLogin(this.user);
+        this.isLoadingLogin = false;*/
+    }
   },
   components: {
     StandartButton,

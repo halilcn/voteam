@@ -22,6 +22,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'image',
         'password',
     ];
 
@@ -31,7 +32,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-       'password',
+        'password',
         'remember_token',
     ];
 
@@ -59,16 +60,16 @@ class User extends Authenticatable
      */
     public function checkEmail(string $email)
     {
-        return $this->where('email', $email)->firstOrFail();
+        return $this->where('email', $email)->first();
     }
 
-    public function checkPassword(string $reqPassword, string $userPassword)
+    /**
+     * @param  string  $reqPassword
+     * @return bool
+     */
+    public function checkPassword(string $reqPassword)
     {
-        return $this->attributes['email'];
-        if (Hash::check($reqPassword, $userPassword)) {
-            return false;
-        }
-        return true;
+        return Hash::check($reqPassword, $this->password);
     }
 
 

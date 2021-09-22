@@ -6,7 +6,6 @@ use App\Models\User;
 
 trait Token
 {
-
     /**
      * @param  User  $user
      * @return string
