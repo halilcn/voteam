@@ -24,6 +24,9 @@ class LoginController extends Controller
     {
         //return $this->success(['test' => 'ASdasd'], 201);
 
+        return "ok";
+        return response()->json('hata', 401);
+
         try {
             throw new LoginException();
         } catch (\Exception $e) {

@@ -6,15 +6,23 @@ export default {
   },
   mutations: {
     setUser(state, payload) {
+      localStorage.setItem('user', JSON.stringify(payload));
       state.user = payload;
+    },
+    removeUser(state) {
+      localStorage.removeItem('user');
+      state.user = {};
     }
   },
   actions: {
-    async postLogin(_, payload) {
-      const res = await axios.post('login', payload);
-      console.log(res);
-      return res;
+    async postLogin({ commit }, payload) {
+      await axios.post('login', payload);
+      await commit('setUser', { name: 'halil', token: 212313 });
     }
   },
-  modules: {}
+  getters: {
+    checkAuth(state) {
+      return !!state.user;
+    }
+  }
 };

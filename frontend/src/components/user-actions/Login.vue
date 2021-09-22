@@ -26,10 +26,10 @@
             is-input-error="true"
             :content="$helpers.getOnlyErrors(v$.user.password.$errors)"/>
       </div>
-      <!-- <errors content="E-mail ya da Şifre yanlış"/>-->
+      <errors v-if="isWrongEmailOrPassword" content="E-mail ya da Şifre yanlış"/>
       <standart-button
           class="continue-btn"
-          text="devam"
+          text="Giriş Yap"
           @click="login"
           :is-disable="v$.user.$invalid"/>
     </div>
@@ -54,6 +54,7 @@ export default {
   data() {
     return {
       isLoadingLogin: false,
+      isWrongEmailOrPassword: false,
       user: {
         email: '',
         password: ''
@@ -76,10 +77,20 @@ export default {
   methods: {
     ...mapActions(['postLogin']),
     async login() {
-      this.$notify.error('hata');
-      /*  this.isLoadingLogin = true;
+      //Dynamic ??
+      try {
+        this.isLoadingLogin = true;
         await this.postLogin(this.user);
-        this.isLoadingLogin = false;*/
+        this.isLoadingLogin = false;
+        //her şey başarılı ise
+      } catch (err) {
+        if (err.response.status === 401) {
+          this.isWrongEmailOrPassword = true;
+          return;
+        }
+        this.$notify.error(this.$t(('customErrors.generalError')));
+      }
+
     }
   },
   components: {

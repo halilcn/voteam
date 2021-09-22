@@ -1,25 +1,41 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import store from '../store';
+
+const guest = (to, from, next) => {
+  if (!store.getters.checkAuth) next();
+  //next({name:'TeamDashboardHome'}); ??
+  next('/team/121/home');
+};
+
+const auth = (to, from, next) => {
+  if (store.getters.checkAuth) next();
+  next({ name: 'Home' });
+};
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('../views/Home.vue')
+    component: () => import('../views/Home.vue'),
+    beforeEnter: guest
   },
   {
     path: '/prices',
     name: 'Prices',
-    component: () => import('../views/Prices.vue')
+    component: () => import('../views/Prices.vue'),
+    beforeEnter: guest
   },
   {
     path: '/about',
     name: 'About',
-    component: () => import('../views/About.vue')
+    component: () => import('../views/About.vue'),
+    beforeEnter: guest
   },
   {
     path: '/user-actions',
     name: 'UserActions',
     component: () => import('../views/UserActions.vue'),
+    beforeEnter: guest,
     redirect: { name: 'Login' },
     children: [
       {
@@ -43,6 +59,7 @@ const routes = [
     path: '/',
     name: 'Dashboard',
     component: () => import('../views/Dashboard.vue'),
+    beforeEnter: auth,
     children: [
       {
         path: '/team/:teamId/home',

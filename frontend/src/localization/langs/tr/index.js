@@ -1,4 +1,5 @@
 import errors from './errors';
+import customErrors from './custom-errors';
 
 export default {
   homePage: {
@@ -13,5 +14,6 @@ export default {
   footer: {
     text: '© Copyright 2021. Tüm hakları saklıdır.'
   },
-  errors
+  errors,
+  customErrors
 };
