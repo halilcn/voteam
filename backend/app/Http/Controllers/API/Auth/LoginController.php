@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\Auth;
 
+use App\Exceptions\Custom\LoginException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Resources\UserResource;
@@ -21,6 +22,14 @@ class LoginController extends Controller
 
     public function handle(LoginRequest $request)
     {
+        //return $this->success(['test' => 'ASdasd'], 201);
+
+        try {
+            throw new LoginException();
+        } catch (\Exception $e) {
+            return $this->exceptionResponse($e);
+        }
+
         //TODO: Exceptions ?
         /*??*/
         try {
