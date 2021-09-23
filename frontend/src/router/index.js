@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import store from '../store';
 
 const guest = (to, from, next) => {
+  console.log(store.getters.checkAuth);
   if (!store.getters.checkAuth) next();
   //next({name:'TeamDashboardHome'}); ??
   next('/team/121/home');
@@ -9,7 +10,8 @@ const guest = (to, from, next) => {
 
 const auth = (to, from, next) => {
   if (store.getters.checkAuth) next();
-  next({ name: 'Home' });
+  next('/');
+  //next({ name: 'Home' });
 };
 
 const routes = [

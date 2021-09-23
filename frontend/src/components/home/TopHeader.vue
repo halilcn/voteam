@@ -39,12 +39,12 @@
       <router-link
           class="register"
           :to="{name:'Register'}">
-        Kayıt Ol
+        {{ $t('general.userActions.register') }}
       </router-link>
       <router-link
           class="login"
           :to="{name:'Login'}">
-        Giriş Yap
+        {{ $t('general.userActions.login') }}
       </router-link>
     </div>
     <choose-language/>

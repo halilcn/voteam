@@ -2,6 +2,12 @@ import errors from './errors';
 import customErrors from './custom-errors';
 
 export default {
+  general:{
+    userActions: {
+      register: 'Kayıt Ol',
+      login: 'Giriş Yap'
+    },
+  },
   homePage: {
     topHeader: {
       links: {

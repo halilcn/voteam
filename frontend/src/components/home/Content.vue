@@ -3,12 +3,12 @@
     <div class="item main reverse-order">
       <div class="text">
         <div class="title">
-          votem takım yönetimini demokratikleştirir
+          <span class="voteam">votem</span> takım yönetimini demokratikleştirir
         </div>
         <div class="info">
-          loreldksa ajd ajsdsadjask jaskdhasjkdhas oıertuer tıertuıertu ejdfghjdfdsadjask jaskdhasjkdhas oıertuer
-          tıertuıertu ejdfghjdfdsadjask jaskdhasjkdhas oıertuer tıertuıertu ejdfghjdfdsadjask jaskdhasjkdhas oıertuer
-          tıertuıertu ejdfghjdf
+          <span class="voteam">voteam</span> herhangi bir takımı demokratik bir şekilde yönetmeye yarar. İş için, okul
+          için ya da herhangi bir sebep
+          için demokratik bir takım yönetimi arıyorsanız <span class="voteam">voteam</span> tam size göredir.
         </div>
         <div class="create-team-btn">
           <i class="bi bi-patch-plus-fill"></i>
@@ -37,13 +37,13 @@
       </div>
       <div class="text">
         <div class="title">
-          Oylar gizli ve farklı güçtedirler
+          Oylar gizli ve farklı güçtedir
         </div>
         <div class="info">
-          loreldksa ajd ajsdsadjask jaskdhasjkdhas oıertuer tıertuıertu ejdfghjdf
-          loreldksa ajd ajsdsadjask jaskdhasjkdhas oıertuer tıertuıertu ejdfghjdf
-          loreldksa ajd ajsdsadjask jaskdhasjkdhas oıertuer tıertuıertu ejdfghjdf
-          loreldksa ajd ajsdsadjask jaskdhasjkdhas oıertuer tıertuıertu ejdfghjdf
+          Oluşturulan takımlarda bir oylama olduğunda, herkesin verdiği oy gizli ve farklı güçtedir.
+          Takımda bulunan her kişinin gücünü, diğer takıma arkadaşları belirler. Bu sebepler bir takım kurulduğunda ilk
+          yapılacak ilk iş diğer takım arkadaşlarını gücünü belirlemektir. Dağıtılan güçleri grup yöneticiside dahil hiç
+          kimse göremez. Herkes verdiği oyun gücünü bilemez.
         </div>
       </div>
     </div>
@@ -53,9 +53,8 @@
           Takım bütünlüğü sağlar
         </div>
         <div class="info">
-          loreldksa ajd ajsdsadjask jaskdhasjkdhas oıertuer tıertuıertu ejdfghjdf
-          loreldksa ajd ajsdsadjask jaskdhasjkdhas oıertuer tıertuıertu ejdfghjdf
-          loreldksa ajd ajsdsadjask jaskdhasjkdhas oıertuer tıertuıertu ejdfghjdf
+          <span class="voteam">voteam</span> takımlar arasında güç tartışmalarını sona erdirir. Hiçkimse kimin ne kadar gücü olduğunu,
+          kim kime ne kadar güç verdiğini bilmediği için takım bütünlüğü sağlanır.
         </div>
       </div>
       <div class="animation">
@@ -93,12 +92,22 @@ export default {
       .title {
         font-weight: 600;
         font-size: 35px;
+
+        .voteam {
+          color: $df-blue-color;
+          border-bottom: 5px solid $df-blue-color;
+          border-radius: 4px;
+        }
       }
 
       .info {
         font-weight: 300;
         font-size: 15px;
         margin-top: 5px;
+
+        .voteam {
+          font-weight: 400;
+        }
       }
     }
 
@@ -109,6 +118,12 @@ export default {
   }
 
   .main {
+    .text {
+      .title {
+        font-size: 45px;
+      }
+    }
+
     .create-team-btn {
       font-weight: 500;
       display: inline-block;
