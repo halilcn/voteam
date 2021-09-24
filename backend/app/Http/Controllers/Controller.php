@@ -12,6 +12,5 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    //Custom Traits
     use ApiResponser;
 }

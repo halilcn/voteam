@@ -2,20 +2,16 @@
 
 namespace App\Exceptions\Custom;
 
+use App\Exceptions\Contract\CustomException;
 use Exception;
-use Throwable;
 
-class LoginException extends Exception
+class LoginException extends Exception implements CustomException
 {
     /**
-     * CustomException constructor.
-     *
-     * @param string $message
-     * @param int $code
-     * @param Throwable|null $previous
+     * @param  string  $message
      */
-    public function __construct($message = "login exception", $code = 400, Throwable $previous = null)
+    public function __construct($message = "login exception")
     {
-        parent::__construct($message, $code, $previous);
+        parent::__construct($message, 403);
     }
 }

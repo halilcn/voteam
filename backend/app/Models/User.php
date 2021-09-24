@@ -54,20 +54,17 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($password);
     }
 
-    /**
-     * @param  string  $email
-     * @return mixed
-     */
-    public function checkEmail(string $email)
+
+    public function checkExistsEmail(string $email): bool
     {
-        return $this->where('email', $email)->first();
+        return $this->where('email', $email)->exists();
     }
 
     /**
      * @param  string  $reqPassword
      * @return bool
      */
-    public function checkPassword(string $reqPassword)
+    public function checkPassword(string $reqPassword): bool
     {
         return Hash::check($reqPassword, $this->password);
     }

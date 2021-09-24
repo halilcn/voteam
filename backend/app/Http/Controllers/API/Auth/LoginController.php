@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Auth;
 
 use App\Exceptions\Custom\LoginException;
+use App\Exceptions\Exception;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Resources\UserResource;
@@ -13,40 +14,21 @@ class LoginController extends Controller
 {
     use Token;
 
-    public User $user;
-
-    public function __construct()
+    /**
+     * @param  LoginRequest  $request
+     * @return object
+     */
+    public function handle(LoginRequest $request): object
     {
-        $this->user = new User();
-    }
+        $user = User::where('email', $request->input('email'))->first();
 
-    public function handle(LoginRequest $request)
-    {
-        //return $this->success(['test' => 'ASdasd'], 201);
-
-        return "ok";
-        return response()->json('hata', 401);
-
-        try {
-            throw new LoginException();
-        } catch (\Exception $e) {
-            return $this->exceptionResponse($e);
-        }
-
-        //TODO: Exceptions ?
-        /*??*/
-        try {
-            $user = $this->user->checkEmail($request->input('email'));
-            if (!empty($user)) {
-                if ($user->checkPassword($request->input('password'))) {
-                    $user->token = $this->createToken($user);
-                    return UserResource::make($user);      //ok succes dynamic
-                }
+        if (!empty($user)) {
+            if ($user->checkPassword($request->input('password'))) {
+                $user->token = $this->createToken($user);
+                return $this->successResponse(UserResource::make($user));
             }
-
-            return "yanlış";
-        } catch (\Exception $e) {
-            abort(401); // dynamic!
         }
+
+        return Exception::loginException();
     }
 }

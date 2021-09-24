@@ -77,19 +77,20 @@ export default {
   methods: {
     ...mapActions(['postLogin']),
     async login() {
-      //Dynamic ??
-      try {
+      await this.$helpers.defaultHandler(async () => {
         this.isLoadingLogin = true;
         await this.postLogin(this.user);
         this.isLoadingLogin = false;
-        //her şey başarılı ise
-      } catch (err) {
-        if (err.response.status === 401) {
-          this.isWrongEmailOrPassword = true;
-          return;
-        }
-        this.$notify.error(this.$t(('customErrors.generalError')));
-      }
+      });
+      /* try {
+         //her şey başarılı ise
+       } catch (err) {
+         if (err.response.status === 401) {
+           this.isWrongEmailOrPassword = true;
+           return;
+         }
+         this.$notify.error(this.$t(('customErrors.generalError')));
+       }*/
 
     }
   },

@@ -1,3 +1,5 @@
+import notify from './notify';
+
 const helpers = {};
 
 const constants = {
@@ -40,6 +42,14 @@ helpers.clickOutside = (self, dataName) => {
  */
 helpers.getOnlyErrors = (data) => {
   return data.map(item => {return item.$message;});
+};
+
+helpers.defaultHandler = async (handle) => {
+  try {
+    await handle();
+  } catch (err) {
+    notify.error('hata'); //this.$t(('customErrors.generalError'))
+  }
 };
 
 export default helpers;

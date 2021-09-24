@@ -2,18 +2,22 @@
 
 namespace App\Exceptions;
 
+use App\Exceptions\Contract\CustomException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use App\Traits\ApiResponser;
 
 class Handler extends ExceptionHandler
 {
+    use ApiResponser;
+
     /**
      * A list of the exception types that are not reported.
      *
      * @var array
      */
     protected $dontReport = [
-        //
+        CustomException::class
     ];
 
     /**
@@ -36,6 +40,12 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+        });
+
+        $this->renderable(function (CustomException $e, $request) {
+            if ($request->expectsJson()) {
+                return $this->errorResponse($e->getMessage(), $e->getCode());
+            }
         });
     }
 }
