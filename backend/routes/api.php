@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//versiyon ??
 
 Route::group(['prefix' => 'v1'], function () {
     Route::post('register', [RegisterController::class, 'handle']);

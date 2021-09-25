@@ -16,7 +16,7 @@ class UserRegisterCode extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(public string $code)
     {
         //
     }
@@ -30,7 +30,7 @@ class UserRegisterCode extends Mailable
     {
         return $this
             ->view('emails.users.register.code')
-            ->subject('test');
-        //   ->to('halilc.2001@gmail.com');
+            ->with($this->code)
+            ->subject(config('app.name'));
     }
 }

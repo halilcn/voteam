@@ -8,6 +8,6 @@
     <title>Document</title>
 </head>
 <body>
-test
+code: {{$code}}
 </body>
 </html>
