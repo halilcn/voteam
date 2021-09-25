@@ -5,7 +5,7 @@ namespace App\Exceptions;
 use App\Exceptions\Contract\CustomException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
-use App\Traits\ApiResponser;
+use App\Traits\Response\ApiResponser;
 
 class Handler extends ExceptionHandler
 {
