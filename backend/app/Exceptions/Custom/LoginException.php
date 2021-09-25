@@ -10,8 +10,8 @@ class LoginException extends Exception implements CustomException
     /**
      * @param  string  $message
      */
-    public function __construct($message = "login exception")
+    public function __construct($message = "Login exception")
     {
-        parent::__construct($message, 403);
+        parent::__construct($message, 400);
     }
 }

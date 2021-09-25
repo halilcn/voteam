@@ -27,7 +27,7 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('/test', function () {
-            return "ok";
+
         });
     });
 });
