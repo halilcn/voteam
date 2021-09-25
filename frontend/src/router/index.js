@@ -4,14 +4,12 @@ import store from '../store';
 const guest = (to, from, next) => {
   console.log(store.getters.checkAuth);
   if (!store.getters.checkAuth) next();
-  //next({name:'TeamDashboardHome'}); ??
-  next('/team/121/home');
+  next('/teams/121/home'); //teams yönlendirilecek
 };
 
 const auth = (to, from, next) => {
   if (store.getters.checkAuth) next();
   next('/');
-  //next({ name: 'Home' });
 };
 
 const routes = [
@@ -64,12 +62,12 @@ const routes = [
     beforeEnter: auth,
     children: [
       {
-        path: '/team/:teamId/home',
+        path: '/teams/:teamId/home',
         name: 'TeamDashboardHome',
         component: () => import('../components/dashboard/team/Home')
       },
       {
-        path: '/team/:teamId/settings',
+        path: '/teams/:teamId/settings',
         name: 'TeamDashboardSettings',
         component: () => import('../components/dashboard/team/Settings')
       }

@@ -48,7 +48,7 @@ export default {
   name: 'Login',
   mixins: [errorMixin],
   //TODO: Dynamic ?
-  setup() {
+  setup: () => {
     return { v$: useVuelidate() };
   },
   data() {
@@ -76,22 +76,21 @@ export default {
   },
   methods: {
     ...mapActions(['postLogin']),
-    async login() {
-      await this.$helpers.defaultHandler(async () => {
+    login() {
+      this.$helpers.defaultHandler(async () => {
         this.isLoadingLogin = true;
         await this.postLogin(this.user);
-        this.isLoadingLogin = false;
-      });
-      /* try {
-         //her şey başarılı ise
-       } catch (err) {
-         if (err.response.status === 401) {
-           this.isWrongEmailOrPassword = true;
-           return;
-         }
-         this.$notify.error(this.$t(('customErrors.generalError')));
-       }*/
-
+      }, (err) => {
+        if (err.response.status === 400) {
+          //Todo: return kaldırsak ?
+          this.isWrongEmailOrPassword = true;
+          return true;
+        }
+      })
+          .finally(() => {
+            this.isLoadingLogin = false;
+            this.$router.push({ name: 'TeamDashboardHome' });
+          });
     }
   },
   components: {

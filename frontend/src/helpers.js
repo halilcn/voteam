@@ -44,11 +44,19 @@ helpers.getOnlyErrors = (data) => {
   return data.map(item => {return item.$message;});
 };
 
-helpers.defaultHandler = async (handle) => {
+/**
+ * Shows an error alert when there is an error
+ * @param handle
+ * @param customCatch
+ * @returns {Promise<void>}
+ */
+helpers.defaultHandler = async (handle, customCatch = () => {}) => {
   try {
     await handle();
   } catch (err) {
-    notify.error('hata'); //this.$t(('customErrors.generalError'))
+    if (await customCatch(err)) return;
+    await notify.error('Bir hata oluştu.');
+    // console.log(this.$t('customErrors.generalError')); //this.$t(('customErrors.generalError'))
   }
 };
 

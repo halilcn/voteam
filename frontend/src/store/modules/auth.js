@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export default {
   state: {
-    user: null
+    user: localStorage.getItem('user') || null
   },
   mutations: {
     setUser(state, payload) {
@@ -11,13 +11,17 @@ export default {
     },
     removeUser(state) {
       localStorage.removeItem('user');
-      state.user = {};
+      state.user = null;
     }
   },
   actions: {
     async postLogin({ commit }, payload) {
-      await axios.post('login', payload);
-      await commit('setUser', { name: 'halil', token: 212313 });
+      const { data } = await axios.post('login', payload);
+      await commit('setUser', data);
+    },
+    async postLogout({ commit }) {
+      await axios.post('logout');
+      await commit('removeUser');
     }
   },
   getters: {
