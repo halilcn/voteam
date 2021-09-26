@@ -3,10 +3,13 @@
     <div v-if="isEnable" @click="$emit('handleDisable')" class="bg-filter"/>
   </transition>
   <transition name="popup-scale">
-    <div v-if="isEnable" class="popup">
+    <div
+        v-if="isEnable"
+        style="{width: }"
+        class="popup">
       <div class="top">
         <div class="title">
-          {{title}}
+          {{ title }}
         </div>
         <div @click="$emit('handleDisable')" class="disable-btn">
           <i class="bi bi-x-lg"></i>
@@ -35,6 +38,11 @@ export default {
     title: {
       required: true,
       type: String
+    },
+    width: {
+      required: false,
+      type: Number,
+      default: 500
     }
   }
 };
@@ -53,7 +61,7 @@ export default {
 .popup {
   @include center-md-box-shadow;
   width: 500px;
-  height: 100px;
+  max-height: 80%;
   background-color: white;
   border-radius: 5px;
   padding: 6px;
@@ -64,6 +72,8 @@ export default {
   top: 0;
   bottom: 0;
   margin: auto;
+  display: block; //??
+
 
   .top {
     position: relative;
@@ -92,7 +102,7 @@ export default {
   }
 
   .content {
-    padding: 5px 0;
+    padding: 10px 0;
     font-size: 14px;
   }
 }

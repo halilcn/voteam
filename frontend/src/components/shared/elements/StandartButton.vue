@@ -24,9 +24,11 @@ export default {
 
 <style lang="scss" scoped>
 .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: $df-blue-color;
   color: white;
-  text-align: center;
   padding: 7px;
   font-size: 15px;
   font-weight: 500;

@@ -3,13 +3,16 @@
       title="Takım Oluştur"
       @handlePopup="handleCreateTeamPopup"
       :is-enable="isEnableCreateTeamPopup"/>
+  <join-team-popup
+      @handlePopup="handleJoinTeamPopup"
+      :is-enable="isEnableJoinTeamPopup"/>
   <div class="teams">
     <div class="teams-actions">
       <div @click="handleCreateTeamPopup" class="create-team-btn">
         <i class="bi bi-plus-lg"></i>
         Takım Oluştur
       </div>
-      <div class="join-team-btn">
+      <div @click="handleJoinTeamPopup" class="join-team-btn">
         <i class="bi bi-people-fill"></i>
         Takıma Katıl
       </div>
@@ -93,22 +96,29 @@
 
 <script>
 import CreateTeamPopup from '../components/teams/CreateTeamPopup';
+import JoinTeamPopup from '../components/teams/JoinTeamPopup';
 
 export default {
   name: 'Teams',
   data() {
     return {
-      isEnableCreateTeamPopup: true
+      isEnableCreateTeamPopup: false,
+      isEnableJoinTeamPopup: true
     };
+  },
+  components: {
+    CreateTeamPopup,
+    JoinTeamPopup
   },
   methods: {
     handleCreateTeamPopup() {
       this.isEnableCreateTeamPopup = !this.isEnableCreateTeamPopup;
+    },
+    handleJoinTeamPopup() {
+      this.isEnableJoinTeamPopup = !this.isEnableJoinTeamPopup;
     }
-  },
-  components: {
-    CreateTeamPopup
   }
+
 };
 </script>
 
