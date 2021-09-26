@@ -56,6 +56,12 @@ const routes = [
     ]
   },
   {
+    path: '/teams',
+    name: 'TeamsList',
+    component: () => import('../views/Teams.vue'),
+  //  beforeEnter: auth
+  },
+  {
     path: '/',
     name: 'Dashboard',
     component: () => import('../views/Dashboard.vue'),
