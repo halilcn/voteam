@@ -1,7 +1,11 @@
 <template>
+  <create-team-popup
+      title="Takım Oluştur"
+      @handlePopup="handleCreateTeamPopup"
+      :is-enable="isEnableCreateTeamPopup"/>
   <div class="teams">
     <div class="teams-actions">
-      <div class="create-team-btn">
+      <div @click="handleCreateTeamPopup" class="create-team-btn">
         <i class="bi bi-plus-lg"></i>
         Takım Oluştur
       </div>
@@ -88,8 +92,23 @@
 </template>
 
 <script>
+import CreateTeamPopup from '../components/teams/CreateTeamPopup';
+
 export default {
-  name: 'Teams'
+  name: 'Teams',
+  data() {
+    return {
+      isEnableCreateTeamPopup: true
+    };
+  },
+  methods: {
+    handleCreateTeamPopup() {
+      this.isEnableCreateTeamPopup = !this.isEnableCreateTeamPopup;
+    }
+  },
+  components: {
+    CreateTeamPopup
+  }
 };
 </script>
 
@@ -147,7 +166,7 @@ export default {
       margin-bottom: 15px;
       transition: .2s;
 
-      &:hover{
+      &:hover {
         transform: scale(1.02);
       }
 
