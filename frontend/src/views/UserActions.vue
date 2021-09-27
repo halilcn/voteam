@@ -179,7 +179,7 @@ export default {
   }
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: $df-mobile-width) {
   .user-actions {
     width: 90%;
 

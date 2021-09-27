@@ -146,7 +146,7 @@ export default {
   }
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: $df-mobile-width) {
   .register {
     .content {
       .email-confirmation {

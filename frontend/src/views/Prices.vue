@@ -91,7 +91,7 @@ export default {
   }
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: $df-mobile-width) {
   .prices {
     padding: $df-mbl-lr-width-pdn;
 

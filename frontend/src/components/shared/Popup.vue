@@ -162,4 +162,7 @@ $animation-time: .3s;
 }
 
 
+@media only screen and (max-width: $df-mobile-width){
+
+}
 </style>

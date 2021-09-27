@@ -146,7 +146,7 @@ export default {
   }
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: $df-mobile-width) {
   .top-header {
     justify-content: flex-start;
     padding: 10px $df-mbl-lr-width-pdn;
