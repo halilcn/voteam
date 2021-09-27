@@ -6,13 +6,16 @@
     <template v-slot:content>
       <div class="team-join">
         <div class="info-text">
+          <i class="bi bi-info-circle"></i>
           Takıma katılmak için takımın kodu gerekir.
         </div>
         <div class="form">
           <div class="input-container">
             <input type="text" maxlength="6">
           </div>
-          <standart-button is-disable="false" class="join-btn" text="Katıl"/>
+          <standart-button text="Katıl"
+                           is-disable="true"
+                           class="join-btn"/>
         </div>
       </div>
     </template>
@@ -43,6 +46,7 @@ export default {
     font-weight: 300;
     color: #414141;
     text-align: center;
+    margin-bottom: 10px;
   }
 
   .form {
@@ -53,10 +57,12 @@ export default {
 
       input {
         @include std-input;
-        font-weight: 500;
+        font-weight: 600;
         font-size: 17px;
         letter-spacing: 30px;
+        padding-left: 30px;
         text-align: center;
+        text-transform: uppercase;
       }
     }
 
@@ -66,6 +72,10 @@ export default {
 
       &:not(.disable) {
         background-color: $df-green-color;
+
+        &:hover {
+          background-color: $df-light-green-color;
+        }
       }
     }
   }
