@@ -1,12 +1,12 @@
 <template>
   <create-team-popup
-      title="Takım Oluştur"
       @handlePopup="handleCreateTeamPopup"
       :is-enable="isEnableCreateTeamPopup"/>
   <join-team-popup
       @handlePopup="handleJoinTeamPopup"
       :is-enable="isEnableJoinTeamPopup"/>
   <div class="teams">
+    <img class="voteam-logo" src="../assets/logos/voteam.png" alt="logo"/>
     <div class="teams-actions">
       <div @click="handleCreateTeamPopup" class="create-team-btn">
         <i class="bi bi-plus-lg"></i>
@@ -15,6 +15,10 @@
       <div @click="handleJoinTeamPopup" class="join-team-btn">
         <i class="bi bi-people-fill"></i>
         Takıma Katıl
+      </div>
+      <div class="exit-btn">
+        <i class="bi bi-box-arrow-right"></i>
+        Çıkış Yap
       </div>
     </div>
     <div class="teams-list">
@@ -103,7 +107,7 @@ export default {
   data() {
     return {
       isEnableCreateTeamPopup: false,
-      isEnableJoinTeamPopup: true
+      isEnableJoinTeamPopup: false
     };
   },
   components: {
@@ -125,6 +129,14 @@ export default {
 <style lang="scss" scoped>
 .teams {
   padding: 15px;
+  display: flex;
+  flex-direction: column;
+
+  .voteam-logo {
+    align-self: center;
+    width: 150px;
+    margin-bottom: 20px;
+  }
 
   .teams-actions {
     display: flex;
@@ -135,6 +147,7 @@ export default {
       font-size: 15px;
       border-radius: 5px;
       color: white;
+      transition: .3s;
     }
 
     .create-team-btn {
@@ -152,6 +165,16 @@ export default {
 
       &:hover {
         background-color: #e7e7e7;
+      }
+    }
+
+    .exit-btn {
+      margin-left: auto;
+      background-color: $df-very-light-red-color;
+      color: $df-red-color;
+
+      &:hover {
+        background-color: #ffe8e8;
       }
     }
   }

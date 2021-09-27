@@ -1,6 +1,6 @@
 <template>
   <popup
-      :title="title"
+      title="Takım Oluştur"
       @handleDisable="$emit('handlePopup')"
       :is-enable="isEnable">
     <template v-slot:content>
@@ -14,7 +14,7 @@ import Popup from '../shared/Popup';
 
 export default {
   name: 'CreateTeamPopup',
-  props: ['isEnable', 'title'],
+  props: ['isEnable'],
   components: {
     Popup
   }
