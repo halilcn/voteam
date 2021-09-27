@@ -1,11 +1,14 @@
 <template>
   <transition name="bg-fade">
-    <div v-if="isEnable" @click="$emit('handleDisable')" class="bg-filter"/>
+    <div
+        v-if="isEnable"
+        @click="$emit('handleDisable')"
+        class="bg-filter"/>
   </transition>
   <transition name="popup-scale">
     <div
         v-if="isEnable"
-        style="{width: }"
+        :style="{width:`${width}px`}"
         class="popup">
       <div class="top">
         <div class="title">
@@ -25,11 +28,6 @@
 <script>
 export default {
   name: 'Popup',
-  data() {
-    return {
-      delayIsEnable: this.isEnable
-    };
-  },
   props: {
     isEnable: {
       required: true,
@@ -49,6 +47,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$animation-time: .3s;
+
 .bg-filter {
   width: 100%;
   height: 100%;
@@ -60,20 +60,16 @@ export default {
 
 .popup {
   @include center-md-box-shadow;
-  width: 500px;
   max-height: 80%;
   background-color: white;
   border-radius: 5px;
-  padding: 6px;
+  padding: 8px;
   position: fixed;
-  z-index: 9999;
+  z-index: 999;
   left: 0;
   right: 0;
-  top: 0;
-  bottom: 0;
+  top: 70px;
   margin: auto;
-  display: block; //??
-
 
   .top {
     position: relative;
@@ -93,7 +89,7 @@ export default {
       top: 5px;
       cursor: pointer;
       transition: .3s;
-      color: #9f9f9f; //$df-mdl-dark-black-color;
+      color: #9f9f9f;
 
       &:hover {
         color: $df-blue-color;
@@ -109,38 +105,11 @@ export default {
 
 
 .popup-scale-enter-active {
-  animation: popup-scale-active .3s;
+  animation: popup-scale-active $animation-time;
 }
 
 .popup-scale-leave-to {
-  animation: popup-scale-leave .3s;
-}
-
-
-.bg-fade-enter-active {
-  animation: bg-fade-active 0.2s;
-}
-
-.bg-fade-leave-to {
-  animation: bg-fade-leave 0.2s;
-}
-
-@keyframes bg-fade-active {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: .5;
-  }
-}
-
-@keyframes bg-fade-leave {
-  0% {
-    opacity: .5;
-  }
-  100% {
-    opacity: 0;
-  }
+  animation: popup-scale-leave $animation-time;
 }
 
 @keyframes popup-scale-active {
@@ -164,4 +133,33 @@ export default {
     transform: scale(0.8);
   }
 }
+
+
+.bg-fade-enter-active {
+  animation: bg-fade-active $animation-time;
+}
+
+.bg-fade-leave-to {
+  animation: bg-fade-leave $animation-time;
+}
+
+@keyframes bg-fade-active {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: .5;
+  }
+}
+
+@keyframes bg-fade-leave {
+  0% {
+    opacity: .5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+
 </style>
