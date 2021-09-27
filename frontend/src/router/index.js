@@ -1,15 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import store from '../store';
 
+const checkAuth = () => {
+  return store.getters.checkAuth;
+};
+
 const guest = (to, from, next) => {
-  console.log(store.getters.checkAuth);
-  if (!store.getters.checkAuth) next();
-  next('/teams/121/home'); //teams yönlendirilecek
+  if (!checkAuth()) next();
+  next({ name: 'TeamsList' });
 };
 
 const auth = (to, from, next) => {
-  if (store.getters.checkAuth) next();
-  next('/');
+  if (checkAuth()) next();
+  next({ name: 'Home' });
 };
 
 const routes = [
@@ -59,7 +62,7 @@ const routes = [
     path: '/teams',
     name: 'TeamsList',
     component: () => import('../views/Teams.vue'),
-  //  beforeEnter: auth
+    beforeEnter: auth
   },
   {
     path: '/',

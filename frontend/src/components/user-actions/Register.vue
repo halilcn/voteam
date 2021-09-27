@@ -59,7 +59,7 @@
 import StandartButton from '../shared/elements/StandartButton';
 import Errors from '../shared/Errors';
 import { required, email } from '@vuelidate/validators';
-import errorMixin from '../../mixins/errorMixin';
+import errorMixin from '../../mixins/validateMixin';
 import useVuelidate from '@vuelidate/core';
 
 export default {

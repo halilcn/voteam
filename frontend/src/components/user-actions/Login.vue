@@ -6,6 +6,7 @@
     <div class="content">
       <div class="data-field-container">
         <input
+            type="email"
             v-model="v$.user.email.$model"
             class="data-field"
             :class="{'has-error':v$.user.email.$error}"
@@ -17,6 +18,7 @@
       </div>
       <div class="data-field-container">
         <input
+            type="password"
             v-model="v$.user.password.$model"
             class="data-field"
             :class="{'has-error':v$.user.password.$error}"
@@ -31,7 +33,7 @@
           class="continue-btn"
           text="Giriş Yap"
           @click="login"
-          :is-disable="v$.user.$invalid"/>
+          :is-disable="v$.user.$invalid || isLoadingLogin"/>
     </div>
   </div>
 </template>
@@ -39,20 +41,15 @@
 <script>
 import StandartButton from '../shared/elements/StandartButton';
 import Errors from '../shared/Errors';
-import { required, email } from '@vuelidate/validators';
-import errorMixin from '../../mixins/errorMixin';
-import useVuelidate from '@vuelidate/core';
+import validateMixin from '../../mixins/validateMixin';
 import { mapActions } from 'vuex';
 
 export default {
   name: 'Login',
-  mixins: [errorMixin],
-  //TODO: Dynamic ?
-  setup: () => {
-    return { v$: useVuelidate() };
-  },
+  mixins: [validateMixin],
   data() {
     return {
+      v$: this.useVuelidate(),
       isLoadingLogin: false,
       isWrongEmailOrPassword: false,
       user: {
@@ -65,14 +62,18 @@ export default {
     return {
       user: {
         email: {
-          required: this.multipleLangError('errors.required', required),
-          email: this.multipleLangError('errors.email', email)
+          required: this.multipleLangError('errors.required', this.validators.required),
+          email: this.multipleLangError('errors.email', this.validators.email)
         },
         password: {
-          required: this.multipleLangError('errors.required', required)
+          required: this.multipleLangError('errors.required', this.validators.required)
         }
       }
     };
+  },
+  components: {
+    StandartButton,
+    Errors
   },
   methods: {
     ...mapActions(['postLogin']),
@@ -80,26 +81,16 @@ export default {
       this.$helpers.defaultHandler(async () => {
         this.isLoadingLogin = true;
         await this.postLogin(this.user);
+        this.$router.push({ name: 'TeamsList' });
       }, (err) => {
         if (err.response.status === 400) {
-          //Todo: return kaldırsak ?
           this.isWrongEmailOrPassword = true;
           return true;
         }
       })
           .finally(() => {
             this.isLoadingLogin = false;
-            this.$router.push({ name: 'TeamDashboardHome' });
           });
-    }
-  },
-  components: {
-    StandartButton,
-    Errors
-  },
-  computed: {
-    getErrors() {
-      return ['hata gata hata ver!', 'bir hata oluştu!'];
     }
   }
 };

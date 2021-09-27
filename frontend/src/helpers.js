@@ -1,4 +1,5 @@
 import notify from './notify';
+import i18n from './localization/index';
 
 const helpers = {};
 
@@ -56,7 +57,8 @@ helpers.defaultHandler = async (handle, customCatch = () => {}) => {
   } catch (err) {
     if (await customCatch(err)) return;
     await notify.error('Bir hata oluştu.');
-    // console.log(this.$t('customErrors.generalError')); //this.$t(('customErrors.generalError'))
+    console.log('hata');
+    console.log(i18n); //this.$t(('customErrors.generalError'))
   }
 };
 
