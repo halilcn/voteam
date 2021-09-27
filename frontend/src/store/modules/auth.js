@@ -19,6 +19,13 @@ export default {
       const { data } = await axios.post('login', payload);
       await commit('setUser', data);
     },
+    postRegister() {
+
+    },
+    async postRegisterEmail(_, payload) {
+      const { data } = await axios.post('register/email/send', { email: payload });
+      console.log(data);
+    },
     async postLogout({ commit }) {
       await axios.post('logout');
       await commit('removeUser');

@@ -27,10 +27,24 @@
               is-input-error="true"
               :content="$helpers.getOnlyErrors(v$.user.email.$errors)"/>
         </div>
-        <div class="send-code-btn disable">
+        <div
+            class="send-code-btn"
+            :class="{disable:v$.user.email.$invalid}"
+            @click="registerEmail">
           <i class="bi bi-cursor-fill"></i>
           Kod Gönder
         </div>
+      </div>
+      <div class="data-field-container email-code">
+        <input
+            v-model="v$.email.code.$model"
+            class="data-field"
+            :class="{'has-error':v$.email.code.$error}"
+            placeholder="Email'e gelen kod">
+        <errors
+            v-if="v$.email.code.$error"
+            is-input-error="true"
+            :content="$helpers.getOnlyErrors(v$.email.code.$errors)"/>
       </div>
       <div class="data-field-container">
         <input
@@ -61,6 +75,7 @@ import Errors from '../shared/Errors';
 import { required, email } from '@vuelidate/validators';
 import errorMixin from '../../mixins/validateMixin';
 import useVuelidate from '@vuelidate/core';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'Register',
@@ -71,10 +86,16 @@ export default {
   },
   data() {
     return {
+      isLoadingRegisterEmail: false,
+      isLoadingRegister: false,
       user: {
         nameSurname: '',
         email: '',
         password: ''
+      },
+      email: {
+        key: '',
+        code: ''
       }
     };
   },
@@ -91,12 +112,34 @@ export default {
         password: {
           required: this.multipleLangError('errors.required', required)
         }
+      },
+      email: {
+        code: {
+          required: this.multipleLangError('errors.required', required)
+        }
       }
     };
   },
   components: {
     StandartButton,
     Errors
+  },
+  methods: {
+    ...mapActions(['postRegisterEmail', 'postRegister']),
+    registerEmail() {
+      this.$helpers.defaultHandler(async () => {
+        this.isLoadingRegisterEmail = true;
+        await this.postRegisterEmail(this.user.email);
+      }, (err) => {
+        if (err.response.status === 409) {
+          alert('bu email zaten var !');
+          return true;
+        }
+      })
+          .finally(() => {
+            this.isLoadingRegisterEmail = false;
+          });
+    }
   }
 };
 </script>
@@ -141,6 +184,18 @@ export default {
         i {
           margin-right: 5px;
         }
+      }
+    }
+
+    .email-code {
+
+      .data-field {
+
+        &:not(placeholder) {
+          letter-spacing: 10px;
+          text-transform: uppercase;
+        }
+
       }
     }
   }

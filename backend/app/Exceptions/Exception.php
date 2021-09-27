@@ -6,6 +6,7 @@ namespace App\Exceptions;
  * Custom Exceptions
  * @method static loginException($message = '')
  * @method static authenticateException($message = '')
+ * @method static registerEmailException($message = '')
  */
 class Exception
 {

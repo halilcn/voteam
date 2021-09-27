@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'v1'], function () {
     Route::post('register', [RegisterController::class, 'handle']);
     Route::post('register/email/send', [RegisterController::class, 'sendEmail']);
-    Route::post('register/email/check', [RegisterController::class, 'checkEmail']);
 
     Route::post('login', [LoginController::class, 'handle']);
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\Auth;
 
+use App\Exceptions\Exception;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterCodeRequest;
 use App\Http\Requests\Auth\RegisterRequest;
@@ -9,7 +10,7 @@ use App\Http\Resources\RegisterCodeResource;
 use App\Jobs\SendRegisterCode;
 use App\Models\User;
 use App\Models\UserRegisterCode;
-use App\Traits\ApiResponser;
+use App\Traits\Response\ApiResponser;
 use App\Traits\Token;
 use App\Traits\Image;
 use Illuminate\Support\Str;
@@ -43,19 +44,15 @@ class RegisterController extends Controller
         return $this->createToken($user);
     }
 
-    public function checkEmail(RegisterCodeRequest $request): object
-    {
-        //TODO: data ile sarmalama ?
-        return $this->successResponse($this->user->checkExistsEmail($request->input('email')));
-    }
-
-    /**
-     * @param  RegisterCodeRequest  $request
-     * @return object
-     */
     public function sendEmail(RegisterCodeRequest $request): object
     {
         $email = $request->input('email');
+
+        return Exception::registerEmailException();
+
+        if ($this->user->checkExistsEmail($email)) {
+            return Exception::registerEmailException();
+        }
 
         //Delete old code if code exists
         UserRegisterCode::query()
