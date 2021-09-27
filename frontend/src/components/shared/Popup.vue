@@ -162,7 +162,15 @@ $animation-time: .3s;
 }
 
 
-@media only screen and (max-width: $df-mobile-width){
+@media only screen and (max-width: $df-mobile-width) {
+  .popup {
+    width: 90% !important;
 
+    .top {
+      .title {
+        font-size: 16px;
+      }
+    }
+  }
 }
 </style>

@@ -80,4 +80,23 @@ export default {
     }
   }
 }
+
+@media only screen and (max-width: $df-mobile-width) {
+  .team-join {
+    .form {
+      flex-direction: column;
+
+      .input-container {
+        input {
+          font-size: 15px;
+        }
+      }
+
+      .join-btn {
+        margin: 10px 0 0 0;
+        width: 100%;
+      }
+    }
+  }
+}
 </style>
