@@ -77,7 +77,7 @@ export default {
   margin: 0 auto;
 
   .bg-image {
-    width: 370px;
+    width: 33%;
     position: fixed;
     bottom: 0;
 
@@ -140,7 +140,7 @@ export default {
     .form-content {
       display: flex;
       flex-direction: column;
-      padding: 0px 20px;
+      padding: 0 20px;
 
       .forget-password {
         color: $df-mdl-dark-black-color;
