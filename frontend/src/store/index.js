@@ -6,7 +6,7 @@ import constants from './constants';
 axios.defaults.baseURL = constants.BACKEND_BASE_URL;
 axios.defaults.headers.common['Content-type'] = 'application/json;';
 axios.defaults.headers.common['Authorization'] = 'asd';
-axios.defaults.timeout = 1000;
+axios.defaults.timeout = 120000;
 
 export default createStore({
   state: {},

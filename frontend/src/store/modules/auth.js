@@ -24,7 +24,7 @@ export default {
     },
     async postRegisterEmail(_, payload) {
       const { data } = await axios.post('register/email/send', { email: payload });
-      console.log(data);
+      return data.key;
     },
     async postLogout({ commit }) {
       await axios.post('logout');

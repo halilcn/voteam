@@ -4,6 +4,7 @@
       Takım oluşturabilmek veya takımlara katılabilmek için kayıt olmak gerekir.
     </div>
     <div class="content">
+      {{ email }}
       <div class="data-field-container">
         <input
             v-model="v$.user.nameSurname.$model"
@@ -27,20 +28,24 @@
               is-input-error="true"
               :content="$helpers.getOnlyErrors(v$.user.email.$errors)"/>
         </div>
-        <div
+        <standart-button
             class="send-code-btn"
-            :class="{disable:v$.user.email.$invalid}"
-            @click="registerEmail">
-          <i class="bi bi-cursor-fill"></i>
-          Kod Gönder
-        </div>
+            text=" Kod Gönder"
+            @click="registerEmail"
+            :is-disable="v$.user.email.$invalid ||this.isLoading.registerEmail"/>
       </div>
-      <div class="data-field-container email-code">
+      <div v-if="email.key" class="data-field-container email-code">
+        <div class="info">
+          <i class="bi bi-patch-check-fill"></i>
+          Kod gönderildi. E-mail'e gelen kodu aşağıya yazınız.
+        </div>
         <input
             v-model="v$.email.code.$model"
             class="data-field"
             :class="{'has-error':v$.email.code.$error}"
-            placeholder="Email'e gelen kod">
+            maxlength="4"
+            minlength="0"
+            placeholder="____">
         <errors
             v-if="v$.email.code.$error"
             is-input-error="true"
@@ -72,29 +77,33 @@
 <script>
 import StandartButton from '../shared/elements/StandartButton';
 import Errors from '../shared/Errors';
-import { required, email } from '@vuelidate/validators';
-import errorMixin from '../../mixins/validateMixin';
-import useVuelidate from '@vuelidate/core';
+import validateMixin from '../../mixins/validateMixin';
 import { mapActions } from 'vuex';
+
+const uniqueEmail = () => {
+  return true;
+};
 
 export default {
   name: 'Register',
-  mixins: [errorMixin],
-  //TODO: Dynamic ?
-  setup() {
-    return { v$: useVuelidate() };
-  },
+  mixins: [validateMixin],
   data() {
     return {
-      isLoadingRegisterEmail: false,
-      isLoadingRegister: false,
+      v$: this.useVuelidate(),
+      isLoading: {
+        registerEmail: false,
+        loadingRegister: false
+      },
+      customValidator: {
+        uniqueEmail: false
+      },
       user: {
         nameSurname: '',
         email: '',
         password: ''
       },
       email: {
-        key: '',
+        key: 'd',
         code: ''
       }
     };
@@ -103,22 +112,28 @@ export default {
     return {
       user: {
         nameSurname: {
-          required: this.multipleLangError('errors.required', required)
+          required: this.multipleLangError('errors.required', this.validators.required)
         },
         email: {
-          required: this.multipleLangError('errors.required', required),
-          email: this.multipleLangError('errors.email', email)
+          required: this.multipleLangError('errors.required', this.validators.required),
+          email: this.multipleLangError('errors.email', this.validators.email),
+          uniqueEmail: this.multipleLangError('errors.uniqueEmail', uniqueEmail)
         },
         password: {
-          required: this.multipleLangError('errors.required', required)
+          required: this.multipleLangError('errors.required', this.validators.required)
         }
       },
       email: {
         code: {
-          required: this.multipleLangError('errors.required', required)
+          required: this.multipleLangError('errors.required', this.validators.required)
         }
       }
     };
+  },
+  computed: {
+    uniqueEmail() {
+      return false;
+    }
   },
   components: {
     StandartButton,
@@ -128,16 +143,17 @@ export default {
     ...mapActions(['postRegisterEmail', 'postRegister']),
     registerEmail() {
       this.$helpers.defaultHandler(async () => {
-        this.isLoadingRegisterEmail = true;
-        await this.postRegisterEmail(this.user.email);
+        this.isLoading.registerEmail = true;
+        this.email.key = await this.postRegisterEmail(this.user.email);
       }, (err) => {
+        console.log(err.response);
         if (err.response.status === 409) {
           alert('bu email zaten var !');
           return true;
         }
       })
           .finally(() => {
-            this.isLoadingRegisterEmail = false;
+            this.isLoading.registerEmail = false;
           });
     }
   }
@@ -160,15 +176,10 @@ export default {
       }
 
       .send-code-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
         background-color: $df-green-color;
         color: white;
         width: 150px;
         font-size: 12px;
-        cursor: pointer;
-        border-radius: 4px;
         margin-left: 5px;
         padding: 9px;
 
@@ -178,24 +189,27 @@ export default {
 
         &.disable {
           opacity: .3;
-          pointer-events: none;
-        }
-
-        i {
-          margin-right: 5px;
         }
       }
     }
 
     .email-code {
+      @include center-lg-box-shadow;
+      padding: 10px;
+      border-radius: 5px;
+
+      .info {
+        text-align: center;
+        font-size: 12px;
+        margin-bottom: 7px;
+        color: $df-green-color;
+      }
 
       .data-field {
-
-        &:not(placeholder) {
-          letter-spacing: 10px;
-          text-transform: uppercase;
-        }
-
+        font-weight: 800;
+        letter-spacing: 60px;
+        padding-left: 90px;
+        padding-right: 30px;
       }
     }
   }

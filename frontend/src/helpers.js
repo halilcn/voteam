@@ -55,7 +55,7 @@ helpers.defaultHandler = async (handle, customCatch = () => {}) => {
   try {
     await handle();
   } catch (err) {
-    if (await customCatch(err)) return;
+    if (err.response) if (await customCatch(err)) return;
     await notify.error('Bir hata oluştu.');
     console.log('hata');
     console.log(i18n); //this.$t(('customErrors.generalError'))
