@@ -25,11 +25,10 @@ class RegisterRequest extends FormRequest
     {
         return [
             'user.name' => ['required', 'string'],
-            'user.email' => ['required', 'email'],
+            'user.email' => ['required', 'email', 'unique:users,email'],
             'user.password' => ['required'],
             'email.key' => ['required'],
-            'email.code' => ['required']
-
+            'email.code' => ['required', 'max:4']
         ];
     }
 }

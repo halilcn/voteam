@@ -7,19 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterCodeRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\RegisterCodeResource;
-use App\Jobs\SendRegisterCode;
 use App\Models\User;
 use App\Models\UserRegisterCode;
-use App\Traits\Response\ApiResponser;
-use App\Traits\Token;
-use App\Traits\Image;
-use Illuminate\Support\Str;
 
 
 class RegisterController extends Controller
 {
-    use Token, Image, ApiResponser;
-
     public User $user;
 
     public function __construct()
@@ -27,36 +20,30 @@ class RegisterController extends Controller
         $this->user = new User();
     }
 
-    public function handle(RegisterRequest $request)
+    /**
+     * @param  RegisterRequest  $request
+     * @return object
+     */
+    public function handle(RegisterRequest $request): object
     {
-        //Todo: register henüz hazır değil! Email code?
-        //scope ??
-
         $userRegisterCode = UserRegisterCode::query()
             ->where([
                         'email' => $request->input('user.email'),
                         'key' => $request->input('email.key'),
                         'code' => $request->input('email.code')
                     ])
-            ->firstOrFail();
+            ->first();
 
+        if (!$userRegisterCode) {
+            return Exception::registerException();
+        }
 
-        return $userRegisterCode;
+        $userRegisterCode->delete();
 
-        //creatUser ?
-        $user = User::query()
-            ->create(
-                array_merge(
-                    $request->validated(),
-                    [
-                        'image' => $this->createDefaultProfileImage($request->input('name'))
-                    ]
-                )
-            );
+        $this->user->create($request->validated()['user']);
 
-        return $this->createToken($user);
+        return $this->createdResponse();
     }
-
 
     /**
      * @param  RegisterCodeRequest  $request

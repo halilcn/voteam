@@ -55,9 +55,19 @@ class User extends Authenticatable
     }
 
 
+    /**
+     * @param  string  $email
+     * @return bool
+     */
     public function checkExistsEmail(string $email): bool
     {
         return $this->where('email', $email)->exists();
+    }
+
+    //??
+    public function checkEmail()
+    {
+        return $this->where('email', $this->email);
     }
 
     /**
