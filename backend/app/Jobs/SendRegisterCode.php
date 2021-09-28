@@ -16,9 +16,15 @@ class SendRegisterCode implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $tries = 3;
+    /**
+     * @var int
+     */
+    public int $tries = 3;
 
-    public $timeout = 60;
+    /**
+     * @var int
+     */
+    public int $timeout = 60;
 
     /**
      * Create a new job instance.

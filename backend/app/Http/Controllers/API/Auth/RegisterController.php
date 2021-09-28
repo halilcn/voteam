@@ -30,6 +30,19 @@ class RegisterController extends Controller
     public function handle(RegisterRequest $request)
     {
         //Todo: register henüz hazır değil! Email code?
+        //scope ??
+
+        $userRegisterCode = UserRegisterCode::query()
+            ->where([
+                        'email' => $request->input('user.email'),
+                        'key' => $request->input('email.key'),
+                        'code' => $request->input('email.code')
+                    ])
+            ->firstOrFail();
+
+
+        return $userRegisterCode;
+
         //creatUser ?
         $user = User::query()
             ->create(
@@ -44,11 +57,14 @@ class RegisterController extends Controller
         return $this->createToken($user);
     }
 
+
+    /**
+     * @param  RegisterCodeRequest  $request
+     * @return object
+     */
     public function sendEmail(RegisterCodeRequest $request): object
     {
         $email = $request->input('email');
-
-        return Exception::registerEmailException();
 
         if ($this->user->checkExistsEmail($email)) {
             return Exception::registerEmailException();
@@ -59,15 +75,8 @@ class RegisterController extends Controller
             ->where('email', $email)
             ->delete();
 
-        $user = UserRegisterCode::query()
-            ->create([
-                         'key' => Str::random(),
-                         'code' => rand(1000, 9999),
-                         'email' => $email
-                     ]);
+        $userRegisterCode = UserRegisterCode::create(['email' => $email]);
 
-        SendRegisterCode::dispatch($user);
-
-        return $this->successResponse(RegisterCodeResource::make($user));
+        return $this->createdResponse(RegisterCodeResource::make($userRegisterCode));
     }
 }

@@ -15,7 +15,7 @@ class RegisterCodeResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'key' => $this->key,
+            'key' => $this->key
         ];
     }
 }
