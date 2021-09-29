@@ -19,8 +19,9 @@ export default {
       const { data } = await axios.post('login', payload);
       await commit('setUser', data);
     },
-    postRegister() {
-
+    async postRegister({ dispatch }, payload) {
+      await axios.post('register', payload);
+      await dispatch('postLogin', { email: payload.user.email, password: payload.user.password });
     },
     async postRegisterEmail(_, payload) {
       const { data } = await axios.post('register/email/send', { email: payload });

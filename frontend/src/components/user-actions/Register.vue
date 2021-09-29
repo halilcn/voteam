@@ -7,14 +7,14 @@
       {{ email }}
       <div class="data-field-container">
         <input
-            v-model="v$.user.nameSurname.$model"
+            v-model="v$.user.name.$model"
             class="data-field"
-            :class="{'has-error':v$.user.nameSurname.$error}"
+            :class="{'has-error':v$.user.name.$error}"
             placeholder="Ad ve Soyad">
         <errors
-            v-if="v$.user.nameSurname.$error"
+            v-if="v$.user.name.$error"
             is-input-error="true"
-            :content="$helpers.getOnlyErrors(v$.user.nameSurname.$errors)"/>
+            :content="$helpers.getOnlyErrors(v$.user.name.$errors)"/>
       </div>
       <div class="data-field-container email-confirmation">
         <div class="input-container">
@@ -30,11 +30,11 @@
         </div>
         <standart-button
             class="send-code-btn"
-            text=" Kod Gönder"
+            :text="isCodeSend ? 'Tekrar Gönder' : 'Kod Gönder'"
             @click="registerEmail"
-            :is-disable="v$.user.email.$invalid ||this.isLoading.registerEmail"/>
+            :is-disable="v$.user.email.$invalid ||isLoading.registerEmail"/>
       </div>
-      <div v-if="email.key" class="data-field-container email-code">
+      <div v-if="isCodeSend" class="data-field-container email-code">
         <div class="info">
           <i class="bi bi-patch-check-fill"></i>
           Kod gönderildi. E-mail'e gelen kodu aşağıya yazınız.
@@ -69,7 +69,8 @@
       <standart-button
           class="continue-btn"
           text="Oluştur"
-          :is-disable="v$.user.$invalid"/>
+          :is-disable="v$.user.$invalid || v$.email.$invalid || isLoading.register"
+          @click="register"/>
     </div>
   </div>
 </template>
@@ -80,10 +81,6 @@ import Errors from '../shared/Errors';
 import validateMixin from '../../mixins/validateMixin';
 import { mapActions } from 'vuex';
 
-const uniqueEmail = () => {
-  return true;
-};
-
 export default {
   name: 'Register',
   mixins: [validateMixin],
@@ -92,18 +89,19 @@ export default {
       v$: this.useVuelidate(),
       isLoading: {
         registerEmail: false,
-        loadingRegister: false
+        register: false
       },
       customValidator: {
-        uniqueEmail: false
+        isEmailUnique: true,
+        isInvalidCode: false
       },
       user: {
-        nameSurname: '',
+        name: '',
         email: '',
         password: ''
       },
       email: {
-        key: 'd',
+        key: '',
         code: ''
       }
     };
@@ -111,13 +109,13 @@ export default {
   validations() {
     return {
       user: {
-        nameSurname: {
+        name: {
           required: this.multipleLangError('errors.required', this.validators.required)
         },
         email: {
           required: this.multipleLangError('errors.required', this.validators.required),
           email: this.multipleLangError('errors.email', this.validators.email),
-          uniqueEmail: this.multipleLangError('errors.uniqueEmail', uniqueEmail)
+          uniqueEmail: this.multipleLangError('errors.uniqueEmail', this.uniqueEmail)
         },
         password: {
           required: this.multipleLangError('errors.required', this.validators.required)
@@ -125,14 +123,27 @@ export default {
       },
       email: {
         code: {
-          required: this.multipleLangError('errors.required', this.validators.required)
+          required: this.multipleLangError('errors.required', this.validators.required),
+          invalidCode: this.multipleLangError('errors.invalidCode', this.invalidCode)
         }
       }
     };
   },
   computed: {
     uniqueEmail() {
-      return false;
+      const self = this;
+      return () => {
+        return self.customValidator.isEmailUnique;
+      };
+    },
+    invalidCode() {
+      const self = this;
+      return () => {
+        return !self.customValidator.isInvalidCode;
+      };
+    },
+    isCodeSend() {
+      return this.email.key;
     }
   },
   components: {
@@ -146,15 +157,37 @@ export default {
         this.isLoading.registerEmail = true;
         this.email.key = await this.postRegisterEmail(this.user.email);
       }, (err) => {
-        console.log(err.response);
         if (err.response.status === 409) {
-          alert('bu email zaten var !');
+          this.customValidator.isEmailUnique = false;
           return true;
         }
       })
           .finally(() => {
             this.isLoading.registerEmail = false;
           });
+    },
+    register() {
+      this.$helpers.defaultHandler(async () => {
+        this.isLoading.register = true;
+        await this.postRegister({ user: this.user, email: this.email });
+        alert('Kayıt oldun !!');
+      }, (err) => {
+        if (err.response.status === 400) {
+          this.customValidator.isInvalidCode = true;
+          return true;
+        }
+      })
+          .finally(() => {
+            this.isLoading.register = false;
+          });
+    }
+  },
+  watch: {
+    'user.email': function () {
+      this.customValidator.isEmailUnique = true;
+    },
+    'email.code': function () {
+      this.customValidator.isInvalidCode = false;
     }
   }
 };
