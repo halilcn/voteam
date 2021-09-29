@@ -149,7 +149,7 @@ export default {
   methods: {
     ...mapActions(['postRegisterEmail', 'postRegister']),
     registerEmail() {
-      this.$helpers.defaultHandler(async () => {
+      this.handle(async () => {
         this.isLoading.registerEmail = true;
         this.email.key = await this.postRegisterEmail(this.user.email);
       }, (err) => {
@@ -163,7 +163,7 @@ export default {
           });
     },
     register() {
-      this.$helpers.defaultHandler(async () => {
+      this.handle(async () => {
         this.isLoading.register = true;
         await this.postRegister({ user: this.user, email: this.email });
         this.$router.push({ name: 'TeamsList' });

@@ -22,5 +22,6 @@ const app = createApp(App)
 
 app.config.globalProperties.$helpers = helpers;
 app.config.globalProperties.$notify = notify;
+app.config.globalProperties.handle = helpers.handle;
 
 app.mount('#app');

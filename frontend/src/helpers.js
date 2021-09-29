@@ -1,5 +1,4 @@
 import notify from './notify';
-import i18n from './localization/index';
 
 const helpers = {};
 
@@ -44,14 +43,14 @@ helpers.clickOutside = (self, dataName) => {
  * @param customCatch
  * @returns {Promise<void>}
  */
-helpers.defaultHandler = async (handle, customCatch = () => {}) => {
+helpers.handle = async (handle, customCatch = () => {}) => {
   try {
     await handle();
   } catch (err) {
     if (err.response) if (await customCatch(err)) return;
     await notify.error('Bir hata oluştu.');
-    console.log('hata');
-    console.log(i18n); //this.$t(('customErrors.generalError'))
+    //TODO: Multiple language
+    /* console.log(i18n); //this.$t(('customErrors.generalError'))*/
   }
 };
 

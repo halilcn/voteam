@@ -7,26 +7,26 @@
       <div class="data-field-container">
         <input
             type="email"
+            placeholder="E-mail"
             v-model="v$.user.email.$model"
             class="data-field"
-            :class="{'has-error':v$.user.email.$error}"
-            placeholder="E-mail">
+            :class="{'has-error':v$.user.email.$error}">
         <errors
             v-if="v$.user.email.$error"
             is-input-error="true"
-            :content="$helpers.getOnlyErrors(v$.user.email.$errors)"/>
+            :content="getOnlyErrors(v$.user.email.$errors)"/>
       </div>
       <div class="data-field-container">
         <input
             type="password"
+            placeholder="Şifre"
             v-model="v$.user.password.$model"
             class="data-field"
-            :class="{'has-error':v$.user.password.$error}"
-            placeholder="Şifre">
+            :class="{'has-error':v$.user.password.$error}">
         <errors
             v-if="v$.user.password.$error"
             is-input-error="true"
-            :content="$helpers.getOnlyErrors(v$.user.password.$errors)"/>
+            :content="getOnlyErrors(v$.user.password.$errors)"/>
       </div>
       <errors v-if="isWrongEmailOrPassword" content="E-mail ya da Şifre yanlış"/>
       <standart-button
@@ -78,7 +78,7 @@ export default {
   methods: {
     ...mapActions(['postLogin']),
     login() {
-      this.$helpers.defaultHandler(async () => {
+      this.handle(async () => {
         this.isLoadingLogin = true;
         await this.postLogin(this.user);
         this.$router.push({ name: 'TeamsList' });
