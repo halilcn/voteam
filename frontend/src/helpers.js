@@ -39,13 +39,6 @@ helpers.clickOutside = (self, dataName) => {
 };
 
 /**
- * Get only message of errors for vuelidate package
- */
-helpers.getOnlyErrors = (data) => {
-  return data.map(item => {return item.$message;});
-};
-
-/**
  * Shows an error alert when there is an error
  * @param handle
  * @param customCatch
