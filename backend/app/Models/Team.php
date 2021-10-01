@@ -11,4 +11,6 @@ class Team extends Model
 
     protected $table = 'teams';
     protected $fillable = ['code', 'name'];
+
+
 }

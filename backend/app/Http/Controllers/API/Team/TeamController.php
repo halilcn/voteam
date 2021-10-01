@@ -12,6 +12,6 @@ class TeamController extends Controller
     public function store(TeamRequest $request)
     {
         //Todo: crate olduğunda geri döndür
-        return "ok";
+        return $request->user();
     }
 }
