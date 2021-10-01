@@ -7,12 +7,23 @@
       <div class="create-team">
         <div class="form">
           <div class="input-container">
-            <input placeholder="Takım Adı" type="text">
+            <input
+                type="text"
+                placeholder="Takım Adı"
+                v-model="v$.team.name.$model"
+                class="data-field"
+                :class="{'has-error':v$.team.name.$error}">
+            <errors
+                v-if="v$.team.name.$error"
+                is-input-error="true"
+                :content="getOnlyErrors(v$.team.name.$errors)"/>
           </div>
           <info class="info-text" text="Takım oluşturduğunda otomatik olarak lider olarak atanırsın."/>
-          <standart-button text="Oluştur"
-                           is-disable="true"
-                           class="create-btn"/>
+          <standart-button
+              text="Oluştur"
+              :is-disable="v$.team.$invalid"
+              @click="createTeam"
+              class="create-btn"/>
         </div>
       </div>
     </template>
@@ -23,14 +34,45 @@
 import StandartButton from '../shared/elements/StandartButton';
 import Popup from '../shared/Popup';
 import Info from '../shared/Info';
+import Errors from '../shared/Errors';
+import validateMixin from '../../mixins/validateMixin';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'CreateTeamPopup',
+  mixins: [validateMixin],
+  data() {
+    return {
+      v$: this.useVuelidate(),
+      team: {
+        name: ''
+      }
+    };
+  },
+  validations() {
+    return {
+      team: {
+        name: {
+          required: this.multipleLangError('errors.required', this.validators.required)
+        }
+      }
+    };
+  },
   props: ['isEnable'],
   components: {
     Popup,
     StandartButton,
-    Info
+    Info,
+    Errors
+  },
+  methods: {
+    ...mapActions(['postCreateTeam']),
+    //Todo: İsim ?
+    createTeam() {
+      this.handle(async () => {
+        await this.postCreateTeam();
+      });
+    }
   }
 };
 </script>
@@ -38,7 +80,6 @@ export default {
 <style lang="scss" scoped>
 .create-team {
   .form {
-
     .input-container {
       margin: 5px 0;
 

@@ -64,6 +64,10 @@
   &:hover:not(:focus) {
     background-color: #f6f6f6;;
   }
+
+  &.has-error {
+    @include std-input-has-error;
+  }
 }
 
 @mixin std-input-has-error {
@@ -87,10 +91,6 @@
 
       input {
         @include std-input;
-
-        &.has-error {
-          @include std-input-has-error;
-        }
       }
     }
 

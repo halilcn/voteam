@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\Auth\LoginController;
 use App\Http\Controllers\API\Auth\RegisterController;
+use App\Http\Controllers\API\Team\TeamController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,11 +24,8 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::post('login', [LoginController::class, 'handle']);
 
-
     Route::group(['middleware' => 'auth:sanctum'], function () {
-        Route::get('/test', function () {
-
-        });
+        Route::resource('teams', TeamController::class);
     });
 });
 

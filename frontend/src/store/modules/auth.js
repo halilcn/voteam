@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export default {
   state: {
-    user: localStorage.getItem('user') || null
+    user: JSON.parse(localStorage.getItem('user')) ?? null
   },
   mutations: {
     setUser(state, payload) {
