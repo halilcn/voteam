@@ -5,10 +5,7 @@
       :is-enable="isEnable">
     <template v-slot:content>
       <div class="team-join">
-        <div class="info-text">
-          <i class="bi bi-info-circle"></i>
-          Takıma katılmak için takımın kodu gerekir.
-        </div>
+        <info class="info-text" text="Takıma katılmak için takımın kodu gerekir."/>
         <div class="form">
           <div class="input-container">
             <input type="text" maxlength="6">
@@ -25,6 +22,7 @@
 <script>
 import Popup from '../shared/Popup';
 import StandartButton from '../shared/elements/StandartButton';
+import Info from '../shared/Info';
 
 export default {
   name: 'JoinTeamPopup',
@@ -34,7 +32,8 @@ export default {
   props: ['isEnable'],
   components: {
     Popup,
-    StandartButton
+    StandartButton,
+    Info
   }
 };
 </script>
@@ -42,10 +41,6 @@ export default {
 <style lang="scss" scoped>
 .team-join {
   .info-text {
-    font-size: 13px;
-    font-weight: 300;
-    color: #414141;
-    text-align: center;
     margin-bottom: 10px;
   }
 

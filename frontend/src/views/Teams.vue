@@ -22,9 +22,11 @@
       </div>
     </div>
     <div class="teams-list">
-      <div class="item">
+      <router-link
+          class="item"
+          :to="{name:'TeamDashboardHome',params:{teamId:'12'}}">
         <div class="team-main-info">
-          <img src="../assets/illustrations/graphic.png"/>
+          <img src="../assets/illustrations/graphic.png" alt="team-img"/>
           <div class="team-name">
             test takım adı
           </div>
@@ -45,12 +47,14 @@
             52 kişi
           </div>
         </div>
-      </div>
-      <div class="item">
+      </router-link>
+      <router-link
+          class="item"
+          :to="{name:'TeamDashboardHome',params:{teamId:'12'}}">
         <div class="team-main-info">
-          <img src="../assets/illustrations/graphic.png"/>
+          <img src="../assets/illustrations/graphic.png" alt="team-img"/>
           <div class="team-name">
-            test takım adı
+            test 121
           </div>
         </div>
         <div class="team-infos">
@@ -69,12 +73,14 @@
             52 kişi
           </div>
         </div>
-      </div>
-      <div class="item">
+      </router-link>
+      <router-link
+          class="item"
+          :to="{name:'TeamDashboardHome',params:{teamId:'12'}}">
         <div class="team-main-info">
-          <img src="../assets/illustrations/graphic.png"/>
+          <img src="../assets/illustrations/graphic.png" alt="team-img"/>
           <div class="team-name">
-            test takım adı
+            asdsadsad asdas asdadsa 121
           </div>
         </div>
         <div class="team-infos">
@@ -93,7 +99,33 @@
             52 kişi
           </div>
         </div>
-      </div>
+      </router-link>
+      <router-link
+          class="item"
+          :to="{name:'TeamDashboardHome',params:{teamId:'12'}}">
+        <div class="team-main-info">
+          <img src="../assets/illustrations/graphic.png" alt="team-img"/>
+          <div class="team-name">
+            asdsadsad asdaasdas dsadasdsa dasdass asdadsa 121
+          </div>
+        </div>
+        <div class="team-infos">
+          <div class="title">
+            Takım Kodu
+          </div>
+          <div class="content">
+            #SFR32
+          </div>
+        </div>
+        <div class="team-infos">
+          <div class="title">
+            Üye Sayısı
+          </div>
+          <div class="content">
+            52 kişi
+          </div>
+        </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -249,5 +281,9 @@ export default {
       }
     }
   }
+}
+
+@media only screen and (max-width: $df-mobile-width) {
+
 }
 </style>
