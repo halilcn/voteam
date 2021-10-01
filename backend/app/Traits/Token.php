@@ -12,6 +12,6 @@ trait Token
      */
     public function createToken(User $user): string
     {
-        return $user->createToken('spa_token')->plainTextToken;
+        return $user->createToken('web_app_token')->plainTextToken;
     }
 }

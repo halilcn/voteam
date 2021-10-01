@@ -31,6 +31,6 @@ class UserRegisterCode extends Mailable
         return $this
             ->view('emails.users.register.code')
             ->with($this->code)
-            ->subject(config('app.name'));
+            ->subject(config('app.name').' | '.'Register Code');
     }
 }

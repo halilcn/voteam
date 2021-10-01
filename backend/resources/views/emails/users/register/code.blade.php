@@ -127,7 +127,7 @@
                                                                     <td align="center" valign="top"
                                                                         style="font-family:'Open Sans', sans-serif, Verdana; font-size:35px;letter-spacing: 10px; color:#4c4c4c; font-weight:bold; line-height:26px;"
                                                                         mc:edit="bm24-02">
-                                                                        <multiline>3612</multiline>
+                                                                        <multiline>{{$code}}</multiline>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>

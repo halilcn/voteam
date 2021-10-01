@@ -29,49 +29,4 @@ class UserRegisterCodeObserver
     {
         SendRegisterCode::dispatch($userRegisterCode);
     }
-
-
-    /**
-     * Handle the UserRegisterCode "updated" event.
-     *
-     * @param  \App\Models\UserRegisterCode  $userRegisterCode
-     * @return void
-     */
-    public function updated(UserRegisterCode $userRegisterCode)
-    {
-        //
-    }
-
-    /**
-     * Handle the UserRegisterCode "deleted" event.
-     *
-     * @param  \App\Models\UserRegisterCode  $userRegisterCode
-     * @return void
-     */
-    public function deleted(UserRegisterCode $userRegisterCode)
-    {
-        //
-    }
-
-    /**
-     * Handle the UserRegisterCode "restored" event.
-     *
-     * @param  \App\Models\UserRegisterCode  $userRegisterCode
-     * @return void
-     */
-    public function restored(UserRegisterCode $userRegisterCode)
-    {
-        //
-    }
-
-    /**
-     * Handle the UserRegisterCode "force deleted" event.
-     *
-     * @param  \App\Models\UserRegisterCode  $userRegisterCode
-     * @return void
-     */
-    public function forceDeleted(UserRegisterCode $userRegisterCode)
-    {
-        //
-    }
 }
