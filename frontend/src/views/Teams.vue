@@ -10,15 +10,15 @@
     <div class="teams-actions">
       <div @click="handleCreateTeamPopup" class="create-team-btn">
         <i class="bi bi-plus-lg"></i>
-        Takım Oluştur
+        <span class="txt">Takım Oluştur</span>
       </div>
       <div @click="handleJoinTeamPopup" class="join-team-btn">
         <i class="bi bi-people-fill"></i>
-        Takıma Katıl
+        <span class="txt">Takıma Katıl</span>
       </div>
       <div class="exit-btn">
         <i class="bi bi-box-arrow-right"></i>
-        Çıkış Yap
+        <span class="txt">Çıkış Yap</span>
       </div>
     </div>
     <div class="teams-list">
@@ -160,7 +160,7 @@ export default {
 
 <style lang="scss" scoped>
 .teams {
-  padding: 15px;
+  padding: $df-dsktp-lr-width-pdn;
   display: flex;
   flex-direction: column;
 
@@ -180,6 +180,10 @@ export default {
       border-radius: 5px;
       color: white;
       transition: .3s;
+
+      .txt {
+        margin-left: 5px;
+      }
     }
 
     .create-team-btn {
@@ -253,6 +257,7 @@ export default {
           margin-top: 7px;
           font-size: 14px;
           color: $df-blue-color;
+          text-align: center;
         }
       }
 
@@ -284,6 +289,72 @@ export default {
 }
 
 @media only screen and (max-width: $df-mobile-width) {
+  .teams {
+    padding: $df-mbl-lr-width-pdn;
 
+    .teams-actions {
+      display: flex;
+      justify-content: space-between;
+
+      div {
+        width: 48%;
+        padding: 6px 12px;
+        font-size: 13px;
+        text-align: center;
+      }
+
+      .join-team-btn {
+        margin-left: 0;
+      }
+
+      .exit-btn {
+        width: auto;
+        position: absolute;
+        right: 0;
+        top: 0;
+        border-radius: 0 0 0 5px;
+
+        .txt {
+          display: none;
+        }
+      }
+    }
+
+    .teams-list {
+      margin-top: 20px;
+
+      .item {
+        width: 100%;
+        padding: 5px;
+
+        .team-main-info {
+          width: 200px;
+
+          img {
+            width: 40px;
+            height: 40px;
+          }
+
+          .team-name {
+            margin-top: 5px;
+            font-size: 11px;
+          }
+        }
+
+        .team-infos {
+          width: 100%;
+
+          .title {
+            font-size: 12px;
+          }
+
+          .content {
+            font-size: 11px;
+            padding: 4px 8px;
+          }
+        }
+      }
+    }
+  }
 }
 </style>
