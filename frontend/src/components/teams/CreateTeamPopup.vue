@@ -70,10 +70,11 @@ export default {
     //Todo: İsim ?
     createTeam() {
       this.handle(async () => {
-        await this.postCreateTeam();
+        //await this.getTeams();
+        //await this.postCreateTeam();
       });
     }
-  }
+  },
 };
 </script>
 

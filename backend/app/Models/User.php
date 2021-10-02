@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -55,7 +56,6 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($password);
     }
 
-
     /**
      * @param  string  $email
      * @return bool
@@ -74,4 +74,15 @@ class User extends Authenticatable
         return Hash::check($reqPassword, $this->password);
     }
 
+    /**
+     * @return BelongsToMany
+     */
+    public function teams(): BelongsToMany
+    {
+        return $this->belongsToMany(Team::class)
+            ->using(TeamUser::class)
+            ->withPivot('role_id')
+            ->as('member')
+            ->withTimestamps();
+    }
 }

@@ -21,6 +21,7 @@
         <span class="txt">Çıkış Yap</span>
       </div>
     </div>
+    {{ $store.state.team.teams }}
     <div class="teams-list">
       <router-link
           class="item"
@@ -133,6 +134,7 @@
 <script>
 import CreateTeamPopup from '../components/teams/CreateTeamPopup';
 import JoinTeamPopup from '../components/teams/JoinTeamPopup';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'Teams',
@@ -147,14 +149,21 @@ export default {
     JoinTeamPopup
   },
   methods: {
+    ...mapActions(['getTeams']),
     handleCreateTeamPopup() {
       this.isEnableCreateTeamPopup = !this.isEnableCreateTeamPopup;
     },
     handleJoinTeamPopup() {
       this.isEnableJoinTeamPopup = !this.isEnableJoinTeamPopup;
     }
+  },
+  computed: {
+    ...mapState(['teams'])
+  },
+  //TODO:before create?? loadign ekran ??
+  async created() {
+    await this.getTeams();
   }
-
 };
 </script>
 

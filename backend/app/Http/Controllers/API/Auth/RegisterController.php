@@ -6,7 +6,7 @@ use App\Exceptions\Exception;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterCodeRequest;
 use App\Http\Requests\Auth\RegisterRequest;
-use App\Http\Resources\RegisterCodeResource;
+use App\Http\Resources\Auth\RegisterCodeResource;
 use App\Models\User;
 use App\Models\UserRegisterCode;
 
