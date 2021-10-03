@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\Auth\LoginController;
+use App\Http\Controllers\API\Auth\LogoutController;
 use App\Http\Controllers\API\Auth\RegisterController;
 use App\Http\Controllers\API\Team\TeamController;
 use Illuminate\Http\Request;
@@ -26,6 +27,8 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::resource('teams', TeamController::class);
+
+        Route::post('logout', [LogoutController::class, 'handle']);
     });
 });
 

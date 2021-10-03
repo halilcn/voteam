@@ -16,7 +16,7 @@
         <i class="bi bi-people-fill"></i>
         <span class="txt">Takıma Katıl</span>
       </div>
-      <div class="exit-btn">
+      <div @click="logout" class="exit-btn">
         <i class="bi bi-box-arrow-right"></i>
         <span class="txt">Çıkış Yap</span>
       </div>
@@ -89,17 +89,23 @@ export default {
   },
   methods: {
     ...mapActions('team', ['getTeams']),
+    ...mapActions('auth', ['postLogout']),
     handleCreateTeamPopup() {
       this.isEnableCreateTeamPopup = !this.isEnableCreateTeamPopup;
     },
     handleJoinTeamPopup() {
       this.isEnableJoinTeamPopup = !this.isEnableJoinTeamPopup;
+    },
+    logout() {
+      this.handle(async () => {
+        await this.postLogout();
+        this.$router.push({ name: 'Home' });
+      });
     }
   },
   computed: {
     ...mapState('team', ['teams'])
   },
-  //TODO:before create?? loadign ekran ??
   created() {
     this.handle(async () => {
       await this.getTeams();
