@@ -21,7 +21,7 @@
         <span class="txt">Çıkış Yap</span>
       </div>
     </div>
-    {{ $store.state.team.teams }}
+    {{ teams }}
     <div class="teams-list">
       <router-link
           class="item"
@@ -158,7 +158,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['teams'])
+    ...mapState('team', ['teams'])
   },
   //TODO:before create?? loadign ekran ??
   async created() {

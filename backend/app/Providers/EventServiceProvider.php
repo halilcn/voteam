@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Team;
 use App\Models\User;
 use App\Models\UserRegisterCode;
+use App\Observers\TeamObserver;
 use App\Observers\UserObserver;
 use App\Observers\UserRegisterCodeObserver;
 use Illuminate\Auth\Events\Registered;
@@ -33,5 +35,6 @@ class EventServiceProvider extends ServiceProvider
     {
         UserRegisterCode::observe(UserRegisterCodeObserver::class);
         User::observe(UserObserver::class);
+        Team::observe(TeamObserver::class);
     }
 }

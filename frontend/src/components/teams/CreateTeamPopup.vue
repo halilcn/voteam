@@ -53,7 +53,8 @@ export default {
     return {
       team: {
         name: {
-          required: this.multipleLangError('errors.required', this.validators.required)
+          required: this.multipleLangError('errors.required', this.validators.required),
+          maxLength: this.multipleLangError('errors.maxLength', this.validators.maxLength(25))
         }
       }
     };
@@ -67,14 +68,15 @@ export default {
   },
   methods: {
     ...mapActions(['postCreateTeam']),
-    //Todo: İsim ?
     createTeam() {
       this.handle(async () => {
-        //await this.getTeams();
-        //await this.postCreateTeam();
+        // await this.postCreateTeam(this.team);
+        this.team.name = '';
+        //this.$v.$reset();
+        this.$emit('handlePopup');
       });
     }
-  },
+  }
 };
 </script>
 

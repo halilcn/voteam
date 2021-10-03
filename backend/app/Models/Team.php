@@ -11,7 +11,17 @@ class Team extends Model
     use HasFactory;
 
     protected $table = 'teams';
-    protected $fillable = ['key', 'join_code', 'name'];
+    protected $fillable = ['key', 'join_code', 'name', 'image'];
+
+
+    /**
+     * @param  string  $value
+     * @return string
+     */
+    public function getJoinCodeAttribute(string $value): string
+    {
+        return '#'.$value;
+    }
 
     /**
      * @return BelongsToMany
