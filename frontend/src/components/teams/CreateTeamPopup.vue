@@ -18,10 +18,10 @@
                 is-input-error="true"
                 :content="getOnlyErrors(v$.team.name.$errors)"/>
           </div>
-          <info class="info-text" text="Takım oluşturduğunda otomatik olarak lider olarak atanırsın."/>
+          <info class="info-text" text="Oluşturduğun takıma lider olarak atanırsın."/>
           <standart-button
               text="Oluştur"
-              :is-disable="v$.team.$invalid"
+              :is-disable="v$.team.$invalid || isLoadingCreateTeam"
               @click="createTeam"
               class="create-btn"/>
         </div>
@@ -41,9 +41,11 @@ import { mapActions } from 'vuex';
 export default {
   name: 'CreateTeamPopup',
   mixins: [validateMixin],
+  props: ['isEnable'],
   data() {
     return {
       v$: this.useVuelidate(),
+      isLoadingCreateTeam: false,
       team: {
         name: ''
       }
@@ -59,7 +61,6 @@ export default {
       }
     };
   },
-  props: ['isEnable'],
   components: {
     Popup,
     StandartButton,
@@ -70,7 +71,9 @@ export default {
     ...mapActions('team', ['postCreateTeam']),
     createTeam() {
       this.handle(async () => {
+        this.isLoadingCreateTeam = true;
         await this.postCreateTeam(this.team);
+        this.isLoadingCreateTeam = false;
         this.team.name = '';
         this.v$.team.$reset();
         this.$emit('handlePopup');

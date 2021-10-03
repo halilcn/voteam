@@ -6,7 +6,7 @@
       @handlePopup="handleJoinTeamPopup"
       :is-enable="isEnableJoinTeamPopup"/>
   <div class="teams">
-    <img class="voteam-logo" src="../assets/logos/voteam.png" alt="logo"/>
+    <img class="voteam-logo" src="../assets/logos/voteam.png" alt="voteam-logo"/>
     <div class="teams-actions">
       <div @click="handleCreateTeamPopup" class="create-team-btn">
         <i class="bi bi-plus-lg"></i>
@@ -217,7 +217,6 @@ export default {
         align-items: center;
         justify-content: space-between;
         width: 35%;
-
 
         .title {
           font-size: 16px;
