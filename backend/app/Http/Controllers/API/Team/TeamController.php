@@ -16,7 +16,7 @@ class TeamController extends Controller
     {
         return $this->successResponse(
             TeamResource::collection(
-                $request->user()->teams()->withCount('users')->get()
+                $request->user()->teams()->withCount('users')->orderByDesc('created_at')->get()
             )
         );
     }
@@ -27,12 +27,12 @@ class TeamController extends Controller
      */
     public function store(TeamRequest $request): object
     {
-        //bu gerekli mi?
-        //     $this->transaction(function () use ($request) {
-        $team = Team::create(['name' => $request->input('name')]);
-        $team->users_count = 1;
+        //TOdo: koin code harfte olsun ! büyük farf ?
+        return $this->transaction(function () use ($request) {
+            $team = Team::create(['name' => $request->input('name')]);
+            $team->users_count = 1;
 
-        return $this->createdResponse(TeamResource::make($team));
-        //   });
+            return $this->createdResponse(TeamResource::make($team));
+        });
     }
 }

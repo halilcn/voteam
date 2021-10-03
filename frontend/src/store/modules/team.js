@@ -7,17 +7,16 @@ export default {
   mutations: {
     setTeam(state, payload) {
       if (payload instanceof Array) {
-        payload.forEach(item => {state.teams.push(item);});
+        state.teams = payload;
         return;
       }
-      state.teams.push(payload);
+      state.teams.unshift(payload);
     }
   },
   actions: {
     async getTeams({ commit }) {
       const { data } = await axios.get('teams');
-      console.log(data);
-      commit('setTeam', data);
+      await commit('setTeam', data);
     },
     async postCreateTeam({ commit }, payload) {
       const { data } = await axios.post('teams', payload);

@@ -70,9 +70,9 @@ export default {
     ...mapActions('team', ['postCreateTeam']),
     createTeam() {
       this.handle(async () => {
-        // await this.postCreateTeam(this.team);
+        await this.postCreateTeam(this.team);
         this.team.name = '';
-        //this.$v.$reset();
+        this.v$.team.$reset();
         this.$emit('handlePopup');
       });
     }

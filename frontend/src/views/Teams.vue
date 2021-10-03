@@ -21,112 +21,48 @@
         <span class="txt">Çıkış Yap</span>
       </div>
     </div>
-    {{ teams }}
     <div class="teams-list">
-      <router-link
-          class="item"
-          :to="{name:'TeamDashboardHome',params:{teamId:'12'}}">
-        <div class="team-main-info">
-          <img src="../assets/illustrations/graphic.png" alt="team-img"/>
-          <div class="team-name">
-            test takım adı
-          </div>
+      <template v-if="!isLoadingTeams">
+        <template v-if="teams.length > 0">
+          <router-link
+              v-for="(team,index) in teams"
+              :key="index"
+              class="item"
+              :to="{name:'TeamDashboardHome',params:{teamId:team.key}}">
+            <div class="team-main-info">
+              <img :src="team.image" alt="team-img"/>
+              <div class="team-name">
+                {{ team.name }}
+              </div>
+            </div>
+            <div class="team-infos">
+              <div class="title">
+                Takım Kodu
+              </div>
+              <div class="content">
+                {{ team.join_code }}
+              </div>
+            </div>
+            <div class="team-infos">
+              <div class="title">
+                Üye Sayısı
+              </div>
+              <div class="content">
+                {{ team.users_count }} kişi
+              </div>
+            </div>
+          </router-link>
+        </template>
+        <div v-else class="no-team">
+          <i class="bi bi-emoji-frown"></i>
+          Şuan hiç takımın yok. Takım oluşturabilir ya da takımlara katılabilirsin.
         </div>
-        <div class="team-infos">
-          <div class="title">
-            Takım Kodu
-          </div>
-          <div class="content">
-            #SFR32
-          </div>
-        </div>
-        <div class="team-infos">
-          <div class="title">
-            Üye Sayısı
-          </div>
-          <div class="content">
-            52 kişi
-          </div>
-        </div>
-      </router-link>
-      <router-link
-          class="item"
-          :to="{name:'TeamDashboardHome',params:{teamId:'12'}}">
-        <div class="team-main-info">
-          <img src="../assets/illustrations/graphic.png" alt="team-img"/>
-          <div class="team-name">
-            test 121
-          </div>
-        </div>
-        <div class="team-infos">
-          <div class="title">
-            Takım Kodu
-          </div>
-          <div class="content">
-            #SFR32
-          </div>
-        </div>
-        <div class="team-infos">
-          <div class="title">
-            Üye Sayısı
-          </div>
-          <div class="content">
-            52 kişi
-          </div>
-        </div>
-      </router-link>
-      <router-link
-          class="item"
-          :to="{name:'TeamDashboardHome',params:{teamId:'12'}}">
-        <div class="team-main-info">
-          <img src="../assets/illustrations/graphic.png" alt="team-img"/>
-          <div class="team-name">
-            asdsadsad asdas asdadsa 121
-          </div>
-        </div>
-        <div class="team-infos">
-          <div class="title">
-            Takım Kodu
-          </div>
-          <div class="content">
-            #SFR32
-          </div>
-        </div>
-        <div class="team-infos">
-          <div class="title">
-            Üye Sayısı
-          </div>
-          <div class="content">
-            52 kişi
-          </div>
-        </div>
-      </router-link>
-      <router-link
-          class="item"
-          :to="{name:'TeamDashboardHome',params:{teamId:'12'}}">
-        <div class="team-main-info">
-          <img src="../assets/illustrations/graphic.png" alt="team-img"/>
-          <div class="team-name">
-            asdsadsad asdaasdas dsadasdsa dasdass asdadsa 121
-          </div>
-        </div>
-        <div class="team-infos">
-          <div class="title">
-            Takım Kodu
-          </div>
-          <div class="content">
-            #SFR32
-          </div>
-        </div>
-        <div class="team-infos">
-          <div class="title">
-            Üye Sayısı
-          </div>
-          <div class="content">
-            52 kişi
-          </div>
-        </div>
-      </router-link>
+      </template>
+      <loading-animation
+          v-else
+          :textLineCount="3"
+          :textCount="3"
+          :textLineHeight="14"/>
     </div>
   </div>
 </template>
@@ -134,6 +70,7 @@
 <script>
 import CreateTeamPopup from '../components/teams/CreateTeamPopup';
 import JoinTeamPopup from '../components/teams/JoinTeamPopup';
+import LoadingAnimation from '../components/shared/LoadingAnimation';
 import { mapState, mapActions } from 'vuex';
 
 export default {
@@ -141,12 +78,14 @@ export default {
   data() {
     return {
       isEnableCreateTeamPopup: false,
-      isEnableJoinTeamPopup: false
+      isEnableJoinTeamPopup: false,
+      isLoadingTeams: true
     };
   },
   components: {
     CreateTeamPopup,
-    JoinTeamPopup
+    JoinTeamPopup,
+    LoadingAnimation
   },
   methods: {
     ...mapActions('team', ['getTeams']),
@@ -161,8 +100,11 @@ export default {
     ...mapState('team', ['teams'])
   },
   //TODO:before create?? loadign ekran ??
-  async created() {
-    await this.getTeams();
+  created() {
+    this.handle(async () => {
+      await this.getTeams();
+      this.isLoadingTeams = false;
+    });
   }
 };
 </script>
@@ -258,7 +200,6 @@ export default {
         img {
           width: 60px;
           height: 60px;
-          background-color: red;
           border-radius: 100%;
         }
 
@@ -293,6 +234,13 @@ export default {
           border-radius: 4px;
         }
       }
+    }
+
+    .no-team {
+      font-weight: 300;
+      margin: 20px auto 0 auto;
+      font-size: 15px;
+      color: #818181;
     }
   }
 }
