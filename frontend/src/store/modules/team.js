@@ -24,5 +24,6 @@ export default {
       await commit('setTeam', data);
     }
   },
-  getters: {}
+  getters: {},
+  namespaced: true
 };

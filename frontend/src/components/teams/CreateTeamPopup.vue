@@ -67,7 +67,7 @@ export default {
     Errors
   },
   methods: {
-    ...mapActions(['postCreateTeam']),
+    ...mapActions('team', ['postCreateTeam']),
     createTeam() {
       this.handle(async () => {
         // await this.postCreateTeam(this.team);

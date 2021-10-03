@@ -147,7 +147,7 @@ export default {
     Errors
   },
   methods: {
-    ...mapActions(['postRegisterEmail', 'postRegister']),
+    ...mapActions('auth', ['postRegisterEmail', 'postRegister']),
     registerEmail() {
       this.handle(async () => {
         this.isLoading.registerEmail = true;

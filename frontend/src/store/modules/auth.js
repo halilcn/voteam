@@ -33,9 +33,5 @@ export default {
       await commit('removeUser');
     }
   },
-  getters: {
-    checkAuth(state) {
-      return !!state.user;
-    }
-  }
+  namespaced: true
 };

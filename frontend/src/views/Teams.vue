@@ -149,7 +149,7 @@ export default {
     JoinTeamPopup
   },
   methods: {
-    ...mapActions(['getTeams']),
+    ...mapActions('team', ['getTeams']),
     handleCreateTeamPopup() {
       this.isEnableCreateTeamPopup = !this.isEnableCreateTeamPopup;
     },

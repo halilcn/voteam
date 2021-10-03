@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import store from '../store';
 
 const checkAuth = () => {
-  return store.getters.checkAuth;
+  return !!store.state.auth.user;
 };
 
 const guest = (to, from, next) => {

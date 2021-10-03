@@ -76,7 +76,7 @@ export default {
     Errors
   },
   methods: {
-    ...mapActions(['postLogin']),
+    ...mapActions('auth', ['postLogin']),
     login() {
       this.handle(async () => {
         this.isLoadingLogin = true;
