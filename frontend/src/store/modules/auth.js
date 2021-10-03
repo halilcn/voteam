@@ -17,7 +17,7 @@ export default {
   actions: {
     async postLogin({ commit }, payload) {
       const { data } = await axios.post('login', payload);
-      await commit('setUser', data);
+      commit('setUser', data);
     },
     async postRegister({ dispatch }, payload) {
       await axios.post('register', payload);
@@ -30,7 +30,7 @@ export default {
     },
     async postLogout({ commit }) {
       await axios.post('logout');
-      await commit('removeUser');
+      commit('removeUser');
     }
   },
   namespaced: true

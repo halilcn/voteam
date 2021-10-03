@@ -16,11 +16,11 @@ export default {
   actions: {
     async getTeams({ commit }) {
       const { data } = await axios.get('teams');
-      await commit('setTeam', data);
+      commit('setTeam', data);
     },
     async postCreateTeam({ commit }, payload) {
       const { data } = await axios.post('teams', payload);
-      await commit('setTeam', data);
+      commit('setTeam', data);
     }
   },
   getters: {},
