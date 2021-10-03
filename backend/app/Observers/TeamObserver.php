@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\Role;
 use App\Models\Team;
 use App\Traits\Image;
+use Illuminate\Support\Str;
 
 
 class TeamObserver
@@ -18,8 +19,8 @@ class TeamObserver
     public function creating(Team $team)
     {
         $team->key = random_int(1000000000, 9999999999);
-        $team->join_code = random_int(10000, 99999);
-        $team->image = $this->createDefaultProfileImage($team->name);
+        $team->join_code = strtoupper(Str::random(5));
+        $team->image = $this->createDefaultTeamImage($team->name);
     }
 
     /**
