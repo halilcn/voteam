@@ -73,11 +73,13 @@ export default {
       this.handle(async () => {
         this.isLoadingCreateTeam = true;
         await this.postCreateTeam(this.team);
-        this.isLoadingCreateTeam = false;
         this.team.name = '';
         this.v$.team.$reset();
         this.$emit('handlePopup');
-      });
+      })
+          .finally(() => {
+            this.isLoadingCreateTeam = false;
+          });
     }
   }
 };
