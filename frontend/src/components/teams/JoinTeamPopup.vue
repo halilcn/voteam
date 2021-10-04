@@ -25,7 +25,7 @@
         <errors
             v-if="isWrongCode"
             class="join-code-error"
-            content="Girilen kod yanlış ya da bu takımdasın"/>
+            content="Girilen kod yanlış ya da bu takıma daha önce katıldın."/>
       </div>
     </template>
   </popup>
@@ -102,8 +102,8 @@ export default {
       display: flex;
 
       .number-sign {
-        color: $df-dark-blue-color;
-        background-color: $df-light-black;
+        color: #b4b4b4;
+        background-color: #f3f3f3;
         display: flex;
         align-items: center;
         font-size: 25px;
