@@ -79,6 +79,11 @@ const routes = [
         path: '/teams/:teamId/settings',
         name: 'TeamDashboardSettings',
         component: () => import('../components/dashboard/team/Settings')
+      },
+      {
+        path: '/teams/:teamId/notifications',
+        name: 'TeamDashboardNotifications',
+        component: () => import('../components/dashboard/team/Notifications')
       }
     ]
   }

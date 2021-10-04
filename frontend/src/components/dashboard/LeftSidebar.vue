@@ -4,44 +4,48 @@
       logo
     </div>
     <div class="menu">
-      <div class="item selected">
+      <router-link
+          class="item"
+          :to="{name:'TeamDashboardHome'}"
+          exact-active-class="selected">
         <div class="icon">
-          <i class="bi bi-house-fill"></i>
+          <i class="bi bi-house-fill fill-icon"></i>
+          <i class="bi bi-house normal-icon"></i>
         </div>
         <div class="tooltip-title">
           Anasayfa
         </div>
-      </div>
-      <div class="item">
+      </router-link>
+      <router-link
+          class="item"
+          :to="{name:'TeamDashboardSettings'}"
+          exact-active-class="selected">
         <div class="icon">
-          <i class="bi bi-gear"></i>
+          <i class="bi bi-gear-fill fill-icon"></i>
+          <i class="bi bi-gear normal-icon"></i>
         </div>
         <div class="tooltip-title">
           Ayarlar
         </div>
-      </div>
-      <div class="item">
+      </router-link>
+      <router-link
+          class="item"
+          :to="{name:'TeamDashboardNotifications'}"
+          exact-active-class="selected">
         <div class="icon">
-          <i class="bi bi-bell"></i>
+          <i class="bi bi-bell-fill fill-icon"></i>
+          <i class="bi bi-bell normal-icon"></i>
         </div>
         <div class="tooltip-title">
           Bildirimler
         </div>
-      </div>
+      </router-link>
     </div>
-    <div class="teams-list">
-      <div class="create-team-btn">
+    <div class="team">
+      <div class="team-list-btn">
         <i class="bi bi-plus-lg"></i>
       </div>
-      <img class="item active" src="../../assets/test/team.png"/>
-      <img class="item" src="../../assets/test/team.png"/>
-      <img class="item" src="../../assets/test/team.png"/>
-      <img class="item" src="../../assets/test/team.png"/>
-      <img class="item" src="../../assets/test/team.png"/>
-      <img class="item" src="../../assets/test/team.png"/>
-      <img class="item" src="../../assets/test/team.png"/>
-      <img class="item" src="../../assets/test/team.png"/>
-      <img class="item" src="../../assets/test/team.png"/>
+      <img class="active-team" src="../../assets/test/team.png" alt="team-image"/>
     </div>
   </div>
 </template>
@@ -54,7 +58,7 @@ export default {
 
 <style lang="scss" scoped>
 .left-sidebar {
-  @include right-md-box-shadow;
+  @include center-lg-box-shadow;
   background-color: white;
   width: 70px;
   height: 100%;
@@ -91,6 +95,14 @@ export default {
       &.selected {
         .icon {
           color: $df-blue-color;
+
+          .fill-icon {
+            display: block;
+          }
+
+          .normal-icon {
+            display: none;
+          }
         }
 
         &:before {
@@ -107,6 +119,14 @@ export default {
       .icon {
         font-size: 24px;
         color: $df-mdl-dark-black-color;
+
+        .fill-icon {
+          display: none;
+        }
+
+        .normal-icon {
+          display: block;
+        }
       }
 
       .tooltip-title {
@@ -123,45 +143,30 @@ export default {
     }
   }
 
-  .teams-list {
-    //TODO: fazla takım olduğunda scrool !
+  .team {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 150px;
-    overflow-y: auto;
 
-    div {
-      cursor: pointer;
-    }
-
-    .create-team-btn {
+    .team-list-btn {
       padding: 10px 14px;
       border-radius: 100%;
       color: #657179;
       transition: .2s;
+      cursor: pointer;
 
       &:hover {
         background-color: #edf0f3;
       }
     }
 
-    .item {
-      cursor: pointer;
+    .active-team {
       margin: 5px 0;
       background-color: #c5d4de;
       width: 40px;
       height: 40px;
       border-radius: 100%;
       transition: .2s;
-
-      &:not(.active):hover {
-        transform: scale(1.04);
-      }
-
-      &.active {
-        padding: 4px;
-      }
     }
   }
 }

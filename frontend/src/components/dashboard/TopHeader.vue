@@ -5,8 +5,21 @@
         <i class="bi bi-bell-fill"></i>
       </div>
       <div v-if="isShowNotificationListDropdown" class="notifications-list-dropdown">
+        <div class="top">
+          <div class="title">
+            Bildirimler
+          </div>
+          <div class="notifications-actions">
+            silme
+          </div>
+        </div>
         <div class="item">
-          notificationasokdoas sdfjks ofdsf
+          <div class="text">
+            notificationasokdoas sdfjks ofdsf asdasd
+          </div>
+          <div class="delete-btn">
+            <i class="bi bi-gear-fill"></i>
+          </div>
         </div>
         <div class="item">
           noti asd asd asda das das sad asdas dadasdasd ficationasokdoas sdfjks ofdsf
@@ -14,7 +27,7 @@
       </div>
     </div>
     <div @click="handleUserMenuDropdown" class="user-info">
-      <img class="image" src="../../assets/test/me.jpg" height="460" width="460"/>
+      <img class="image" src="../../assets/test/me.jpg" height="460" width="460" alt="user-image"/>
       <div class="name">Halil Can</div>
       <div v-if="isShowUserMenuDropdown" class="menu-dropdown">
         <div class="item">
@@ -36,7 +49,7 @@ export default {
   data() {
     return {
       isShowUserMenuDropdown: false,
-      isShowNotificationListDropdown: false
+      isShowNotificationListDropdown: true
     };
   },
   methods: {
@@ -79,12 +92,38 @@ export default {
 
     .notifications-list-dropdown {
       @include center-md-box-shadow;
+      width: 400px;
       font-size: 14px;
-      padding: 7px;
       border-radius: 5px;
       position: absolute;
       background-color: white;
       right: 0;
+      overflow: hidden;
+
+      .top {
+        display: flex;
+        align-items: center;
+        background-color: $df-very-light-blue-color;
+        padding: 8px;
+
+        .title {
+          color: $df-blue-color;
+        }
+
+        .notifications-actions {
+          margin-left: auto;
+        }
+      }
+
+      .item {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        cursor: pointer;
+
+        .exit-btn{
+        }
+      }
     }
   }
 
