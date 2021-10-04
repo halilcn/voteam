@@ -8,6 +8,7 @@ namespace App\Exceptions;
  * @method static authenticateException($message = '')
  * @method static registerEmailException($message = '')
  * @method static registerException($message = '')
+ * @method static joinTeamException($message = '')
  */
 class Exception
 {

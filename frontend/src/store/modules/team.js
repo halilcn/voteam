@@ -21,6 +21,10 @@ export default {
     async postCreateTeam({ commit }, payload) {
       const { data } = await axios.post('teams', payload);
       commit('setTeam', data);
+    },
+    async postJoinTeam({ commit }, payload) {
+      const { data } = await axios.post('teams/join', payload);
+      commit('setTeam', data);
     }
   },
   getters: {},

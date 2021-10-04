@@ -4,6 +4,7 @@ use App\Http\Controllers\API\Auth\LoginController;
 use App\Http\Controllers\API\Auth\LogoutController;
 use App\Http\Controllers\API\Auth\RegisterController;
 use App\Http\Controllers\API\Team\TeamController;
+use App\Http\Controllers\API\Team\TeamJoinWithCodeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,10 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::resource('teams', TeamController::class);
+
+        Route::post('teams/join', [TeamJoinWithCodeController::class, 'handle']);
+
+        //Route::get('/teams/1212121/users');
 
         Route::post('logout', [LogoutController::class, 'handle']);
     });
