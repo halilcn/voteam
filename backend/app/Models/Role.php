@@ -9,6 +9,12 @@ class Role extends Model
 {
     use HasFactory;
 
+    public static array $ROLES = [
+        "LEAD" => "lead",
+        "MANAGER" => "manager",
+        "MEMBER" => "member"
+    ];
+
     protected $table = 'roles';
     protected $fillable = ['name', 'description', 'permission'];
 

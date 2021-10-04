@@ -32,7 +32,7 @@ class TeamObserver
     public function created(Team $team)
     {
         $role = Role::query()
-            ->where('name', 'lead')
+            ->where('name', Role::$ROLES['LEAD'])
             ->first('id');
 
         request()->user()->teams()->attach($team->id, ['role_id' => $role?->id ?? 0]);
