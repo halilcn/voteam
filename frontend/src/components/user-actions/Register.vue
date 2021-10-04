@@ -166,7 +166,6 @@ export default {
       this.handle(async () => {
         this.isLoading.register = true;
         await this.postRegister({ user: this.user, email: this.email });
-        this.$router.push({ name: 'TeamsList' });
       }, (err) => {
         if (err.response.status === 400) {
           this.customValidator.isValidCode = false;

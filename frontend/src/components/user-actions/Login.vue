@@ -81,7 +81,6 @@ export default {
       this.handle(async () => {
         this.isLoadingLogin = true;
         await this.postLogin(this.user);
-        this.$router.push({ name: 'TeamsList' });
       }, (err) => {
         if (err.response.status === 400) {
           this.isWrongEmailOrPassword = true;
