@@ -1,13 +1,13 @@
 <template>
   <div class="register">
     <div class="title">
-      Takım oluşturmak veya takımlara katılmak için kayıt olmak gerekir.
+      {{ $t('register.infoText') }}
     </div>
     <div class="content">
       <div class="data-field-container">
         <input
             type="text"
-            placeholder="Ad ve Soyad"
+            :placeholder="$t('general.input.nameAndSurname')"
             v-model="v$.user.name.$model"
             class="data-field"
             :class="{'has-error':v$.user.name.$error}">
@@ -20,7 +20,7 @@
         <div class="input-container">
           <input
               type="email"
-              placeholder="E-mail"
+              :placeholder="$t('general.input.email')"
               v-model="v$.user.email.$model"
               class="data-field"
               :class="{'has-error':v$.user.email.$error,'code-sent':isCodeSent}">
@@ -31,17 +31,17 @@
         </div>
         <standart-button
             class="send-code-btn"
-            :text="isCodeSent ? 'Tekrar Gönder' : 'Kod Gönder'"
+            :text="isCodeSent ? $t('register.resendCodeButton') : $t('register.sendCodeButton')"
             @click="registerEmail"
             :is-disable="v$.user.email.$invalid ||isLoading.registerEmail"/>
       </div>
       <div v-if="isCodeSent" class="data-field-container email-code">
         <div class="info">
           <i class="bi bi-patch-check-fill"></i>
-          Kod gönderildi. Gelen kodu aşağıya yazınız.
+          {{ $t('register.codeSent') }}
         </div>
         <input
-            type="number"
+            type="text"
             placeholder="____"
             maxlength="4"
             minlength="0"
@@ -56,7 +56,7 @@
       <div class="data-field-container">
         <input
             type="password"
-            placeholder="Şifre"
+            :placeholder="$t('general.input.password')"
             v-model="v$.user.password.$model"
             class="data-field"
             :class="{'has-error':v$.user.password.$error}">
@@ -66,14 +66,12 @@
             :content="getOnlyErrors(v$.user.password.$errors)"/>
       </div>
       <div class="terms-info">
-        <i class="bi bi-info-circle"></i>
-        Kayıt olduğunuzda
-        <router-link class="terms-link" to="/terms">hizmet koşullarını</router-link>
-        kabul etmiş olursunuz.
+        <router-link class="terms-link" to="/terms">{{ $t('general.others.termsOfService') }}</router-link>
+        {{ $t('register.termsOfServiceText') }}
       </div>
       <standart-button
           class="continue-btn"
-          text="Hesap Oluştur"
+          :text="$t('register.registerButton')"
           :is-disable="v$.user.$invalid || v$.email.$invalid || isLoading.register"
           @click="register"/>
     </div>
@@ -129,7 +127,7 @@ export default {
       email: {
         code: {
           required: this.multipleLangError('errors.required', this.validators.required),
-          validCode: this.multipleLangError('errors.invalidCode', this.validCode)
+          validCode: this.multipleLangError('errors.validCode', this.validCode)
         }
       }
     };

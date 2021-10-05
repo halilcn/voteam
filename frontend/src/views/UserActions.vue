@@ -15,14 +15,14 @@
             tag="a"
             :to="{name:'Login'}"
             exact-active-class="selected">
-          Giriş Yap
+          {{ $t('general.userActions.login') }}
         </router-link>
         <router-link
             class="register"
             tag="a"
             :to="{name:'Register'}"
             exact-active-class="selected">
-          Kayıt Ol
+          {{ $t('general.userActions.register') }}
         </router-link>
       </div>
       <div class="form-content">
@@ -31,7 +31,7 @@
             class="forget-password"
             tag="div"
             :to="{name:'ForgotPassword'}">
-          Şifren mi unuttun ?
+          {{ $t('general.userActions.rememberPassword') }}
         </router-link>
       </div>
     </div>
@@ -39,7 +39,7 @@
       <router-link
           class="item"
           :to="{name:'Home'}">
-        Anasayfa
+        {{ $t('userActions.helpfulLinks.home') }}
       </router-link>
       <div class="circle">
         &#9679;
@@ -47,7 +47,7 @@
       <router-link
           class="item"
           :to="{name:'Prices'}">
-        Fiyatlar
+        {{ $t('userActions.helpfulLinks.pricing') }}
       </router-link>
       <div class="circle">
         &#9679;
@@ -55,7 +55,7 @@
       <router-link
           class="item"
           :to="{name:'About'}">
-        Hakkında
+        {{ $t('userActions.helpfulLinks.about') }}
       </router-link>
     </div>
   </div>

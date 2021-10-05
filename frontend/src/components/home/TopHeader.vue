@@ -18,21 +18,21 @@
           tag="div"
           :to="{name:'Home'}"
           exact-active-class="selected">
-        {{ $t('homePage.topHeader.links.home') }}
+        {{ $t('home.topHeader.links.home') }}
       </router-link>
       <router-link
           class="item"
           tag="div"
           :to="{name:'Prices'}"
           exact-active-class="selected">
-        {{ $t('homePage.topHeader.links.pricing') }}
+        {{ $t('home.topHeader.links.pricing') }}
       </router-link>
       <router-link
           class="item"
           tag="div"
           :to="{name:'About'}"
           exact-active-class="selected">
-        {{ $t('homePage.topHeader.links.about') }}
+        {{ $t('home.topHeader.links.about') }}
       </router-link>
     </div>
     <div class="user-actions">

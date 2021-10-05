@@ -1,13 +1,13 @@
 <template>
   <div class="login">
     <div class="title">
-      Hoşgeldin!
+      {{ $t('login.infoText') }}
     </div>
     <div class="content">
       <div class="data-field-container">
         <input
             type="email"
-            placeholder="E-mail"
+            :placeholder="$t('general.input.email')"
             v-model="v$.user.email.$model"
             class="data-field"
             :class="{'has-error':v$.user.email.$error}">
@@ -19,7 +19,7 @@
       <div class="data-field-container">
         <input
             type="password"
-            placeholder="Şifre"
+            :placeholder="$t('general.input.password')"
             v-model="v$.user.password.$model"
             class="data-field"
             :class="{'has-error':v$.user.password.$error}">
@@ -28,10 +28,10 @@
             is-input-error="true"
             :content="getOnlyErrors(v$.user.password.$errors)"/>
       </div>
-      <errors v-if="isWrongEmailOrPassword" content="E-mail ya da Şifre yanlış"/>
+      <errors v-if="isWrongEmailOrPassword" :content="$t('login.wrongEmailOrPassword')"/>
       <standart-button
           class="continue-btn"
-          text="Giriş Yap"
+          :text="$t('login.loginButton')"
           @click="login"
           :is-disable="v$.user.$invalid || isLoadingLogin"/>
     </div>
