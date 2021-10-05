@@ -43,7 +43,7 @@
     </div>
     <div class="team">
       <div class="team-list-btn">
-        <i class="bi bi-plus-lg"></i>
+        <i class="fas fa-list"></i>
       </div>
       <img class="active-team" src="../../assets/test/team.png" alt="team-image"/>
     </div>
@@ -161,12 +161,14 @@ export default {
     }
 
     .active-team {
+      @include center-md-blue-box-shadow;
       margin: 5px 0;
-      background-color: #c5d4de;
+      background-color: $df-blue-color;
       width: 40px;
       height: 40px;
       border-radius: 100%;
       transition: .2s;
+      padding: 2px;
     }
   }
 }
