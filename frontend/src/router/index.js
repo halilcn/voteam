@@ -76,6 +76,11 @@ const routes = [
         component: () => import('../components/dashboard/team/Home')
       },
       {
+        path: '/teams/:teamId/members',
+        name: 'TeamDashboardMembers',
+        component: () => import('../components/dashboard/team/Members')
+      },
+      {
         path: '/teams/:teamId/settings',
         name: 'TeamDashboardSettings',
         component: () => import('../components/dashboard/team/Settings')

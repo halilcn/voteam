@@ -18,14 +18,14 @@
       </router-link>
       <router-link
           class="item"
-          :to="{name:'TeamDashboardSettings'}"
+          :to="{name:'TeamDashboardMembers'}"
           exact-active-class="selected">
         <div class="icon">
-          <i class="bi bi-gear-fill fill-icon"></i>
-          <i class="bi bi-gear normal-icon"></i>
+          <i class="bi bi-people-fill fill-icon"></i>
+          <i class="bi bi-people normal-icon"></i>
         </div>
         <div class="tooltip-title">
-          Ayarlar
+          Üyeler
         </div>
       </router-link>
       <router-link
@@ -38,6 +38,18 @@
         </div>
         <div class="tooltip-title">
           Bildirimler
+        </div>
+      </router-link>
+      <router-link
+          class="item"
+          :to="{name:'TeamDashboardSettings'}"
+          exact-active-class="selected">
+        <div class="icon">
+          <i class="bi bi-gear-fill fill-icon"></i>
+          <i class="bi bi-gear normal-icon"></i>
+        </div>
+        <div class="tooltip-title">
+          Ayarlar
         </div>
       </router-link>
     </div>
