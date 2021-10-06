@@ -24,6 +24,15 @@ export default {
         pricing: 'Fiyatlar',
         about: 'Hakkında'
       }
+    },
+    content:{
+
+    }
+  },
+  pricing: {
+    title: {
+      first: 'Ömür boyu tamamen',
+      second: 'ücretsiz'
     }
   },
   userActions: {

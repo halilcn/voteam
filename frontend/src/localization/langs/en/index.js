@@ -24,6 +24,13 @@ export default {
         pricing: 'Pricing',
         about: 'About'
       }
+    },
+    content: {}
+  },
+  pricing: {
+    title: {
+      first: 'Completely',
+      second: 'free'
     }
   },
   userActions: {
