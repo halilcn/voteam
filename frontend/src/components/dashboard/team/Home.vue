@@ -1,37 +1,119 @@
 <template>
   <div class="home">
     <div class="votes">
-      <div class="title">
-        <i class="bi bi-archive"></i>
-        Oylamalar
+      <div class="title votes-title">
+        <div class="txt">
+          <i class="bi bi-archive"></i>
+          Oylamalar
+        </div>
+        <div class="create-vote">
+          <i class="bi bi-plus-circle-fill"></i>
+          Oylama Başlat
+        </div>
       </div>
       <div class="content list-container">
         <div class="active-votes">
-          <div class="title">
+          <div class="content-title">
             Aktif Oylamalar
           </div>
           <div class="list">
             <div class="item">
-              <div class="icon">
-                <i class="bi bi-arrow-up-square-fill"></i>
+              <div class="top">
+                <div class="icon">
+                  <img src="../../../assets/icons/power-vote.png" alt="power-vote"/>
+                </div>
+                <div class="vote-type">
+                  Güç Oylaması
+                </div>
               </div>
-              <div class="vote-type">
-                Güç Oylaması
+              <div class="time">
+                <i class="bi bi-clock-fill"></i>
+                12 Haziran
+              </div>
+            </div>
+            <div class="item">
+              <div class="top">
+                <div class="icon">
+                  <img src="../../../assets/icons/power-vote.png" alt="power-vote"/>
+                </div>
+                <div class="vote-type">
+                  Güç Oylaması
+                </div>
+              </div>
+              <div class="time">
+                12 Haziran
+              </div>
+            </div>
+            <div class="item">
+              <div class="top">
+                <div class="icon">
+                  <img src="../../../assets/icons/power-vote.png" alt="power-vote"/>
+                </div>
+                <div class="vote-type">
+                  Güç Oylaması
+                </div>
+              </div>
+              <div class="time">
+                12 Haziran
+              </div>
+            </div>
+            <div class="item">
+              <div class="top">
+                <div class="icon">
+                  <img src="../../../assets/icons/power-vote.png" alt="power-vote"/>
+                </div>
+                <div class="vote-type">
+                  Güç Oylaması
+                </div>
+              </div>
+              <div class="time">
+                12 Haziran
+              </div>
+            </div>
+            <div class="item">
+              <div class="top">
+                <div class="icon">
+                  <img src="../../../assets/icons/power-vote.png" alt="power-vote"/>
+                </div>
+                <div class="vote-type">
+                  Güç Oylaması
+                </div>
+              </div>
+              <div class="time">
+                12 Haziran
+              </div>
+            </div>
+            <div class="item">
+              <div class="top">
+                <div class="icon">
+                  <img src="../../../assets/icons/power-vote.png" alt="power-vote"/>
+                </div>
+                <div class="vote-type">
+                  Güç Oylaması
+                </div>
+              </div>
+              <div class="time">
+                12 Haziran
               </div>
             </div>
           </div>
         </div>
         <div class="next-votes">
-          <div class="title">
+          <div class="content-title">
             Gelecek Oylamalar
           </div>
           <div class="list">
             <div class="item">
-              <div class="icon">
-                <i class="bi bi-arrow-up-square-fill"></i>
+              <div class="top">
+                <div class="icon">
+                  <img src="../../../assets/icons/power-vote.png" alt="power-vote"/>
+                </div>
+                <div class="vote-type">
+                  Güç Oylaması
+                </div>
               </div>
-              <div class="vote-type">
-                Güç Oylaması
+              <div class="time">
+                12 Haziran
               </div>
             </div>
           </div>
@@ -44,7 +126,33 @@
         Takım
       </div>
       <div class="content team-info">
-        team info
+        <div class="item team-image">
+          <img src="../../../assets/test/team.png" alt="team-image"/>
+        </div>
+        <div class="item">
+          <div class="content-title">
+            Adı
+          </div>
+          <div class="inner-content">
+            Takım adı denemedı deneme
+          </div>
+        </div>
+        <div class="item team-code">
+          <div class="content-title">
+            Kodu
+          </div>
+          <div class="inner-content">
+            #43F4S
+          </div>
+        </div>
+        <div class="item">
+          <div class="content-title">
+            Toplam Üye Sayısı
+          </div>
+          <div class="inner-content">
+            23 kişi
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -74,43 +182,88 @@ export default {
 
   .content {
     @include center-lg-box-shadow;
-    padding: 10px;
+    padding: 15px;
     border-radius: 5px;
-    margin-top: 6px;
+    margin-top: 10px;
     height: 100%;
+
+    .content-title {
+      font-weight: 400;
+      font-size: 14px;
+      color: #484848;
+    }
   }
 
   .votes {
+    .votes-title {
+      display: flex;
+      align-items: center;
+
+      .create-vote {
+        font-weight: 500;
+        cursor: pointer;
+        padding: 5px 12px;
+        font-size: 13px;
+        background-color: $df-green-color;
+        color: white;
+        margin-left: auto;
+        border-radius: 30px;
+        transition: .3s;
+
+        i {
+          margin-right: 3px;
+        }
+
+        &:hover {
+          background-color: $df-light-green-color;
+        }
+      }
+    }
 
     .list-container {
       width: 100%;
 
       > div {
-
-        > .title {
-          font-weight: 400;
-          font-size: 14px;
-          color: #484848;
-        }
-
         .list {
           display: flex;
+          flex-wrap: wrap;
 
           .item {
+            margin: 7px 0;
             cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 10px;
             border-radius: 5px;
-            background-color: #f8f8f8;
+            overflow: hidden;
+            transition: .2s;
+            border: 1px solid #eeeeee;
 
-            .icon {
-              font-size: 30px;
+            &:hover {
+              background-color: #f8fbff;
             }
 
-            .vote-type {
-              font-size: 15px;
+            .top {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              padding: 10px;
+
+              .icon {
+                img {
+                  width: 60px;
+                }
+              }
+
+              .vote-type {
+                color: $df-blue-color;
+                font-size: 14px;
+              }
+            }
+
+            .time {
+              padding: 3px;
+              text-align: center;
+              width: 100%;
+              font-size: 12px;
+              border-radius: 3px;
             }
           }
         }
@@ -118,24 +271,69 @@ export default {
 
       .active-votes {
         .list {
-
           .item {
-
+            .time {
+              background-color: $df-blue-color;
+              color: white;
+            }
           }
         }
       }
 
       .next-votes {
+        margin-top: 25px;
 
+        .list {
+          .item {
+            cursor: default;
+
+            .time {
+              color: $df-mdl-dark-black-color;
+              background-color: #dadada;
+            }
+          }
+        }
       }
     }
   }
 
   .team {
-
     .team-info {
+      position: relative;
+
+      .item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 15px;
+
+        &.team-code {
+          .inner-content {
+            background-color: $df-very-light-blue-color;
+            color: $df-blue-color;
+            padding: 4px 7px;
+            border-radius: 4px;
+            cursor: pointer;
+          }
+        }
+
+        &.team-image {
+          position: absolute;
+          right: 20px;
+          top: 20px;
+
+          img {
+            width: 120px;
+            height: 120px;
+            border-radius: 100%;
+          }
+        }
+
+        .inner-content {
+          margin-top: 4px;
+        }
+      }
     }
   }
-
 }
 </style>

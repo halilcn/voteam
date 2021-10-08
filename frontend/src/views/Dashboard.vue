@@ -29,10 +29,10 @@ export default {
 
   .content {
     width: 100%;
-    padding: 0 10px;
+    padding: 0 25px;
 
     .router-view-content {
-      margin-top: 15px;
+      margin-top: 20px;
     }
   }
 }
