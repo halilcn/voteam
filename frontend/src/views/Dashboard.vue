@@ -3,7 +3,7 @@
     <left-sidebar/>
     <div class="content">
       <top-header/>
-      <router-view/>
+      <router-view class="router-view-content"/>
     </div>
   </div>
 </template>
@@ -29,7 +29,11 @@ export default {
 
   .content {
     width: 100%;
-    padding: 0 7px;
+    padding: 0 10px;
+
+    .router-view-content {
+      margin-top: 15px;
+    }
   }
 }
 </style>
