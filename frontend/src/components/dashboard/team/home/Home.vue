@@ -1,4 +1,7 @@
 <template>
+  <create-vote-popup
+      @handlePopup="handleCreateVotePopup"
+      :is-enable="isEnableCreateVotePopup"/>
   <div class="home">
     <div class="votes">
       <div class="title votes-title">
@@ -6,7 +9,7 @@
           <i class="bi bi-archive"></i>
           Oylamalar
         </div>
-        <div class="create-vote">
+        <div @click="handleCreateVotePopup" class="create-vote">
           <i class="bi bi-plus-circle-fill"></i>
           Oylama Başlat
         </div>
@@ -17,10 +20,16 @@
             Aktif Oylamalar
           </div>
           <div class="list">
+            <!-- <div class="no-data">
+              <img src="../../../../assets/icons/no-vote.png"/>
+              <div class="text">
+                Aktif oylama hiç yok
+              </div>
+            </div>-->
             <div class="item">
               <div class="top">
                 <div class="icon">
-                  <img src="../../../assets/icons/power-vote.png" alt="power-vote"/>
+                  <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
                 </div>
                 <div class="vote-type">
                   Güç Oylaması
@@ -34,10 +43,23 @@
             <div class="item">
               <div class="top">
                 <div class="icon">
-                  <img src="../../../assets/icons/classic-vote.png" alt="classic-vote"/>
+                  <img src="../../../../assets/icons/classic-vote.png" alt="classic-vote"/>
                 </div>
                 <div class="vote-type">
                   Klasik Oylama
+                </div>
+              </div>
+              <div class="time">
+                12 Haziran
+              </div>
+            </div>
+            <div class="item">
+              <div class="top">
+                <div class="icon">
+                  <img src="../../../../assets/icons/leader-vote.png" alt="leader-vote"/>
+                </div>
+                <div class="vote-type">
+                  Yönetici Seçim
                 </div>
               </div>
               <div class="time">
@@ -51,10 +73,16 @@
             Gelecek Oylamalar
           </div>
           <div class="list">
-            <div class="item">
+            <div class="no-data">
+              <img src="../../../../assets/icons/no-vote.png"/>
+              <div class="text">
+                Gelecek oylama hiç yok
+              </div>
+            </div>
+            <!-- <div class="item">
               <div class="top">
                 <div class="icon">
-                  <img src="../../../assets/icons/power-vote.png" alt="power-vote"/>
+                  <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
                 </div>
                 <div class="vote-type">
                   Güç Oylaması
@@ -64,7 +92,7 @@
                 <i class="bi bi-clock-fill"></i>
                 12 Haziran
               </div>
-            </div>
+            </div>-->
           </div>
         </div>
       </div>
@@ -76,7 +104,7 @@
       </div>
       <div class="content team-info">
         <div class="item team-image">
-          <img src="../../../assets/test/team.png" alt="team-image"/>
+          <img src="../../../../assets/test/team.png" alt="team-image"/>
         </div>
         <div class="item">
           <div class="content-title">
@@ -116,11 +144,21 @@
 </template>
 
 <script>
+import CreateVotePopup from './CreateVotePopup';
+
 export default {
   name: 'TeamHOme',
-  data(){
-    return{
-
+  data() {
+    return {
+      isEnableCreateVotePopup: true
+    };
+  },
+  components: {
+    CreateVotePopup
+  },
+  methods: {
+    handleCreateVotePopup() {
+      this.isEnableCreateVotePopup = !this.isEnableCreateVotePopup;
     }
   }
 };
@@ -130,28 +168,33 @@ export default {
 .home {
   display: flex;
   justify-content: space-between;
+  height: 100%;
 
   > div {
     width: 48%;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
 
     > .title {
       font-weight: 500;
       font-size: 17px;
       color: $df-dark-blue-color;
     }
-  }
 
-  .content {
-    @include center-lg-box-shadow;
-    padding: 15px;
-    border-radius: 5px;
-    margin-top: 10px;
-    height: 100%;
+    //TODO: overflow problem
+    .content {
+      @include center-lg-box-shadow;
+      height: 100%;
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 10px;
 
-    .content-title {
-      font-weight: 400;
-      font-size: 14px;
-      color: #484848;
+      .content-title {
+        font-weight: 400;
+        font-size: 14px;
+        color: #484848;
+      }
     }
   }
 
@@ -161,6 +204,7 @@ export default {
       align-items: center;
 
       .create-vote {
+        @include center-lg-green-box-shadow;
         font-weight: 500;
         cursor: pointer;
         padding: 5px 12px;
@@ -185,9 +229,30 @@ export default {
       width: 100%;
 
       > div {
+        height: 50%;
+
         .list {
           display: flex;
           flex-wrap: wrap;
+
+          .no-data {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+
+            img {
+              width: 70px;
+            }
+
+            .text {
+              font-weight: 300;
+              font-size: 14px;
+              color: #898989;
+              margin-top: 10px;
+            }
+          }
+
 
           .item {
             min-width: 120px;

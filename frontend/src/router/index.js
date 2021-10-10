@@ -73,7 +73,7 @@ const routes = [
       {
         path: '/teams/:teamId/home',
         name: 'TeamDashboardHome',
-        component: () => import('../components/dashboard/team/Home')
+        component: () => import('../components/dashboard/team/home/Home')
       },
       {
         path: '/teams/:teamId/members',

@@ -3,7 +3,9 @@
     <left-sidebar/>
     <div class="content">
       <top-header/>
-      <router-view class="router-view-content"/>
+      <div class="router-view-content">
+        <router-view/>
+      </div>
     </div>
   </div>
 </template>
@@ -28,11 +30,15 @@ export default {
   height: 100%;
 
   .content {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     padding: 0 25px;
 
     .router-view-content {
-      margin-top: 20px;
+      position: relative;
+      height: 100%;
+      margin: 20px 0;
     }
   }
 }
