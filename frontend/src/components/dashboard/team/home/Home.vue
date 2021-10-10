@@ -27,69 +27,17 @@
                 </div>
               </div>
               <div class="time">
-                <i class="bi bi-clock-fill"></i>
-                12 Haziran
+                <i class="bi bi-stopwatch-fill"></i>
+                1 gün 12 saat
               </div>
             </div>
             <div class="item">
               <div class="top">
                 <div class="icon">
-                  <img src="../../../assets/icons/power-vote.png" alt="power-vote"/>
+                  <img src="../../../assets/icons/classic-vote.png" alt="classic-vote"/>
                 </div>
                 <div class="vote-type">
-                  Güç Oylaması
-                </div>
-              </div>
-              <div class="time">
-                12 Haziran
-              </div>
-            </div>
-            <div class="item">
-              <div class="top">
-                <div class="icon">
-                  <img src="../../../assets/icons/power-vote.png" alt="power-vote"/>
-                </div>
-                <div class="vote-type">
-                  Güç Oylaması
-                </div>
-              </div>
-              <div class="time">
-                12 Haziran
-              </div>
-            </div>
-            <div class="item">
-              <div class="top">
-                <div class="icon">
-                  <img src="../../../assets/icons/power-vote.png" alt="power-vote"/>
-                </div>
-                <div class="vote-type">
-                  Güç Oylaması
-                </div>
-              </div>
-              <div class="time">
-                12 Haziran
-              </div>
-            </div>
-            <div class="item">
-              <div class="top">
-                <div class="icon">
-                  <img src="../../../assets/icons/power-vote.png" alt="power-vote"/>
-                </div>
-                <div class="vote-type">
-                  Güç Oylaması
-                </div>
-              </div>
-              <div class="time">
-                12 Haziran
-              </div>
-            </div>
-            <div class="item">
-              <div class="top">
-                <div class="icon">
-                  <img src="../../../assets/icons/power-vote.png" alt="power-vote"/>
-                </div>
-                <div class="vote-type">
-                  Güç Oylaması
+                  Klasik Oylama
                 </div>
               </div>
               <div class="time">
@@ -113,6 +61,7 @@
                 </div>
               </div>
               <div class="time">
+                <i class="bi bi-clock-fill"></i>
                 12 Haziran
               </div>
             </div>
@@ -153,6 +102,14 @@
             23 kişi
           </div>
         </div>
+        <div class="item">
+          <div class="content-title">
+            Toplama Oylama Sayısı
+          </div>
+          <div class="inner-content">
+            23 oylama
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -160,7 +117,12 @@
 
 <script>
 export default {
-  name: 'TeamHOme'
+  name: 'TeamHOme',
+  data(){
+    return{
+
+    }
+  }
 };
 </script>
 
@@ -168,7 +130,6 @@ export default {
 .home {
   display: flex;
   justify-content: space-between;
-  height: 100%;
 
   > div {
     width: 48%;
@@ -229,22 +190,23 @@ export default {
           flex-wrap: wrap;
 
           .item {
-            margin: 7px 0;
+            min-width: 120px;
+            width: 20%;
+            margin: 12px 20px 12px 0;
             cursor: pointer;
             border-radius: 5px;
-            overflow: hidden;
             transition: .2s;
-            border: 1px solid #eeeeee;
-
-            &:hover {
-              background-color: #f8fbff;
-            }
 
             .top {
+              background-color: white;
               display: flex;
               flex-direction: column;
               align-items: center;
               padding: 10px;
+              border: 1px solid #eeeeee;
+              border-bottom: 0;
+              border-radius: 5px 5px 0 0;
+              transition: .3s;
 
               .icon {
                 img {
@@ -253,8 +215,7 @@ export default {
               }
 
               .vote-type {
-                color: $df-blue-color;
-                font-size: 14px;
+                font-size: 13px;
               }
             }
 
@@ -263,7 +224,7 @@ export default {
               text-align: center;
               width: 100%;
               font-size: 12px;
-              border-radius: 3px;
+              border-radius: 0 0 5px 5px;
             }
           }
         }
@@ -272,6 +233,17 @@ export default {
       .active-votes {
         .list {
           .item {
+            &:hover .top {
+              background-color: #f2f6ff;
+              border-color: $df-blue-color;
+            }
+
+            .top {
+              .vote-type {
+                color: $df-blue-color;
+              }
+            }
+
             .time {
               background-color: $df-blue-color;
               color: white;
@@ -286,6 +258,17 @@ export default {
         .list {
           .item {
             cursor: default;
+
+            &:hover .top {
+              border-color: #dadada;
+              background-color: #f8f8f8;
+            }
+
+            .top {
+              .vote-type {
+                color: $df-mdl-dark-black-color;
+              }
+            }
 
             .time {
               color: $df-mdl-dark-black-color;
@@ -305,7 +288,7 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        margin-bottom: 15px;
+        margin-bottom: 30px;
 
         &.team-code {
           .inner-content {
@@ -323,6 +306,7 @@ export default {
           top: 20px;
 
           img {
+            @include center-lg-box-shadow;
             width: 120px;
             height: 120px;
             border-radius: 100%;
@@ -331,9 +315,14 @@ export default {
 
         .inner-content {
           margin-top: 4px;
+          font-size: 15px;
         }
       }
     }
   }
+}
+
+@media only screen and (max-width: 1250px) {
+
 }
 </style>
