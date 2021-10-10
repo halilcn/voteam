@@ -71,6 +71,7 @@
         <div class="next-votes">
           <div class="content-title">
             Gelecek Oylamalar
+            <info-tooltip text="İnfo text text text teasdaod asdıaı sdsajsadı uerwejır" class="next-vote-info"/>
           </div>
           <div class="list">
             <div class="no-data">
@@ -145,6 +146,7 @@
 
 <script>
 import CreateVotePopup from './CreateVotePopup';
+import InfoTooltip from '../../../shared/InfoTooltip';
 
 export default {
   name: 'TeamHOme',
@@ -154,7 +156,8 @@ export default {
     };
   },
   components: {
-    CreateVotePopup
+    CreateVotePopup,
+    InfoTooltip
   },
   methods: {
     handleCreateVotePopup() {
@@ -319,6 +322,14 @@ export default {
 
       .next-votes {
         margin-top: 25px;
+
+        .content-title {
+          display: flex;
+
+          .next-vote-info {
+            margin-left: 10px;
+          }
+        }
 
         .list {
           .item {
