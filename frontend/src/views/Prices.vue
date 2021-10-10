@@ -1,14 +1,16 @@
 <template>
-  <top-header/>
-  <div class="prices">
-    <div class="free-title">
-      {{ $t('pricing.title.first') }} <span>{{ $t('pricing.title.second') }}</span> !
+  <div class="prices-container">
+    <top-header/>
+    <div class="prices">
+      <div class="free-title">
+        {{ $t('pricing.title.first') }} <span>{{ $t('pricing.title.second') }}</span> !
+      </div>
+      <div class="free-icon">
+        <img src="../assets/icons/free.png" alt="free-icon"/>
+      </div>
     </div>
-    <div class="free-icon">
-      <img src="../assets/icons/free.png" alt="free-icon"/>
-    </div>
+    <bottom-footer/>
   </div>
-  <bottom-footer/>
 </template>
 
 <script>
@@ -26,30 +28,34 @@ export default {
 
 <style lang="scss" scoped>
 
-.prices {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.prices-container {
   height: 100%;
 
-  .free-title {
-    font-weight: 500;
-    font-size: 28px;
-    margin: 35px 0;
-    color: $df-dark-blue-color;
+  .prices {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    span {
-      color: $df-green-color;
-      border-bottom: 2px solid $df-green-color;
+    .free-title {
+      font-weight: 500;
+      font-size: 28px;
+      margin: 35px 0;
+      color: $df-dark-blue-color;
+
+      span {
+        color: $df-green-color;
+        border-bottom: 2px solid $df-green-color;
+      }
     }
-  }
 
-  .free-icon {
+    .free-icon {
 
-    img {
-      width: 180px;
+      img {
+        width: 180px;
+      }
+
     }
-
   }
 }
 

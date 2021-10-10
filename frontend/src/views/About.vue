@@ -1,7 +1,9 @@
 <template>
-  <top-header/>
-  <div class="about">
-    hakkında
+  <div class="about-container">
+    <top-header/>
+    <div>
+      hakkında
+    </div>
   </div>
 </template>
 
@@ -17,5 +19,7 @@ export default {
 </script>
 
 <style scoped>
-
+.about-container {
+  height: 100%;
+}
 </style>
