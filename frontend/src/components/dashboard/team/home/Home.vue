@@ -28,6 +28,29 @@
             </div>-->
             <div class="item">
               <div class="top">
+                <div class="voted-percentage">
+                  %56
+                </div>
+                <div class="icon">
+                  <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
+                </div>
+                <div class="vote-type">
+                  Güç Oylaması
+                </div>
+              </div>
+              <div class="time">
+                <i class="bi bi-stopwatch-fill"></i>
+                1 gün 12 saat
+              </div>
+            </div>
+            <div class="item voted">
+              <div class="top">
+                <div class="voted-icon">
+                  <i class="bi bi-check-all"></i>
+                </div>
+                <div class="voted-percentage">
+                  %56
+                </div>
                 <div class="icon">
                   <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
                 </div>
@@ -66,6 +89,19 @@
                 12 Haziran
               </div>
             </div>
+            <div class="item">
+              <div class="top">
+                <div class="icon">
+                  <img src="../../../../assets/icons/leader-vote.png" alt="leader-vote"/>
+                </div>
+                <div class="vote-type">
+                  Kabul-Red Seçim
+                </div>
+              </div>
+              <div class="time">
+                12 Haziran
+              </div>
+            </div>
           </div>
         </div>
         <div class="next-votes">
@@ -74,13 +110,13 @@
             <info-tooltip text="İnfo text text text teasdaod asdıaı sdsajsadı uerwejır" class="next-vote-info"/>
           </div>
           <div class="list">
-            <div class="no-data">
+            <!-- <div class="no-data">
               <img src="../../../../assets/icons/no-vote.png"/>
               <div class="text">
                 Gelecek oylama hiç yok
               </div>
-            </div>
-            <!-- <div class="item">
+            </div>-->
+            <div class="item">
               <div class="top">
                 <div class="icon">
                   <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
@@ -93,7 +129,7 @@
                 <i class="bi bi-clock-fill"></i>
                 12 Haziran
               </div>
-            </div>-->
+            </div>
           </div>
         </div>
       </div>
@@ -145,7 +181,7 @@
 </template>
 
 <script>
-import CreateVotePopup from './CreateVotePopup';
+import CreateVotePopup from './CreateVote/CreateVotePopup';
 import InfoTooltip from '../../../shared/InfoTooltip';
 
 export default {
@@ -256,7 +292,6 @@ export default {
             }
           }
 
-
           .item {
             min-width: 120px;
             width: 20%;
@@ -278,7 +313,7 @@ export default {
 
               .icon {
                 img {
-                  width: 60px;
+                  width: 40px;
                 }
               }
 
@@ -306,7 +341,43 @@ export default {
               border-color: $df-blue-color;
             }
 
+            &.voted {
+              cursor: default;
+
+              .top {
+                &:hover {
+                  background-color: inherit;
+                  border-color: inherit;
+                }
+              }
+
+              .time {
+                background-color: $df-green-color;
+              }
+            }
+
             .top {
+              position: relative;
+
+              .voted-icon {
+                font-size: 17px;
+                position: absolute;
+                right: 4px;
+                top: 4px;
+                color: $df-green-color;
+              }
+
+              .voted-percentage {
+                font-size: 10px;
+                position: absolute;
+                left: 4px;
+                top: 4px;
+                background-color: $df-green-color;
+                color: white;
+                padding: 2px 5px;
+                border-radius: 20px;
+              }
+
               .vote-type {
                 color: $df-blue-color;
               }
