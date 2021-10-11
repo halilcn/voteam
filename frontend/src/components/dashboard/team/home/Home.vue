@@ -34,7 +34,7 @@
                 <div class="icon">
                   <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
                 </div>
-                <div class="vote-type">
+                <div class="vote-name">
                   Güç Oylaması
                 </div>
               </div>
@@ -45,17 +45,64 @@
             </div>
             <div class="item voted">
               <div class="top">
-                <div class="voted-icon">
-                  <i class="bi bi-check-all"></i>
-                </div>
                 <div class="voted-percentage">
                   %56
                 </div>
                 <div class="icon">
                   <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
                 </div>
-                <div class="vote-type">
+                <div class="vote-name">
                   Güç Oylaması
+                </div>
+              </div>
+              <div class="time">
+                <i class="bi bi-check-all"></i>
+                Oy Verilmiş !
+              </div>
+            </div>
+            <div class="item">
+              <div class="top">
+                <div class="voted-percentage">
+                  %56
+                </div>
+                <div class="icon">
+                  <img src="../../../../assets/icons/classic-vote.png" alt="classic-vote"/>
+                </div>
+                <div class="vote-name">
+                  Bu bir örnek klasik oylama yazısıdır.
+                </div>
+              </div>
+              <div class="time">
+                <i class="bi bi-stopwatch-fill"></i>
+                1 gün 12 saat
+              </div>
+            </div>
+            <div class="item voted">
+              <div class="top">
+                <div class="voted-percentage">
+                  %56
+                </div>
+                <div class="icon">
+                  <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
+                </div>
+                <div class="vote-name">
+                  Güç Oylaması
+                </div>
+              </div>
+              <div class="time">
+                Oy Verilmiş !
+              </div>
+            </div>
+            <div class="item">
+              <div class="top">
+                <div class="voted-percentage">
+                  %56
+                </div>
+                <div class="icon">
+                  <img src="../../../../assets/icons/classic-vote.png" alt="classic-vote"/>
+                </div>
+                <div class="vote-name">
+                  Bu bir örnek klasik oylama yazısıdır.
                 </div>
               </div>
               <div class="time">
@@ -65,41 +112,19 @@
             </div>
             <div class="item">
               <div class="top">
+                <div class="voted-percentage">
+                  %56
+                </div>
                 <div class="icon">
                   <img src="../../../../assets/icons/classic-vote.png" alt="classic-vote"/>
                 </div>
-                <div class="vote-type">
-                  Klasik Oylama
+                <div class="vote-name">
+                  Para Paylaşımı
                 </div>
               </div>
               <div class="time">
-                12 Haziran
-              </div>
-            </div>
-            <div class="item">
-              <div class="top">
-                <div class="icon">
-                  <img src="../../../../assets/icons/leader-vote.png" alt="leader-vote"/>
-                </div>
-                <div class="vote-type">
-                  Yönetici Seçim
-                </div>
-              </div>
-              <div class="time">
-                12 Haziran
-              </div>
-            </div>
-            <div class="item">
-              <div class="top">
-                <div class="icon">
-                  <img src="../../../../assets/icons/leader-vote.png" alt="leader-vote"/>
-                </div>
-                <div class="vote-type">
-                  Kabul-Red Seçim
-                </div>
-              </div>
-              <div class="time">
-                12 Haziran
+                <i class="bi bi-stopwatch-fill"></i>
+                1 gün 12 saat
               </div>
             </div>
           </div>
@@ -121,7 +146,7 @@
                 <div class="icon">
                   <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
                 </div>
-                <div class="vote-type">
+                <div class="vote-name">
                   Güç Oylaması
                 </div>
               </div>
@@ -188,7 +213,7 @@ export default {
   name: 'TeamHOme',
   data() {
     return {
-      isEnableCreateVotePopup: true
+      isEnableCreateVotePopup: false
     };
   },
   components: {
@@ -269,10 +294,18 @@ export default {
 
       > div {
         height: 50%;
+        overflow: hidden;
 
         .list {
+          overflow: auto;
+          height: 100%;
           display: flex;
           flex-wrap: wrap;
+          justify-content: space-between;
+
+          &::-webkit-scrollbar {
+            width: 3px;
+          }
 
           .no-data {
             display: flex;
@@ -293,9 +326,10 @@ export default {
           }
 
           .item {
-            min-width: 120px;
-            width: 20%;
-            margin: 12px 20px 12px 0;
+            width: 130px;
+            // min-width: 120px;
+            // width: 20%;
+            margin: 12px 14px;
             cursor: pointer;
             border-radius: 5px;
             transition: .2s;
@@ -305,7 +339,7 @@ export default {
               display: flex;
               flex-direction: column;
               align-items: center;
-              padding: 10px;
+              padding: 15px 7px;
               border: 1px solid #eeeeee;
               border-bottom: 0;
               border-radius: 5px 5px 0 0;
@@ -313,12 +347,18 @@ export default {
 
               .icon {
                 img {
-                  width: 40px;
+                  width: 45px;
                 }
               }
 
-              .vote-type {
+              .vote-name {
+                width: 100%;
+                height: 100%;
                 font-size: 13px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                text-align: center;
               }
             }
 
@@ -359,26 +399,20 @@ export default {
             .top {
               position: relative;
 
-              .voted-icon {
-                font-size: 17px;
-                position: absolute;
-                right: 4px;
-                top: 4px;
-                color: $df-green-color;
-              }
-
               .voted-percentage {
                 font-size: 10px;
                 position: absolute;
                 left: 4px;
                 top: 4px;
-                background-color: $df-green-color;
-                color: white;
+                color: $df-mdl-dark-black-color;
+                background-color: #eeeeee;
+                // background-color: $df-green-color;
+                // color: white;
                 padding: 2px 5px;
                 border-radius: 20px;
               }
 
-              .vote-type {
+              .vote-name {
                 color: $df-blue-color;
               }
             }
@@ -412,7 +446,7 @@ export default {
             }
 
             .top {
-              .vote-type {
+              .vote-name {
                 color: $df-mdl-dark-black-color;
               }
             }
