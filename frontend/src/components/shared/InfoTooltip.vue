@@ -1,6 +1,6 @@
 <template>
   <div class="tooltip">
-    <i class="bi bi-info-circle-fill"></i>
+    <i :class="iconClass"/>
     <span class="tooltiptext">
      {{ text }}
     </span>
@@ -14,6 +14,11 @@ export default {
     text: {
       type: String,
       required: true
+    },
+    iconClass: {
+      type: String,
+      required: false,
+      default: 'bi bi-info-circle-fill'
     }
   }
 };
@@ -24,7 +29,7 @@ export default {
   position: relative;
 
   i {
-    color: #838383;
+    color: $df-light-dark-black-color;
   }
 
   .tooltiptext {
@@ -36,7 +41,7 @@ export default {
     text-align: center;
     border-radius: 6px;
     position: absolute;
-    z-index: 1;
+    z-index: 5;
     bottom: 150%;
     left: 50%;
     margin-left: -60px;

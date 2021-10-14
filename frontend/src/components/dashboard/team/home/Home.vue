@@ -35,7 +35,7 @@
                   <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
                 </div>
                 <div class="vote-name">
-                  Güç Oylaması
+                  Güç Oylaması asdasda da dssadajd oahsdu hasd
                 </div>
               </div>
               <div class="time">
@@ -47,6 +47,57 @@
               <div class="top">
                 <div class="voted-percentage">
                   %56
+                </div>
+                <div class="icon">
+                  <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
+                </div>
+                <div class="vote-name">
+                  Güç Oylaasdsad sadas
+                </div>
+              </div>
+              <div class="time">
+                <i class="bi bi-check-all"></i>
+                Oy Verilmiş !
+              </div>
+            </div>
+            <div class="item voted everyone-voted">
+              <div class="top">
+                <div class="voted-percentage">
+                  %100
+                </div>
+                <div class="icon">
+                  <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
+                </div>
+                <div class="vote-name">
+                  Güç Oylaması
+                </div>
+              </div>
+              <div class="time">
+                <i class="bi bi-check-all"></i>
+                Oy Verilmiş !
+              </div>
+            </div>
+            <div class="item voted">
+              <div class="top">
+                <div class="voted-percentage">
+                  %21
+                </div>
+                <div class="icon">
+                  <img src="../../../../assets/icons/leader-vote.png" alt="power-vote"/>
+                </div>
+                <div class="vote-name">
+                  Lider Oylaması
+                </div>
+              </div>
+              <div class="time">
+                <i class="bi bi-check-all"></i>
+                Oy Verilmiş !
+              </div>
+            </div>
+            <div class="item ">
+              <div class="top">
+                <div class="voted-percentage">
+                  %75
                 </div>
                 <div class="icon">
                   <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
@@ -66,10 +117,10 @@
                   %56
                 </div>
                 <div class="icon">
-                  <img src="../../../../assets/icons/classic-vote.png" alt="classic-vote"/>
+                  <img src="../../../../assets/icons/classic-vote.png" alt="power-vote"/>
                 </div>
                 <div class="vote-name">
-                  Bu bir örnek klasik oylama yazısıdır.
+                  bu bir test oylama başlığıdır
                 </div>
               </div>
               <div class="time">
@@ -77,56 +128,73 @@
                 1 gün 12 saat
               </div>
             </div>
-            <div class="item voted">
-              <div class="top">
-                <div class="voted-percentage">
-                  %56
-                </div>
-                <div class="icon">
-                  <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
-                </div>
-                <div class="vote-name">
-                  Güç Oylaması
-                </div>
-              </div>
-              <div class="time">
-                Oy Verilmiş !
-              </div>
-            </div>
-            <div class="item">
-              <div class="top">
-                <div class="voted-percentage">
-                  %56
-                </div>
-                <div class="icon">
-                  <img src="../../../../assets/icons/classic-vote.png" alt="classic-vote"/>
-                </div>
-                <div class="vote-name">
-                  Bu bir örnek klasik oylama yazısıdır.
-                </div>
-              </div>
-              <div class="time">
-                <i class="bi bi-stopwatch-fill"></i>
-                1 gün 12 saat
-              </div>
-            </div>
-            <div class="item">
-              <div class="top">
-                <div class="voted-percentage">
-                  %56
-                </div>
-                <div class="icon">
-                  <img src="../../../../assets/icons/classic-vote.png" alt="classic-vote"/>
-                </div>
-                <div class="vote-name">
-                  Para Paylaşımı
-                </div>
-              </div>
-              <div class="time">
-                <i class="bi bi-stopwatch-fill"></i>
-                1 gün 12 saat
-              </div>
-            </div>
+            <!--  <div class="item">
+               <div class="top">
+                 <div class="voted-percentage">
+                   %56
+                 </div>
+                 <div class="icon">
+                   <img src="../../../../assets/icons/classic-vote.png" alt="classic-vote"/>
+                 </div>
+                 <div class="vote-name">
+                   Bu bir örnek klasik oylama yazısıdır.
+                 </div>
+               </div>
+               <div class="time">
+                 <i class="bi bi-stopwatch-fill"></i>
+                 1 gün 12 saat
+               </div>
+             </div>
+             <div class="item voted">
+               <div class="top">
+                 <div class="voted-percentage">
+                   %56
+                 </div>
+                 <div class="icon">
+                   <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
+                 </div>
+                 <div class="vote-name">
+                   Güç Oylaması
+                 </div>
+               </div>
+               <div class="time">
+                 Oy Verilmiş !
+               </div>
+             </div>
+             <div class="item">
+               <div class="top">
+                 <div class="voted-percentage">
+                   %56
+                 </div>
+                 <div class="icon">
+                   <img src="../../../../assets/icons/classic-vote.png" alt="classic-vote"/>
+                 </div>
+                 <div class="vote-name">
+                   Bu bir örnek klasik oylama yazısıdır.
+                 </div>
+               </div>
+               <div class="time">
+                 <i class="bi bi-stopwatch-fill"></i>
+                 1 gün 12 saat
+               </div>
+             </div>
+             <div class="item">
+               <div class="top">
+                 <div class="voted-percentage">
+                   %56
+                 </div>
+                 <div class="icon">
+                   <img src="../../../../assets/icons/classic-vote.png" alt="classic-vote"/>
+                 </div>
+                 <div class="vote-name">
+                   Para Paylaşımı
+                 </div>
+               </div>
+               <div class="time">
+                 <i class="bi bi-stopwatch-fill"></i>
+                 1 gün 12 saat
+               </div>
+             </div>-->
           </div>
         </div>
         <div class="next-votes">
@@ -141,6 +209,104 @@
                 Gelecek oylama hiç yok
               </div>
             </div>-->
+            <div class="item">
+              <div class="top">
+                <div class="icon">
+                  <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
+                </div>
+                <div class="vote-name">
+                  Güç Oylaması
+                </div>
+              </div>
+              <div class="time">
+                <i class="bi bi-clock-fill"></i>
+                12 Haziran
+              </div>
+            </div>
+            <div class="item">
+              <div class="top">
+                <div class="icon">
+                  <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
+                </div>
+                <div class="vote-name">
+                  Güç Oylaması
+                </div>
+              </div>
+              <div class="time">
+                <i class="bi bi-clock-fill"></i>
+                12 Haziran
+              </div>
+            </div>
+            <div class="item">
+              <div class="top">
+                <div class="icon">
+                  <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
+                </div>
+                <div class="vote-name">
+                  Güç Oylaması
+                </div>
+              </div>
+              <div class="time">
+                <i class="bi bi-clock-fill"></i>
+                12 Haziran
+              </div>
+            </div>
+            <div class="item">
+              <div class="top">
+                <div class="icon">
+                  <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
+                </div>
+                <div class="vote-name">
+                  Güç Oylaması
+                </div>
+              </div>
+              <div class="time">
+                <i class="bi bi-clock-fill"></i>
+                12 Haziran
+              </div>
+            </div>
+            <div class="item">
+              <div class="top">
+                <div class="icon">
+                  <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
+                </div>
+                <div class="vote-name">
+                  Güç Oylaması
+                </div>
+              </div>
+              <div class="time">
+                <i class="bi bi-clock-fill"></i>
+                12 Haziran
+              </div>
+            </div>
+            <div class="item">
+              <div class="top">
+                <div class="icon">
+                  <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
+                </div>
+                <div class="vote-name">
+                  Güç Oylaması
+                </div>
+              </div>
+              <div class="time">
+                <i class="bi bi-clock-fill"></i>
+                12 Haziran
+              </div>
+            </div>
+            <div class="item">
+              <div class="top">
+                <div class="icon">
+                  <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
+                </div>
+                <div class="vote-name">
+                  Güç Oylaması
+                </div>
+              </div>
+              <div class="time">
+                <i class="bi bi-clock-fill"></i>
+                12 Haziran
+              </div>
+            </div>
             <div class="item">
               <div class="top">
                 <div class="icon">
@@ -180,9 +346,19 @@
           <div class="content-title">
             Kodu
           </div>
-          <div class="inner-content">
+          <div @click="copyCode" class="inner-content">
             #43F4S
+            <div class="copied-code-info">
+              <i class="bi bi-check-circle"></i>
+            </div>
           </div>
+          <!-- <div @click="copyCode" class="inner-content copied-code">
+            #43F4S
+            <info-tooltip
+                class="copied-code-info"
+                text="Kod kopyalandı !"
+                icon-class="bi bi-check-circle"/>
+          </div>-->
         </div>
         <div class="item">
           <div class="content-title">
@@ -194,7 +370,7 @@
         </div>
         <div class="item">
           <div class="content-title">
-            Toplama Oylama Sayısı
+            Toplam Başlatılan Oylama Sayısı
           </div>
           <div class="inner-content">
             23 oylama
@@ -213,7 +389,7 @@ export default {
   name: 'TeamHOme',
   data() {
     return {
-      isEnableCreateVotePopup: true
+      isEnableCreateVotePopup: false
     };
   },
   components: {
@@ -223,6 +399,11 @@ export default {
   methods: {
     handleCreateVotePopup() {
       this.isEnableCreateVotePopup = !this.isEnableCreateVotePopup;
+    },
+    copyCode() {
+      const copyText = 'test';
+      copyText.select();
+      document.execCommand('copy');
     }
   }
 };
@@ -232,13 +413,16 @@ export default {
 .home {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   height: 100%;
+
 
   > div {
     width: 48%;
     display: flex;
     flex-direction: column;
     justify-content: stretch;
+    height: 100%;
 
     > .title {
       font-weight: 500;
@@ -291,21 +475,22 @@ export default {
 
     .list-container {
       width: 100%;
+      overflow: auto;
+
+      &::-webkit-scrollbar {
+        width: 5px;
+      }
 
       > div {
-        height: 50%;
         overflow: hidden;
 
         .list {
-          overflow: auto;
+          //  overflow: auto;
           height: 100%;
           display: flex;
           flex-wrap: wrap;
-          justify-content: space-between;
-
-          &::-webkit-scrollbar {
-            width: 3px;
-          }
+          justify-content: flex-start;
+          gap: 30px;
 
           .no-data {
             display: flex;
@@ -329,7 +514,7 @@ export default {
             width: 130px;
             // min-width: 120px;
             // width: 20%;
-            margin: 12px 14px;
+            margin: 12px 0;
             cursor: pointer;
             border-radius: 5px;
             transition: .2s;
@@ -385,14 +570,26 @@ export default {
               cursor: default;
 
               .top {
-                &:hover {
-                  background-color: inherit;
-                  border-color: inherit;
+                background-color: #f5fffb;
+                border-color: $df-green-color;
+
+                .vote-name {
+                  color: #888888;
                 }
               }
 
               .time {
                 background-color: $df-green-color;
+              }
+            }
+
+            &.everyone-voted {
+              .top {
+                .voted-percentage {
+                  background-color: $df-green-color;
+                  color: white;
+
+                }
               }
             }
 
@@ -464,6 +661,10 @@ export default {
   .team {
     .team-info {
       position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      //height büyüdükçe margin ver.
 
       .item {
         display: flex;
@@ -473,12 +674,31 @@ export default {
 
         &.team-code {
           .inner-content {
+            display: flex;
+            align-items: center;
             background-color: $df-very-light-blue-color;
             color: $df-blue-color;
             padding: 4px 7px;
             border-radius: 4px;
             cursor: pointer;
+
+            .copied-code-info {
+              margin-left: 4px;
+              display: none;
+            }
+
+            &.copied-code {
+              background-color: #f5f5f5;
+              color: $df-light-dark-black-color;
+
+              .copied-code-info {
+                display: block;
+              }
+
+            }
+
           }
+
         }
 
         &.team-image {
@@ -487,7 +707,7 @@ export default {
           top: 20px;
 
           img {
-            @include center-lg-box-shadow;
+            @include center-md-box-shadow;
             width: 120px;
             height: 120px;
             border-radius: 100%;

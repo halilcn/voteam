@@ -80,11 +80,14 @@ export default {
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
-    margin: 10px 0;
+    //margin: 10px 0;
     font-weight: 500;
     color: $df-blue-color;
+    transition: .2s;
 
     &:hover {
+      background-color:$df-very-light-blue-color;
+
       .right-icon {
         transform: translateX(-6px);
       }

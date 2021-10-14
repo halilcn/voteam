@@ -26,19 +26,18 @@ export default {
 <style lang="scss" scoped>
 .dashboard {
   display: flex;
-  justify-content: flex-start;
   height: 100%;
 
   .content {
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 0 25px;
 
     .router-view-content {
       position: relative;
       height: 100%;
-      margin: 20px 0;
+      overflow: hidden;
+      padding: 15px 25px;
     }
   }
 }
