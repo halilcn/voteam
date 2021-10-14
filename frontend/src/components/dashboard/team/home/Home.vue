@@ -213,7 +213,7 @@ export default {
   name: 'TeamHOme',
   data() {
     return {
-      isEnableCreateVotePopup: false
+      isEnableCreateVotePopup: true
     };
   },
   components: {
