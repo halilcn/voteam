@@ -67,16 +67,18 @@ $animation-time: .3s;
   max-height: 80%;
   background-color: white;
   border-radius: 5px;
-  padding: 8px;
   position: fixed;
   z-index: 999;
   left: 0;
   right: 0;
   top: 70px;
   margin: auto;
+  display: flex;
+  flex-direction: column;
 
   .top {
     position: relative;
+    padding: 10px;
 
     .title {
       color: #595959;
@@ -102,8 +104,13 @@ $animation-time: .3s;
   }
 
   .content {
-    padding: 10px 0;
+    padding: 10px;
     font-size: 14px;
+    overflow-y: auto;
+
+    .content::-webkit-scrollbar {
+      width: 2px ;
+    }
   }
 }
 

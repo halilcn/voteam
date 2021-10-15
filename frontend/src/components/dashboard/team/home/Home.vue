@@ -128,6 +128,23 @@
                 1 gün 12 saat
               </div>
             </div>
+            <div class="item">
+              <div class="top">
+                <div class="voted-percentage">
+                  %56
+                </div>
+                <div class="icon">
+                  <img src="../../../../assets/icons/classic-vote.png" alt="power-vote"/>
+                </div>
+                <div class="vote-name">
+                  kabul re oylamasıdır bu
+                </div>
+              </div>
+              <div class="time">
+                <i class="bi bi-stopwatch-fill"></i>
+                1 gün 12 saat
+              </div>
+            </div>
             <!--  <div class="item">
                <div class="top">
                  <div class="voted-percentage">
@@ -200,7 +217,8 @@
         <div class="next-votes">
           <div class="content-title">
             Gelecek Oylamalar
-            <info-tooltip text="İnfo text text text teasdaod asdıaı sdsajsadı uerwejır" class="next-vote-info"/>
+            <info-tooltip text="Güç Oylaması ve Lider Oylaması belirli günlerde otomatik yapılır."
+                          class="next-vote-info"/>
           </div>
           <div class="list">
             <!-- <div class="no-data">
@@ -346,19 +364,16 @@
           <div class="content-title">
             Kodu
           </div>
-          <div @click="copyCode" class="inner-content">
-            #43F4S
-            <div class="copied-code-info">
-              <i class="bi bi-check-circle"></i>
-            </div>
-          </div>
-          <!-- <div @click="copyCode" class="inner-content copied-code">
+          <div
+              @click="copyCode('#43F4S')"
+              :class="{'copied-code':isCopiedCode}"
+              class="inner-content">
             #43F4S
             <info-tooltip
                 class="copied-code-info"
                 text="Kod kopyalandı !"
                 icon-class="bi bi-check-circle"/>
-          </div>-->
+          </div>
         </div>
         <div class="item">
           <div class="content-title">
@@ -389,7 +404,8 @@ export default {
   name: 'TeamHOme',
   data() {
     return {
-      isEnableCreateVotePopup: false
+      isEnableCreateVotePopup: false,
+      isCopiedCode: false
     };
   },
   components: {
@@ -400,10 +416,12 @@ export default {
     handleCreateVotePopup() {
       this.isEnableCreateVotePopup = !this.isEnableCreateVotePopup;
     },
-    copyCode() {
-      const copyText = 'test';
-      copyText.select();
-      document.execCommand('copy');
+    copyCode(text) {
+      this.$helpers.copyText(text);
+      this.isCopiedCode = true;
+      setTimeout(() => {
+        this.isCopiedCode = false;
+      }, 3000);
     }
   }
 };
@@ -725,5 +743,19 @@ export default {
 
 @media only screen and (max-width: 1250px) {
 
+}
+
+@media only screen and (min-height: 750px) {
+.home{
+  .team{
+    .team-info{
+      justify-content: flex-start;
+
+      .item {
+        margin-bottom: 60px;
+      }
+    }
+  }
+}
 }
 </style>

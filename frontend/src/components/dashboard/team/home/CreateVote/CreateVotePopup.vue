@@ -13,7 +13,7 @@
             Klasik Oylama
           </div>
         </div>
-        <div @click="selectVoteType('test')" class="item">
+        <div @click="selectVoteType('create-yes-no-vote')" class="item">
           <div class="right-icon">
             <i class="bi bi-chevron-right"></i>
           </div>
@@ -23,16 +23,13 @@
           </div>
         </div>
       </div>
-      <div v-else class="create-vote create-classic-vote">
-        <div>
-          bura değişecek
-          <component :is="activeVoteType"/>
-        </div>
+      <div v-else class="create-vote">
+        <component class="form" :is="activeVoteType"/>
         <div class="bottom">
           <div @click="activeVoteType=''" class="cancel-btn">
             geri
           </div>
-          <standart-button text="oluştur"/>
+          <standart-button text="Oylama Başlat" is-disable="true"/>
         </div>
       </div>
     </template>
@@ -41,7 +38,9 @@
 
 <script>
 import Popup from '../../../../shared/Popup';
-//import StandartButton from '../../../../shared/elements/StandartButton';
+import StandartButton from '../../../../shared/elements/StandartButton';
+import CreateClassicVote from './CreateClassicVote';
+import CreateYesNoVote from './CreateYesNoVote';
 
 export default {
   name: 'CreateVotePopup',
@@ -52,8 +51,10 @@ export default {
     };
   },
   components: {
-    Popup
-    // StandartButton
+    Popup,
+    StandartButton,
+    CreateClassicVote,
+    CreateYesNoVote
   },
   methods: {
     selectVoteType(type) {
@@ -80,13 +81,13 @@ export default {
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
-    //margin: 10px 0;
+    margin: 10px 0;
     font-weight: 500;
     color: $df-blue-color;
     transition: .2s;
 
     &:hover {
-      background-color:$df-very-light-blue-color;
+      background-color: $df-very-light-blue-color;
 
       .right-icon {
         transform: translateX(-6px);
@@ -112,16 +113,25 @@ export default {
 }
 
 .create-vote {
+  .form {
+    border-bottom: 1px solid #e3e3e3;
+    padding-bottom: 5px;
+  }
+
   .bottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid #e3e3e3;
     padding-top: 10px;
+    border-top: 1px solid $df-blue-color-hover-light;
 
     .cancel-btn {
       cursor: pointer;
       color: $df-mdl-dark-black-color;
+
+      &:hover {
+        color: $df-dark-blue-color;
+      }
     }
   }
 }

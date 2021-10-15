@@ -42,15 +42,15 @@
 }
 
 @mixin center-md-green-box-shadow {
-  -webkit-box-shadow: 0px 0px 5px 0px rgba(20,170,110,1);
-  -moz-box-shadow: 0px 0px 5px 0px rgba(20,170,110,1);
-  box-shadow: 0px 0px 5px 0px rgba(20,170,110,1);
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(20, 170, 110, 1);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(20, 170, 110, 1);
+  box-shadow: 0px 0px 5px 0px rgba(20, 170, 110, 1);
 }
 
 @mixin center-lg-green-box-shadow {
-  -webkit-box-shadow: 0px 0px 8px -2px rgba(20,170,110,1);
-  -moz-box-shadow: 0px 0px 8px -2px rgba(20,170,110,1);
-  box-shadow: 0px 0px 8px -2px rgba(20,170,110,1);
+  -webkit-box-shadow: 0px 0px 8px -2px rgba(20, 170, 110, 1);
+  -moz-box-shadow: 0px 0px 8px -2px rgba(20, 170, 110, 1);
+  box-shadow: 0px 0px 8px -2px rgba(20, 170, 110, 1);
 }
 
 @mixin right-md-box-shadow {
@@ -132,5 +132,23 @@
         font-size: 12px;
       }
     }
+  }
+}
+
+@mixin create-vote-popup-form-item {
+  .form-item {
+    margin: 10px 0;
+
+    .title {
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    .content {
+      .content-text {
+        @include std-input;
+      }
+    }
+
   }
 }

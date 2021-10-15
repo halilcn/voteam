@@ -54,4 +54,17 @@ helpers.handle = async (handle, customCatch = () => {}) => {
   }
 };
 
+/**
+ * Copy text
+ * @param text
+ */
+helpers.copyText = (text) => {
+  const textArea = document.createElement('textarea');
+  textArea.textContent = text;
+  document.body.append(textArea);
+  textArea.select();
+  document.execCommand('copy');
+  textArea.style.display = 'none';
+};
+
 export default helpers;
