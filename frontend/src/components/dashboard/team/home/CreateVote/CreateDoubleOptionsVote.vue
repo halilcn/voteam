@@ -2,8 +2,7 @@
   <div class="vote-type-title">
     Kabul-Red Oylaması
   </div>
-  <vote-title class="form-item"/>
-
+  <vote-title/>
   <div class="form-item">
     <div class="title">
       Ne Oylanacak ?
@@ -12,7 +11,6 @@
       <textarea class="content-text"/>
     </div>
   </div>
-
   <vote-start-date/>
   <vote-end-date/>
 </template>
@@ -42,9 +40,6 @@ export default {
     max-height: 200px;
     min-height: 50px;
   }
-}
-
-.vote-type-title {
 }
 
 </style>

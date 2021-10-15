@@ -39,8 +39,8 @@
 <script>
 import Popup from '../../../../shared/Popup';
 import StandartButton from '../../../../shared/elements/StandartButton';
-import CreateClassicVote from './CreateClassicVote';
-import CreateYesNoVote from './CreateYesNoVote';
+import CreateClassicVote from './CreateMultipleOptionsVote';
+import CreateYesNoVote from './CreateDoubleOptionsVote';
 
 export default {
   name: 'CreateVotePopup',
