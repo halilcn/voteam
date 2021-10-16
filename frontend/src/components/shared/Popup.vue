@@ -78,21 +78,20 @@ $animation-time: .3s;
 
   .top {
     position: relative;
-    padding: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid #e5e5e5;
 
     .title {
       color: #595959;
-      border-bottom: 1px solid #e5e5e5;
       font-weight: 500;
       font-size: 17px;
       text-align: center;
-      padding: 5px;
     }
 
     .disable-btn {
       position: absolute;
-      right: 5px;
-      top: 5px;
+      right: 10px;
+      top: 7px;
       cursor: pointer;
       transition: .3s;
       color: #9f9f9f;
