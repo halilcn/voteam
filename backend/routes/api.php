@@ -30,7 +30,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::resource('teams', TeamController::class);
 
-        Route::resource('', VoteController::class);
+        Route::resource('teams.votes', VoteController::class);
 
         Route::post('teams/join', [TeamJoinWithCodeController::class, 'handle']);
 
