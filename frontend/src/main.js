@@ -6,6 +6,7 @@ import i18n from './localization/index';
 import '@lottiefiles/lottie-player';
 import helpers from './helpers';
 import notify from './notify';
+import dayjs from 'dayjs';
 
 import { VuelidatePlugin } from '@vuelidate/core';
 
@@ -20,6 +21,7 @@ const app = createApp(App)
   .use(VuelidatePlugin)
   .use(i18n);
 
+app.config.globalProperties.$dayjs = dayjs;
 app.config.globalProperties.$helpers = helpers;
 app.config.globalProperties.$notify = notify;
 app.config.globalProperties.handle = helpers.handle;

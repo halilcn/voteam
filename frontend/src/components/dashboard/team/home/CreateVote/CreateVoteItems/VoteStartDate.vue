@@ -18,20 +18,41 @@
           İleri Tarih Seç
         </div>
       </div>
-      <input v-if="isSelectedNextDate" class="content-text" type="date">
+      <template v-if="isSelectedNextDate">
+        <input
+            type="date"
+            :min="nowDate"
+            v-model="value"
+            class="content-text"
+            :class="{'has-error':hasError}">
+        <errors
+            v-if="hasError"
+            is-input-error="true"
+            :content="errors"/>
+      </template>
     </div>
   </div>
 </template>
 
 <script>
+import modelValueMixin from '../../../../../../mixins/modelValueMixin';
+import modelValueErrorMixin from '../../../../../../mixins/modelValueErrorMixin';
+import Errors from '../../../../../shared/Errors';
+
 export default {
   name: 'VoteStartDate',
+  mixins: [modelValueMixin, modelValueErrorMixin],
   data() {
     return {
-      isSelectedNextDate: true
+      nowDate: this.$dayjs().format('YYYY-MM-DD'),
+      isSelectedNextDate: false
     };
   },
+  components: {
+    Errors
+  },
   methods: {
+    //hemen başlat dendiğinde tarih şuanki tarih olsun
     selectDateTime(timeType) {
       this.isSelectedNextDate = timeType === 'next';
     }

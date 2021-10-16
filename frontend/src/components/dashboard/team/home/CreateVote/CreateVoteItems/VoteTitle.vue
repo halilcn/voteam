@@ -4,43 +4,29 @@
       Başlık
     </div>
     <div class="content">
-      <!--  v-model="v$.user.password.$model"-->
-      {{input}}
       <input
           type="text"
-          v-model="input"
+          v-model="value"
           class="content-text"
-          :class="{'has-error':true}">
+          :class="{'has-error':hasError}">
       <errors
-          v-if="true"
+          v-if="hasError"
           is-input-error="true"
-          :content="['test erorr']"/>
+          :content="errors"/>
     </div>
   </div>
 </template>
 
 <script>
 import Errors from '../../../../../shared/Errors';
+import modelValueMixin from '../../../../../../mixins/modelValueMixin';
+import modelValueErrorMixin from '../../../../../../mixins/modelValueErrorMixin';
 
 export default {
   name: 'VoteTitle',
-  props: {
-    value: {
-      default: ''
-    }
-  },
+  mixins: [modelValueMixin, modelValueErrorMixin],
   components: {
     Errors
-  },
-  computed: {
-    input: {
-      get() {
-        return this.value;
-      },
-      set(value) {
-        this.$emit('input', value);
-      }
-    }
   }
 };
 </script>
