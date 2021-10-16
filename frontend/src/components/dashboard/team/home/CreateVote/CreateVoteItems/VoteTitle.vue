@@ -4,14 +4,44 @@
       Başlık
     </div>
     <div class="content">
-      <input class="content-text" type="text">
+      <!--  v-model="v$.user.password.$model"-->
+      {{input}}
+      <input
+          type="text"
+          v-model="input"
+          class="content-text"
+          :class="{'has-error':true}">
+      <errors
+          v-if="true"
+          is-input-error="true"
+          :content="['test erorr']"/>
     </div>
   </div>
 </template>
 
 <script>
+import Errors from '../../../../../shared/Errors';
+
 export default {
-  name: 'VoteTitle'
+  name: 'VoteTitle',
+  props: {
+    value: {
+      default: ''
+    }
+  },
+  components: {
+    Errors
+  },
+  computed: {
+    input: {
+      get() {
+        return this.value;
+      },
+      set(value) {
+        this.$emit('input', value);
+      }
+    }
+  }
 };
 </script>
 

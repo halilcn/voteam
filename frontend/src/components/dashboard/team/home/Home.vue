@@ -399,6 +399,7 @@
 <script>
 import CreateVotePopup from './CreateVote/CreateVotePopup';
 import InfoTooltip from '../../../shared/InfoTooltip';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'TeamHOme',
@@ -413,6 +414,7 @@ export default {
     InfoTooltip
   },
   methods: {
+    ...mapActions('vote', ['getVotes']),
     handleCreateVotePopup() {
       this.isEnableCreateVotePopup = !this.isEnableCreateVotePopup;
     },
@@ -423,6 +425,9 @@ export default {
         this.isCopiedCode = false;
       }, 3000);
     }
+  },
+  created() {
+    this.getVotes();
   }
 };
 </script>
@@ -746,16 +751,16 @@ export default {
 }
 
 @media only screen and (min-height: 750px) {
-.home{
-  .team{
-    .team-info{
-      justify-content: flex-start;
+  .home {
+    .team {
+      .team-info {
+        justify-content: flex-start;
 
-      .item {
-        margin-bottom: 60px;
+        .item {
+          margin-bottom: 60px;
+        }
       }
     }
   }
-}
 }
 </style>

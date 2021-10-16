@@ -2,7 +2,9 @@
   <div class="vote-type-title">
     Kabul-Red Oylaması
   </div>
-  <vote-title/>
+  {{vote.title}}
+  <vote-title
+      v-model="v$.vote.title.$model"/>
   <div class="form-item">
     <div class="title">
       Ne Oylanacak ?
@@ -19,9 +21,28 @@
 import VoteTitle from './CreateVoteItems/VoteTitle';
 import VoteStartDate from './CreateVoteItems/VoteStartDate';
 import VoteEndDate from './CreateVoteItems/VoteEndDate';
+import validateMixin from '../../../../../mixins/validateMixin';
 
 export default {
   name: 'CreateYesNoVote',
+  mixins: [validateMixin],
+  data() {
+    return {
+      v$: this.useVuelidate(),
+      vote: {
+        title: ''
+      }
+    };
+  },
+  validations() {
+    return {
+      vote: {
+        title: {
+          required: this.multipleLangError('errors.required', this.validators.required)
+        }
+      }
+    };
+  },
   components: {
     VoteTitle,
     VoteStartDate,

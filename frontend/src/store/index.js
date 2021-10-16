@@ -1,6 +1,7 @@
 import { createStore } from 'vuex';
 import auth from './modules/auth';
 import team from './modules/team';
+import vote from './modules/vote';
 import axios from 'axios';
 import constants from './constants';
 
@@ -15,6 +16,7 @@ export default createStore({
   actions: {},
   modules: {
     auth,
-    team
+    team,
+    vote
   }
 });

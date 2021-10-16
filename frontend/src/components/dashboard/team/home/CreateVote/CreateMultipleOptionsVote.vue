@@ -10,11 +10,17 @@
     <div class="content options-list">
       <!--textarea ??-->
       <div class="item-container text-item">
-        <input class="content-text item"/>
+        <textarea class="content-text item"/>
         <div class="delete">
           <i class="bi bi-trash"></i>
         </div>
       </div>
+      <!-- <div class="item-container text-item">
+        <input class="content-text item"/>
+        <div class="delete">
+          <i class="bi bi-trash"></i>
+        </div>
+      </div>-->
       <div class="item-container image-item">
         <!-- <input type="file" class="content-text item"/>-->
         <div class="content-text selected-image">
@@ -24,10 +30,26 @@
           <i class="bi bi-trash-fill"></i>
         </div>
       </div>
+      <div class="item-container image-item">
+        <input type="file" class="content-text item"/>
+        <div class="delete">
+          <i class="bi bi-trash-fill"></i>
+        </div>
+      </div>
     </div>
     <div class="add-options-list-item-btn">
-      <i class="bi bi-plus"></i>
-      ekle
+      <div @click="toggleOptionsList" class="btn">
+        <i class="bi bi-plus"></i>
+        ekle
+      </div>
+      <div v-if="isEnableOptionsList" class="options-type-list">
+        <div class="item">
+          <i class="bi bi-card-text"></i>
+        </div>
+        <div class="item">
+          <i class="bi bi-image"></i>
+        </div>
+      </div>
     </div>
   </div>
   <vote-start-date/>
@@ -41,10 +63,20 @@ import VoteEndDate from './CreateVoteItems/VoteEndDate';
 
 export default {
   name: 'CreateClassicVote',
+  data() {
+    return {
+      isEnableOptionsList: false
+    };
+  },
   components: {
     VoteTitle,
     VoteStartDate,
     VoteEndDate
+  },
+  methods: {
+    toggleOptionsList() {
+      this.isEnableOptionsList = !this.isEnableOptionsList;
+    }
   }
 };
 </script>
@@ -55,10 +87,15 @@ export default {
 .options-list {
   .item-container {
     display: flex;
+    align-items: center;
     margin: 5px 0;
 
     &.text-item {
-
+      .item {
+        resize: vertical;
+        height: 40px;
+        max-height: 80px;
+      }
     }
 
     &.image-item {
@@ -84,11 +121,9 @@ export default {
       margin-left: 10px;
       color: $df-red-color;
       background-color: #fff5f5;
-      padding: 4px 11px;
+      padding: 7px 11px;
       border-radius: 4px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
 
       &:hover {
         background-color: #ffe6e6;
@@ -99,13 +134,45 @@ export default {
 
 .add-options-list-item-btn {
   margin-top: 5px;
-  font-weight: 300;
-  font-size: 12px;
-  cursor: pointer;
-  color: $df-blue-color;
-  background-color: #eaf2ff;
   display: inline-block;
-  padding: 2px 7px;
-  border-radius: 4px;
+  position: relative;
+
+  .btn {
+    font-weight: 300;
+    font-size: 12px;
+    cursor: pointer;
+    color: $df-blue-color;
+    background-color: #eaf2ff;
+    padding: 2px 7px;
+    border-radius: 4px;
+  }
+
+  .options-type-list {
+    @include center-md-box-shadow;
+    position: absolute;
+    left: 60px;
+    top: -20px;
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    overflow: hidden;
+
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      color: $df-dark-blue-color;
+
+      &:hover {
+        background-color: #efefef;
+      }
+
+      i {
+      }
+    }
+  }
+
 }
 </style>
