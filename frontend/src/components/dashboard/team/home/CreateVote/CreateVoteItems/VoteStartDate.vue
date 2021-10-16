@@ -29,6 +29,9 @@
             v-if="hasError"
             is-input-error="true"
             :content="errors"/>
+        <div v-if="!hasError" class="info-date-text">
+           (yarın)
+        </div>
       </template>
     </div>
   </div>

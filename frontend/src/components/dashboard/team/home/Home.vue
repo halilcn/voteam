@@ -21,7 +21,7 @@
           </div>
           <div class="list">
             <!-- <div class="no-data">
-              <img src="../../../../assets/icons/no-vote.png"/>
+              <img src="../../../../assets/icons/no-double-options-vote.png"/>
               <div class="text">
                 Aktif oylama hiç yok
               </div>
@@ -117,7 +117,7 @@
                   %56
                 </div>
                 <div class="icon">
-                  <img src="../../../../assets/icons/classic-vote.png" alt="power-vote"/>
+                  <img src="../../../../assets/icons/multiple-options-vote.png" alt="power-vote"/>
                 </div>
                 <div class="vote-name">
                   bu bir test oylama başlığıdır
@@ -134,7 +134,7 @@
                   %56
                 </div>
                 <div class="icon">
-                  <img src="../../../../assets/icons/classic-vote.png" alt="power-vote"/>
+                  <img src="../../../../assets/icons/multiple-options-vote.png" alt="power-vote"/>
                 </div>
                 <div class="vote-name">
                   kabul re oylamasıdır bu
@@ -151,7 +151,7 @@
                    %56
                  </div>
                  <div class="icon">
-                   <img src="../../../../assets/icons/classic-vote.png" alt="classic-vote"/>
+                   <img src="../../../../assets/icons/classic-double-options-vote.png" alt="classic-vote"/>
                  </div>
                  <div class="vote-name">
                    Bu bir örnek klasik oylama yazısıdır.
@@ -168,7 +168,7 @@
                    %56
                  </div>
                  <div class="icon">
-                   <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
+                   <img src="../../../../assets/icons/power-double-options-vote.png" alt="power-vote"/>
                  </div>
                  <div class="vote-name">
                    Güç Oylaması
@@ -184,7 +184,7 @@
                    %56
                  </div>
                  <div class="icon">
-                   <img src="../../../../assets/icons/classic-vote.png" alt="classic-vote"/>
+                   <img src="../../../../assets/icons/classic-double-options-vote.png" alt="classic-vote"/>
                  </div>
                  <div class="vote-name">
                    Bu bir örnek klasik oylama yazısıdır.
@@ -201,7 +201,7 @@
                    %56
                  </div>
                  <div class="icon">
-                   <img src="../../../../assets/icons/classic-vote.png" alt="classic-vote"/>
+                   <img src="../../../../assets/icons/classic-double-options-vote.png" alt="classic-vote"/>
                  </div>
                  <div class="vote-name">
                    Para Paylaşımı
@@ -222,7 +222,7 @@
           </div>
           <div class="list">
             <!-- <div class="no-data">
-              <img src="../../../../assets/icons/no-vote.png"/>
+              <img src="../../../../assets/icons/no-double-options-vote.png"/>
               <div class="text">
                 Gelecek oylama hiç yok
               </div>

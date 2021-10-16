@@ -1,35 +1,53 @@
 <template>
-  <popup title="Oylama Başlat"
-         @handleDisable="$emit('handlePopup')"
-         :is-enable="isEnable">
+  <popup
+      title="Oylama Başlat"
+      @handleDisable="$emit('handlePopup')"
+      :is-enable="isEnable">
     <template v-slot:content>
       <div v-if="!isActiveVoteType" class="choose-vote-type">
-        <div @click="selectVoteType('create-classic-vote')" class="item">
-          <div class="right-icon">
-            <i class="bi bi-chevron-right"></i>
-          </div>
-          <img src="../../../../../assets/icons/classic-vote.png" class="vote-icon"/>
+        <div @click="selectVoteType('create-multiple-options-vote')" class="item">
+          <img src="../../../../../assets/icons/multiple-options-vote.png" class="vote-icon"
+               alt="multiple-options-vote"/>
           <div class="text">
-            Klasik Oylama
+            Çoklu Oylama
+          </div>
+          <div class="right-icon">
+            <i class="fas fa-angle-right"></i>
           </div>
         </div>
-        <div @click="selectVoteType('create-yes-no-vote')" class="item">
-          <div class="right-icon">
-            <i class="bi bi-chevron-right"></i>
-          </div>
-          <img src="../../../../../assets/icons/classic-vote.png" class="vote-icon"/>
+        <div @click="selectVoteType('create-double-options-vote')" class="item">
+          <img src="../../../../../assets/icons/double-options-vote.png" class="vote-icon" alt="double-options-vote"/>
           <div class="text">
-            Kabul-Red Oylama
+            Kabul/Red Oylaması
+          </div>
+          <div class="right-icon">
+            <i class="fas fa-angle-right"></i>
           </div>
         </div>
       </div>
       <div v-else class="create-vote">
-        <component class="form" :is="activeVoteType"/>
+        <div class="form">
+          <vote-title
+              v-model="v$.vote.title.$model"
+              :errors="getOnlyErrors(v$.vote.title.$errors)"/>
+          <component
+              :is="activeVoteType"
+              class="form"/>
+          <vote-start-date
+              v-model="v$.vote.startDate.$model"
+              :errors="getOnlyErrors(v$.vote.startDate.$errors)"/>
+          <vote-end-date
+              v-model="v$.vote.endDate.$model"
+              :errors="getOnlyErrors(v$.vote.endDate.$errors)"
+              :minDate="vote.startDate"/>
+        </div>
         <div class="bottom">
           <div @click="activeVoteType=''" class="cancel-btn">
             geri
           </div>
-          <standart-button text="Oylama Başlat" is-disable="true"/>
+          <standart-button
+              text="Oylama Başlat"
+              is-disable="true"/>
         </div>
       </div>
     </template>
@@ -39,26 +57,62 @@
 <script>
 import Popup from '../../../../shared/Popup';
 import StandartButton from '../../../../shared/elements/StandartButton';
-import CreateClassicVote from './CreateMultipleOptionsVote';
-import CreateYesNoVote from './CreateDoubleOptionsVote';
+import CreateMultipleOptionsVote from './CreateMultipleOptionsVote';
+import CreateDoubleOptionsVote from './CreateDoubleOptionsVote';
+import VoteTitle from './CreateVoteItems/VoteTitle';
+import VoteStartDate from './CreateVoteItems/VoteStartDate';
+import VoteEndDate from './CreateVoteItems/VoteEndDate';
+import validateMixin from '../../../../../mixins/validateMixin';
 
 export default {
   name: 'CreateVotePopup',
+  mixins: [validateMixin],
   props: ['isEnable'],
   data() {
     return {
-      activeVoteType: ''
+      isLoadingCreateVote: false,
+      activeVoteType: '',
+      v$: this.useVuelidate(),
+      vote: {
+        title: '',
+        startDate: this.$dayjs().format('YYYY-MM-DD'),
+        endDate: this.$dayjs().add(1, 'day').format('YYYY-MM-DD')
+      }
+    };
+  },
+  validations() {
+    return {
+      vote: {
+        title: {
+          //max 20 karakter
+          required: this.multipleLangError('errors.required', this.validators.required)
+        },
+        startDate: {
+          //geçmiş tarih yazdığında hata ver
+          required: this.multipleLangError('errors.required', this.validators.required)
+        },
+        endDate: {
+          //geçmiş tarih yazdığında hata ver, başlangıç tarihinden erken seçilirse hata ver
+          required: this.multipleLangError('errors.required', this.validators.required)
+        }
+      }
     };
   },
   components: {
     Popup,
     StandartButton,
-    CreateClassicVote,
-    CreateYesNoVote
+    CreateMultipleOptionsVote,
+    CreateDoubleOptionsVote,
+    VoteTitle,
+    VoteStartDate,
+    VoteEndDate
   },
   methods: {
     selectVoteType(type) {
       this.activeVoteType = type;
+    },
+    createVote() {
+      alert();
     }
   },
   computed: {
@@ -70,6 +124,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .choose-vote-type {
 
   .item {
@@ -83,11 +138,11 @@ export default {
     cursor: pointer;
     margin: 10px 0;
     font-weight: 500;
-    color: $df-blue-color;
+    color: $df-mdl-dark-black-color;
     transition: .2s;
 
     &:hover {
-      background-color: $df-very-light-blue-color;
+      background-color: #f5f5f5;
 
       .right-icon {
         transform: translateX(-6px);
@@ -99,6 +154,7 @@ export default {
       right: 10px;
       font-size: 17px;
       transition: .2s;
+      color: $df-blue-color;
     }
 
     img {

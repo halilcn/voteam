@@ -137,11 +137,12 @@
 
 @mixin create-vote-popup-form-item {
   .form-item {
-    margin: 20px 0;
+    margin-bottom: 20px;
 
     .title {
       font-weight: 500;
       margin-bottom: 5px;
+      color: $df-dark-blue-color;
     }
 
     .content {
