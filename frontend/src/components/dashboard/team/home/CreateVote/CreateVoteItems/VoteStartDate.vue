@@ -1,7 +1,7 @@
 <template>
   <div class="form-item">
     <div class="title">
-      Oylama Başlama Zamanı
+      Başlama Zamanı
     </div>
     <div class="content vote-start-date">
       <div class="vote-start-date-options">
@@ -29,9 +29,6 @@
             v-if="hasError"
             is-input-error="true"
             :content="errors"/>
-        <div v-if="!hasError" class="info-date-text">
-           (yarın)
-        </div>
       </template>
     </div>
   </div>
@@ -55,9 +52,10 @@ export default {
     Errors
   },
   methods: {
-    //hemen başlat dendiğinde tarih şuanki tarih olsun
     selectDateTime(timeType) {
-      this.isSelectedNextDate = timeType === 'next';
+      const isNexDate = timeType === 'next';
+      this.isSelectedNextDate = isNexDate;
+      if (!isNexDate) this.value = this.nowDate;
     }
   }
 };

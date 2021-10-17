@@ -4,16 +4,32 @@
       Ne Oylanacak ?
     </div>
     <div class="content vote-text">
-      <textarea class="content-text"/>
+      {{ modelValue }}
+      {{data}}
+      <textarea v-model="modelValue" class="content-text"/>
     </div>
   </div>
 </template>
 
 <script>
-
+import modelValueMixin from '../../../../../mixins/modelValueMixin';
 
 export default {
   name: 'CreateYesNoVote',
+  mixins: [modelValueMixin],
+  data() {
+    return {
+      data: {
+        type: 'text',
+        message: ''
+      }
+    };
+  },
+  watch: {
+    'data.message': function () {
+      this.modelValue = this.data.message;
+    }
+  }
 };
 </script>
 

@@ -30,8 +30,10 @@
           <vote-title
               v-model="v$.vote.title.$model"
               :errors="getOnlyErrors(v$.vote.title.$errors)"/>
+          {{ vote.options }}
           <component
               :is="activeVoteType"
+              v-model="vote.options"
               class="form"/>
           <vote-start-date
               v-model="v$.vote.startDate.$model"
@@ -39,7 +41,7 @@
           <vote-end-date
               v-model="v$.vote.endDate.$model"
               :errors="getOnlyErrors(v$.vote.endDate.$errors)"
-              :minDate="vote.startDate"/>
+              :minDate="this.$dayjs(vote.startDate).add(1,'day').format('YYYY-MM-DD')"/>
         </div>
         <div class="bottom">
           <div @click="activeVoteType=''" class="cancel-btn">
@@ -47,7 +49,8 @@
           </div>
           <standart-button
               text="Oylama Başlat"
-              is-disable="true"/>
+              :is-disable="v$.vote.$invalid"
+              @click="createVote"/>
         </div>
       </div>
     </template>
@@ -75,6 +78,8 @@ export default {
       v$: this.useVuelidate(),
       vote: {
         title: '',
+        type: '',
+        options: '',
         startDate: this.$dayjs().format('YYYY-MM-DD'),
         endDate: this.$dayjs().add(1, 'day').format('YYYY-MM-DD')
       }
@@ -87,12 +92,16 @@ export default {
           //max 20 karakter
           required: this.multipleLangError('errors.required', this.validators.required)
         },
+        /* options: {
+           required: this.multipleLangError('errors.required', this.validators.required)
+         },*/
         startDate: {
           //geçmiş tarih yazdığında hata ver
           required: this.multipleLangError('errors.required', this.validators.required)
         },
         endDate: {
           //geçmiş tarih yazdığında hata ver, başlangıç tarihinden erken seçilirse hata ver
+          //çok ileri seçilemez
           required: this.multipleLangError('errors.required', this.validators.required)
         }
       }
@@ -109,6 +118,14 @@ export default {
   },
   methods: {
     selectVoteType(type) {
+      if (type === 'create-multiple-options-vote') {
+        this.vote.type = 'multiple';
+      }
+
+      if (type === 'create-double-options-vote') {
+        this.vote.type = 'double';
+      }
+
       this.activeVoteType = type;
     },
     createVote() {
@@ -170,7 +187,6 @@ export default {
 
 .create-vote {
   .form {
-    border-bottom: 1px solid #e3e3e3;
     padding-bottom: 5px;
   }
 
@@ -179,7 +195,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     padding-top: 10px;
-    border-top: 1px solid $df-blue-color-hover-light;
+    border-top: 1px solid $df-very-light-blue-color;
 
     .cancel-btn {
       cursor: pointer;
