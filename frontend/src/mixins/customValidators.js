@@ -1,10 +1,10 @@
+import dayjs from 'dayjs';
+
 export default {
   computed: {
-    validCode(data) {
-      console.log(data);
+    nextDate() {
       return (value) => {
-        console.log(value);
-        return false;
+        return dayjs().add(-1, 'day').isBefore(value);
       };
     }
   }

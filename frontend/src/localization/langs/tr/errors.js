@@ -3,5 +3,7 @@ export default {
   email: 'Geçerli e-mail adresi değil',
   maxLength: 'Girilen veri çok uzun',
   uniqueEmail: 'E-mail adresi daha önce kullanılmış',
-  validCode: 'Kod yanlış girilmiş'
+  validCode: 'Kod yanlış girilmiş',
+  nextDate: 'Geçmiş tarih seçilemez',
+  fromStartDate: 'Başlangıç tarihinden erken seçilemez'
 };

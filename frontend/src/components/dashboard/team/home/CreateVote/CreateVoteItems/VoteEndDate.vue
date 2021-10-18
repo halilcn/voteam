@@ -4,6 +4,7 @@
       Bitiş Zamanı
     </div>
     <div class="content">
+      {{minDate}}
       <input
           type="date"
           :min="minDate"

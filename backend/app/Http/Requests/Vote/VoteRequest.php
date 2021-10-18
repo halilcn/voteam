@@ -32,4 +32,19 @@ class VoteRequest extends FormRequest
             'endDate' => ['date', 'after:startDate']
         ];
     }
+
+    /*  foreach ($request->all() as $key => $value) {
+        $input[Str::snake($key)] = $value;
+    }*/
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+                         'title' => fix_typos($this->title),
+                         'body' => filter_malicious_content($this->body),
+                         'tags' => convert_comma_separated_values_to_array($this->tags),
+                         'is_published' => (bool)$this->is_published,
+                     ]);
+    }
+
 }

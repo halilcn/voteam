@@ -41,6 +41,7 @@
                 :content="voteTypeErrors"
                 class="vote-type-errors"/>
           </div>
+          <!-- date bugs ! -->
           <vote-start-date
               v-model="v$.vote.startDate.$model"
               :errors="getOnlyErrors(v$.vote.startDate.$errors)"/>
@@ -104,16 +105,13 @@ export default {
           maxLength: this.multipleLangError('errors.maxLength', this.validators.maxLength(20))
         },
         startDate: {
-          //geçmiş tarih yazdığında hata ver
           required: this.multipleLangError('errors.required', this.validators.required),
-          validCode: this.multipleLangError('errors.validCode', this.validCode('12'))
-          //required: this.multipleLangError('errors.required', this.validators.date)
-
+          nextDate: this.multipleLangError('errors.nextDate', this.nextDate)
         },
         endDate: {
-          //geçmiş tarih yazdığında hata ver, başlangıç tarihinden erken seçilirse hata ver
-          //çok ileri seçilemez
-          required: this.multipleLangError('errors.required', this.validators.required)
+          required: this.multipleLangError('errors.required', this.validators.required),
+          nextDate: this.multipleLangError('errors.nextDate', this.nextDate),
+          fromStartDate: this.multipleLangError('errors.fromStartDate', this.fromStartDate)
         }
       }
     };
@@ -151,6 +149,12 @@ export default {
     },
     isVoteTypeHasErrors() {
       return this.voteTypeErrors.length > 0;
+    },
+    fromStartDate() {
+      const self = this;
+      return (value) => {
+        return self.$dayjs(self.vote.startDate).isBefore(value);
+      };
     }
   }
 };

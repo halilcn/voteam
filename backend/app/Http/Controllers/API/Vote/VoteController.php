@@ -23,6 +23,8 @@ class VoteController extends Controller
         // TODO: options'lar burada ayırlacak, diğer field'lar aynı
         // TODO: options multiple olan CDN ile fotoğraflar kaydedilecel (frontend), uzun
 
-        return "ok";
+
+
+        Vote::create()
     }
 }
