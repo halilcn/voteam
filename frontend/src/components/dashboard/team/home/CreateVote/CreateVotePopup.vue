@@ -72,12 +72,14 @@ import VoteTitle from './CreateVoteItems/VoteTitle';
 import VoteStartDate from './CreateVoteItems/VoteStartDate';
 import VoteEndDate from './CreateVoteItems/VoteEndDate';
 import validateMixin from '../../../../../mixins/validateMixin';
+import customValidators from '../../../../../mixins/customValidators';
 import Error from '../../../../shared/Errors';
+import { mapActions } from 'vuex';
 
 //vote type gelen errors paylaş butonuna etki etsin !!
 export default {
   name: 'CreateVotePopup',
-  mixins: [validateMixin],
+  mixins: [validateMixin, customValidators],
   props: ['isEnable'],
   data() {
     return {
@@ -104,7 +106,9 @@ export default {
         startDate: {
           //geçmiş tarih yazdığında hata ver
           required: this.multipleLangError('errors.required', this.validators.required),
-          //minValue: this.multipleLangError('errors.required', this.validators.minValue((value => {return this.$dayjs(value).toISOString() > this.$dayjs().toISOString();})))
+          validCode: this.multipleLangError('errors.validCode', this.validCode('12'))
+          //required: this.multipleLangError('errors.required', this.validators.date)
+
         },
         endDate: {
           //geçmiş tarih yazdığında hata ver, başlangıç tarihinden erken seçilirse hata ver
@@ -125,6 +129,7 @@ export default {
     VoteEndDate
   },
   methods: {
+    ...mapActions('vote', ['postVote']),
     selectVoteType(type) {
       if (type === 'create-multiple-options-vote') {
         this.vote.type = 'multiple';
@@ -137,7 +142,7 @@ export default {
       this.activeVoteType = type;
     },
     createVote() {
-      console.log(this.vote);
+      this.postVote(this.vote);
     }
   },
   computed: {

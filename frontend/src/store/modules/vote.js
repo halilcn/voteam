@@ -18,8 +18,10 @@ export default {
     async getVotes() {
       console.log(await axios.get('teams/17/votes'));
     },
-    async postVote(){
-
+    async postVote(_, payload) {
+      console.log(payload);
+      const vote = await axios.post('teams/17/votes', payload);
+      console.log(vote.data);
     }
   },
   getters: {},

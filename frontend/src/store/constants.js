@@ -5,7 +5,7 @@ export default {
     'manager',
     'member'
   ],
-  VOTE_TYPES: {
+  VOTE_OPTIONS_TYPES: {
     TEXT: 'text'
   }
 };

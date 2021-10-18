@@ -24,7 +24,7 @@ export default {
     return {
       v$: this.useVuelidate(),
       vote: {
-        type: constants.VOTE_TYPES.TEXT,
+        type: constants.VOTE_OPTIONS_TYPES.TEXT,
         message: ''
       }
     };

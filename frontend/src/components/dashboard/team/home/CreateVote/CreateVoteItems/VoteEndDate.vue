@@ -30,9 +30,7 @@ import Errors from '../../../../../shared/Errors';
 export default {
   name: 'VoteEndDate',
   mixins: [modelValueMixin, modelValueErrorMixin],
-  props: {
-    minDate: Date
-  },
+  props: ['minDate'], //type
   components: {
     Errors
   },
