@@ -9,6 +9,11 @@ class Vote extends Model
 {
     use HasFactory;
 
+    public static array $TYPES = [
+        "DOUBLE" => "double",
+        "MULTIPLE" => "multiple"
+    ];
+
     protected $table = 'votes';
     protected $fillable = [
         'team_id',
