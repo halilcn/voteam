@@ -4,6 +4,9 @@ export default {
     'lead',
     'manager',
     'member'
-  ]
+  ],
+  VOTE_TYPES: {
+    TEXT: 'text'
+  }
 };
 

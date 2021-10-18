@@ -30,11 +30,17 @@
           <vote-title
               v-model="v$.vote.title.$model"
               :errors="getOnlyErrors(v$.vote.title.$errors)"/>
-          {{ vote.options }}
-          <component
-              :is="activeVoteType"
-              v-model="vote.options"
-              class="form"/>
+          <div class="custom-vote-form">
+            <component
+                class="vote-type-form"
+                :is="activeVoteType"
+                v-model="vote.options"
+                v-model:vote-errors="voteTypeErrors"/>
+            <error
+                v-if="isVoteTypeHasErrors"
+                :content="voteTypeErrors"
+                class="vote-type-errors"/>
+          </div>
           <vote-start-date
               v-model="v$.vote.startDate.$model"
               :errors="getOnlyErrors(v$.vote.startDate.$errors)"/>
@@ -66,20 +72,23 @@ import VoteTitle from './CreateVoteItems/VoteTitle';
 import VoteStartDate from './CreateVoteItems/VoteStartDate';
 import VoteEndDate from './CreateVoteItems/VoteEndDate';
 import validateMixin from '../../../../../mixins/validateMixin';
+import Error from '../../../../shared/Errors';
 
+//vote type gelen errors paylaş butonuna etki etsin !!
 export default {
   name: 'CreateVotePopup',
   mixins: [validateMixin],
   props: ['isEnable'],
   data() {
     return {
+      v$: this.useVuelidate(),
       isLoadingCreateVote: false,
       activeVoteType: '',
-      v$: this.useVuelidate(),
+      voteTypeErrors: [],
       vote: {
         title: '',
         type: '',
-        options: '',
+        options: null,
         startDate: this.$dayjs().format('YYYY-MM-DD'),
         endDate: this.$dayjs().add(1, 'day').format('YYYY-MM-DD')
       }
@@ -89,15 +98,13 @@ export default {
     return {
       vote: {
         title: {
-          //max 20 karakter
-          required: this.multipleLangError('errors.required', this.validators.required)
+          required: this.multipleLangError('errors.required', this.validators.required),
+          maxLength: this.multipleLangError('errors.maxLength', this.validators.maxLength(20))
         },
-        /* options: {
-           required: this.multipleLangError('errors.required', this.validators.required)
-         },*/
         startDate: {
           //geçmiş tarih yazdığında hata ver
-          required: this.multipleLangError('errors.required', this.validators.required)
+          required: this.multipleLangError('errors.required', this.validators.required),
+          //minValue: this.multipleLangError('errors.required', this.validators.minValue((value => {return this.$dayjs(value).toISOString() > this.$dayjs().toISOString();})))
         },
         endDate: {
           //geçmiş tarih yazdığında hata ver, başlangıç tarihinden erken seçilirse hata ver
@@ -108,6 +115,7 @@ export default {
     };
   },
   components: {
+    Error,
     Popup,
     StandartButton,
     CreateMultipleOptionsVote,
@@ -129,12 +137,15 @@ export default {
       this.activeVoteType = type;
     },
     createVote() {
-      alert();
+      console.log(this.vote);
     }
   },
   computed: {
     isActiveVoteType() {
       return this.activeVoteType !== '';
+    },
+    isVoteTypeHasErrors() {
+      return this.voteTypeErrors.length > 0;
     }
   }
 };
@@ -187,7 +198,18 @@ export default {
 
 .create-vote {
   .form {
-    padding-bottom: 5px;
+    //padding-bottom: 5px;
+
+    .custom-vote-form {
+      margin-bottom: 20px;
+
+      .vote-type-form {
+        margin-bottom: 0;
+      }
+
+      .vote-type-errors {
+      }
+    }
   }
 
   .bottom {

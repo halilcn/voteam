@@ -4,30 +4,56 @@
       Ne Oylanacak ?
     </div>
     <div class="content vote-text">
-      {{ modelValue }}
-      {{data}}
-      <textarea v-model="modelValue" class="content-text"/>
+      <textarea v-model="v$.vote.message.$model" class="content-text"/>
     </div>
   </div>
 </template>
 
 <script>
 import modelValueMixin from '../../../../../mixins/modelValueMixin';
+import constants from '../../../../../store/constants';
+import validateMixin from '../../../../../mixins/validateMixin';
 
 export default {
   name: 'CreateYesNoVote',
-  mixins: [modelValueMixin],
+  mixins: [modelValueMixin, validateMixin],
+  props: {
+    voteErrors: Array
+  },
   data() {
     return {
-      data: {
-        type: 'text',
+      v$: this.useVuelidate(),
+      vote: {
+        type: constants.VOTE_TYPES.TEXT,
         message: ''
       }
     };
   },
+  validations() {
+    return {
+      vote: {
+        message: {
+          required: this.multipleLangError('errors.required', this.validators.required)
+        }
+      }
+    };
+  },
   watch: {
-    'data.message': function () {
-      this.modelValue = this.data.message;
+    'vote.message': function () {
+      this.value = this.vote;
+    },
+    'v$.vote.message.$errors': function (newValue) {
+      this.errors = this.getOnlyErrors(newValue);
+    }
+  },
+  computed: {
+    errors: {
+      get() {
+        return this.voteErrors;
+      },
+      set(voteErrors) {
+        this.$emit('update:voteErrors', voteErrors);
+      }
     }
   }
 };

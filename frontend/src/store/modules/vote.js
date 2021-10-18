@@ -17,6 +17,9 @@ export default {
   actions: {
     async getVotes() {
       console.log(await axios.get('teams/17/votes'));
+    },
+    async postVote(){
+
     }
   },
   getters: {},
