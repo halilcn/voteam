@@ -1,4 +1,5 @@
 import axios from 'axios';
+import helpers from '../../helpers';
 
 export default {
   state: {
@@ -16,11 +17,11 @@ export default {
   },
   actions: {
     async getVotes() {
-      console.log(await axios.get('teams/17/votes'));
+      console.log(await axios.get('teams/7082780722/votes'));
     },
     async postVote(_, payload) {
-      console.log(payload);
-      const vote = await axios.post('teams/17/votes', payload);
+      //vote multiple image var ise, cdn'e kaydedilir !
+      const vote = await axios.post(`teams/7082780722/votes`, helpers.convertAllKeys(payload));
       console.log(vote.data);
     }
   },

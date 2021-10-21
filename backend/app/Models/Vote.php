@@ -14,6 +14,11 @@ class Vote extends Model
         "MULTIPLE" => "multiple"
     ];
 
+    public static array $OPTIONS_TYPES = [
+        'TEXT' => 'text',
+        'IMAGE' => 'image'
+    ];
+
     protected $table = 'votes';
     protected $fillable = [
         'team_id',

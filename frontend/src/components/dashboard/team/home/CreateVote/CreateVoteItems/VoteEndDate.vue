@@ -4,7 +4,6 @@
       Bitiş Zamanı
     </div>
     <div class="content">
-      {{minDate}}
       <input
           type="date"
           :min="minDate"
@@ -31,14 +30,9 @@ import Errors from '../../../../../shared/Errors';
 export default {
   name: 'VoteEndDate',
   mixins: [modelValueMixin, modelValueErrorMixin],
-  props: ['minDate'], //type
+  props: ['minDate'],
   components: {
     Errors
-  },
-  watch: {
-    minDate(newMinDate) {
-      if (this.$dayjs(this.value).diff(newMinDate) < 0) this.value = newMinDate;
-    }
   },
   computed: {
     differenceDayBetweenStartDateAndEndDate() {

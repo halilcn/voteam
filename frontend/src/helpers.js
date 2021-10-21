@@ -67,4 +67,35 @@ helpers.copyText = (text) => {
   textArea.style.display = 'none';
 };
 
+/**
+ * For clear items in object
+ */
+helpers.clearItems = (object) => {
+  for (const key in object) {
+    object[key] = '';
+  }
+  return object;
+};
+
+/**
+ * Convert to snake_case format
+ */
+helpers.convertSnakeCase = (text) => {
+  const result = text.replace(/([A-Z])/g, ' $1');
+  return result.split(' ').join('_').toLowerCase();
+};
+
+/**
+ * Convert all keys to snake_case format by convertSnakeCase function
+ */
+helpers.convertAllKeys = (data) => {
+  const newData = {};
+
+  for (const [key, value] of Object.entries(data)) {
+    newData[helpers.convertSnakeCase(key)] = value;
+  }
+
+  return newData;
+};
+
 export default helpers;

@@ -41,7 +41,6 @@
                 :content="voteTypeErrors"
                 class="vote-type-errors"/>
           </div>
-          <!-- date bugs ! -->
           <vote-start-date
               v-model="v$.vote.startDate.$model"
               :errors="getOnlyErrors(v$.vote.startDate.$errors)"/>
@@ -51,12 +50,12 @@
               :minDate="this.$dayjs(vote.startDate).add(1,'day').format('YYYY-MM-DD')"/>
         </div>
         <div class="bottom">
-          <div @click="activeVoteType=''" class="cancel-btn">
+          <div @click="clearActiveType" class="cancel-btn">
             geri
           </div>
           <standart-button
               text="Oylama Başlat"
-              :is-disable="v$.vote.$invalid"
+              :is-disable="isDisableCreateVoteButton"
               @click="createVote"/>
         </div>
       </div>
@@ -77,7 +76,6 @@ import customValidators from '../../../../../mixins/customValidators';
 import Error from '../../../../shared/Errors';
 import { mapActions } from 'vuex';
 
-//vote type gelen errors paylaş butonuna etki etsin !!
 export default {
   name: 'CreateVotePopup',
   mixins: [validateMixin, customValidators],
@@ -103,6 +101,9 @@ export default {
         title: {
           required: this.multipleLangError('errors.required', this.validators.required),
           maxLength: this.multipleLangError('errors.maxLength', this.validators.maxLength(20))
+        },
+        options: {
+          required: this.validators.required
         },
         startDate: {
           required: this.multipleLangError('errors.required', this.validators.required),
@@ -139,8 +140,24 @@ export default {
 
       this.activeVoteType = type;
     },
+    clearActiveType() {
+      this.activeVoteType = '';
+    },
+    createdVote() {
+      this.clearActiveType();
+      this.vote = this.$helpers.clearItems(this.vote);
+      this.v$.vote.$reset();
+      this.$emit('handlePopup');
+    },
     createVote() {
-      this.postVote(this.vote);
+      this.handle(async () => {
+        this.isLoadingCreateVote = true;
+        await this.postVote(this.vote);
+        this.createdVote();
+      })
+          .finally(() => {
+            this.isLoadingCreateVote = false;
+          });
     }
   },
   computed: {
@@ -155,6 +172,9 @@ export default {
       return (value) => {
         return self.$dayjs(self.vote.startDate).isBefore(value);
       };
+    },
+    isDisableCreateVoteButton() {
+      return this.v$.vote.$invalid || this.isVoteTypeHasErrors || this.isLoadingCreateVote;
     }
   }
 };

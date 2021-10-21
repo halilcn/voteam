@@ -36,6 +36,9 @@ class Team extends Model
             ->withTimestamps();
     }
 
+    /**
+     * @return HasMany
+     */
     public function votes(): HasMany
     {
         return $this->hasMany(Vote::class);

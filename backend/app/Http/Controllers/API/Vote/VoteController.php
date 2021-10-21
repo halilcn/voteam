@@ -17,14 +17,11 @@ class VoteController extends Controller
         return VotesResource::collection($team->votes);
     }
 
-    public function store(VoteRequest $request)
+    public function store(VoteRequest $request, Team $team)
     {
-        // TODO: 2 tip vote burada create edilecek
-        // TODO: options'lar burada ayırlacak, diğer field'lar aynı
-        // TODO: options multiple olan CDN ile fotoğraflar kaydedilecel (frontend), uzun
+        //Todo:created olduğunda isteyene e-mail/bildirim gönderilir
+        $team->votes()->create($request->validated());
 
-
-
-        Vote::create()
+        return $this->createdResponse();
     }
 }

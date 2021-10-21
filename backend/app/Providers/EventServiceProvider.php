@@ -5,9 +5,11 @@ namespace App\Providers;
 use App\Models\Team;
 use App\Models\User;
 use App\Models\UserRegisterCode;
+use App\Models\Vote;
 use App\Observers\TeamObserver;
 use App\Observers\UserObserver;
 use App\Observers\UserRegisterCodeObserver;
+use App\Observers\VoteObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -36,5 +38,6 @@ class EventServiceProvider extends ServiceProvider
         UserRegisterCode::observe(UserRegisterCodeObserver::class);
         User::observe(UserObserver::class);
         Team::observe(TeamObserver::class);
+        Vote::observe(VoteObserver::class);
     }
 }

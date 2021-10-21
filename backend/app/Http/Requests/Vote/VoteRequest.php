@@ -27,24 +27,12 @@ class VoteRequest extends FormRequest
         return [
             'title' => ['string', 'max:20'],
             'type' => ['string', 'in:'.implode(',', array_values(Vote::$TYPES))],
-            //TODO: options
-            'startDate' => ['date', 'after:yesterday'],
-            'endDate' => ['date', 'after:startDate']
+            'options' => ['required'],
+            'options.*.type' => ['in:'.implode(',', array_values(Vote::$OPTIONS_TYPES))],
+            'options.*.message' => ['string', 'nullable'],
+            'options.*.path' => ['string', 'nullable'],
+            'start_date' => ['date', 'after:yesterday'],
+            'end_date' => ['date', 'after:startDate']
         ];
     }
-
-    /*  foreach ($request->all() as $key => $value) {
-        $input[Str::snake($key)] = $value;
-    }*/
-
-    protected function prepareForValidation()
-    {
-        $this->merge([
-                         'title' => fix_typos($this->title),
-                         'body' => filter_malicious_content($this->body),
-                         'tags' => convert_comma_separated_values_to_array($this->tags),
-                         'is_published' => (bool)$this->is_published,
-                     ]);
-    }
-
 }
