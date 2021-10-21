@@ -6,7 +6,8 @@ export default {
     'member'
   ],
   VOTE_OPTIONS_TYPES: {
-    TEXT: 'text'
+    TEXT: 'text',
+    IMAGE: 'image'
   }
 };
 

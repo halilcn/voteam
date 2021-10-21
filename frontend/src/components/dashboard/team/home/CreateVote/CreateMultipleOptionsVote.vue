@@ -1,41 +1,70 @@
 <template>
-  <div class="vote-type-title">
-    Klasik Oylama
-  </div>
-  <vote-title/>
+  <!-- popup içinde popup kullanmak ? -->
+  <popup
+      title="Fotoğraf Göster"
+      @handleDisable="toggleImagePopup"
+      width="340"
+      :is-enable="isEnableImagePopup">
+    <template v-slot:content>
+      dasd as
+    </template>
+  </popup>
+
   <div class="form-item">
     <div class="title">
       Oy Seçenekleri
     </div>
     <div class="content options-list">
-      <!--textarea ??-->
-      <div class="item-container text-item">
-        <textarea class="content-text item"/>
-        <div class="delete">
-          <i class="bi bi-trash"></i>
-        </div>
-      </div>
-      <!-- <div class="item-container text-item">
-        <input class="content-text item"/>
-        <div class="delete">
-          <i class="bi bi-trash"></i>
-        </div>
-      </div>-->
-      <div class="item-container image-item">
-        <!-- <input type="file" class="content-text item"/>-->
-        <div class="content-text selected-image">
-          Fotoğraf Seçildi. <span class="show-image">Görüntüle</span>
-        </div>
-        <div class="delete">
+      {{ options }}
+      {{ v$.options.$invalid }}
+      <errors :content="['dasd']"/>
+      <div v-for="(option,index) in options"
+           :key="index"
+           :class="isTextVoteType(option.type) ? 'text-item' : 'image-item'"
+           class="item-container text-item">
+        <textarea
+            v-if="isTextVoteType(option.type)"
+            v-model.trim="options[index].$model"
+            class="content-text item"/>
+        <template v-else>
+          <input
+              v-if="!isSelectedImage(option.path)"
+              type="file"
+              @change="onChangeFile(index,$event)"
+              class="content-text item"/>
+          <div
+              v-else
+              class="content-text"
+              :class="{'selected-image':isSelectedImage(option.image)}">
+            Fotoğraf Seçildi. <span @click="showImage(index)" class="show-image">Görüntüle</span>
+          </div>
+        </template>
+
+        <div @click="deleteOption(index)" class="delete">
           <i class="bi bi-trash-fill"></i>
         </div>
       </div>
-      <div class="item-container image-item">
-        <input type="file" class="content-text item"/>
-        <div class="delete">
-          <i class="bi bi-trash-fill"></i>
+
+      <!--   <div class="item-container text-item">
+          <textarea class="content-text item"/>
+          <div class="delete">
+            <i class="bi bi-trash-fill"></i>
+          </div>
         </div>
-      </div>
+        <div class="item-container image-item">
+          <input type="file" class="content-text item"/>
+          <div class="delete">
+            <i class="bi bi-trash-fill"></i>
+          </div>
+        </div>
+        <div class="item-container image-item">
+          <div class="content-text selected-image">
+            Fotoğraf Seçildi. <span class="show-image">Görüntüle</span>
+          </div>
+          <div class="delete">
+            <i class="bi bi-trash-fill"></i>
+          </div>
+        </div>-->
     </div>
     <div class="add-options-list-item-btn">
       <div @click="toggleOptionsList" class="btn">
@@ -43,40 +72,117 @@
         ekle
       </div>
       <div v-if="isEnableOptionsList" class="options-type-list">
-        <div class="item">
+        <div @click="addOption('text')" class="item">
           <i class="bi bi-card-text"></i>
         </div>
-        <div class="item">
+        <div @click="addOption('image')" class="item">
           <i class="bi bi-image"></i>
         </div>
       </div>
     </div>
   </div>
-  <vote-start-date/>
-  <vote-end-date/>
 </template>
 
 <script>
-import VoteTitle from './CreateVoteItems/VoteTitle';
-import VoteStartDate from './CreateVoteItems/VoteStartDate';
-import VoteEndDate from './CreateVoteItems/VoteEndDate';
+import modelValueMixin from '../../../../../mixins/modelValueMixin';
+import validateMixin from '../../../../../mixins/validateMixin';
+import constants from '../../../../../store/constants';
+import Errors from '../../../../shared/Errors';
+import Popup from '../../../../shared/Popup';
 
 export default {
   name: 'CreateClassicVote',
+  mixins: [modelValueMixin, validateMixin],
+  props: {
+    voteErrors: Array
+  },
   data() {
     return {
-      isEnableOptionsList: false
+      v$: this.useVuelidate(),
+      isEnableOptionsList: false,
+      isEnableImagePopup: false,
+      options: []
+    };
+  },
+  validations() {
+    return {
+      options: {
+        $each: {
+          message: {
+            required: this.multipleLangError('errors.required', this.validators.required)
+          },
+          path: {
+            required: this.multipleLangError('errors.required', this.validators.required)
+          }
+        }
+      }
     };
   },
   components: {
-    VoteTitle,
-    VoteStartDate,
-    VoteEndDate
+    Popup,
+    Errors
+  },
+  watch: {
+    'options': function () {
+      alert();
+      //this.value = this.vote;
+    },
+    'v$.options.$errors': function (newValue) {
+      this.errors = this.getOnlyErrors(newValue);
+    }
   },
   methods: {
     toggleOptionsList() {
       this.isEnableOptionsList = !this.isEnableOptionsList;
+    },
+    addOption(type) {
+      const data = {
+        type
+      };
+
+      if (type === constants.VOTE_OPTIONS_TYPES.TEXT) {
+        data.message = '';
+      }
+
+      if (type === constants.VOTE_OPTIONS_TYPES.IMAGE) {
+        data.path = '';
+      }
+
+      this.options.push(data);
+      this.toggleOptionsList();
+    },
+    deleteOption(index) {
+      this.options.splice(index, 1);
+    },
+    isTextVoteType(type) {
+      return type === constants.VOTE_OPTIONS_TYPES.TEXT;
+    },
+    isSelectedImage(path) {
+      console.log(path);
+      return path !== '';
+    },
+    onChangeFile(index, event) {
+      this.options[index].path = event.target.files[0];
+    },
+    showImage(index) {
+      console.log(this.options[index].path);
+    },
+    toggleImagePopup() {
+      this.isEnableImagePopup = !this.isEnableImagePopup;
     }
+  },
+  computed: {
+    errors: {
+      get() {
+        return this.voteErrors;
+      },
+      set(voteErrors) {
+        this.$emit('update:voteErrors', voteErrors);
+      }
+    }
+  },
+  created() {
+    this.$helpers.clickOutside(this, 'isEnableOptionsList');
   }
 };
 </script>
@@ -93,7 +199,8 @@ export default {
     &.text-item {
       .item {
         resize: vertical;
-        height: 40px;
+        height: 38px;
+        min-height: 38px;
         max-height: 80px;
       }
     }
@@ -145,6 +252,10 @@ export default {
     background-color: #eaf2ff;
     padding: 2px 7px;
     border-radius: 4px;
+
+    &:hover {
+      background-color: #e5efff;
+    }
   }
 
   .options-type-list {

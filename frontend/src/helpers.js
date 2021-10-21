@@ -98,4 +98,11 @@ helpers.convertAllKeys = (data) => {
   return newData;
 };
 
+/**
+ * Create temporary url for show
+ */
+helpers.createTemporaryUrl = (file) => {
+  return URL.createObjectURL(file);
+};
+
 export default helpers;
