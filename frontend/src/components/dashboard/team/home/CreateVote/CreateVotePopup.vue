@@ -129,6 +129,7 @@ export default {
   },
   methods: {
     ...mapActions('vote', ['postVote']),
+    ...mapActions('cloudinary', ['postImage']),
     selectVoteType(type) {
       if (type === 'create-multiple-options-vote') {
         this.vote.type = 'multiple';
@@ -152,7 +153,8 @@ export default {
     createVote() {
       this.handle(async () => {
         this.isLoadingCreateVote = true;
-        await this.postVote(this.vote);
+        await this.postImage(this.vote.options[0].path);
+        //await this.postVote(this.vote);
         this.createdVote();
       })
           .finally(() => {
