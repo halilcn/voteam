@@ -1,14 +1,15 @@
 <template>
   <!-- popup içinde popup kullanmak ? -->
-  <popup
-      title="Fotoğraf Göster"
-      @handleDisable="toggleImagePopup"
+
+  <test
+      title="Fotoğraf"
       width="340"
+      @handleDisable="toggleImagePopup"
       :is-enable="isEnableImagePopup">
     <template v-slot:content>
-      dasd as
+      <img class="option-image" :src="pathOfImageOnPopup" alt="option-image"/>
     </template>
-  </popup>
+  </test>
 
   <div class="form-item">
     <div class="title">
@@ -101,6 +102,7 @@ export default {
       v$: this.useVuelidate(),
       isEnableOptionsList: false,
       isEnableImagePopup: false,
+      pathOfImageOnPopup: '',
       options: []
     };
   },
@@ -108,24 +110,26 @@ export default {
     return {
       options: {
         $each: {
-          message: {
-            required: this.multipleLangError('errors.required', this.validators.required)
-          },
-          path: {
-            required: this.multipleLangError('errors.required', this.validators.required)
-          }
+          /* message: {
+             required: this.multipleLangError('errors.required', this.validators.required)
+           },
+           path: {
+             required: this.multipleLangError('errors.required', this.validators.required)
+           }*/
         }
       }
     };
   },
   components: {
-    Popup,
+    test: Popup,
     Errors
   },
   watch: {
-    'options': function () {
-      alert();
-      //this.value = this.vote;
+    options: {
+      handler: function () {
+        this.value = this.options;
+      },
+      deep: true
     },
     'v$.options.$errors': function (newValue) {
       this.errors = this.getOnlyErrors(newValue);
@@ -165,7 +169,8 @@ export default {
       this.options[index].path = event.target.files[0];
     },
     showImage(index) {
-      console.log(this.options[index].path);
+      this.pathOfImageOnPopup = this.$helpers.createTemporaryUrl(this.options[index].path);
+      this.isEnableImagePopup = true;
     },
     toggleImagePopup() {
       this.isEnableImagePopup = !this.isEnableImagePopup;
@@ -180,15 +185,20 @@ export default {
         this.$emit('update:voteErrors', voteErrors);
       }
     }
-  },
-  created() {
-    this.$helpers.clickOutside(this, 'isEnableOptionsList');
   }
+  /* created() {
+     this.$helpers.clickOutside(this, 'isEnableOptionsList');
+   }*/
 };
 </script>
 
 <style lang="scss" scoped>
 @include create-vote-popup-form-item;
+
+.option-image {
+  width: 100%;
+  border-radius: 10px;
+}
 
 .options-list {
   .item-container {
