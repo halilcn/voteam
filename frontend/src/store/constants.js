@@ -5,6 +5,10 @@ export default {
     'manager',
     'member'
   ],
+  VOTE_TYPES: {
+    DOUBLE: 'double',
+    MULTIPLE: 'multiple'
+  },
   VOTE_OPTIONS_TYPES: {
     TEXT: 'text',
     IMAGE: 'image'

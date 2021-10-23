@@ -25,7 +25,7 @@
            class="item-container text-item">
         <textarea
             v-if="isTextVoteType(option.type)"
-            v-model.trim="options[index].$model"
+            v-model.trim="options[index].message"
             class="content-text item"/>
         <template v-else>
           <input
@@ -109,14 +109,14 @@ export default {
   validations() {
     return {
       options: {
-        $each: {
-          /* message: {
-             required: this.multipleLangError('errors.required', this.validators.required)
-           },
-           path: {
-             required: this.multipleLangError('errors.required', this.validators.required)
-           }*/
-        }
+        /*   $each: {
+            message: {
+               required: this.multipleLangError('errors.required', this.validators.required)
+             },
+             path: {
+               required: this.multipleLangError('errors.required', this.validators.required)
+             }
+        }*/
       }
     };
   },
@@ -127,6 +127,7 @@ export default {
   watch: {
     options: {
       handler: function () {
+        console.log(this.options);
         this.value = this.options;
       },
       deep: true

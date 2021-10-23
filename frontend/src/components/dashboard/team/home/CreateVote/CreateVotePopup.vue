@@ -75,6 +75,7 @@ import validateMixin from '../../../../../mixins/validateMixin';
 import customValidators from '../../../../../mixins/customValidators';
 import Error from '../../../../shared/Errors';
 import { mapActions } from 'vuex';
+import constants from '../../../../../store/constants';
 
 export default {
   name: 'CreateVotePopup',
@@ -129,7 +130,7 @@ export default {
   },
   methods: {
     ...mapActions('vote', ['postVote']),
-    ...mapActions('cloudinary', ['postImage']),
+    ...mapActions('cloudinary', ['postVoteImage']),
     selectVoteType(type) {
       if (type === 'create-multiple-options-vote') {
         this.vote.type = 'multiple';
@@ -153,8 +154,16 @@ export default {
     createVote() {
       this.handle(async () => {
         this.isLoadingCreateVote = true;
-        await this.postImage(this.vote.options[0].path);
-        //await this.postVote(this.vote);
+        //await this.postImage(this.vote.options[0].path);
+        if (this.vote.type === constants.VOTE_TYPES.MULTIPLE) {
+          // async işlevler çalışmıyor
+          await this.vote.options.map(async option => {
+            if (option.type === constants.VOTE_OPTIONS_TYPES.IMAGE) {
+              option.path = await this.postVoteImage(option.path);
+            }
+          });
+        }
+        await this.postVote(this.vote);
         this.createdVote();
       })
           .finally(() => {
