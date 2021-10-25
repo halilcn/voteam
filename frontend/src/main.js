@@ -7,13 +7,8 @@ import '@lottiefiles/lottie-player';
 import helpers from './helpers';
 import notify from './notify';
 import dayjs from 'dayjs';
-
+import vClickOutside from 'click-outside-vue3';
 import { VuelidatePlugin } from '@vuelidate/core';
-
-//Global component ??
-//Vue.component('PopupWindow', PopupWindow) // global registration - can be used anywhere
-
-//import useVuelidate from '@vuelidate/core';
 
 const app = createApp(App)
   .use(store)
@@ -25,5 +20,7 @@ app.config.globalProperties.$dayjs = dayjs;
 app.config.globalProperties.$helpers = helpers;
 app.config.globalProperties.$notify = notify;
 app.config.globalProperties.handle = helpers.handle;
+
+app.directive('clickOutside', vClickOutside.directive);
 
 app.mount('#app');
