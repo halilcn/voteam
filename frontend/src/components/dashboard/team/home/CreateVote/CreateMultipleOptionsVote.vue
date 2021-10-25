@@ -1,7 +1,5 @@
 <template>
-  <!-- popup içinde popup kullanmak ? -->
-
-  <test
+  <popup
       title="Fotoğraf"
       width="340"
       @handleDisable="toggleImagePopup"
@@ -9,70 +7,53 @@
     <template v-slot:content>
       <img class="option-image" :src="pathOfImageOnPopup" alt="option-image"/>
     </template>
-  </test>
-
+  </popup>
   <div class="form-item">
     <div class="title">
       Oy Seçenekleri
     </div>
     <div class="content options-list">
-      {{ options }}
-      {{ v$.options.$invalid }}
-      <errors :content="['dasd']"/>
-      <div v-for="(option,index) in options"
-           :key="index"
-           :class="isTextVoteType(option.type) ? 'text-item' : 'image-item'"
-           class="item-container text-item">
+      <template v-if="options.length > 0">
+        <div v-for="(option,index) in v$.options.$model"
+             :key="index"
+             :class="isTextVoteType(option.type) ? 'text-item' : 'image-item'"
+             class="item-container text-item">
         <textarea
             v-if="isTextVoteType(option.type)"
-            v-model.trim="options[index].message"
+            v-model.trim="option.message"
             class="content-text item"/>
-        <template v-else>
-          <input
-              v-if="!isSelectedImage(option.path)"
-              type="file"
-              @change="onChangeFile(index,$event)"
-              class="content-text item"/>
-          <div
-              v-else
-              class="content-text"
-              :class="{'selected-image':isSelectedImage(option.image)}">
-            Fotoğraf Seçildi. <span @click="showImage(index)" class="show-image">Görüntüle</span>
+          <template v-else>
+            <input
+                v-if="!isSelectedImage(option.path)"
+                type="file"
+                accept="image/*"
+                @change="onChangeFile(index,$event)"
+                class="content-text item"/>
+            <div
+                v-else
+                class="content-text"
+                :class="{'selected-image':isSelectedImage(option.image)}">
+              Fotoğraf Seçildi. <span @click="showImage(index)" class="show-image">Görüntüle</span>
+            </div>
+          </template>
+          <div @click="deleteOption(index)" class="delete">
+            <i class="bi bi-trash-fill"></i>
           </div>
-        </template>
-
-        <div @click="deleteOption(index)" class="delete">
-          <i class="bi bi-trash-fill"></i>
         </div>
+      </template>
+      <div v-else class="no-options">
+        Henüz oy seçeneği eklenmemiş
       </div>
-
-      <!--   <div class="item-container text-item">
-          <textarea class="content-text item"/>
-          <div class="delete">
-            <i class="bi bi-trash-fill"></i>
-          </div>
-        </div>
-        <div class="item-container image-item">
-          <input type="file" class="content-text item"/>
-          <div class="delete">
-            <i class="bi bi-trash-fill"></i>
-          </div>
-        </div>
-        <div class="item-container image-item">
-          <div class="content-text selected-image">
-            Fotoğraf Seçildi. <span class="show-image">Görüntüle</span>
-          </div>
-          <div class="delete">
-            <i class="bi bi-trash-fill"></i>
-          </div>
-        </div>-->
     </div>
     <div class="add-options-list-item-btn">
       <div @click="toggleOptionsList" class="btn">
         <i class="bi bi-plus"></i>
         ekle
       </div>
-      <div v-if="isEnableOptionsList" class="options-type-list">
+      <div
+          v-if="isEnableOptionsList"
+          v-click-outside="toggleOptionsList"
+          class="options-type-list">
         <div @click="addOption('text')" class="item">
           <i class="bi bi-card-text"></i>
         </div>
@@ -88,7 +69,6 @@
 import modelValueMixin from '../../../../../mixins/modelValueMixin';
 import validateMixin from '../../../../../mixins/validateMixin';
 import constants from '../../../../../store/constants';
-import Errors from '../../../../shared/Errors';
 import Popup from '../../../../shared/Popup';
 
 export default {
@@ -109,32 +89,24 @@ export default {
   validations() {
     return {
       options: {
-        /*   $each: {
-            message: {
-               required: this.multipleLangError('errors.required', this.validators.required)
-             },
-             path: {
-               required: this.multipleLangError('errors.required', this.validators.required)
-             }
-        }*/
+        minLength: this.multipleLangError('customErrors.minLengthVoteOptions', this.validators.minLength(2))
       }
     };
-  },
-  components: {
-    test: Popup,
-    Errors
   },
   watch: {
     options: {
       handler: function () {
-        console.log(this.options);
         this.value = this.options;
       },
       deep: true
     },
-    'v$.options.$errors': function (newValue) {
-      this.errors = this.getOnlyErrors(newValue);
+    // TODO: Bad structure. Code will be reviewed.
+    'v$.options.$invalid': function (newValue) {
+      this.errors = newValue ? [this.$t('customErrors.minLengthVoteOptions')] : [];
     }
+  },
+  components: {
+    Popup
   },
   methods: {
     toggleOptionsList() {
@@ -163,7 +135,6 @@ export default {
       return type === constants.VOTE_OPTIONS_TYPES.TEXT;
     },
     isSelectedImage(path) {
-      console.log(path);
       return path !== '';
     },
     onChangeFile(index, event) {
@@ -187,9 +158,6 @@ export default {
       }
     }
   }
-  /* created() {
-     this.$helpers.clickOutside(this, 'isEnableOptionsList');
-   }*/
 };
 </script>
 
@@ -231,8 +199,6 @@ export default {
           }
         }
       }
-
-
     }
 
     .delete {
@@ -248,10 +214,16 @@ export default {
       }
     }
   }
+
+  .no-options {
+    font-size: 12px;
+    font-weight: 300;
+    color: $df-light-dark-black-color;
+  }
 }
 
 .add-options-list-item-btn {
-  margin-top: 5px;
+  margin-top: 10px;
   display: inline-block;
   position: relative;
 
@@ -295,6 +267,5 @@ export default {
       }
     }
   }
-
 }
 </style>
