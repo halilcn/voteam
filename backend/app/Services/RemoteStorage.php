@@ -6,24 +6,37 @@ use Cloudinary\Cloudinary;
 
 class RemoteStorage
 {
-    public $cloudinary;
+    public Cloudinary $cloudinary;
 
     public function __construct()
     {
-        $this->cloudinary = new Cloudinary([
-                                               'cloud' => [
-                                                   'cloud_name' => config('cloudinary.cloudName'),
-                                                   'api_key' => config('cloudinary.apiKey'),
-                                                   'api_secret' => config('cloudinary.apiSecret'),
-                                               ],
-                                               /*'url' => [
-                                                   'secure' => true
-                                               ]*/
-                                           ]);
+        // TODO: Will be removed from here
+        $this->cloudinary = new Cloudinary(
+            [
+                'cloud' => [
+                    'cloud_name' => config('cloudinary.CLOUDINARY_CLOUD_NAME'),
+                    'api_key' => config('cloudinary.CLOUDINARY_API_KEY'),
+                    'api_secret' => config('cloudinary.CLOUDINARY_API_SECRET'),
+                ],
+                'url' => [
+                    'secure' => true
+                ]
+            ]
+        );
     }
 
-    public function put(string $file, array $options = []): object
+    /**
+     * @param  string  $file
+     * @param  string  $folder
+     * @return object
+     * @throws \Cloudinary\Api\Exception\ApiError
+     */
+    public function put(string $file, string $folder): object
     {
-        return $this->cloudinary->uploadApi()->upload($file, $options);
+        $file = $this->cloudinary->uploadApi()->upload($file, [
+            'folder' => $folder
+        ]);
+
+        return collect($file)->only('public_id', 'secure_url');
     }
 }

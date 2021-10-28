@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f806de549c7f6add7351f9699cbd038b",
+    "content-hash": "c285df803de8327a3bcc5a38eb399ac2",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -123,89 +123,17 @@
             "time": "2021-08-15T20:50:18+00:00"
         },
         {
-            "name": "cloudinary-labs/cloudinary-laravel",
-            "version": "1.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/cloudinary-labs/cloudinary-laravel.git",
-                "reference": "7543449243848eb936e4c492b82ec64512e67da0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/cloudinary-labs/cloudinary-laravel/zipball/7543449243848eb936e4c492b82ec64512e67da0",
-                "reference": "7543449243848eb936e4c492b82ec64512e67da0",
-                "shasum": ""
-            },
-            "require": {
-                "cloudinary/cloudinary_php": "^2.0",
-                "ext-json": "*",
-                "illuminate/support": "~6|~7|~8",
-                "php": ">=7.2"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.1",
-                "orchestra/testbench": "~4|~5|~6",
-                "phpunit/phpunit": "^8.0",
-                "sempro/phpunit-pretty-print": "^1.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "CloudinaryLabs\\CloudinaryLaravel\\CloudinaryServiceProvider"
-                    ],
-                    "aliases": {
-                        "Cloudinary": "CloudinaryLabs\\CloudinaryLaravel\\Facades\\Cloudinary"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "CloudinaryLabs\\CloudinaryLaravel\\": "src/"
-                },
-                "files": [
-                    "src/Support/helpers.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Prosper Otemuyiwa",
-                    "email": "prosperotemuyiwa@gmail.com",
-                    "homepage": "https://github.com/unicodeveloper"
-                }
-            ],
-            "description": "A Laravel Cloudinary Package",
-            "homepage": "https://github.com/cloudinary-labs/cloudinary-laravel",
-            "keywords": [
-                "File Transformations",
-                "Media management",
-                "cloudinary",
-                "cloudinary-laravel",
-                "file uploads",
-                "laravel"
-            ],
-            "support": {
-                "issues": "https://github.com/cloudinary-labs/cloudinary-laravel/issues",
-                "source": "https://github.com/cloudinary-labs/cloudinary-laravel/tree/1.0.4"
-            },
-            "time": "2021-02-17T04:23:45+00:00"
-        },
-        {
             "name": "cloudinary/cloudinary_php",
-            "version": "2.0.0",
+            "version": "2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cloudinary/cloudinary_php.git",
-                "reference": "92c343a14cad59aabde1932364da08b6326fb050"
+                "reference": "d4dc8e2b1b6c5f30e291d0fc136b84d08f0a31b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cloudinary/cloudinary_php/zipball/92c343a14cad59aabde1932364da08b6326fb050",
-                "reference": "92c343a14cad59aabde1932364da08b6326fb050",
+                "url": "https://api.github.com/repos/cloudinary/cloudinary_php/zipball/d4dc8e2b1b6c5f30e291d0fc136b84d08f0a31b6",
+                "reference": "d4dc8e2b1b6c5f30e291d0fc136b84d08f0a31b6",
                 "shasum": ""
             },
             "require": {
@@ -213,6 +141,7 @@
                 "guzzlehttp/guzzle": "^6|^7",
                 "monolog/monolog": "*",
                 "php": ">=5.6.0",
+                "psr/log": "^1",
                 "shrikeh/teapot": "^1|^2"
             },
             "require-dev": {
@@ -253,9 +182,9 @@
             "support": {
                 "email": "info@cloudinary.com",
                 "issues": "https://github.com/cloudinary/cloudinary_php/issues",
-                "source": "https://github.com/cloudinary/cloudinary_php/tree/2.0.0"
+                "source": "https://github.com/cloudinary/cloudinary_php/tree/2.4.1"
             },
-            "time": "2021-01-31T17:31:13+00:00"
+            "time": "2021-10-15T01:39:14+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -8260,7 +8189,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.3|^8.0"
+        "php": "^8.0"
     },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"

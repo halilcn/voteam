@@ -4,18 +4,19 @@ export default {
   state: {},
   mutations: {},
   actions: {
-    async postVoteImage(_, payload) {
-      console.log(payload);
-
+    async postImage(_, payload) {
       const formData = new FormData();
-      formData.append('file', payload);
+      formData.append('file', payload.file);
+      formData.append('folder', payload.folder);
 
       const res = await axios.post('file', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
-      console.log(res);
+
+      return res.data;
+
     }
   },
   getters: {},

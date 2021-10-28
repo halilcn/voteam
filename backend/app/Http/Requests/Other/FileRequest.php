@@ -24,7 +24,12 @@ class FileRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => ['required', 'image', 'max:3000']
+            'file' => ['required', 'image', 'max:3000'],
+            'folder' => [
+                'required',
+                'string',
+                'in:'.implode(',', config('cloudinary.CLOUDINARY_VALIDATED_FOLDER_NAME'))
+            ]
         ];
     }
 }

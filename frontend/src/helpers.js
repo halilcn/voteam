@@ -88,7 +88,7 @@ helpers.convertSnakeCase = (text) => {
 /**
  * Convert all keys to snake_case format by convertSnakeCase function
  */
-helpers.convertAllKeys = (data) => {
+helpers.convertAllKeysToSnakeCase = (data) => {
   const newData = {};
 
   for (const [key, value] of Object.entries(data)) {

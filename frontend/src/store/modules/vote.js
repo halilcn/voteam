@@ -1,5 +1,6 @@
 import axios from 'axios';
 import helpers from '../../helpers';
+import constants from '../constants';
 
 export default {
   state: {
@@ -19,10 +20,30 @@ export default {
     async getVotes() {
       console.log(await axios.get('teams/7082780722/votes'));
     },
-    async postVote(_, payload) {
-      //vote multiple image var ise, cdn'e kaydedilir !
-      const vote = await axios.post(`teams/7082780722/votes`, helpers.convertAllKeys(payload));
-      console.log(vote.data);
+    async postVote({ dispatch }, payload) {
+      const vote = payload;
+
+      if (vote.type === constants.VOTE_TYPES.MULTIPLE) {
+        await vote.options.map(async option => {
+          if (option.type === constants.VOTE_OPTIONS_TYPES.IMAGE) {
+            option.path = await dispatch('postVoteImage', option.path);
+          }
+        });
+      }
+
+      const res = await axios.post(`teams/7082780722/votes`, helpers.convertAllKeysToSnakeCase(vote));
+      console.log(res.data);
+    },
+    async postVoteImage({ dispatch }, payload) {
+      const { secure_url } = await dispatch(
+        'cloudinary/postImage',
+        {
+          file: payload,
+          folder: 'vote-images'
+        },
+        { root: true });
+
+      return secure_url;
     }
   },
   getters: {},

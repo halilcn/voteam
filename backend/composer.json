@@ -8,10 +8,10 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
-        "cloudinary/cloudinary_php": "2.4.1",
+        "php": "^8.0",
+        "cloudinary/cloudinary_php": "^2",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.2.0",
+        "guzzlehttp/guzzle": "^7.3.0",
         "itsgoingd/clockwork": "^5.1",
         "laravel/framework": "^8.54",
         "laravel/sanctum": "^2.11",
