@@ -15,6 +15,7 @@ class VoteController extends Controller
     {
         //active, next_date olarak ayırma
         return VotesResource::collection($team->votes);
+
     }
 
     public function store(VoteRequest $request, Team $team)

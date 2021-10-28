@@ -163,6 +163,11 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
+        * Custom Package Service Providers...
+        */
+        \App\Providers\RemoteStorageServiceProvider::class,
+
+        /*
          * Package Service Providers...
          */
 
