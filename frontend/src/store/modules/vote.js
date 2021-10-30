@@ -25,11 +25,13 @@ export default {
       const vote = payload;
 
       if (vote.type === constants.VOTE_TYPES.MULTIPLE) {
-        await vote.options.map(async option => {
-          if (option.type === constants.VOTE_OPTIONS_TYPES.IMAGE) {
-            option.path = await dispatch('postVoteImage', option.path);
-          }
-        });
+        await Promise.all(
+          vote.options.map(async option => {
+            if (option.type === constants.VOTE_OPTIONS_TYPES.IMAGE) {
+              option.path = await dispatch('postVoteImage', option.path);
+            }
+          })
+        );
       }
 
       //TODO: Created olduktan sonra state'e eklenmesi ?

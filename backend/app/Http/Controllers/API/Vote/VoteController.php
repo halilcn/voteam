@@ -15,14 +15,17 @@ class VoteController extends Controller
     {
         //active, next_date olarak ayırma
         return VotesResource::collection($team->votes);
-
     }
 
-    public function store(VoteRequest $request, Team $team)
-    {
-        //Todo:created olduğunda isteyene e-mail/bildirim gönderilir
-        $team->votes()->create($request->validated());
 
+    /**
+     * @param  VoteRequest  $request
+     * @param  Team  $team
+     * @return object
+     */
+    public function store(VoteRequest $request, Team $team): object
+    {
+        $team->votes()->create($request->validated());
         return $this->createdResponse();
     }
 }

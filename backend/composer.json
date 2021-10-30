@@ -12,6 +12,7 @@
         "cloudinary/cloudinary_php": "^2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.3.0",
+        "intervention/image": "^2.7",
         "itsgoingd/clockwork": "^5.1",
         "laravel/framework": "^8.54",
         "laravel/sanctum": "^2.11",

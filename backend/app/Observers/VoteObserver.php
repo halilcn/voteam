@@ -2,7 +2,9 @@
 
 namespace App\Observers;
 
+use App\Jobs\SendVoteCreatedEmail;
 use App\Models\Vote;
+use Illuminate\Support\Facades\Notification;
 
 class VoteObserver
 {
@@ -22,7 +24,8 @@ class VoteObserver
      */
     public function created(Vote $vote)
     {
-        //
+        //TODO: User Notification ?
+        SendVoteCreatedEmail::dispatch($vote);
     }
 
     /**
