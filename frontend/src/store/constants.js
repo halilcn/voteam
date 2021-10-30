@@ -12,6 +12,9 @@ export default {
   VOTE_OPTIONS_TYPES: {
     TEXT: 'text',
     IMAGE: 'image'
+  },
+  IMAGE: {
+    MAX_SIZE_KB: 3000
   }
 };
 

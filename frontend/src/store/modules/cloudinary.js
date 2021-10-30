@@ -9,14 +9,13 @@ export default {
       formData.append('file', payload.file);
       formData.append('folder', payload.folder);
 
-      const res = await axios.post('file', formData, {
+      const { data } = await axios.post('file', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
 
-      return res.data;
-
+      return data;
     }
   },
   getters: {},

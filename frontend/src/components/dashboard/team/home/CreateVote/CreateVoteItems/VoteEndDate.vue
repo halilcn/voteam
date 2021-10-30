@@ -3,6 +3,7 @@
     <div class="title">
       Bitiş Zamanı
     </div>
+    {{ minDate }}
     <div class="content">
       <input
           type="date"
@@ -33,6 +34,12 @@ export default {
   props: ['minDate'],
   components: {
     Errors
+  },
+  watch: {
+    minDate(newValue) {
+      console.log('değişti');
+      this.value = newValue;
+    }
   },
   computed: {
     differenceDayBetweenStartDateAndEndDate() {

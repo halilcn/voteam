@@ -20,6 +20,7 @@
              class="item-container text-item">
         <textarea
             v-if="isTextVoteType(option.type)"
+            placeholder="Oy seçeneğini kısaca açıkla..."
             v-model.trim="option.message"
             class="content-text item"/>
           <template v-else>

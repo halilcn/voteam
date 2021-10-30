@@ -4,7 +4,10 @@
       Ne Oylanacak ?
     </div>
     <div class="content vote-text">
-      <textarea v-model="v$.vote.message.$model" class="content-text"/>
+      <textarea
+          v-model="v$.vote.message.$model"
+          placeholder="Oylanacak konuyu kısaca açıkla..."
+          class="content-text"/>
     </div>
   </div>
 </template>

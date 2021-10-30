@@ -1,5 +1,6 @@
 import axios from 'axios';
 import helpers from '../../helpers';
+import router from '../../router/index';
 import constants from '../constants';
 
 export default {
@@ -31,8 +32,9 @@ export default {
         });
       }
 
-      const res = await axios.post(`teams/7082780722/votes`, helpers.convertAllKeysToSnakeCase(vote));
-      console.log(res.data);
+      //TODO: Created olduktan sonra state'e eklenmesi ?
+      const { data } = await axios.post(`teams/${router.currentRoute.value.params.teamId}/votes`, helpers.convertAllKeysToSnakeCase(vote));
+      console.log(data);
     },
     async postVoteImage({ dispatch }, payload) {
       const { secure_url } = await dispatch(

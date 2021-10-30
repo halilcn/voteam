@@ -112,6 +112,7 @@ export default {
         endDate: {
           required: this.multipleLangError('errors.required', this.validators.required),
           nextDate: this.multipleLangError('errors.nextDate', this.nextDate),
+          //TODO: Bug !
           fromStartDate: this.multipleLangError('errors.fromStartDate', this.fromStartDate)
         }
       }
@@ -153,8 +154,8 @@ export default {
       this.handle(async () => {
         this.isLoadingCreateVote = true;
         await this.postVote(this.vote);
-        console.log('created');
-        //this.createdVote();
+        this.createdVote();
+        this.$notify.success('Oylama Başlatıldı');
       })
           .finally(() => {
             this.isLoadingCreateVote = false;
@@ -184,19 +185,18 @@ export default {
 <style lang="scss" scoped>
 
 .choose-vote-type {
-
   .item {
     @include center-lg-box-shadow;
     position: relative;
     display: flex;
     align-items: center;
+    color: $df-mdl-dark-black-color;
     background-color: #ffffff;
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
     margin: 10px 0;
     font-weight: 500;
-    color: $df-mdl-dark-black-color;
     transition: .2s;
 
     &:hover {
@@ -221,23 +221,17 @@ export default {
 
     .text {
       margin-left: 30px;
-
     }
   }
 }
 
 .create-vote {
   .form {
-    //padding-bottom: 5px;
-
     .custom-vote-form {
       margin-bottom: 20px;
 
       .vote-type-form {
         margin-bottom: 0;
-      }
-
-      .vote-type-errors {
       }
     }
   }

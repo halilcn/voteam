@@ -80,6 +80,10 @@
   &.has-error {
     @include std-input-has-error;
   }
+
+  &::placeholder{
+    color: #a6abaf;
+  }
 }
 
 @mixin std-input-has-error {
