@@ -34,7 +34,8 @@ class RemoteStorage
     public function put(string $file, string $folder): object
     {
         $file = $this->cloudinary->uploadApi()->upload($file, [
-            'folder' => $folder
+            'folder' => $folder,
+            'quality' => 'auto'
         ]);
 
         return collect($file)->only('public_id', 'secure_url');

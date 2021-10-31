@@ -20,9 +20,6 @@ class FileController extends Controller
      */
     public function store(FileRequest $request): object
     {
-        // return $this->convertImageToDefaultSettings($request->file('file')->getRealPath());
-        //$file = $this->convertImageToDefaultSettings($request->file('file')->getRealPath());
-
         return (new RemoteStorage())->put($request->file('file'), $request->input('folder'));
     }
 }
