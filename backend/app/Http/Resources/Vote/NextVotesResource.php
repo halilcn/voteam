@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources\Vote;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class VotesResource extends ResourceCollection
+class NextVotesResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,8 +15,9 @@ class VotesResource extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'active' => ActiveVotesResource::collection($this->collection->where('start_date', '<=', now())),
-            'next_date' => NextVotesResource::collection($this->collection->where('start_date', '>', now()))
+            'title' => $this->title,
+            'type' => $this->type,
+            'start_date' => $this->start_date,
         ];
     }
 }

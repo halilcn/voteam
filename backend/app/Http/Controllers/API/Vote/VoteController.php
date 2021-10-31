@@ -13,8 +13,18 @@ class VoteController extends Controller
 {
     public function index(Team $team)
     {
+        /*  return $team
+              ->votes()
+              ->whereDate('end_date', '>', now())
+              ->get();*/
+
         //active, next_date olarak ayırma
-        return VotesResource::collection($team->votes);
+        return VotesResource::make(
+            $team
+                ->votes()
+                ->whereDate('end_date', '>', now())
+                ->get()
+        );
     }
 
 
