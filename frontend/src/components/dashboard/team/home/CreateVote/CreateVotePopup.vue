@@ -44,6 +44,7 @@
           <vote-start-date
               v-model="v$.vote.startDate.$model"
               :errors="getOnlyErrors(v$.vote.startDate.$errors)"/>
+          {{ v$.vote.endDate.$errors }}
           <vote-end-date
               v-model="v$.vote.endDate.$model"
               :errors="getOnlyErrors(v$.vote.endDate.$errors)"
@@ -53,10 +54,19 @@
           <div @click="clearActiveType" class="cancel-btn">
             geri
           </div>
-          <standart-button
-              text="Oylama Başlat"
-              :is-disable="isDisableCreateVoteButton"
-              @click="createVote"/>
+          <div class="create-vote-btn">
+            <lottie-player
+                v-if="isLoadingCreateVote"
+                class="loading-icon"
+                src="https://assets10.lottiefiles.com/packages/lf20_6m7gsdxq.json"
+                background="transparent"
+                speed="1"
+                style="width: 40px; height: 40px;" loop autoplay/>
+            <standart-button
+                text="Oylama Başlat"
+                :is-disable="isDisableCreateVoteButton"
+                @click="createVote"/>
+          </div>
         </div>
       </div>
     </template>
@@ -147,6 +157,8 @@ export default {
     createdVote() {
       this.clearActiveType();
       this.vote = this.$helpers.clearItems(this.vote);
+      this.vote.startDate = this.$dayjs().format('YYYY-MM-DD');
+      this.vote.endDate = this.$dayjs().add(1, 'day').format('YYYY-MM-DD');
       this.v$.vote.$reset();
       this.$emit('handlePopup');
     },
@@ -249,6 +261,14 @@ export default {
 
       &:hover {
         color: $df-dark-blue-color;
+      }
+    }
+
+    .create-vote-btn {
+      display: flex;
+
+      .loading-icon {
+        margin-right: 4px;
       }
     }
   }
