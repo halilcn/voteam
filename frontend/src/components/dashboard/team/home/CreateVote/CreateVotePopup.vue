@@ -6,7 +6,7 @@
     <template v-slot:content>
       <div v-if="!isActiveVoteType" class="choose-vote-type">
         <div @click="selectVoteType('create-multiple-options-vote')" class="item">
-          <img src="../../../../../assets/icons/multiple-options-vote.png" class="vote-icon"
+          <img src="../../../../../assets/icons/multiple-type-vote.png" class="vote-icon"
                alt="multiple-options-vote"/>
           <div class="text">
             Çoklu Oylama
@@ -16,7 +16,7 @@
           </div>
         </div>
         <div @click="selectVoteType('create-double-options-vote')" class="item">
-          <img src="../../../../../assets/icons/double-options-vote.png" class="vote-icon" alt="double-options-vote"/>
+          <img src="../../../../../assets/icons/double-type-vote.png" class="vote-icon" alt="double-options-vote"/>
           <div class="text">
             Kabul/Red Oylaması
           </div>

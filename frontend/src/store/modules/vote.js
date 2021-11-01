@@ -5,21 +5,27 @@ import constants from '../constants';
 
 export default {
   state: {
-    votes: {}
-    /*
-    * votes:{
-    * active:[],
-    * nextDate:[]
-    * }*/
+    votes: {
+      active: [],
+      nextDate: []
+    }
   },
   mutations: {
-    setVotes(state, payload) {
-      state.votes = payload;
+    setActiveVotes(state, payload) {
+      state.votes.active = payload;
+      console.log(payload);
+    },
+    setNextDateVotes(state, payload) {
+      state.votes.nextDate = payload;
+      console.log(payload);
     }
   },
   actions: {
-    async getVotes() {
-      console.log(await axios.get('teams/7082780722/votes'));
+    async getVotes({ commit }) {
+      // TODO: data wrap delete ?
+      const { data } = await axios.get(`teams/${router.currentRoute.value.params.teamId}/votes`);
+      commit('setActiveVotes', data.data.active);
+      commit('setNextDateVotes', data.data.next_date);
     },
     async postVote({ dispatch }, payload) {
       const vote = payload;
