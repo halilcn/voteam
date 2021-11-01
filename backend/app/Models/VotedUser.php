@@ -13,8 +13,7 @@ class VotedUser extends Model
     protected $fillable = [
         'user_id',
         'vote_id',
-        'answer',
-        ''
+        'answer'
     ];
 
     protected $casts = [

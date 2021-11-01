@@ -2,8 +2,7 @@
 
 namespace App\Http\Resources\Vote;
 
-use App\Models\TeamUser;
-use App\Models\VotedUser;
+use App\Models\Vote;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ActiveVotesResource extends JsonResource
@@ -22,8 +21,8 @@ class ActiveVotesResource extends JsonResource
             'type' => $this->type,
             'options' => $this->options,
             'end_date' => $this->end_date,
-            'voted_percentage' => TeamUser::where('team_id','12')->count()/VotedUser::where('vote_id') // $request->user()->id,//34, toplam kullanıcı sayısı/oy veren kullanıcı sayısı
-            'is_voted' => false, //
+            'voted_percentage' => Vote::find($this->id)->voted_percentage,
+            'is_voted' => Vote::find($this->id)->votedUsers()->where('user_id', $request->user()->id)->exists(),
         ];
     }
 }

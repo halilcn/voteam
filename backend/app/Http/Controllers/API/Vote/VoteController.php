@@ -11,18 +11,18 @@ use Illuminate\Http\Request;
 
 class VoteController extends Controller
 {
-    public function index(Team $team)
+    /**
+     * @param  Team  $team
+     * @return VotesResource
+     */
+    public function index(Team $team): VotesResource
     {
-        /*  return $team
-              ->votes()
-              ->whereDate('end_date', '>', now())
-              ->get();*/
-
-        //active, next_date olarak ayırma
+        // TODO: Performance(Çok fazla sorgu atıyor!) ?
         return VotesResource::make(
             $team
                 ->votes()
                 ->whereDate('end_date', '>', now())
+                ->orderBy('start_date', 'asc')
                 ->get()
         );
     }

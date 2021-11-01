@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Vote extends Model
 {
@@ -38,11 +39,35 @@ class Vote extends Model
     ];
 
 
+    public function scopeVotedPercentage($query)
+    {
+    }
+
+    /**
+     * Get percentage of user who voted
+     * @return int
+     */
+    public function getVotedPercentageAttribute(): int
+    {
+        $usersCount = $this->team->users()->count();
+        $votedUserCount = $this->votedUsers()->count();
+
+        return $votedUserCount * (100 / $usersCount);
+    }
+
     /**
      * @return BelongsTo
      */
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function votedUsers(): HasMany
+    {
+        return $this->hasMany(VotedUser::class);
     }
 }
