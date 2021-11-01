@@ -1,4 +1,6 @@
-import notify from './notify';
+import notify from './others/notify';
+import store from '../src/store';
+import dayjs from 'dayjs';
 
 const helpers = {};
 
@@ -103,6 +105,20 @@ helpers.convertAllKeysToSnakeCase = (data) => {
  */
 helpers.createTemporaryUrl = (file) => {
   return URL.createObjectURL(file);
+};
+
+/*
+* Convert time to UTC
+* */
+helpers.convertTimeToUtc = (time) => {
+  return dayjs(time).add(-store.state.auth.user.utc, 'hours');
+};
+
+/*
+* Convert time to local time
+* */
+helpers.convertTimeToLocalTime = (time) => {
+  return dayjs(time).add(store.state.auth.user.utc, 'hours');
 };
 
 export default helpers;

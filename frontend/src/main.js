@@ -5,8 +5,8 @@ import store from './store';
 import i18n from './localization/index';
 import '@lottiefiles/lottie-player';
 import helpers from './helpers';
-import notify from './notify';
-import dayjs from 'dayjs';
+import notify from './others/notify';
+import dayjs from './others/dayjs';
 import vClickOutside from 'click-outside-vue3';
 import { VuelidatePlugin } from '@vuelidate/core';
 
