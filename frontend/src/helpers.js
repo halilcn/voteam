@@ -107,16 +107,16 @@ helpers.createTemporaryUrl = (file) => {
   return URL.createObjectURL(file);
 };
 
-/*
-* Convert time to UTC
-* */
+/**
+ * Convert time to UTC
+ */
 helpers.convertTimeToUtc = (time) => {
   return dayjs(time).add(-store.state.auth.user.utc, 'hours');
 };
 
-/*
-* Convert time to local time
-* */
+/**
+ * Convert time to local time
+ */
 helpers.convertTimeToLocalTime = (time) => {
   return dayjs(time).add(store.state.auth.user.utc, 'hours');
 };
