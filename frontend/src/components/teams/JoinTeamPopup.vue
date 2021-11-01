@@ -36,7 +36,7 @@ import Popup from '../shared/Popup';
 import StandartButton from '../shared/elements/StandartButton';
 import Info from '../shared/Info';
 import Errors from '../shared/Errors';
-import notify from '../../notify';
+import notify from '../../others/notify';
 import validateMixin from '../../mixins/validateMixin';
 import { mapActions } from 'vuex';
 

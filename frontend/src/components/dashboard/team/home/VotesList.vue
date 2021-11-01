@@ -20,6 +20,7 @@
           Aktif Oylamalar
         </div>
         <div class="list">
+          {{ $dayjs().add(-3, 'hours') }}
           <!-- <div class="no-data">
             <img src="../../../../assets/icons/no-double-type-vote.png"/>
             <div class="text">
@@ -28,15 +29,14 @@
           </div>-->
           <div v-for="(vote,index) in votes.active"
                :key="index"
-               :class="{voted:vote.is_voted}"
+               :class="{voted:vote.is_voted,'everyone-voted':vote.voted_percentage === 100}"
                class="item">
             <div class="top">
               <div class="voted-percentage">
                 %{{ vote.voted_percentage }}
               </div>
-              {{ vote.type }}
               <div class="icon">
-                <img :src="`../../../../assets/icons/${vote.type}-type-vote.png`" alt="power-vote"/>
+                <img :src="require(`../../../../assets/icons/${vote.type}-type-vote.png`)" alt="power-vote"/>
               </div>
               <div class="vote-name">
                 {{ vote.title }}
@@ -44,15 +44,14 @@
             </div>
             <div class="bottom-info time">
               <i class="bi bi-stopwatch-fill"></i>
-              1 gün 12 saat
+              {{ $dayjs($helpers.convertTimeToUtc(vote.end_date)).fromNow() }}
             </div>
             <div class="bottom-info voted-info">
               <i class="bi bi-check-all"></i>
               Oy Verilmiş !
             </div>
           </div>
-          ----
-          <div class="item voted">
+          <!--           <div class="item voted">
             <div class="top">
               <div class="voted-percentage">
                 %56
@@ -69,91 +68,92 @@
               Oy Verilmiş !
             </div>
           </div>
-          <div class="item voted everyone-voted">
-            <div class="top">
-              <div class="voted-percentage">
-                %100
-              </div>
-              <div class="icon">
-                <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
-              </div>
-              <div class="vote-name">
-                Güç Oylaması
-              </div>
-            </div>
-            <div class="time">
-              <i class="bi bi-check-all"></i>
-              Oy Verilmiş !
-            </div>
-          </div>
-          <div class="item voted">
-            <div class="top">
-              <div class="voted-percentage">
-                %21
-              </div>
-              <div class="icon">
-                <img src="../../../../assets/icons/leader-vote.png" alt="power-vote"/>
-              </div>
-              <div class="vote-name">
-                Lider Oylaması
-              </div>
-            </div>
-            <div class="time">
-              <i class="bi bi-check-all"></i>
-              Oy Verilmiş !
-            </div>
-          </div>
-          <div class="item ">
-            <div class="top">
-              <div class="voted-percentage">
-                %75
-              </div>
-              <div class="icon">
-                <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
-              </div>
-              <div class="vote-name">
-                Güç Oylaması
-              </div>
-            </div>
-            <div class="time">
-              <i class="bi bi-check-all"></i>
-              Oy Verilmiş !
-            </div>
-          </div>
-          <div class="item">
-            <div class="top">
-              <div class="voted-percentage">
-                %56
-              </div>
-              <div class="icon">
-                <img src="../../../../assets/icons/multiple-type-vote.png" alt="power-vote"/>
-              </div>
-              <div class="vote-name">
-                bu bir test oylama başlığıdır
-              </div>
-            </div>
-            <div class="time">
-              <i class="bi bi-stopwatch-fill"></i>
-              1 gün 12 saat
-            </div>
-          </div>
-          <div class="item">
-            <div class="top">
-              <div class="voted-percentage">
-                %56
-              </div>
-              <div class="icon">
-                <img src="../../../../assets/icons/multiple-type-vote.png" alt="power-vote"/>
-              </div>
-              <div class="vote-name">
-                kabul re oylamasıdır bu
-              </div>
-            </div>
-            <div class="time">
-              <i class="bi bi-stopwatch-fill"></i>
-              1 gün 12 saat
-            </div>
-          </div>
+-->
+          <!--  <div class="item voted everyone-voted">
+             <div class="top">
+               <div class="voted-percentage">
+                 %100
+               </div>
+               <div class="icon">
+                 <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
+               </div>
+               <div class="vote-name">
+                 Güç Oylaması
+               </div>
+             </div>
+             <div class="time">
+               <i class="bi bi-check-all"></i>
+               Oy Verilmiş !
+             </div>
+           </div>
+           <div class="item voted">
+             <div class="top">
+               <div class="voted-percentage">
+                 %21
+               </div>
+               <div class="icon">
+                 <img src="../../../../assets/icons/leader-type-vote.png" alt="power-vote"/>
+               </div>
+               <div class="vote-name">
+                 Lider Oylaması
+               </div>
+             </div>
+             <div class="time">
+               <i class="bi bi-check-all"></i>
+               Oy Verilmiş !
+             </div>
+           </div>
+           <div class="item ">
+             <div class="top">
+               <div class="voted-percentage">
+                 %75
+               </div>
+               <div class="icon">
+                 <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
+               </div>
+               <div class="vote-name">
+                 Güç Oylaması
+               </div>
+             </div>
+             <div class="time">
+               <i class="bi bi-check-all"></i>
+               Oy Verilmiş !
+             </div>
+           </div>
+           <div class="item">
+             <div class="top">
+               <div class="voted-percentage">
+                 %56
+               </div>
+               <div class="icon">
+                 <img src="../../../../assets/icons/multiple-type-vote.png" alt="power-vote"/>
+               </div>
+               <div class="vote-name">
+                 bu bir test oylama başlığıdır
+               </div>
+             </div>
+             <div class="time">
+               <i class="bi bi-stopwatch-fill"></i>
+               1 gün 12 saat
+             </div>
+           </div>
+           <div class="item">
+             <div class="top">
+               <div class="voted-percentage">
+                 %56
+               </div>
+               <div class="icon">
+                 <img src="../../../../assets/icons/multiple-type-vote.png" alt="power-vote"/>
+               </div>
+               <div class="vote-name">
+                 kabul re oylamasıdır bu
+               </div>
+             </div>
+             <div class="time">
+               <i class="bi bi-stopwatch-fill"></i>
+               1 gün 12 saat
+             </div>
+           </div>-->
           <!--  <div class="item">
              <div class="top">
                <div class="voted-percentage">
