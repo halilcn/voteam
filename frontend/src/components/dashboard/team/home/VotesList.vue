@@ -1,5 +1,6 @@
 <template>
   <!-- TODO: UTC ! -->
+  <!-- TODO: CSS ! yanlışlar çok ? -->
   <create-vote-popup
       @handlePopup="toggleCreateVotePopup"
       :is-enable="isEnableCreateVotePopup"/>
@@ -15,341 +16,254 @@
       </div>
     </div>
     <div class="content list-container">
-      <div class="active-votes">
-        <div class="content-title">
-          Aktif Oylamalar
+      <loading-animation v-if="isLoading.votes"
+                         :textLineCount="5"
+                         :textCount="2"/>
+      <template v-else>
+        <div class="active-votes">
+          <div class="content-title">
+            Aktif Oylamalar
+          </div>
+          <div class="list">
+            <template v-if="votes.active.length > 0">
+              <div v-for="(vote,index) in votes.active"
+                   :key="index"
+                   :class="{voted:vote.is_voted,'everyone-voted':vote.voted_percentage === 100}"
+                   class="item">
+                <div class="top">
+                  <div class="voted-percentage">
+                    %{{ vote.voted_percentage }}
+                  </div>
+                  <div class="icon">
+                    <img :src="require(`../../../../assets/icons/${vote.type}-type-vote.png`)" alt="vote-type"/>
+                  </div>
+                  <div class="vote-name">
+                    {{ vote.title }}
+                  </div>
+                </div>
+                <div class="bottom-info time">
+                  <i class="bi bi-stopwatch-fill"></i>
+                  {{ $dayjs($helpers.convertTimeToUtc(vote.end_date)).fromNow() }}
+                </div>
+                <div class="bottom-info voted-info">
+                  <i class="bi bi-check-all"></i>
+                  Oy Verilmiş !
+                </div>
+              </div>
+            </template>
+            <div v-else class="no-data">
+              <img src="../../../../assets/icons/no-vote.png" alt="no-vote"/>
+              <div class="text">
+                Aktif oylama hiç yok
+              </div>
+            </div>
+            <!--           <div class="item voted">
+              <div class="top">
+                <div class="voted-percentage">
+                  %56
+                </div>
+                <div class="icon">
+                  <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
+                </div>
+                <div class="vote-name">
+                  Güç Oylaasdsad sadas
+                </div>
+              </div>
+              <div class="time">
+                <i class="bi bi-check-all"></i>
+                Oy Verilmiş !
+              </div>
+            </div>
+  -->
+            <!--  <div class="item voted everyone-voted">
+               <div class="top">
+                 <div class="voted-percentage">
+                   %100
+                 </div>
+                 <div class="icon">
+                   <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
+                 </div>
+                 <div class="vote-name">
+                   Güç Oylaması
+                 </div>
+               </div>
+               <div class="time">
+                 <i class="bi bi-check-all"></i>
+                 Oy Verilmiş !
+               </div>
+             </div>
+             <div class="item voted">
+               <div class="top">
+                 <div class="voted-percentage">
+                   %21
+                 </div>
+                 <div class="icon">
+                   <img src="../../../../assets/icons/leader-type-vote.png" alt="power-vote"/>
+                 </div>
+                 <div class="vote-name">
+                   Lider Oylaması
+                 </div>
+               </div>
+               <div class="time">
+                 <i class="bi bi-check-all"></i>
+                 Oy Verilmiş !
+               </div>
+             </div>
+             <div class="item ">
+               <div class="top">
+                 <div class="voted-percentage">
+                   %75
+                 </div>
+                 <div class="icon">
+                   <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
+                 </div>
+                 <div class="vote-name">
+                   Güç Oylaması
+                 </div>
+               </div>
+               <div class="time">
+                 <i class="bi bi-check-all"></i>
+                 Oy Verilmiş !
+               </div>
+             </div>
+             <div class="item">
+               <div class="top">
+                 <div class="voted-percentage">
+                   %56
+                 </div>
+                 <div class="icon">
+                   <img src="../../../../assets/icons/multiple-type-vote.png" alt="power-vote"/>
+                 </div>
+                 <div class="vote-name">
+                   bu bir test oylama başlığıdır
+                 </div>
+               </div>
+               <div class="time">
+                 <i class="bi bi-stopwatch-fill"></i>
+                 1 gün 12 saat
+               </div>
+             </div>
+             <div class="item">
+               <div class="top">
+                 <div class="voted-percentage">
+                   %56
+                 </div>
+                 <div class="icon">
+                   <img src="../../../../assets/icons/multiple-type-vote.png" alt="power-vote"/>
+                 </div>
+                 <div class="vote-name">
+                   kabul re oylamasıdır bu
+                 </div>
+               </div>
+               <div class="time">
+                 <i class="bi bi-stopwatch-fill"></i>
+                 1 gün 12 saat
+               </div>
+             </div>-->
+            <!--  <div class="item">
+               <div class="top">
+                 <div class="voted-percentage">
+                   %56
+                 </div>
+                 <div class="icon">
+                   <img src="../../../../assets/icons/classic-double-type-vote.png" alt="classic-vote"/>
+                 </div>
+                 <div class="vote-name">
+                   Bu bir örnek klasik oylama yazısıdır.
+                 </div>
+               </div>
+               <div class="time">
+                 <i class="bi bi-stopwatch-fill"></i>
+                 1 gün 12 saat
+               </div>
+             </div>
+             <div class="item voted">
+               <div class="top">
+                 <div class="voted-percentage">
+                   %56
+                 </div>
+                 <div class="icon">
+                   <img src="../../../../assets/icons/power-double-type-vote.png" alt="power-vote"/>
+                 </div>
+                 <div class="vote-name">
+                   Güç Oylaması
+                 </div>
+               </div>
+               <div class="time">
+                 Oy Verilmiş !
+               </div>
+             </div>
+             <div class="item">
+               <div class="top">
+                 <div class="voted-percentage">
+                   %56
+                 </div>
+                 <div class="icon">
+                   <img src="../../../../assets/icons/classic-double-type-vote.png" alt="classic-vote"/>
+                 </div>
+                 <div class="vote-name">
+                   Bu bir örnek klasik oylama yazısıdır.
+                 </div>
+               </div>
+               <div class="time">
+                 <i class="bi bi-stopwatch-fill"></i>
+                 1 gün 12 saat
+               </div>
+             </div>
+             <div class="item">
+               <div class="top">
+                 <div class="voted-percentage">
+                   %56
+                 </div>
+                 <div class="icon">
+                   <img src="../../../../assets/icons/classic-double-type-vote.png" alt="classic-vote"/>
+                 </div>
+                 <div class="vote-name">
+                   Para Paylaşımı
+                 </div>
+               </div>
+               <div class="time">
+                 <i class="bi bi-stopwatch-fill"></i>
+                 1 gün 12 saat
+               </div>
+             </div>-->
+          </div>
         </div>
-        <div class="list">
-          {{ $dayjs().add(-3, 'hours') }}
-          <!-- <div class="no-data">
-            <img src="../../../../assets/icons/no-double-type-vote.png"/>
-            <div class="text">
-              Aktif oylama hiç yok
-            </div>
-          </div>-->
-          <div v-for="(vote,index) in votes.active"
-               :key="index"
-               :class="{voted:vote.is_voted,'everyone-voted':vote.voted_percentage === 100}"
-               class="item">
-            <div class="top">
-              <div class="voted-percentage">
-                %{{ vote.voted_percentage }}
-              </div>
-              <div class="icon">
-                <img :src="require(`../../../../assets/icons/${vote.type}-type-vote.png`)" alt="power-vote"/>
-              </div>
-              <div class="vote-name">
-                {{ vote.title }}
-              </div>
-            </div>
-            <div class="bottom-info time">
-              <i class="bi bi-stopwatch-fill"></i>
-              {{ $dayjs($helpers.convertTimeToUtc(vote.end_date)).fromNow() }}
-            </div>
-            <div class="bottom-info voted-info">
-              <i class="bi bi-check-all"></i>
-              Oy Verilmiş !
-            </div>
+        <div class="next-votes">
+          <div class="content-title">
+            Gelecek Oylamalar
+            <info-tooltip text="Güç Oylaması ve Lider Oylaması belirli günlerde otomatik yapılır."
+                          class="next-vote-info"/>
           </div>
-          <!--           <div class="item voted">
-            <div class="top">
-              <div class="voted-percentage">
-                %56
+          <div class="list">
+            <template v-if="votes.nextDate.length > 0">
+              <div
+                  v-for="(vote,index) in votes.nextDate"
+                  :key="index"
+                  class="item">
+                <div class="top">
+                  <div class="icon">
+                    <img :src="require(`../../../../assets/icons/${vote.type}-type-vote.png`)" alt="vote-type"/>
+                  </div>
+                  <div class="vote-name">
+                    {{ vote.title }}
+                  </div>
+                </div>
+                <div class="bottom-info time">
+                  <i class="bi bi-clock-fill"></i>
+                  {{ $dayjs(vote.end_date).format('D MMMM') }}
+                </div>
               </div>
-              <div class="icon">
-                <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
+            </template>
+            <div v-else class="no-data">
+              <img src="../../../../assets/icons/no-vote.png" alt="note-vote"/>
+              <div class="text">
+                Gelecek oylama hiç yok
               </div>
-              <div class="vote-name">
-                Güç Oylaasdsad sadas
-              </div>
-            </div>
-            <div class="time">
-              <i class="bi bi-check-all"></i>
-              Oy Verilmiş !
-            </div>
-          </div>
--->
-          <!--  <div class="item voted everyone-voted">
-             <div class="top">
-               <div class="voted-percentage">
-                 %100
-               </div>
-               <div class="icon">
-                 <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
-               </div>
-               <div class="vote-name">
-                 Güç Oylaması
-               </div>
-             </div>
-             <div class="time">
-               <i class="bi bi-check-all"></i>
-               Oy Verilmiş !
-             </div>
-           </div>
-           <div class="item voted">
-             <div class="top">
-               <div class="voted-percentage">
-                 %21
-               </div>
-               <div class="icon">
-                 <img src="../../../../assets/icons/leader-type-vote.png" alt="power-vote"/>
-               </div>
-               <div class="vote-name">
-                 Lider Oylaması
-               </div>
-             </div>
-             <div class="time">
-               <i class="bi bi-check-all"></i>
-               Oy Verilmiş !
-             </div>
-           </div>
-           <div class="item ">
-             <div class="top">
-               <div class="voted-percentage">
-                 %75
-               </div>
-               <div class="icon">
-                 <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
-               </div>
-               <div class="vote-name">
-                 Güç Oylaması
-               </div>
-             </div>
-             <div class="time">
-               <i class="bi bi-check-all"></i>
-               Oy Verilmiş !
-             </div>
-           </div>
-           <div class="item">
-             <div class="top">
-               <div class="voted-percentage">
-                 %56
-               </div>
-               <div class="icon">
-                 <img src="../../../../assets/icons/multiple-type-vote.png" alt="power-vote"/>
-               </div>
-               <div class="vote-name">
-                 bu bir test oylama başlığıdır
-               </div>
-             </div>
-             <div class="time">
-               <i class="bi bi-stopwatch-fill"></i>
-               1 gün 12 saat
-             </div>
-           </div>
-           <div class="item">
-             <div class="top">
-               <div class="voted-percentage">
-                 %56
-               </div>
-               <div class="icon">
-                 <img src="../../../../assets/icons/multiple-type-vote.png" alt="power-vote"/>
-               </div>
-               <div class="vote-name">
-                 kabul re oylamasıdır bu
-               </div>
-             </div>
-             <div class="time">
-               <i class="bi bi-stopwatch-fill"></i>
-               1 gün 12 saat
-             </div>
-           </div>-->
-          <!--  <div class="item">
-             <div class="top">
-               <div class="voted-percentage">
-                 %56
-               </div>
-               <div class="icon">
-                 <img src="../../../../assets/icons/classic-double-type-vote.png" alt="classic-vote"/>
-               </div>
-               <div class="vote-name">
-                 Bu bir örnek klasik oylama yazısıdır.
-               </div>
-             </div>
-             <div class="time">
-               <i class="bi bi-stopwatch-fill"></i>
-               1 gün 12 saat
-             </div>
-           </div>
-           <div class="item voted">
-             <div class="top">
-               <div class="voted-percentage">
-                 %56
-               </div>
-               <div class="icon">
-                 <img src="../../../../assets/icons/power-double-type-vote.png" alt="power-vote"/>
-               </div>
-               <div class="vote-name">
-                 Güç Oylaması
-               </div>
-             </div>
-             <div class="time">
-               Oy Verilmiş !
-             </div>
-           </div>
-           <div class="item">
-             <div class="top">
-               <div class="voted-percentage">
-                 %56
-               </div>
-               <div class="icon">
-                 <img src="../../../../assets/icons/classic-double-type-vote.png" alt="classic-vote"/>
-               </div>
-               <div class="vote-name">
-                 Bu bir örnek klasik oylama yazısıdır.
-               </div>
-             </div>
-             <div class="time">
-               <i class="bi bi-stopwatch-fill"></i>
-               1 gün 12 saat
-             </div>
-           </div>
-           <div class="item">
-             <div class="top">
-               <div class="voted-percentage">
-                 %56
-               </div>
-               <div class="icon">
-                 <img src="../../../../assets/icons/classic-double-type-vote.png" alt="classic-vote"/>
-               </div>
-               <div class="vote-name">
-                 Para Paylaşımı
-               </div>
-             </div>
-             <div class="time">
-               <i class="bi bi-stopwatch-fill"></i>
-               1 gün 12 saat
-             </div>
-           </div>-->
-        </div>
-      </div>
-      <div class="next-votes">
-        <div class="content-title">
-          Gelecek Oylamalar
-          <info-tooltip text="Güç Oylaması ve Lider Oylaması belirli günlerde otomatik yapılır."
-                        class="next-vote-info"/>
-        </div>
-        <div class="list">
-          <!-- <div class="no-data">
-            <img src="../../../../assets/icons/no-double-type-vote.png"/>
-            <div class="text">
-              Gelecek oylama hiç yok
-            </div>
-          </div>-->
-          <div class="item">
-            <div class="top">
-              <div class="icon">
-                <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
-              </div>
-              <div class="vote-name">
-                Güç Oylaması
-              </div>
-            </div>
-            <div class="time">
-              <i class="bi bi-clock-fill"></i>
-              12 Haziran
-            </div>
-          </div>
-          <div class="item">
-            <div class="top">
-              <div class="icon">
-                <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
-              </div>
-              <div class="vote-name">
-                Güç Oylaması
-              </div>
-            </div>
-            <div class="time">
-              <i class="bi bi-clock-fill"></i>
-              12 Haziran
-            </div>
-          </div>
-          <div class="item">
-            <div class="top">
-              <div class="icon">
-                <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
-              </div>
-              <div class="vote-name">
-                Güç Oylaması
-              </div>
-            </div>
-            <div class="time">
-              <i class="bi bi-clock-fill"></i>
-              12 Haziran
-            </div>
-          </div>
-          <div class="item">
-            <div class="top">
-              <div class="icon">
-                <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
-              </div>
-              <div class="vote-name">
-                Güç Oylaması
-              </div>
-            </div>
-            <div class="time">
-              <i class="bi bi-clock-fill"></i>
-              12 Haziran
-            </div>
-          </div>
-          <div class="item">
-            <div class="top">
-              <div class="icon">
-                <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
-              </div>
-              <div class="vote-name">
-                Güç Oylaması
-              </div>
-            </div>
-            <div class="time">
-              <i class="bi bi-clock-fill"></i>
-              12 Haziran
-            </div>
-          </div>
-          <div class="item">
-            <div class="top">
-              <div class="icon">
-                <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
-              </div>
-              <div class="vote-name">
-                Güç Oylaması
-              </div>
-            </div>
-            <div class="time">
-              <i class="bi bi-clock-fill"></i>
-              12 Haziran
-            </div>
-          </div>
-          <div class="item">
-            <div class="top">
-              <div class="icon">
-                <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
-              </div>
-              <div class="vote-name">
-                Güç Oylaması
-              </div>
-            </div>
-            <div class="time">
-              <i class="bi bi-clock-fill"></i>
-              12 Haziran
-            </div>
-          </div>
-          <div class="item">
-            <div class="top">
-              <div class="icon">
-                <img src="../../../../assets/icons/power-vote.png" alt="power-vote"/>
-              </div>
-              <div class="vote-name">
-                Güç Oylaması
-              </div>
-            </div>
-            <div class="time">
-              <i class="bi bi-clock-fill"></i>
-              12 Haziran
             </div>
           </div>
         </div>
-      </div>
+      </template>
     </div>
   </div>
 </template>
@@ -357,21 +271,36 @@
 <script>
 import CreateVotePopup from './CreateVote/CreateVotePopup';
 import InfoTooltip from '../../../shared/InfoTooltip';
+import LoadingAnimation from '../../../shared/LoadingAnimation';
 import { mapActions, mapState } from 'vuex';
 
 export default {
   name: 'VotesList',
   data() {
     return {
-      isEnableCreateVotePopup: false
+      isEnableCreateVotePopup: false,
+      isLoading: {
+        votes: true,
+        teamInfo: false
+      }
     };
   },
   components: {
     CreateVotePopup,
-    InfoTooltip
+    InfoTooltip,
+    LoadingAnimation
   },
   methods: {
     ...mapActions('vote', ['getVotes']),
+    getVotesAction() {
+      this.handle(async () => {
+        this.isLoading.votes = true;
+        await this.getVotes();
+      })
+          .finally(() => {
+            this.isLoading.votes = false;
+          });
+    },
     toggleCreateVotePopup() {
       this.isEnableCreateVotePopup = !this.isEnableCreateVotePopup;
     }
@@ -380,13 +309,14 @@ export default {
     ...mapState('vote', ['votes'])
   },
   created() {
-    this.getVotes();
+    this.getVotesAction();
   }
 };
 </script>
 
 <style lang="scss" scoped>
 @include dashboard-team-home-contents;
+//votes list width problem ?
 
 .votes {
   .votes-title {
@@ -425,9 +355,10 @@ export default {
 
     > div {
       overflow: hidden;
+      min-height: 45%;
 
       .list {
-        //  overflow: auto;
+        position: relative;
         height: 100%;
         display: flex;
         flex-wrap: wrap;
@@ -435,6 +366,7 @@ export default {
         gap: 30px;
 
         .no-data {
+          margin-top: 30px;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -447,7 +379,7 @@ export default {
           .text {
             font-weight: 300;
             font-size: 14px;
-            color: #898989;
+            color: #c5c5c5; //img color ?
             margin-top: 10px;
           }
         }

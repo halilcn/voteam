@@ -12,6 +12,7 @@ export default {
   },
   mutations: {
     setActiveVotes(state, payload) {
+      // TODO: is_voted olanları en sona alma ?
       state.votes.active = payload;
       console.log(payload);
     },
@@ -23,7 +24,7 @@ export default {
   actions: {
     async getVotes({ commit }) {
       // TODO: data wrap delete ?
-      const { data } = await axios.get(`teams/${router.currentRoute.value.params.teamId}/votes`);
+      const { data } = await axios.get(`teamsa/${router.currentRoute.value.params.teamId}/votes`);
       commit('setActiveVotes', data.data.active);
       commit('setNextDateVotes', data.data.next_date);
     },

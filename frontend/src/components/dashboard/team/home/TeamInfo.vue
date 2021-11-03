@@ -52,12 +52,17 @@
 </template>
 
 <script>
+import InfoTooltip from '../../../shared/InfoTooltip';
+
 export default {
   name: 'TeamInfo',
   data() {
     return {
       isCopiedCode: false
     };
+  },
+  components: {
+    InfoTooltip
   },
   methods: {
     copyCode(text) {
