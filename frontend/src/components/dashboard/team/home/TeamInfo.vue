@@ -53,6 +53,7 @@
 
 <script>
 import InfoTooltip from '../../../shared/InfoTooltip';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'TeamInfo',
@@ -65,6 +66,7 @@ export default {
     InfoTooltip
   },
   methods: {
+    ...mapActions('team', ['getTeamInfo']),
     copyCode(text) {
       this.$helpers.copyText(text);
       this.isCopiedCode = true;
@@ -72,6 +74,9 @@ export default {
         this.isCopiedCode = false;
       }, 3000);
     }
+  },
+  created() {
+    this.getTeamInfo();
   }
 };
 </script>

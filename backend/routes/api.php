@@ -5,6 +5,7 @@ use App\Http\Controllers\API\Auth\LogoutController;
 use App\Http\Controllers\API\Auth\RegisterController;
 use App\Http\Controllers\API\Other\FileController;
 use App\Http\Controllers\API\Team\TeamController;
+use App\Http\Controllers\API\Team\TeamInfoController;
 use App\Http\Controllers\API\Team\TeamJoinWithCodeController;
 use App\Http\Controllers\API\Vote\VoteController;
 use Illuminate\Http\Request;
@@ -29,9 +30,10 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('login', [LoginController::class, 'handle']);
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
-        Route::resource('file',FileController::class);
+        Route::resource('file', FileController::class);
 
         Route::resource('teams', TeamController::class);
+        Route::get('teams/{team:key}/info', TeamInfoController::class);
 
         Route::resource('teams.votes', VoteController::class)->scoped(['team' => 'key']);
 

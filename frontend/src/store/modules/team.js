@@ -1,4 +1,5 @@
 import axios from 'axios';
+import router from '../../router/index';
 
 export default {
   state: {
@@ -17,6 +18,11 @@ export default {
     async getTeams({ commit }) {
       const { data } = await axios.get('teams');
       commit('setTeam', data);
+    },
+    async getTeamInfo() {
+      //TODO: data wrapping ?
+      const { data } = await axios.get(`teams/${router.currentRoute.value.params.teamId}/info`);
+      console.log(data);
     },
     async postCreateTeam({ commit }, payload) {
       const { data } = await axios.post('teams', payload);

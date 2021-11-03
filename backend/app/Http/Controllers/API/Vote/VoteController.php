@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 
 class VoteController extends Controller
 {
+    //TODO: Observer, query çok fazla ?
+
     /**
      * @param  Team  $team
      * @return VotesResource
