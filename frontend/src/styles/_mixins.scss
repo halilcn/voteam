@@ -81,7 +81,7 @@
     @include std-input-has-error;
   }
 
-  &::placeholder{
+  &::placeholder {
     color: #a6abaf;
   }
 }
@@ -158,12 +158,11 @@
   }
 }
 
-@mixin dashboard-team-home-contents{
- .home-content {
+@mixin dashboard-team-home-contents {
+  .home-content {
     width: 48%;
     display: flex;
     flex-direction: column;
-    justify-content: stretch;
     height: 100%;
 
     > .title {
@@ -172,18 +171,17 @@
       color: $df-dark-blue-color;
     }
 
-    //TODO: overflow problem
     .content {
       @include center-lg-box-shadow;
       height: 100%;
       padding: 15px;
-      border-radius: 5px;
+      border-radius: 8px;
       margin-top: 10px;
 
       .content-title {
         font-weight: 400;
         font-size: 14px;
-        color: #484848;
+        color: #616f79;
       }
     }
   }

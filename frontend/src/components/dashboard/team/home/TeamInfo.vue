@@ -1,7 +1,7 @@
 <template>
   <div class="home-content team">
     <div class="title">
-      <i class="bi bi-people"></i>
+      <i class="fas fa-users"></i>
       Takım
     </div>
     <div class="content team-info">

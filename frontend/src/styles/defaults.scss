@@ -1,8 +1,18 @@
 html, body, #app {
   height: 100%;
   font-family: 'Poppins', sans-serif;
-  max-width: 1500px;
   margin: 0 auto;
+  width: 100%;
+  max-width: $app-max-width;
+}
+
+body {
+  display: flex;
+  align-items: center;
+}
+
+#app {
+  max-height: $app-max-height;
 }
 
 * {
