@@ -11,20 +11,22 @@ use Illuminate\Http\Request;
 
 class VoteController extends Controller
 {
-    //TODO: Observer, query çok fazla ?
 
     /**
      * @param  Team  $team
      * @return VotesResource
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index(Team $team): VotesResource
     {
-        // TODO: Performance(Çok fazla sorgu atıyor!) ?
+        $this->authorize('show', [Vote::class, $team]);
+
+        // TODO: query problem.
         return VotesResource::make(
             $team
                 ->votes()
                 ->whereDate('end_date', '>', now())
-                ->orderBy('start_date', 'asc')
+                ->orderBy('start_date')
                 ->get()
         );
     }
@@ -34,10 +36,14 @@ class VoteController extends Controller
      * @param  VoteRequest  $request
      * @param  Team  $team
      * @return object
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(VoteRequest $request, Team $team): object
     {
+        $this->authorize('create', [Vote::class, $team]);
+
         $team->votes()->create($request->validated());
+
         return $this->createdResponse();
     }
 }

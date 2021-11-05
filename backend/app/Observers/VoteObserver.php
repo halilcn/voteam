@@ -24,7 +24,7 @@ class VoteObserver
      */
     public function created(Vote $vote)
     {
-        //TODO: User Notification ?
+        //TODO: Team Notification ?
         SendVoteCreatedEmail::dispatch($vote);
     }
 
