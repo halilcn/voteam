@@ -14,7 +14,6 @@ class Team extends Model
     protected $table = 'teams';
     protected $fillable = ['key', 'join_code', 'name', 'image'];
 
-
     /**
      * @param  string  $value
      * @return string
@@ -42,5 +41,13 @@ class Team extends Model
     public function votes(): HasMany
     {
         return $this->hasMany(Vote::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function notifications(): HasMany
+    {
+        return $this->hasMany(TeamNotification::class);
     }
 }
