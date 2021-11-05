@@ -26,7 +26,7 @@ export default {
   height: 100%;
 }
 
-@media only screen and (max-width: 1250px) {
+/*@media only screen and (max-width: 1250px) {
 
 }
 
@@ -42,5 +42,5 @@ export default {
       }
     }
   }
-}
+}*/
 </style>

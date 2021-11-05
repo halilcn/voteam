@@ -5,7 +5,38 @@
       Takım
     </div>
     <div class="content team-info">
-      <div class="item team-image">
+      <div class="first-info">
+        <img class="team-image" src="../../../../assets/test/team.png" alt="team-image"/>
+        <div class="texts">
+          <div class="text team-name">
+            Takım adı denemedı deneme
+          </div>
+          <div @click="copyCode('#43F4S')"
+               :class="{'copied-code':isCopiedCode}"
+               class="text team-code">
+            #43F4S
+            <info-tooltip
+                class="copied-code-info"
+                text="Kod kopyalandı !"
+                icon-class="bi bi-check-circle"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="others-info">
+        <div class="info">
+          <div class="info-title">
+            Toplam Üye Sayısı
+          </div>
+          <div class="info-content">
+            23
+          </div>
+        </div>
+        <div class="item">
+          2
+        </div>
+      </div>
+      <!-- <div class="item team-image">
         <img src="../../../../assets/test/team.png" alt="team-image"/>
       </div>
       <div class="item">
@@ -46,7 +77,7 @@
         <div class="inner-content">
           23 oylama
         </div>
-      </div>
+      </div>-->
     </div>
   </div>
 </template>
@@ -85,6 +116,7 @@ export default {
 @include dashboard-team-home-contents;
 
 .team {
+  /*
   .team-info {
     position: relative;
     display: flex;
@@ -144,6 +176,70 @@ export default {
         margin-top: 4px;
         font-size: 15px;
       }
+    }
+  }*/
+
+  .team-info {
+    .first-info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .team-image {
+        width: 130px;
+        height: 130px;
+        border-radius: 100%;
+      }
+
+      .texts {
+        display: flex;
+        flex-direction: column;
+        margin-left: 20px;
+
+        .text {
+          margin: 10px 0;
+
+          &.team-code {
+            display: flex;
+            align-items: center;
+            background-color: $df-very-light-blue-color;
+            color: $df-blue-color;
+            padding: 4px 7px;
+            border-radius: 4px;
+            cursor: pointer;
+
+            .copied-code-info {
+              margin-left: 4px;
+              display: none;
+            }
+
+            &.copied-code {
+              background-color: #f5f5f5;
+              color: $df-light-dark-black-color;
+
+              .copied-code-info {
+                display: block;
+              }
+
+            }
+          }
+        }
+
+      }
+    }
+  }
+
+  .others-info{
+    background-color: red;
+    display: flex;
+    justify-content: space-between;
+
+    .info-title{
+
+    }
+
+    .info-content{
+
     }
   }
 }
