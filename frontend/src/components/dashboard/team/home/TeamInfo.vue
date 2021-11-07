@@ -9,7 +9,7 @@
         <img class="team-image" src="../../../../assets/test/team.png" alt="team-image"/>
         <div class="texts">
           <div class="text team-name">
-            Takım adı denemedı deneme
+            Takım adı
           </div>
           <div @click="copyCode('#43F4S')"
                :class="{'copied-code':isCopiedCode}"
@@ -22,62 +22,38 @@
           </div>
         </div>
       </div>
-
-      <div class="others-info">
-        <div class="info">
-          <div class="info-title">
-            Toplam Üye Sayısı
-          </div>
-          <div class="info-content">
-            23
+      <div class="info">
+        <div class="info-title">
+          <div class="text">
+            Üye Sayısı
           </div>
         </div>
-        <div class="item">
-          2
+        <div class="info-content">
+          23
         </div>
       </div>
-      <!-- <div class="item team-image">
-        <img src="../../../../assets/test/team.png" alt="team-image"/>
-      </div>
-      <div class="item">
-        <div class="content-title">
-          Adı
+      <div class="info">
+        <div class="info-title">
+          <div class="text">
+            Toplam Başlatılan Oylama
+          </div>
         </div>
-        <div class="inner-content">
-          Takım adı denemedı deneme
-        </div>
-      </div>
-      <div class="item team-code">
-        <div class="content-title">
-          Kodu
-        </div>
-        <div
-            @click="copyCode('#43F4S')"
-            :class="{'copied-code':isCopiedCode}"
-            class="inner-content">
-          #43F4S
-          <info-tooltip
-              class="copied-code-info"
-              text="Kod kopyalandı !"
-              icon-class="bi bi-check-circle"/>
+        <div class="info-content">
+          23
         </div>
       </div>
-      <div class="item">
-        <div class="content-title">
-          Toplam Üye Sayısı
+      <div class="info">
+        <div class="info-title">
+          <div class="text">
+            Oylara Katılım Oranı
+          </div>
         </div>
-        <div class="inner-content">
-          23 kişi
+        <div class="info-content">
+          <div class="voted-percentage-error">
+            Henüz hesaplanmamış
+          </div>
         </div>
       </div>
-      <div class="item">
-        <div class="content-title">
-          Toplam Başlatılan Oylama Sayısı
-        </div>
-        <div class="inner-content">
-          23 oylama
-        </div>
-      </div>-->
     </div>
   </div>
 </template>
@@ -116,88 +92,36 @@ export default {
 @include dashboard-team-home-contents;
 
 .team {
-  /*
   .team-info {
-    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    //height büyüdükçe margin ver.
 
-    .item {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      margin-bottom: 30px;
-
-      &.team-code {
-        .inner-content {
-          display: flex;
-          align-items: center;
-          background-color: $df-very-light-blue-color;
-          color: $df-blue-color;
-          padding: 4px 7px;
-          border-radius: 4px;
-          cursor: pointer;
-
-          .copied-code-info {
-            margin-left: 4px;
-            display: none;
-          }
-
-          &.copied-code {
-            background-color: #f5f5f5;
-            color: $df-light-dark-black-color;
-
-            .copied-code-info {
-              display: block;
-            }
-
-          }
-
-        }
-
-      }
-
-      &.team-image {
-        position: absolute;
-        right: 20px;
-        top: 20px;
-
-        img {
-          @include center-md-box-shadow;
-          width: 120px;
-          height: 120px;
-          border-radius: 100%;
-        }
-      }
-
-      .inner-content {
-        margin-top: 4px;
-        font-size: 15px;
-      }
-    }
-  }*/
-
-  .team-info {
     .first-info {
       display: flex;
       align-items: center;
-      justify-content: center;
+      padding: 20px;
+      border: 1px solid #e0e6e8;
+      border-radius: 5px;
 
       .team-image {
-        width: 130px;
-        height: 130px;
+        width: 120px;
+        height: 120px;
         border-radius: 100%;
       }
 
       .texts {
         display: flex;
         flex-direction: column;
-        margin-left: 20px;
+        margin-left: 30px;
 
         .text {
-          margin: 10px 0;
+          font-size: 16px;
+          margin: 4px 0;
+
+          &.team-name {
+            color: $df-dark-blue-color;
+          }
 
           &.team-code {
             display: flex;
@@ -207,6 +131,7 @@ export default {
             padding: 4px 7px;
             border-radius: 4px;
             cursor: pointer;
+            font-weight: 500;
 
             .copied-code-info {
               margin-left: 4px;
@@ -220,26 +145,47 @@ export default {
               .copied-code-info {
                 display: block;
               }
-
             }
           }
         }
+      }
+    }
 
+    .info {
+      @include center-lg-box-shadow ;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      border-radius: 5px;
+      height: 70px;
+
+      .info-title {
+        .text {
+          color: #5a6675;
+        }
+      }
+
+      .info-content {
+        font-size: 25px;
+        color: #1b5b83;
+
+        .voted-percentage-error {
+          font-size: 12px;
+          color: #a1b4be;
+          font-weight: 300;
+        }
       }
     }
   }
+}
 
-  .others-info{
-    background-color: red;
-    display: flex;
-    justify-content: space-between;
+@media only screen and (min-height: 710px) {
+  .team .team-info {
+    justify-content: flex-start;
 
-    .info-title{
-
-    }
-
-    .info-content{
-
+    > div {
+      margin-bottom: 30px;
     }
   }
 }
