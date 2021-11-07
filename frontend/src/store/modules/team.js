@@ -20,9 +20,8 @@ export default {
       commit('setTeam', data);
     },
     async getTeamInfo() {
-      //TODO: data wrapping ?
       const { data } = await axios.get(`teams/${router.currentRoute.value.params.teamId}/info`);
-      console.log(data);
+      return data.data;
     },
     async postCreateTeam({ commit }, payload) {
       const { data } = await axios.post('teams', payload);

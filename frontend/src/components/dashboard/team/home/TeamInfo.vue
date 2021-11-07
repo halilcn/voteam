@@ -5,85 +5,106 @@
       Takım
     </div>
     <div class="content team-info">
-      <div class="first-info">
-        <img class="team-image" src="../../../../assets/test/team.png" alt="team-image"/>
-        <div class="texts">
-          <div class="text team-name">
-            Takım adı
-          </div>
-          <div @click="copyCode('#43F4S')"
-               :class="{'copied-code':isCopiedCode}"
-               class="text team-code">
-            #43F4S
-            <info-tooltip
-                class="copied-code-info"
-                text="Kod kopyalandı !"
-                icon-class="bi bi-check-circle"/>
-          </div>
-        </div>
-      </div>
-      <div class="info">
-        <div class="info-title">
-          <div class="text">
-            Üye Sayısı
+      <loading-animation v-if="isLoadingInfo"
+                         :textLineCount="5"
+                         :textCount="2"/>
+      <template v-else>
+        <div class="first-info">
+          <img class="team-image" :src="info.image" alt="team-image"/>
+          <div class="texts">
+            <div class="text team-name">
+              {{ info.name }}
+            </div>
+            <div @click="copyCode(info.join_code)"
+                 :class="{'copied-code':isCopiedCode}"
+                 class="text team-code">
+              {{ info.join_code }}
+              <info-tooltip
+                  class="copied-code-info"
+                  text="Kod kopyalandı !"
+                  icon-class="bi bi-check-circle"/>
+            </div>
           </div>
         </div>
-        <div class="info-content">
-          23
-        </div>
-      </div>
-      <div class="info">
-        <div class="info-title">
-          <div class="text">
-            Toplam Başlatılan Oylama
+        <div class="info">
+          <div class="info-title">
+            <div class="text">
+              Üye Sayısı
+            </div>
+          </div>
+          <div class="info-content">
+            {{ info.total_users_count }}
           </div>
         </div>
-        <div class="info-content">
-          23
-        </div>
-      </div>
-      <div class="info">
-        <div class="info-title">
-          <div class="text">
-            Oylara Katılım Oranı
+        <div class="info">
+          <div class="info-title">
+            <div class="text">
+              Toplam Başlatılan Oylama
+            </div>
+          </div>
+          <div class="info-content">
+            {{ info.total_started_votes }}
           </div>
         </div>
-        <div class="info-content">
-          <div class="voted-percentage-error">
-            Henüz hesaplanmamış
+        <div class="info">
+          <div class="info-title">
+            <div class="text">
+              Oylara Katılım Oranı
+            </div>
+          </div>
+          <div class="info-content">
+            <template v-if="info.vote_join_percentage">
+              %{{ info.vote_join_percentage.toFixed(2) }}
+            </template>
+            <div v-else class="voted-percentage-error">
+              Henüz hesaplanmamış
+            </div>
           </div>
         </div>
-      </div>
+      </template>
     </div>
   </div>
 </template>
 
 <script>
 import InfoTooltip from '../../../shared/InfoTooltip';
+import LoadingAnimation from '../../../shared/LoadingAnimation';
 import { mapActions } from 'vuex';
 
 export default {
   name: 'TeamInfo',
   data() {
     return {
-      isCopiedCode: false
+      info: {},
+      isCopiedCode: false,
+      isLoadingInfo: true
     };
   },
   components: {
-    InfoTooltip
+    InfoTooltip,
+    LoadingAnimation
   },
   methods: {
     ...mapActions('team', ['getTeamInfo']),
     copyCode(text) {
-      this.$helpers.copyText(text);
+      this.$helpers.copyText(text.substring(1));
       this.isCopiedCode = true;
       setTimeout(() => {
         this.isCopiedCode = false;
       }, 3000);
+    },
+    getTeamInfoAction() {
+      this.handle(async () => {
+        this.isLoadingInfo = true;
+        this.info = await this.getTeamInfo();
+      })
+          .finally(() => {
+            this.isLoadingInfo = false;
+          });
     }
   },
   created() {
-    this.getTeamInfo();
+    this.getTeamInfoAction();
   }
 };
 </script>

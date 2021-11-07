@@ -16,9 +16,11 @@ class TeamInfoResource extends JsonResource
     {
         return [
             'name' => $this->name,
+            'image' => $this->image,
             'join_code' => $this->join_code,
             'total_users_count' => $this->users_count,
-            'total_started_votes' => $this->votes_count
+            'total_started_votes' => $this->votes_count,
+            'vote_join_percentage' => $this->vote_join_percentage
         ];
     }
 }
