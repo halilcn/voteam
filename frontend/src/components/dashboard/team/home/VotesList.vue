@@ -2,15 +2,27 @@
   <create-vote-popup
       @handlePopup="toggleCreateVotePopup"
       :is-enable="isEnableCreateVotePopup"/>
+  <create-power-vote
+      @handlePopup="toggleCreatePowerVotePopup"
+      :is-enable="isEnableCreatePowerVotePopup"/>
   <div class="home-content votes">
     <div class="title votes-title">
       <div class="txt">
         <i class="fas fa-poll"></i>
         Oylamalar
       </div>
-      <div @click="toggleCreateVotePopup" class="create-vote">
-        <i class="bi bi-plus-circle-fill"></i>
-        Oylama Başlat
+      <div class="vote-actions">
+        <div @click="toggleCreatePowerVotePopup" class="create-power-vote btn">
+          Güç Oylaması
+        </div>
+        <div @click="toggleCreateVotePopup" class="create-vote btn disable">
+          <div class="power-vote-info">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            Güç oylaması gerekir
+          </div>
+          <i class="bi bi-plus-circle-fill"></i>
+          Oylama Başlat
+        </div>
       </div>
     </div>
     <div class="content list-container">
@@ -102,6 +114,7 @@
 
 <script>
 import CreateVotePopup from './CreateVote/CreateVotePopup';
+import CreatePowerVote from './CreateVote/CreatePowerVote';
 import InfoTooltip from '../../../shared/InfoTooltip';
 import LoadingAnimation from '../../../shared/LoadingAnimation';
 import { mapActions, mapState } from 'vuex';
@@ -111,11 +124,13 @@ export default {
   data() {
     return {
       isEnableCreateVotePopup: false,
+      isEnableCreatePowerVotePopup: false,
       isLoadingVotes: true
     };
   },
   components: {
     CreateVotePopup,
+    CreatePowerVote,
     InfoTooltip,
     LoadingAnimation
   },
@@ -132,6 +147,9 @@ export default {
     },
     toggleCreateVotePopup() {
       this.isEnableCreateVotePopup = !this.isEnableCreateVotePopup;
+    },
+    toggleCreatePowerVotePopup() {
+      this.isEnableCreatePowerVotePopup = !this.isEnableCreatePowerVotePopup;
     }
   },
   computed: {
@@ -151,25 +169,70 @@ export default {
     display: flex;
     align-items: center;
 
-    .create-vote {
-      @include center-lg-green-box-shadow;
-      font-weight: 500;
-      cursor: pointer;
-      padding: 5px 12px;
-      font-size: 13px;
-      background-color: $df-green-color;
-      color: white;
+    .vote-actions {
       margin-left: auto;
-      border-radius: 30px;
-      transition: .3s;
+      display: flex;
 
-      i {
-        margin-right: 3px;
+      .btn {
+        font-weight: 500;
+        cursor: pointer;
+        padding: 5px 12px;
+        font-size: 13px;
+        border-radius: 30px;
+        transition: .3s;
+        margin-left: 14px;
+
+        &.create-power-vote {
+          background-color: $df-blue-color;
+          color: white;
+
+          &:hover {
+            background-color: $df-blue-color-hover-light;
+          }
+        }
+
+        &.create-vote {
+          @include center-lg-green-box-shadow;
+          background-color: $df-green-color;
+          color: white;
+          position: relative;
+
+          i {
+            margin-right: 3px;
+          }
+
+          &:hover {
+            background-color: $df-light-green-color;
+          }
+
+          &.disable {
+            background-color: $df-light-black;
+            color: #8C8C8C;
+            box-shadow: 0 0 0 0;
+            pointer-events: none;
+
+            .power-vote-info {
+              display: block;
+            }
+          }
+
+          .power-vote-info {
+            background-color: $df-warning-yellow-bg-color;
+            color: $df-warning-yellow-color;
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            font-size: 9px;
+            padding: 4px;
+            width: 100%;
+            text-align: center;
+            border-radius: 20px;
+            font-weight: 300;
+            display: none;
+          }
+        }
       }
 
-      &:hover {
-        background-color: $df-light-green-color;
-      }
     }
   }
 
