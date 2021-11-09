@@ -11,11 +11,18 @@
         <i class="fas fa-poll"></i>
         Oylamalar
       </div>
-      <div class="vote-actions">
-        <div @click="toggleCreatePowerVotePopup" class="create-power-vote btn">
+      <loading-animation v-if="isLoadingVotesActions"
+                         class="loading-votes-actions"
+                         :textLineCount="1"
+                         :textCount="1"/>
+      <div v-else class="vote-actions">
+        <div v-if="!hasPowerTypeVote" @click="toggleCreatePowerVotePopup" class="create-power-vote btn">
           Güç Oylaması
         </div>
-        <div @click="toggleCreateVotePopup" class="create-vote btn disable">
+        <div
+            @click="toggleCreateVotePopup"
+            class="create-vote btn"
+            :class="{disable:!hasPowerTypeVote}">
           <div class="power-vote-info">
             <i class="bi bi-exclamation-triangle-fill"></i>
             Güç oylaması gerekir
@@ -125,7 +132,9 @@ export default {
     return {
       isEnableCreateVotePopup: false,
       isEnableCreatePowerVotePopup: false,
-      isLoadingVotes: true
+      isLoadingVotes: true,
+      isLoadingVotesActions: true,
+      hasPowerTypeVote: false
     };
   },
   components: {
@@ -135,7 +144,7 @@ export default {
     LoadingAnimation
   },
   methods: {
-    ...mapActions('vote', ['getVotes']),
+    ...mapActions('vote', ['getVotes', 'getThereIsPowerTypeVote']),
     getVotesAction() {
       this.handle(async () => {
         this.isLoadingVotes = true;
@@ -143,6 +152,15 @@ export default {
       })
           .finally(() => {
             this.isLoadingVotes = false;
+          });
+    },
+    getThereIsPowerTypeVoteAction() {
+      this.handle(async () => {
+        this.isLoadingVotesActions = true;
+        this.hasPowerTypeVote = await this.getThereIsPowerTypeVote();
+      })
+          .finally(() => {
+            this.isLoadingVotesActions = false;
           });
     },
     toggleCreateVotePopup() {
@@ -156,6 +174,7 @@ export default {
     ...mapState('vote', ['votes'])
   },
   created() {
+    this.getThereIsPowerTypeVoteAction();
     this.getVotesAction();
   }
 };
@@ -168,6 +187,11 @@ export default {
   .votes-title {
     display: flex;
     align-items: center;
+
+    .loading-votes-actions {
+      width: 180px;
+      margin-left: auto;
+    }
 
     .vote-actions {
       margin-left: auto;

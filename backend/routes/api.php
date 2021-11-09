@@ -8,6 +8,7 @@ use App\Http\Controllers\API\Team\TeamController;
 use App\Http\Controllers\API\Team\TeamInfoController;
 use App\Http\Controllers\API\Team\TeamJoinWithCodeController;
 use App\Http\Controllers\API\Vote\VoteController;
+use App\Http\Controllers\API\Vote\VotePowerTypeActionsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,14 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('teams/{team:key}/info', TeamInfoController::class);
 
         Route::resource('teams.votes', VoteController::class)->scoped(['team' => 'key']);
+        Route::get(
+            'teams/{team:key}/vote-types/power/check-vote',
+            [VotePowerTypeActionsController::class, 'checkVote']
+        );
+        Route::get(
+            'teams/{team:key}/vote-types/power/check-store',
+            [VotePowerTypeActionsController::class, 'checkStore']
+        );
 
         Route::post('teams/join', [TeamJoinWithCodeController::class, 'handle']);
 

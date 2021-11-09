@@ -3,11 +3,12 @@
     <div
         v-for="(text,index) in textCount"
         :key="index"
-        class="text">
+        :class="{text:textCount > 1}">
       <div
           v-for="(textLine,index) in textLineCount"
           :key="index"
           :style="{height:`${textLineHeight}px`}"
+          :class="{'multiple-text-line':textLineCount > 1}"
           class="text-line"/>
     </div>
   </div>
@@ -82,7 +83,10 @@ export default {
 
 .text-line {
   width: 100%;
-  margin: 15px 0;
   border-radius: 4px;
+}
+
+.multiple-text-line {
+  margin: 15px 0;
 }
 </style>

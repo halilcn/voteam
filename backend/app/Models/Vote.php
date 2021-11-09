@@ -13,7 +13,8 @@ class Vote extends Model
 
     public static array $TYPES = [
         "DOUBLE" => "double",
-        "MULTIPLE" => "multiple"
+        "MULTIPLE" => "multiple",
+        "POWER" => "power"
     ];
 
     public static array $OPTIONS_TYPES = [

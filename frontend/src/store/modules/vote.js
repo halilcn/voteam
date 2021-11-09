@@ -56,7 +56,13 @@ export default {
         { root: true });
 
       return secure_url;
+    },
+    async getThereIsPowerTypeVote() {
+      const { data } = await axios.get(`teams/${router.currentRoute.value.params.teamId}/vote-types/power/check-vote`);
+      console.log(data);
+      return data;
     }
+
   },
   getters: {},
   namespaced: true
