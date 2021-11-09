@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\Vote;
 
+use App\Exceptions\Exception;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Vote\VoteRequest;
 use App\Http\Resources\Vote\VotesResource;
@@ -42,7 +43,12 @@ class VoteController extends Controller
     {
         $this->authorize('create', [Vote::class, $team]);
 
-        //TODO: power type olduğunda users count 3 ten büyük olmalıdır.
+        if ($request->input('type') == Vote::$TYPES['POWER']) {
+            if (!$team->hasMoreThanLowerLimitUsers()) {
+                return Exception::powerVoteTypeException();
+            }
+            //TODO: default request input
+        }
 
         $team->votes()->create($request->validated());
 
