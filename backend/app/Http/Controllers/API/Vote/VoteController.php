@@ -42,6 +42,8 @@ class VoteController extends Controller
     {
         $this->authorize('create', [Vote::class, $team]);
 
+        //TODO: power type olduğunda users count 3 ten büyük olmalıdır.
+
         $team->votes()->create($request->validated());
 
         return $this->createdResponse();

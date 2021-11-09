@@ -57,8 +57,15 @@ export default {
 
       return secure_url;
     },
-    async getThereIsPowerTypeVote() {
+    async checkHasPowerTypeVote() {
       const { data } = await axios.get(`teams/${router.currentRoute.value.params.teamId}/vote-types/power/check-vote`);
+      console.log('has power type');
+      console.log(data);
+      return data;
+    },
+    async checkForStorePowerTypeVote() {
+      const { data } = await axios.get(`teams/${router.currentRoute.value.params.teamId}/vote-types/power/check-store`);
+      console.log('popup');
       console.log(data);
       return data;
     }

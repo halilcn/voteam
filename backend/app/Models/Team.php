@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -14,6 +15,8 @@ class Team extends Model
     protected $table = 'teams';
     protected $fillable = ['key', 'join_code', 'name', 'image'];
 
+    public static int $USER_LOWER_LIMIT = 3;
+
     /**
      * @param  string  $value
      * @return string
@@ -22,6 +25,28 @@ class Team extends Model
     {
         return '#'.$value;
     }
+
+
+    /**
+     * Checks if it has more users than the lower limit
+     * @param  Builder  $query
+     * @return bool
+     */
+    public function scopeHasMoreThanLowerLimitUsers(Builder $query): bool
+    {
+        return $this->users()->count() >= self::$USER_LOWER_LIMIT;
+    }
+
+    /**
+     * Return Power Type Vote
+     * @param  Builder  $query
+     * @return HasMany
+     */
+    public function scopePowerTypeVote(Builder $query): HasMany
+    {
+        return $this->votes()->where(['type' => Vote::$TYPES['POWER']]);
+    }
+
 
     /**
      * @return BelongsToMany

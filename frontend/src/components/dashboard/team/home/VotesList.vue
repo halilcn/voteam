@@ -144,7 +144,7 @@ export default {
     LoadingAnimation
   },
   methods: {
-    ...mapActions('vote', ['getVotes', 'getThereIsPowerTypeVote']),
+    ...mapActions('vote', ['getVotes', 'checkHasPowerTypeVote']),
     getVotesAction() {
       this.handle(async () => {
         this.isLoadingVotes = true;
@@ -157,7 +157,7 @@ export default {
     getThereIsPowerTypeVoteAction() {
       this.handle(async () => {
         this.isLoadingVotesActions = true;
-        this.hasPowerTypeVote = await this.getThereIsPowerTypeVote();
+        this.hasPowerTypeVote = await this.checkHasPowerTypeVote();
       })
           .finally(() => {
             this.isLoadingVotesActions = false;
