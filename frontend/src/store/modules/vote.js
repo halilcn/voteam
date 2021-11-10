@@ -24,6 +24,7 @@ export default {
     }
   },
   actions: {
+    //TODO: Check All Functions
     async getVotes({ commit }) {
       const { data } = await axios.get(`teams/${router.currentRoute.value.params.teamId}/votes`);
       commit('setActiveVotes', data.data.active);
@@ -59,14 +60,10 @@ export default {
     },
     async checkHasPowerTypeVote() {
       const { data } = await axios.get(`teams/${router.currentRoute.value.params.teamId}/vote-types/power/check-vote`);
-      console.log('has power type');
-      console.log(data);
       return data;
     },
     async checkForStorePowerTypeVote() {
       const { data } = await axios.get(`teams/${router.currentRoute.value.params.teamId}/vote-types/power/check-store`);
-      console.log('popup');
-      console.log(data);
       return data;
     }
 

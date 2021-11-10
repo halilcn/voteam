@@ -16,7 +16,9 @@
                          :textLineCount="1"
                          :textCount="1"/>
       <div v-else class="vote-actions">
-        <div v-if="!hasPowerTypeVote" @click="toggleCreatePowerVotePopup" class="create-power-vote btn">
+        <div v-if="!hasPowerTypeVote"
+             @click="toggleCreatePowerVotePopup"
+             class="create-power-vote btn">
           Güç Oylaması
         </div>
         <div
@@ -154,10 +156,11 @@ export default {
             this.isLoadingVotes = false;
           });
     },
-    getThereIsPowerTypeVoteAction() {
+    checkHasPowerTypeVoteAction() {
       this.handle(async () => {
         this.isLoadingVotesActions = true;
-        this.hasPowerTypeVote = await this.checkHasPowerTypeVote();
+        const { power_vote_voted } = await this.checkHasPowerTypeVote();
+        this.hasPowerTypeVote = power_vote_voted;
       })
           .finally(() => {
             this.isLoadingVotesActions = false;
@@ -174,7 +177,7 @@ export default {
     ...mapState('vote', ['votes'])
   },
   created() {
-    this.getThereIsPowerTypeVoteAction();
+    this.checkHasPowerTypeVoteAction();
     this.getVotesAction();
   }
 };
