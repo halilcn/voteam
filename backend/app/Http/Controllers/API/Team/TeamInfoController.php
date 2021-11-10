@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API\Team;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Team\TeamInfoResource;
 use App\Models\Team;
-use App\Models\Vote;
 use App\Models\VotedUser;
 use Illuminate\Http\Request;
 
@@ -18,13 +17,16 @@ class TeamInfoController extends Controller
      */
     public function __invoke(Team $team): TeamInfoResource
     {
+        $VOTE_LOWER_LIMIT = 3;
+        $USER_LOWER_LIMIT = 3;
+
         $team->loadCount('users', 'votes');
 
         $finishedVotes = $team->votes()->where('end_date', '<', now());
         $finishedVotesCount = $finishedVotes->count();
         $team->vote_join_percentage = null;
 
-        if ($finishedVotesCount > 3 && $team->users_count >= 4) {
+        if ($finishedVotesCount > $VOTE_LOWER_LIMIT && $team->users_count > $USER_LOWER_LIMIT) {
             $mustHaveVotesCount = $team->users_count * $finishedVotesCount;
             $totalVotesCount = VotedUser::query()
                 ->whereIn('vote_id', $finishedVotes->pluck('id'))

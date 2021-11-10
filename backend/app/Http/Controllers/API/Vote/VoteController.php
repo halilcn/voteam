@@ -47,7 +47,7 @@ class VoteController extends Controller
             if (!$team->hasMoreThanLowerLimitUsers()) {
                 return Exception::powerVoteTypeException();
             }
-            //TODO: default request input
+            //TODO: default request input (frontend tarafında yapılırsa ?)
         }
 
         $team->votes()->create($request->validated());
