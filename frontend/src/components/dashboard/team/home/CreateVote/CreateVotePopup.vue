@@ -24,6 +24,19 @@
             <i class="fas fa-angle-right"></i>
           </div>
         </div>
+        <div @click="selectVoteType('create-power-vote')" class="item">
+          <img src="../../../../../assets/icons/power-type-vote.png" class="vote-icon" alt="power-options-vote"/>
+          <div class="text">
+            Güç Oylaması
+          </div>
+          <div class="power-vote-time-info">
+            <i class="bi bi-clock"></i>
+            12 gün 5 saat
+          </div>
+          <div class="right-icon">
+            <i class="fas fa-angle-right"></i>
+          </div>
+        </div>
       </div>
       <div v-else class="create-vote">
         <div class="form">
@@ -78,6 +91,7 @@ import Popup from '../../../../shared/Popup';
 import StandartButton from '../../../../shared/elements/StandartButton';
 import CreateMultipleOptionsVote from './CreateMultipleOptionsVote';
 import CreateDoubleOptionsVote from './CreateDoubleOptionsVote';
+import CreatePowerVote from './CreatePowerVote';
 import VoteTitle from './CreateVoteItems/VoteTitle';
 import VoteStartDate from './CreateVoteItems/VoteStartDate';
 import VoteEndDate from './CreateVoteItems/VoteEndDate';
@@ -134,6 +148,7 @@ export default {
     StandartButton,
     CreateMultipleOptionsVote,
     CreateDoubleOptionsVote,
+    CreatePowerVote,
     VoteTitle,
     VoteStartDate,
     VoteEndDate
@@ -202,13 +217,11 @@ export default {
     position: relative;
     display: flex;
     align-items: center;
-    color: $df-mdl-dark-black-color;
     background-color: #ffffff;
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
     margin: 10px 0;
-    font-weight: 500;
     transition: .2s;
 
     &:hover {
@@ -217,6 +230,20 @@ export default {
       .right-icon {
         transform: translateX(-6px);
       }
+    }
+
+    .power-vote-time-info {
+      font-size: 11px;
+      color: $df-light-blue-color;
+      border: 1px solid $df-light-blue-color;
+      border-radius: 4px;
+      padding: 3px 5px;
+      margin: 0 auto;
+    }
+
+    .text {
+      font-weight: 500;
+      color: $df-mdl-dark-black-color;
     }
 
     .right-icon {

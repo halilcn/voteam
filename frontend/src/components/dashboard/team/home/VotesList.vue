@@ -123,7 +123,7 @@
 
 <script>
 import CreateVotePopup from './CreateVote/CreateVotePopup';
-import CreatePowerVote from './CreateVote/CreatePowerVote';
+import CreatePowerVote from './CreateVote/CreateFirstPowerVote';
 import InfoTooltip from '../../../shared/InfoTooltip';
 import LoadingAnimation from '../../../shared/LoadingAnimation';
 import { mapActions, mapState } from 'vuex';

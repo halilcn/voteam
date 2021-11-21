@@ -7,7 +7,12 @@ export default {
   ],
   VOTE_TYPES: {
     DOUBLE: 'double',
-    MULTIPLE: 'multiple'
+    MULTIPLE: 'multiple',
+    POWER: 'power'
+  },
+  POWER_VOTE_DEFAULT_OPTIONS: {
+    type: 'text',
+    message: 'Power Vote'
   },
   VOTE_OPTIONS_TYPES: {
     TEXT: 'text',
