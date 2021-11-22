@@ -65,8 +65,11 @@ export default {
     async checkForStorePowerTypeVote() {
       const { data } = await axios.get(`teams/${router.currentRoute.value.params.teamId}/vote-types/power/check-store`);
       return data;
+    },
+    async checkTimeForPostPowerTypeVote(){
+      const { data } = await axios.get(`teams/${router.currentRoute.value.params.teamId}/vote-types/power/check-time`);
+      return data;
     }
-
   },
   getters: {},
   namespaced: true

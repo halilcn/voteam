@@ -45,6 +45,10 @@ Route::group(['prefix' => 'v1'], function () {
             'teams/{team:key}/vote-types/power/check-store',
             [VotePowerTypeActionsController::class, 'checkStore']
         );
+        Route::get(
+            'teams/{team:key}/vote-types/power/check-time',
+            [VotePowerTypeActionsController::class, 'checkTime']
+        );
 
         Route::post('teams/join', [TeamJoinWithCodeController::class, 'handle']);
 

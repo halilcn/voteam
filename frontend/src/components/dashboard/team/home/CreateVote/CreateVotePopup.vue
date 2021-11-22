@@ -25,17 +25,20 @@
           </div>
         </div>
         <div @click="selectVoteType('create-power-vote')" class="item">
-          <img src="../../../../../assets/icons/power-type-vote.png" class="vote-icon" alt="power-options-vote"/>
-          <div class="text">
-            Güç Oylaması
-          </div>
-          <div class="power-vote-time-info">
-            <i class="bi bi-clock"></i>
-            12 gün 5 saat
-          </div>
-          <div class="right-icon">
-            <i class="fas fa-angle-right"></i>
-          </div>
+          <loading-animation :textLineCount="2" :textLineHeight="8"/>
+          <template>
+            <img src="../../../../../assets/icons/power-type-vote.png" class="vote-icon" alt="power-options-vote"/>
+            <div class="text">
+              Güç Oylaması
+            </div>
+            <div class="power-vote-time-info">
+              <i class="bi bi-clock"></i>
+              12 gün 5 saat
+            </div>
+            <div class="right-icon">
+              <i class="fas fa-angle-right"></i>
+            </div>
+          </template>
         </div>
       </div>
       <div v-else class="create-vote">
@@ -69,7 +72,7 @@
           </div>
           <div class="create-vote-btn">
             <lottie-player
-                v-if="isLoadingCreateVote"
+                v-if="isLoading.createVote"
                 class="loading-icon"
                 src="https://assets10.lottiefiles.com/packages/lf20_6m7gsdxq.json"
                 background="transparent"
@@ -98,6 +101,7 @@ import VoteEndDate from './CreateVoteItems/VoteEndDate';
 import validateMixin from '../../../../../mixins/validateMixin';
 import customValidators from '../../../../../mixins/customValidators';
 import Error from '../../../../shared/Errors';
+import LoadingAnimation from '../../../../shared/LoadingAnimation';
 import { mapActions } from 'vuex';
 
 export default {
@@ -107,7 +111,10 @@ export default {
   data() {
     return {
       v$: this.useVuelidate(),
-      isLoadingCreateVote: false,
+      isLoading: {
+        createVote: false,
+        powerTypeVote: true
+      },
       activeVoteType: '',
       voteTypeErrors: [],
       vote: {
@@ -116,7 +123,8 @@ export default {
         options: null,
         startDate: this.$dayjs().format('YYYY-MM-DD'),
         endDate: this.$dayjs().add(1, 'day').format('YYYY-MM-DD')
-      }
+      },
+      dataForPostPowerTypeVote: {}
     };
   },
   validations() {
@@ -151,10 +159,11 @@ export default {
     CreatePowerVote,
     VoteTitle,
     VoteStartDate,
-    VoteEndDate
+    VoteEndDate,
+    LoadingAnimation
   },
   methods: {
-    ...mapActions('vote', ['postVote']),
+    ...mapActions('vote', ['postVote', 'checkTimeForPostPowerTypeVote']),
     selectVoteType(type) {
       if (type === 'create-multiple-options-vote') {
         this.vote.type = 'multiple';
@@ -179,14 +188,19 @@ export default {
     },
     createVote() {
       this.handle(async () => {
-        this.isLoadingCreateVote = true;
+        this.isLoading.createVote = true;
         await this.postVote(this.vote);
         this.createdVote();
         this.$notify.success('Oylama Başlatıldı');
       })
           .finally(() => {
-            this.isLoadingCreateVote = false;
+            this.isLoading.createVote = false;
           });
+    },
+    checkTimeForPostPowerTypeVoteAction() {
+      this.handle(async () => {
+        this.checkTimeForPostPowerTypeVote();
+      });
     }
   },
   computed: {
@@ -203,7 +217,14 @@ export default {
       };
     },
     isDisableCreateVoteButton() {
-      return this.v$.vote.$invalid || this.isVoteTypeHasErrors || this.isLoadingCreateVote;
+      return this.v$.vote.$invalid || this.isVoteTypeHasErrors || this.isLoading.createVote;
+    }
+  },
+  watch: {
+    isEnable(newValue) {
+      if (newValue === true) {
+        console.log('ok');
+      }
     }
   }
 };

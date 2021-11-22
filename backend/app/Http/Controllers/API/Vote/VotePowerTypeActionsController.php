@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\API\Vote;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Vote\PowerVoteTypeCheckVoteResource;
 use App\Models\Team;
-use App\Models\Vote;
-use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class VotePowerTypeActionsController extends Controller
 {
@@ -43,5 +41,10 @@ class VotePowerTypeActionsController extends Controller
                                           'has_more_than_lower_limit_users' => $isHasMoreThanLowerLimitUsers,
                                           'has_active_vote' => $isHasActivePowerTypeVote
                                       ]);
+    }
+
+    public function checkTime(Team $team)
+    {
+        return Carbon::now()->format('m'); //$team->powerTypeVote()
     }
 }
