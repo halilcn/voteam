@@ -24,21 +24,26 @@
             <i class="fas fa-angle-right"></i>
           </div>
         </div>
-        <div @click="selectVoteType('create-power-vote')" class="item">
-          <loading-animation :textLineCount="2" :textLineHeight="8"/>
-          <template>
-            <img src="../../../../../assets/icons/power-type-vote.png" class="vote-icon" alt="power-options-vote"/>
-            <div class="text">
-              Güç Oylaması
-            </div>
-            <div class="power-vote-time-info">
-              <i class="bi bi-clock"></i>
-              12 gün 5 saat
-            </div>
-            <div class="right-icon">
-              <i class="fas fa-angle-right"></i>
-            </div>
-          </template>
+        <loading-animation
+            v-if="isLoading.powerTypeVote"
+            :textLineCount="2"
+            :textLineHeight="17"/>
+        <div
+            v-else
+            @click="selectVoteType('create-power-vote')"
+            :class="{'power-vote-button-disable':dataForPostPowerTypeVote.has_power_type_vote_this_month}"
+            class="item">
+          <img src="../../../../../assets/icons/power-type-vote.png" class="vote-icon" alt="power-options-vote"/>
+          <div class="text">
+            Güç Oylaması
+          </div>
+          <div v-if="dataForPostPowerTypeVote.has_power_type_vote_this_month" class="power-vote-time-info">
+            <i class="bi bi-clock"></i>
+            {{ $dayjs(dataForPostPowerTypeVote.no_power_type_vote_date).fromNow() }}
+          </div>
+          <div class="right-icon">
+            <i class="fas fa-angle-right"></i>
+          </div>
         </div>
       </div>
       <div v-else class="create-vote">
@@ -199,8 +204,12 @@ export default {
     },
     checkTimeForPostPowerTypeVoteAction() {
       this.handle(async () => {
-        this.checkTimeForPostPowerTypeVote();
-      });
+        this.isLoading.powerTypeVote = true;
+        this.dataForPostPowerTypeVote = await this.checkTimeForPostPowerTypeVote();
+      })
+          .finally(() => {
+            this.isLoading.powerTypeVote = false;
+          });
     }
   },
   computed: {
@@ -223,7 +232,7 @@ export default {
   watch: {
     isEnable(newValue) {
       if (newValue === true) {
-        console.log('ok');
+        this.checkTimeForPostPowerTypeVoteAction();
       }
     }
   }
@@ -253,6 +262,20 @@ export default {
       }
     }
 
+    &.power-vote-button-disable {
+      pointer-events: none;
+      background-color: #f5f5f5;
+      cursor: text;
+
+      .text, .right-icon {
+        color: #ababab;
+      }
+
+      img {
+        filter: grayscale(100%);
+      }
+    }
+
     .power-vote-time-info {
       font-size: 11px;
       color: $df-light-blue-color;
@@ -265,6 +288,7 @@ export default {
     .text {
       font-weight: 500;
       color: $df-mdl-dark-black-color;
+      margin-left: 30px;
     }
 
     .right-icon {
@@ -277,10 +301,6 @@ export default {
 
     img {
       width: 40px;
-    }
-
-    .text {
-      margin-left: 30px;
     }
   }
 }

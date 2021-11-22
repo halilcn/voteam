@@ -36,6 +36,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::resource('teams', TeamController::class);
         Route::get('teams/{team:key}/info', TeamInfoController::class);
 
+        // TODO: API urls check
         Route::resource('teams.votes', VoteController::class)->scoped(['team' => 'key']);
         Route::get(
             'teams/{team:key}/vote-types/power/check-vote',

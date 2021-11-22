@@ -43,8 +43,15 @@ class VotePowerTypeActionsController extends Controller
                                       ]);
     }
 
-    public function checkTime(Team $team)
+    /**
+     * @param  Team  $team
+     * @return object
+     */
+    public function checkTime(Team $team): object
     {
-        return Carbon::now()->format('m'); //$team->powerTypeVote()
+        return $this->successResponse([
+                                          'has_power_type_vote_this_month' => $team->hasPowerTypeVoteThisMonth(),
+                                          'no_power_type_vote_date' => Carbon::now()->endOfMonth()
+                                      ]);
     }
 }

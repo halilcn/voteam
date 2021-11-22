@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 class Team extends Model
 {
@@ -45,6 +46,19 @@ class Team extends Model
     public function scopePowerTypeVote(Builder $query): HasMany
     {
         return $this->votes()->where(['type' => Vote::$TYPES['POWER']]);
+    }
+
+    /**
+     * Team have power type vote this month
+     * @param  Builder  $query
+     * @return bool
+     */
+    public function scopeHasPowerTypeVoteThisMonth(Builder $query): bool
+    {
+        return $query
+            ->powerTypeVote()
+            ->whereMonth('start_date', Carbon::now()->format('m'))
+            ->exists();
     }
 
     /**
