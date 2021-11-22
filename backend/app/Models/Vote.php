@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -29,6 +30,7 @@ class Vote extends Model
         'type',
         'options',
         'title',
+        'all_users_voted',
         'start_date',
         'end_date'
     ];
@@ -42,6 +44,32 @@ class Vote extends Model
 
     public function scopeVotedPercentage($query)
     {
+    }
+
+    /**
+     * Return completed votes
+     * @param  Builder  $query
+     * @return Builder
+     */
+    public function scopeCompletedVotes(Builder $query): Builder
+    {
+        return $query
+            ->where('end_date', '<', now())
+            ->orWhere('all_users_voted', true);
+    }
+
+    /**
+     * Return active votes
+     * @param  Builder  $query
+     * @return Builder
+     */
+    public function scopeActiveVotes(Builder $query): Builder
+    {
+        return $query
+            ->where([
+                        ['end_date', '>', now()],
+                        ['all_users_voted', '=', false]
+                    ]);
     }
 
     /**

@@ -47,7 +47,6 @@ class Team extends Model
         return $this->votes()->where(['type' => Vote::$TYPES['POWER']]);
     }
 
-
     /**
      * @return BelongsToMany
      */

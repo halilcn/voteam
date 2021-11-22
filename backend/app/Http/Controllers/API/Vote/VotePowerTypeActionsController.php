@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\API\Vote;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Vote\PowerVoteTypeCheckVoteResource;
 use App\Models\Team;
 use App\Models\Vote;
 use Illuminate\Http\Request;
 
 class VotePowerTypeActionsController extends Controller
 {
-    //TODO: Convert to resource from successResponse
-
     /**
      * @param  Team  $team
      * @return object
@@ -19,7 +18,7 @@ class VotePowerTypeActionsController extends Controller
     {
         $powerVoteVoted = $team
             ->powerTypeVote()
-            ->where('end_date', '<', now())
+            ->completedVotes()
             ->exists();
 
         return $this->successResponse([
@@ -35,7 +34,7 @@ class VotePowerTypeActionsController extends Controller
     {
         $isHasActivePowerTypeVote = $team
             ->powerTypeVote()
-            ->where('end_date', '>', now())
+            ->activeVotes()
             ->exists();
 
         $isHasMoreThanLowerLimitUsers = $team->hasMoreThanLowerLimitUsers();

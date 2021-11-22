@@ -28,6 +28,7 @@ class VotePolicy
      */
     public function show(User $user, Team $team): bool
     {
+        //TODO: scope haline getirilebilir ?
         return $team->users()->where('user_id', $user->id)->exists();
     }
 

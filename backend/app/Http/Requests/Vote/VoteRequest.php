@@ -25,14 +25,14 @@ class VoteRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['string', 'max:20'],
-            'type' => ['string', 'in:'.implode(',', array_values(Vote::$TYPES))],
+            'title' => ['required', 'string', 'max:20'],
+            'type' => ['required', 'string', 'in:'.implode(',', array_values(Vote::$TYPES))],
             'options' => ['required'],
             'options.*.type' => ['in:'.implode(',', array_values(Vote::$OPTIONS_TYPES))],
             'options.*.message' => ['string', 'nullable'],
             'options.*.path' => ['string', 'nullable'],
-            'start_date' => ['date', 'after:yesterday'],
-            'end_date' => ['date', 'after:startDate']
+            'start_date' => ['required', 'date', 'after:yesterday'],
+            'end_date' => ['required', 'date', 'after:startDate']
         ];
     }
 }
