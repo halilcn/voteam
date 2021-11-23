@@ -16,7 +16,7 @@ class TeamJoinWithCodeController extends Controller
      * @param  TeamJoinCodeRequest  $request
      * @return object
      */
-    public function handle(TeamJoinCodeRequest $request): object
+    public function __invoke(TeamJoinCodeRequest $request): object
     {
         $team = Team::query()
             ->where('join_code', $request->input('code'))

@@ -64,8 +64,8 @@
           </div>
           <vote-start-date
               v-model="v$.vote.startDate.$model"
+              :is-power-vote="vote.type==='power'"
               :errors="getOnlyErrors(v$.vote.startDate.$errors)"/>
-          {{ v$.vote.endDate.$errors }}
           <vote-end-date
               v-model="v$.vote.endDate.$model"
               :errors="getOnlyErrors(v$.vote.endDate.$errors)"
@@ -108,6 +108,7 @@ import customValidators from '../../../../../mixins/customValidators';
 import Error from '../../../../shared/Errors';
 import LoadingAnimation from '../../../../shared/LoadingAnimation';
 import { mapActions } from 'vuex';
+import constants from '../../../../../store/constants';
 
 export default {
   name: 'CreateVotePopup',
@@ -122,13 +123,14 @@ export default {
       },
       activeVoteType: '',
       voteTypeErrors: [],
-      vote: {
+      defaultVote: {
         title: '',
         type: '',
         options: null,
         startDate: this.$dayjs().format('YYYY-MM-DD'),
         endDate: this.$dayjs().add(1, 'day').format('YYYY-MM-DD')
       },
+      vote: {},
       dataForPostPowerTypeVote: {}
     };
   },
@@ -170,6 +172,8 @@ export default {
   methods: {
     ...mapActions('vote', ['postVote', 'checkTimeForPostPowerTypeVote']),
     selectVoteType(type) {
+      this.clearVote();
+
       if (type === 'create-multiple-options-vote') {
         this.vote.type = 'multiple';
       }
@@ -178,10 +182,22 @@ export default {
         this.vote.type = 'double';
       }
 
+      if (type === 'create-power-vote') {
+        this.vote.type = 'power';
+        this.selectedPowerVote();
+      }
+
       this.activeVoteType = type;
+    },
+    clearVote() {
+      this.vote = JSON.parse(JSON.stringify(this.defaultVote));
     },
     clearActiveType() {
       this.activeVoteType = '';
+    },
+    selectedPowerVote() {
+      this.vote.title = 'Güç Oylaması'; // TODO: $t() multiple lang
+      this.vote.options = constants.POWER_VOTE_DEFAULT_OPTIONS;
     },
     createdVote() {
       this.clearActiveType();
@@ -233,6 +249,7 @@ export default {
     isEnable(newValue) {
       if (newValue === true) {
         this.checkTimeForPostPowerTypeVoteAction();
+        this.clearVote();
       }
     }
   }

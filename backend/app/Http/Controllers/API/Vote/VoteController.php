@@ -8,7 +8,6 @@ use App\Http\Requests\Vote\VoteRequest;
 use App\Http\Resources\Vote\VotesResource;
 use App\Models\Team;
 use App\Models\Vote;
-use Illuminate\Http\Request;
 
 class VoteController extends Controller
 {
@@ -42,17 +41,15 @@ class VoteController extends Controller
      */
     public function store(VoteRequest $request, Team $team): object
     {
-        // TODO: Manuel olarak güç oylaması öne çekilebilir mi ? ++Çekilebiliyorsa oylama başlata seçenek konmalı mı ?
+        // TODO: Power type olduğunda ay problemi ?
 
         $this->authorize('create', [Vote::class, $team]);
 
         // Power Type
         if ($request->input('type') == Vote::$TYPES['POWER']) {
-            //TODO: Her ay 1 tane power vote olmalıdır. O ay manuel power vote başlatılmadıysa cron tarafından başlatılır.
-            if (!$team->hasMoreThanLowerLimitUsers()) {
+            if (!$team->hasMoreThanLowerLimitUsers() || $team->hasPowerTypeVoteThisMonth()) {
                 return Exception::powerVoteTypeException();
             }
-            //TODO: default request input (frontend tarafında yapılırsa ?)
         }
 
         // Check For Other Types
@@ -63,7 +60,6 @@ class VoteController extends Controller
                 return Exception::powerVoteTypeException();
             }
         }
-
 
         $team->votes()->create($request->validated());
 

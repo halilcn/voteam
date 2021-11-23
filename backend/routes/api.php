@@ -36,24 +36,14 @@ Route::group(['prefix' => 'v1'], function () {
         Route::resource('teams', TeamController::class);
         Route::get('teams/{team:key}/info', TeamInfoController::class);
 
-        // TODO: API urls check
         Route::resource('teams.votes', VoteController::class)->scoped(['team' => 'key']);
-        Route::get(
-            'teams/{team:key}/vote-types/power/check-vote',
-            [VotePowerTypeActionsController::class, 'checkVote']
-        );
-        Route::get(
-            'teams/{team:key}/vote-types/power/check-store',
-            [VotePowerTypeActionsController::class, 'checkStore']
-        );
-        Route::get(
-            'teams/{team:key}/vote-types/power/check-time',
-            [VotePowerTypeActionsController::class, 'checkTime']
-        );
+        Route::group(['prefix' => 'teams/{team:key}/vote-types/power/'], function () {
+            Route::get('check-vote', [VotePowerTypeActionsController::class, 'checkVote']);
+            Route::get('check-store', [VotePowerTypeActionsController::class, 'checkStore']);
+            Route::get('check-time', [VotePowerTypeActionsController::class, 'checkTime']);
+        });
 
-        Route::post('teams/join', [TeamJoinWithCodeController::class, 'handle']);
-
-        //Route::get('/teams/1212121/users');
+        Route::post('teams/join', [TeamJoinWithCodeController::class]);
 
         Route::post('logout', [LogoutController::class, 'handle']);
     });

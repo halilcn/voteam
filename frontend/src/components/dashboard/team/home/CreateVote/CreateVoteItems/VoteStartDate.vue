@@ -2,6 +2,7 @@
   <div class="form-item">
     <div class="title">
       Başlama Zamanı
+      {{ isPowerVote }}
     </div>
     <div class="content vote-start-date">
       <div class="vote-start-date-options">
@@ -22,6 +23,7 @@
         <input
             type="date"
             :min="nowDate"
+            :max="maxDate"
             v-model="value"
             class="content-text"
             :class="{'has-error':hasError}">
@@ -42,6 +44,7 @@ import Errors from '../../../../../shared/Errors';
 export default {
   name: 'VoteStartDate',
   mixins: [modelValueMixin, modelValueErrorMixin],
+  props: ['isPowerVote'],
   data() {
     return {
       nowDate: this.$dayjs().format('YYYY-MM-DD'),
@@ -56,6 +59,15 @@ export default {
       const isNexDate = timeType === 'next';
       this.isSelectedNextDate = isNexDate;
       if (!isNexDate) this.value = this.nowDate;
+    }
+  },
+  computed: {
+    maxDate() {
+      if (this.isPowerVote) {
+        return this.$dayjs().endOf('month').format('YYYY-MM-DD');
+      }
+
+      return 0;
     }
   }
 };
