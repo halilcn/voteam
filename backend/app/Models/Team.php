@@ -27,7 +27,6 @@ class Team extends Model
         return '#'.$value;
     }
 
-
     /**
      * Checks if it has more users than the lower limit
      * @param  Builder  $query
@@ -49,7 +48,7 @@ class Team extends Model
     }
 
     /**
-     * Team have power type vote this month
+     * Team has power type vote this month
      * @param  Builder  $query
      * @return bool
      */
@@ -58,6 +57,20 @@ class Team extends Model
         return $query
             ->powerTypeVote()
             ->whereMonth('start_date', Carbon::now()->format('m'))
+            ->exists();
+    }
+
+    /**
+     * Team has user
+     * @param  Builder  $query
+     * @param  int  $userId
+     * @return bool
+     */
+    public function scopeHasUser(Builder $query, int $userId): bool
+    {
+        return $this
+            ->users()
+            ->where('user_id', $userId)
             ->exists();
     }
 

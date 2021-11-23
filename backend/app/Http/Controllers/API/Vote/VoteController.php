@@ -11,7 +11,6 @@ use App\Models\Vote;
 
 class VoteController extends Controller
 {
-    // TODO: Policy check
 
     /**
      * @param  Team  $team

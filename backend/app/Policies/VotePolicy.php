@@ -28,8 +28,7 @@ class VotePolicy
      */
     public function show(User $user, Team $team): bool
     {
-        //TODO: scope haline getirilebilir ?
-        return $team->users()->where('user_id', $user->id)->exists();
+        return $team->hasUser($user->id);
     }
 
     /**
@@ -39,8 +38,7 @@ class VotePolicy
      */
     public function create(User $user, Team $team): bool
     {
-        return $team->users()->where('user_id', $user->id)->exists();
+        return $team->hasUser($user->id);
     }
-
 
 }
