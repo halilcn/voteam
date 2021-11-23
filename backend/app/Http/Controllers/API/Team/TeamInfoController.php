@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Team\TeamInfoResource;
 use App\Models\Team;
 use App\Models\VotedUser;
-use Illuminate\Http\Request;
 
 class TeamInfoController extends Controller
 {

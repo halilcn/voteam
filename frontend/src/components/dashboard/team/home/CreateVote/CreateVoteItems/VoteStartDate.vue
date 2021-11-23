@@ -2,7 +2,6 @@
   <div class="form-item">
     <div class="title">
       Başlama Zamanı
-      {{ isPowerVote }}
     </div>
     <div class="content vote-start-date">
       <div class="vote-start-date-options">

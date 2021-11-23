@@ -123,14 +123,13 @@ export default {
       },
       activeVoteType: '',
       voteTypeErrors: [],
-      defaultVote: {
+      vote: {
         title: '',
         type: '',
         options: null,
         startDate: this.$dayjs().format('YYYY-MM-DD'),
         endDate: this.$dayjs().add(1, 'day').format('YYYY-MM-DD')
       },
-      vote: {},
       dataForPostPowerTypeVote: {}
     };
   },
@@ -190,7 +189,10 @@ export default {
       this.activeVoteType = type;
     },
     clearVote() {
-      this.vote = JSON.parse(JSON.stringify(this.defaultVote));
+      this.vote = this.$helpers.clearItems(this.vote);
+      this.vote.startDate = this.$dayjs().format('YYYY-MM-DD');
+      this.vote.endDate = this.$dayjs().add(1, 'day').format('YYYY-MM-DD');
+      this.v$.vote.$reset();
     },
     clearActiveType() {
       this.activeVoteType = '';
@@ -201,10 +203,7 @@ export default {
     },
     createdVote() {
       this.clearActiveType();
-      this.vote = this.$helpers.clearItems(this.vote);
-      this.vote.startDate = this.$dayjs().format('YYYY-MM-DD');
-      this.vote.endDate = this.$dayjs().add(1, 'day').format('YYYY-MM-DD');
-      this.v$.vote.$reset();
+      this.clearVote();
 
       this.$emit('handlePopup');
       this.$notify.success('Oylama Başlatıldı');
@@ -252,7 +251,6 @@ export default {
     isEnable(newValue) {
       if (newValue === true) {
         this.checkTimeForPostPowerTypeVoteAction();
-        this.clearVote();
       }
     }
   }

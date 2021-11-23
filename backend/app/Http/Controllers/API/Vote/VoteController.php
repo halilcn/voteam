@@ -8,6 +8,7 @@ use App\Http\Requests\Vote\VoteRequest;
 use App\Http\Resources\Vote\VotesResource;
 use App\Models\Team;
 use App\Models\Vote;
+use Illuminate\Support\Carbon;
 
 class VoteController extends Controller
 {
@@ -40,14 +41,25 @@ class VoteController extends Controller
      */
     public function store(VoteRequest $request, Team $team): object
     {
-        // TODO: Power type olduğunda ay problemi ?
-
         $this->authorize('create', [Vote::class, $team]);
 
         // Power Type
         if ($request->input('type') == Vote::$TYPES['POWER']) {
-            if (!$team->hasMoreThanLowerLimitUsers() || $team->hasPowerTypeVoteThisMonth()) {
+            // Validate for power vote
+            $monthOfNow = Carbon::now()->format('m');
+            $monthOfStartDate = Carbon::make($request->input('start_date'))->format('m');
+            $selectedDateIsNotThisMonth = $monthOfNow != $monthOfStartDate;
+
+            if ($team->hasPowerTypeVoteThisMonth() || $selectedDateIsNotThisMonth) {
                 return Exception::powerVoteTypeException();
+            }
+
+            // If it is first power vote
+            $firstPowerVote = !$team->powerTypeVote()->exists();
+            if ($firstPowerVote) {
+                if (!$team->hasMoreThanLowerLimitUsers()) {
+                    return Exception::powerVoteTypeException();
+                }
             }
         }
 

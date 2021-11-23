@@ -41,11 +41,6 @@ class Vote extends Model
         'end_date' => 'datetime'
     ];
 
-
-    public function scopeVotedPercentage($query)
-    {
-    }
-
     /**
      * Return completed votes
      * @param  Builder  $query

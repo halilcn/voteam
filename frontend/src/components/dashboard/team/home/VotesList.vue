@@ -105,7 +105,7 @@
                   </div>
                   <div class="bottom-info time">
                     <i class="bi bi-clock-fill"></i>
-                    {{ $dayjs(vote.end_date).format('D MMMM') }}
+                    {{ $dayjs(vote.start_date).format('D MMMM') }}
                   </div>
                 </div>
               </div>

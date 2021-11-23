@@ -3,7 +3,6 @@
     <div class="title">
       Bitiş Zamanı
     </div>
-    {{ minDate }}
     <div class="content">
       <input
           type="date"
