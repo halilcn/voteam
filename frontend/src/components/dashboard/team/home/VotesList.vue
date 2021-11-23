@@ -1,17 +1,19 @@
 <template>
   <create-vote-popup
       @handlePopup="toggleCreateVotePopup"
-      :is-enable="isEnableCreateVotePopup"/>
+      :is-enable="isEnableCreateVotePopup"
+      v-model:should-get-votes="shouldGetVotes"/>
   <create-power-vote
       @handlePopup="toggleCreatePowerVotePopup"
-      :is-enable="isEnableCreatePowerVotePopup"/>
+      :is-enable="isEnableCreatePowerVotePopup"
+      v-model:should-get-votes="shouldGetVotes"/>
   <div class="home-content votes">
     <div class="title votes-title">
       <div class="txt">
         <i class="fas fa-poll"></i>
         Oylamalar
       </div>
-      <loading-animation v-if="isLoadingVotesActions"
+      <loading-animation v-if="isLoading.votesActions"
                          class="loading-votes-actions"
                          :textLineCount="1"
                          :textCount="1"/>
@@ -35,7 +37,7 @@
       </div>
     </div>
     <div class="content list-container">
-      <loading-animation v-if="isLoadingVotes"
+      <loading-animation v-if="isLoading.votes"
                          :textLineCount="5"
                          :textCount="2"/>
       <template v-else>
@@ -134,9 +136,12 @@ export default {
     return {
       isEnableCreateVotePopup: false,
       isEnableCreatePowerVotePopup: false,
-      isLoadingVotes: true,
-      isLoadingVotesActions: true,
-      hasPowerTypeVote: false
+      isLoading: {
+        votes: true,
+        votesActions: true
+      },
+      hasPowerTypeVote: false,
+      shouldGetVotes: false
     };
   },
   components: {
@@ -149,21 +154,21 @@ export default {
     ...mapActions('vote', ['getVotes', 'checkHasPowerTypeVote']),
     getVotesAction() {
       this.handle(async () => {
-        this.isLoadingVotes = true;
+        this.isLoading.votes = true;
         await this.getVotes();
       })
           .finally(() => {
-            this.isLoadingVotes = false;
+            this.isLoading.votes = false;
           });
     },
     checkHasPowerTypeVoteAction() {
       this.handle(async () => {
-        this.isLoadingVotesActions = true;
+        this.isLoading.votesActions = true;
         const { power_vote_voted } = await this.checkHasPowerTypeVote();
         this.hasPowerTypeVote = power_vote_voted;
       })
           .finally(() => {
-            this.isLoadingVotesActions = false;
+            this.isLoading.votesActions = false;
           });
     },
     toggleCreateVotePopup() {
@@ -179,6 +184,12 @@ export default {
   created() {
     this.checkHasPowerTypeVoteAction();
     this.getVotesAction();
+  },
+  watch: {
+    shouldGetVotes(newValue) {
+      if (newValue) this.getVotesAction();
+      this.shouldGetVotes = false;
+    }
   }
 };
 </script>

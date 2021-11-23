@@ -6,7 +6,6 @@
     <template v-slot:content>
       <loading-animation v-if="isLoading.powerTypeData"/>
       <div v-else class="create-power-vote-content">
-        {{ powerTypeVoteData }}
         <warning v-if="!powerTypeVoteData.has_more_than_lower_limit_users"
                  text="İlk güç oylamasını başlatmak için en az 3 üye bulunmalıdır."/>
         <success v-if="hasActiveVote"
@@ -16,7 +15,7 @@
                 text="İlk oylama olarak güç oylaması yapılması zorunludur. Bu oylamadan sonra güç oylaması otomatik olarak her ay tanımlanır.(Her üye takıma katıldıktan sonra güç oylaması yapılması tavsiye edilir)"/>
           <standart-button
               class="create-power-vote"
-              text="Oylamayı Başlat"
+              text="Güç Oylamasını Başlat"
               @click="postVoteAction"
               :is-disable="isDisablePostVoteButton"/>
         </template>
@@ -78,6 +77,9 @@ export default {
       this.handle(async () => {
         this.isLoading.postVote = true;
         await this.postVote(this.vote);
+        this.$emit('handlePopup');
+        this.$notify.success('Oylama başlatıldı');
+        this.$emit('update:should-get-votes', true);
       })
           .finally(() => {
             this.isLoading.postVote = false;

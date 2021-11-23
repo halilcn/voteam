@@ -77,7 +77,7 @@
           </div>
           <div class="create-vote-btn">
             <lottie-player
-                v-if="isLoading.createVote"
+                v-if="isLoading.postVote"
                 class="loading-icon"
                 src="https://assets10.lottiefiles.com/packages/lf20_6m7gsdxq.json"
                 background="transparent"
@@ -85,8 +85,8 @@
                 style="width: 40px; height: 40px;" loop autoplay/>
             <standart-button
                 text="Oylama Başlat"
-                :is-disable="isDisableCreateVoteButton"
-                @click="createVote"/>
+                :is-disable="isDisablePostVoteButton"
+                @click="postVoteAction"/>
           </div>
         </div>
       </div>
@@ -118,7 +118,7 @@ export default {
     return {
       v$: this.useVuelidate(),
       isLoading: {
-        createVote: false,
+        postVote: false,
         powerTypeVote: true
       },
       activeVoteType: '',
@@ -205,17 +205,20 @@ export default {
       this.vote.startDate = this.$dayjs().format('YYYY-MM-DD');
       this.vote.endDate = this.$dayjs().add(1, 'day').format('YYYY-MM-DD');
       this.v$.vote.$reset();
+
       this.$emit('handlePopup');
+      this.$notify.success('Oylama Başlatıldı');
+      this.$emit('update:should-get-votes', true);
     },
-    createVote() {
+    postVoteAction() {
       this.handle(async () => {
-        this.isLoading.createVote = true;
+        this.isLoading.postVote = true;
         await this.postVote(this.vote);
         this.createdVote();
-        this.$notify.success('Oylama Başlatıldı');
+
       })
           .finally(() => {
-            this.isLoading.createVote = false;
+            this.isLoading.postVote = false;
           });
     },
     checkTimeForPostPowerTypeVoteAction() {
@@ -241,8 +244,8 @@ export default {
         return self.$dayjs(self.vote.startDate).isBefore(value);
       };
     },
-    isDisableCreateVoteButton() {
-      return this.v$.vote.$invalid || this.isVoteTypeHasErrors || this.isLoading.createVote;
+    isDisablePostVoteButton() {
+      return this.v$.vote.$invalid || this.isVoteTypeHasErrors || this.isLoading.postVote;
     }
   },
   watch: {
