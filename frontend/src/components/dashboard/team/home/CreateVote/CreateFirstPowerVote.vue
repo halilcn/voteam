@@ -16,8 +16,8 @@
           <standart-button
               class="create-power-vote"
               text="Güç Oylamasını Başlat"
-              @click="postVoteAction"
-              :is-disable="isDisablePostVoteButton"/>
+              :is-disable="isDisablePostVoteButton"
+              @click="postVoteAction"/>
         </template>
       </div>
     </template>
@@ -42,17 +42,23 @@ export default {
       powerTypeVoteData: {},
       vote: {
         title: 'İlk Güç Oylaması',
-        type: 'power',
+        type: constants.VOTE_TYPES['POWER'],
         options: constants.POWER_VOTE_DEFAULT_OPTIONS,
         start_date: this.$dayjs(),
         end_date: this.$dayjs().add(1, 'day')
-        //? start_date, end_date ?
       },
       isLoading: {
         powerTypeData: true,
         postVote: false
       }
     };
+  },
+  watch: {
+    isEnable(newValue) {
+      if (newValue === true) {
+        this.checkForStorePowerTypeVoteAction();
+      }
+    }
   },
   components: {
     Popup,
@@ -77,13 +83,16 @@ export default {
       this.handle(async () => {
         this.isLoading.postVote = true;
         await this.postVote(this.vote);
-        this.$emit('handlePopup');
-        this.$notify.success('Oylama başlatıldı');
-        this.$emit('update:should-get-votes', true);
+        this.createdVote();
       })
           .finally(() => {
             this.isLoading.postVote = false;
           });
+    },
+    createdVote() {
+      this.$emit('handlePopup');
+      this.$notify.success('Oylama başlatıldı');
+      this.$emit('update:should-get-votes', true);
     }
   },
   computed: {
@@ -93,26 +102,15 @@ export default {
     isDisablePostVoteButton() {
       return this.isLoading.postVote || !this.powerTypeVoteData.has_more_than_lower_limit_users;
     }
-  },
-  watch: {
-    isEnable(newValue) {
-      if (newValue === true) {
-        this.checkForStorePowerTypeVoteAction();
-      }
-    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-
 .create-power-vote-content {
   .power-vote-info {
     margin: 10px 0;
     font-size: 12px;
-  }
-
-  .create-power-vote {
   }
 }
 </style>

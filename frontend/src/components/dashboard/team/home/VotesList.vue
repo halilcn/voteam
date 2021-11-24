@@ -15,8 +15,7 @@
       </div>
       <loading-animation v-if="isLoading.votesActions"
                          class="loading-votes-actions"
-                         :textLineCount="1"
-                         :textCount="1"/>
+                         :textLineCount="1"/>
       <div v-else class="vote-actions">
         <div v-if="!hasPowerTypeVote"
              @click="toggleCreatePowerVotePopup"
@@ -144,6 +143,12 @@ export default {
       shouldGetVotes: false
     };
   },
+  watch: {
+    shouldGetVotes(newValue) {
+      if (newValue) this.getVotesAction();
+      this.shouldGetVotes = false;
+    }
+  },
   components: {
     CreateVotePopup,
     CreatePowerVote,
@@ -184,12 +189,6 @@ export default {
   created() {
     this.checkHasPowerTypeVoteAction();
     this.getVotesAction();
-  },
-  watch: {
-    shouldGetVotes(newValue) {
-      if (newValue) this.getVotesAction();
-      this.shouldGetVotes = false;
-    }
   }
 };
 </script>
@@ -511,9 +510,5 @@ export default {
       justify-content: center;
     }
   }
-}
-
-@media only screen and (max-width: $df-mobile-width) {
-
 }
 </style>

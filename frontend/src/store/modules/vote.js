@@ -20,17 +20,15 @@ export default {
     },
     setNextDateVotes(state, payload) {
       state.votes.nextDate = payload;
-      console.log(payload);
     }
   },
   actions: {
-    //TODO: Check All Functions
-    async getVotes({ commit }) {
-      const { data } = await axios.get(`teams/${router.currentRoute.value.params.teamId}/votes`);
-      commit('setActiveVotes', data.data.active);
-      commit('setNextDateVotes', data.data.next_date);
+    async getVotes({ commit, getters }) {
+      const { data } = (await axios.get(`teams/${getters.teamId}/votes`)).data;
+      commit('setActiveVotes', data.active);
+      commit('setNextDateVotes', data.next_date);
     },
-    async postVote({ dispatch }, payload) {
+    async postVote({ dispatch, getters }, payload) {
       const vote = payload;
 
       if (vote.type === constants.VOTE_TYPES.MULTIPLE) {
@@ -43,9 +41,7 @@ export default {
         );
       }
 
-      //TODO: Created olduktan sonra state'e eklenmesi ?
-      const { data } = await axios.post(`teams/${router.currentRoute.value.params.teamId}/votes`, helpers.convertAllKeysToSnakeCase(vote));
-      console.log(data);
+      await axios.post(`teams/${getters.teamId}/votes`, helpers.convertAllKeysToSnakeCase(vote));
     },
     async postVoteImage({ dispatch }, payload) {
       const { secure_url } = await dispatch(
@@ -58,19 +54,23 @@ export default {
 
       return secure_url;
     },
-    async checkHasPowerTypeVote() {
-      const { data } = await axios.get(`teams/${router.currentRoute.value.params.teamId}/vote-types/power/check-vote`);
+    async checkHasPowerTypeVote({ getters }) {
+      const { data } = await axios.get(`teams/${getters.teamId}/vote-types/power/check-vote`);
       return data;
     },
-    async checkForStorePowerTypeVote() {
-      const { data } = await axios.get(`teams/${router.currentRoute.value.params.teamId}/vote-types/power/check-store`);
+    async checkForStorePowerTypeVote({ getters }) {
+      const { data } = await axios.get(`teams/${getters.teamId}/vote-types/power/check-store`);
       return data;
     },
-    async checkTimeForPostPowerTypeVote(){
-      const { data } = await axios.get(`teams/${router.currentRoute.value.params.teamId}/vote-types/power/check-time`);
+    async checkTimeForPostPowerTypeVote({ getters }) {
+      const { data } = await axios.get(`teams/${getters.teamId}/vote-types/power/check-time`);
       return data;
     }
   },
-  getters: {},
+  getters: {
+    teamId() {
+      return router.currentRoute.value.params.teamId;
+    }
+  },
   namespaced: true
 };

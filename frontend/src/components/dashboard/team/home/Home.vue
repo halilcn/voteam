@@ -14,7 +14,7 @@ export default {
   components: {
     TeamInfo,
     VotesList
-  },
+  }
 };
 </script>
 
@@ -25,22 +25,4 @@ export default {
   align-items: flex-start;
   height: 100%;
 }
-
-/*@media only screen and (max-width: 1250px) {
-
-}
-
-@media only screen and (min-height: 750px) {
-  .home {
-    .team {
-      .team-info {
-        justify-content: flex-start;
-
-        .item {
-          margin-bottom: 60px;
-        }
-      }
-    }
-  }
-}*/
 </style>

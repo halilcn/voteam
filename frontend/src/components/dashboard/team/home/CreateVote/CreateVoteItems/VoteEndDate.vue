@@ -31,14 +31,13 @@ export default {
   name: 'VoteEndDate',
   mixins: [modelValueMixin, modelValueErrorMixin],
   props: ['minDate'],
-  components: {
-    Errors
-  },
   watch: {
     minDate(newValue) {
-      console.log('değişti');
       this.value = newValue;
     }
+  },
+  components: {
+    Errors
   },
   computed: {
     differenceDayBetweenStartDateAndEndDate() {

@@ -28,11 +28,10 @@
             v-if="isLoading.powerTypeVote"
             :textLineCount="2"
             :textLineHeight="17"/>
-        <div
-            v-else
-            @click="selectVoteType('create-power-vote')"
-            :class="{'power-vote-button-disable':dataForPostPowerTypeVote.has_power_type_vote_this_month}"
-            class="item">
+        <div v-else
+             @click="selectVoteType('create-power-vote')"
+             :class="{'power-vote-button-disable':dataForPostPowerTypeVote.has_power_type_vote_this_month}"
+             class="item">
           <img src="../../../../../assets/icons/power-type-vote.png" class="vote-icon" alt="power-options-vote"/>
           <div class="text">
             Güç Oylaması
@@ -150,7 +149,6 @@ export default {
         endDate: {
           required: this.multipleLangError('errors.required', this.validators.required),
           nextDate: this.multipleLangError('errors.nextDate', this.nextDate),
-          //TODO: Bug !
           fromStartDate: this.multipleLangError('errors.fromStartDate', this.fromStartDate)
         }
       }
@@ -173,16 +171,12 @@ export default {
     selectVoteType(type) {
       this.clearVote();
 
-      if (type === 'create-multiple-options-vote') {
-        this.vote.type = 'multiple';
-      }
+      if (type === 'create-multiple-options-vote') this.vote.type = constants.VOTE_TYPES['MULTIPLE'];
 
-      if (type === 'create-double-options-vote') {
-        this.vote.type = 'double';
-      }
+      if (type === 'create-double-options-vote') this.vote.type = constants.VOTE_TYPES['DOUBLE'];
 
       if (type === 'create-power-vote') {
-        this.vote.type = 'power';
+        this.vote.type = constants.VOTE_TYPES['POWER'];
         this.selectedPowerVote();
       }
 
@@ -205,16 +199,15 @@ export default {
       this.clearActiveType();
       this.clearVote();
 
-      this.$emit('handlePopup');
-      this.$notify.success('Oylama Başlatıldı');
+      this.$notify.success('Oylama Başlatıldı'); // TODO: $t() multiple language
       this.$emit('update:should-get-votes', true);
+      this.$emit('handlePopup');
     },
     postVoteAction() {
       this.handle(async () => {
         this.isLoading.postVote = true;
         await this.postVote(this.vote);
         this.createdVote();
-
       })
           .finally(() => {
             this.isLoading.postVote = false;
@@ -258,7 +251,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .choose-vote-type {
   .item {
     @include center-lg-box-shadow;
