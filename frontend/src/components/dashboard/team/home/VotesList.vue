@@ -7,6 +7,10 @@
       @handlePopup="toggleCreatePowerVotePopup"
       :is-enable="isEnableCreatePowerVotePopup"
       v-model:should-get-votes="shouldGetVotes"/>
+  <user-vote-popup
+      @handlePopup="toggleUserVotePopup"
+      :is-enable="isEnableUserVotePopup"
+      v-model:should-get-votes="shouldGetVotes"/>
   <div class="home-content votes">
     <div class="title votes-title">
       <div class="txt">
@@ -127,6 +131,7 @@ import CreateVotePopup from './CreateVote/CreateVotePopup';
 import CreatePowerVote from './CreateVote/CreateFirstPowerVote';
 import InfoTooltip from '../../../shared/InfoTooltip';
 import LoadingAnimation from '../../../shared/LoadingAnimation';
+import UserVotePopup from './UserVote/UserVotePopup';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -135,6 +140,7 @@ export default {
     return {
       isEnableCreateVotePopup: false,
       isEnableCreatePowerVotePopup: false,
+      isEnableUserVotePopup: true,
       isLoading: {
         votes: true,
         votesActions: true
@@ -153,7 +159,8 @@ export default {
     CreateVotePopup,
     CreatePowerVote,
     InfoTooltip,
-    LoadingAnimation
+    LoadingAnimation,
+    UserVotePopup
   },
   methods: {
     ...mapActions('vote', ['getVotes', 'checkHasPowerTypeVote']),
@@ -181,6 +188,9 @@ export default {
     },
     toggleCreatePowerVotePopup() {
       this.isEnableCreatePowerVotePopup = !this.isEnableCreatePowerVotePopup;
+    },
+    toggleUserVotePopup() {
+      this.isEnableUserVotePopup = !this.isEnableUserVotePopup;
     }
   },
   computed: {
