@@ -24,34 +24,47 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.vote-text {
+  @include text-length-limit;
+  text-align: justify;
+}
+
 .vote-actions {
+  margin-top: 15px;
+  font-weight: 400;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
 
   .btn {
-    padding: 7px 30px;
+    width: 100%;
+    padding: 7px;
     border-radius: 5px;
     cursor: pointer;
+    margin: 0 20px;
+    text-align: center;
+    transition: .2s;
+    border: 1px solid transparent;;
 
     &.accept-button {
       color: $df-green-color;
       background-color: $df-very-light-green-color;
+      border-color: #dbfff1;
 
       &:hover {
-        background-color: #dbfff1;;
+        background-color: #dbfff1;
       }
     }
 
     &.refuse-button {
       color: $df-red-color;
       background-color: $df-very-light-red-color;
+      border-color: #ffe5e5;
 
       &:hover {
-        background-color: #f6d8d8;
+        background-color: #ffe5e5;
       }
     }
   }
-
 }
 </style>
