@@ -1,12 +1,13 @@
 <template>
   <label :for="id" class="radio-btn-container">
    <span class="radio-btn-input">
-      <input type="radio"
-             :id="id"
-             :name="name">
+      <input
+          type="radio"
+          :id="id"
+          :name="name">
    </span>
     <span class="content">
-    <slot name="content"/>
+      <slot name="content"/>
     </span>
   </label>
 </template>
@@ -48,11 +49,11 @@ export default {
 
 @supports (-webkit-appearance: none) or (-moz-appearance: none) {
   input[type='radio'] {
-    --active: #275EFE;
+    --active: #2575f1;
     --active-inner: #fff;
-    --focus: 2px rgba(39, 94, 254, .3);
+    --focus: #2575f1;
     --border: #BBC1E1;
-    --border-hover: #275EFE;
+    --border-hover: #2575f1;
     --background: #fff;
     --disabled: #F6F8FF;
     --disabled-inner: #E1E6F9;

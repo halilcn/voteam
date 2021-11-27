@@ -41,6 +41,12 @@
   box-shadow: 0px 0px 3px 0px rgba(37, 117, 241, 1);
 }
 
+@mixin center-lg-blue-box-shadow {
+  -webkit-box-shadow: 0px 0px 2px 0px rgba(37, 117, 241, 1);
+  -moz-box-shadow: 0px 0px 2px 0px rgba(37, 117, 241, 1);
+  box-shadow: 0px 0px 2px 0px rgba(37, 117, 241, 1);
+}
+
 @mixin center-md-green-box-shadow {
   -webkit-box-shadow: 0px 0px 5px 0px rgba(20, 170, 110, 1);
   -moz-box-shadow: 0px 0px 5px 0px rgba(20, 170, 110, 1);
@@ -185,4 +191,9 @@
       }
     }
   }
+}
+
+@mixin text-length-limit{
+  word-wrap: break-word;
+  word-break: break-word;
 }
