@@ -9,7 +9,7 @@
           Geleneksel Yemek Oylaması
         </div>
         <div class="vote-content">
-          <double-type-vote/>
+          <component :is="voteType"/>
         </div>
         <div class="vote-percent">
           <div class="text">
@@ -25,15 +25,22 @@
 <script>
 import Popup from '../../../../shared/Popup';
 import DoubleTypeVote from './DoubleTypeVote';
+import MultipleTypeVote from './MultipleTypeVote';
 import ProgressBar from '../../../../shared/ProgressBar';
 
 export default {
   name: 'UserVote',
   props: ['isEnable'],
+  data(){
+    return{
+      voteType:'multiple-type-vote'
+    }
+  },
   components: {
     Popup,
     DoubleTypeVote,
-    ProgressBar
+    ProgressBar,
+    MultipleTypeVote
   }
   //TODO: postVote burada oluşturulacak
 };
@@ -50,7 +57,7 @@ export default {
   .vote-content {
     //    background-color: red;
     padding: 5px;
-    border: 1px solid #d7d7d7;
+  //  border: 1px solid #d7d7d7;
     border-radius: 5px;
   }
 
