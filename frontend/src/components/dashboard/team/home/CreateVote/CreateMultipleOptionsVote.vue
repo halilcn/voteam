@@ -1,13 +1,8 @@
 <template>
-  <popup
-      title="Fotoğraf"
-      width="340"
-      @handleDisable="toggleImagePopup"
-      :is-enable="isEnableImagePopup">
-    <template v-slot:content>
-      <img class="option-image" :src="pathOfImageOnPopup" alt="option-image"/>
-    </template>
-  </popup>
+  <image-popup
+      @handlePopup="toggleImagePopup"
+      :is-enable="isEnableImagePopup"
+      :path="pathOfImageOnPopup"/>
   <div class="form-item">
     <div class="title">
       Oy Seçenekleri
@@ -70,7 +65,7 @@
 import modelValueMixin from '../../../../../mixins/modelValueMixin';
 import validateMixin from '../../../../../mixins/validateMixin';
 import constants from '../../../../../store/constants';
-import Popup from '../../../../shared/Popup';
+import ImagePopup from '../../../../shared/ImagePopup';
 
 export default {
   name: 'CreateClassicVote',
@@ -107,7 +102,7 @@ export default {
     }
   },
   components: {
-    Popup
+    ImagePopup
   },
   methods: {
     toggleOptionsList() {
@@ -164,11 +159,6 @@ export default {
 
 <style lang="scss" scoped>
 @include create-vote-popup-form-item;
-
-.option-image {
-  width: 100%;
-  border-radius: 10px;
-}
 
 .options-list {
   .item-container {

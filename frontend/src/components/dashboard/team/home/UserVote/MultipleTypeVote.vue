@@ -1,4 +1,8 @@
 <template>
+  <image-popup
+      @handlePopup="toggleImagePopup"
+      :is-enable="isEnableImagePopup"
+      :path="testPath"/>
   <div class="options">
     <div class="item selected">
       <radio-button id="2">
@@ -39,11 +43,24 @@
 
 <script>
 import RadioButton from '../../../../shared/elements/RadioButton';
+import ImagePopup from '../../../../shared/ImagePopup';
 
 export default {
   name: 'MultipleTypeVote',
+  data() {
+    return {
+      isEnableImagePopup: false,
+      testPath: 'https://res.cloudinary.com/voteam/image/upload//v1635595083/vote-images/jmmj7kqi4rmdtqsmccfo.jpg'
+    };
+  },
   components: {
-    RadioButton
+    RadioButton,
+    ImagePopup
+  },
+  methods: {
+    toggleImagePopup() {
+      this.isEnableImagePopup = !this.isEnableImagePopup;
+    }
   }
 };
 </script>
