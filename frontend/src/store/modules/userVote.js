@@ -10,8 +10,7 @@ export default {
       return data;
     },
     async postAnswerVote(_, payload) {
-      const data = await axios.post(`votes/${payload.voteId}/voted-users`, payload);
-      console.log(data);
+      await axios.post(`votes/${payload.voteId}/voted-users`, payload);
     }
   },
   getters: {

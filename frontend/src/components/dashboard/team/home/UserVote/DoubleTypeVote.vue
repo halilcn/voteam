@@ -3,17 +3,15 @@
     {{ voteData.message }}
   </div>
   <div class="vote-actions">
-    <div
-        @click="$emit('postAnswerVote',true)"
-        :class="{disable:isLoading}"
-        class="btn accept-button">
+    <div @click="sendAnswerVote(true)"
+         :class="{disable:isLoading}"
+         class="btn accept-button">
       <i class="bi bi-check-circle"></i>
       Kabul Et
     </div>
-    <div
-        @click="$emit('postAnswerVote',false)"
-        :class="{disable:isLoading}"
-        class="btn refuse-button">
+    <div @click="sendAnswerVote(false)"
+         :class="{disable:isLoading}"
+         class="btn refuse-button">
       <i class="bi bi-x-circle"></i>
       Reddet
     </div>
@@ -23,7 +21,13 @@
 <script>
 export default {
   name: 'DoubleTypeVote',
-  props: ['voteData', 'isLoading']
+  emits: ['postAnswerVote'],
+  props: ['voteData', 'isLoading'],
+  methods: {
+    sendAnswerVote(answer) {
+      this.$emit('postAnswerVote', { answer });
+    }
+  }
 };
 </script>
 
@@ -35,23 +39,30 @@ export default {
 
 .vote-actions {
   margin-top: 15px;
-  font-weight: 400;
+  font-weight: 500;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
 
   .btn {
     width: 100%;
-    padding: 7px;
+    padding: 8px;
     border-radius: 5px;
     cursor: pointer;
-    margin: 0 15px;
     text-align: center;
     transition: .2s;
     border: 1px solid transparent;
 
     &:hover {
       color: white !important;
+    }
+
+    &:first-child {
+      margin-right: 20px;
+    }
+
+    &:last-child {
+      margin-left: 20px;
     }
 
     i {

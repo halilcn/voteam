@@ -22,7 +22,7 @@
         <div class="vote-area vote-info">
           <div class="text">
             <div class="title">
-              Kullanılmış Oy Oranı
+             Oylamaya Katılım Oranı
             </div>
             <div class="time">
               ({{ $dayjs($helpers.convertTimeToUtc(vote.end_date)).fromNow() }} bitiyor)
@@ -73,7 +73,6 @@ export default {
       this.handle(async () => {
         this.isLoading.vote = true;
         this.vote = await this.getVote(this.voteId);
-        console.log(this.vote);
       })
           .finally(() => {
             this.isLoading.vote = false;
@@ -90,7 +89,9 @@ export default {
           });
     },
     createdAnswerVote() {
+      this.$emit('handlePopup');
       this.$emit('update:should-get-votes', true);
+      this.$notify.success('Oy Verildi');
     }
   }
 };
@@ -119,7 +120,6 @@ export default {
       .text {
         display: flex;
         font-weight: 300;
-        margin-bottom: 4px;
 
         .time {
           font-style: italic;

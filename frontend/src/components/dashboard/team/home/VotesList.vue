@@ -53,9 +53,9 @@
             <template v-if="votes.active.length > 0">
               <div v-for="(vote,index) in votes.active"
                    :key="index"
-                   @click="showUserVotePopup(vote.id)"
                    class="item-container">
                 <div class="item"
+                     @click="showUserVotePopup(vote.id)"
                      :class="{voted:vote.is_voted,'everyone-voted':vote.voted_percentage === 100}">
                   <div class="top">
                     <div class="voted-percentage">
@@ -401,6 +401,7 @@ export default {
 
         &.voted {
           cursor: default;
+          pointer-events: none;
 
           .top {
             background-color: #f5fffb;

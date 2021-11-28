@@ -1,9 +1,10 @@
 <template>
   <div class="progress-bar">
-    <div
-        :style="{width:`${percent}%`}"
-        class="percent-text">
-      %{{ percent }}
+    <div :style="{width:`${percent}%`}"
+         class="percent-text">
+      <span :class="{'percent-equal-to-zero':percent === 0}">
+        %{{ percent }}
+      </span>
     </div>
   </div>
 </template>
@@ -36,8 +37,11 @@ $progress-bar-height: 23px;
     justify-content: center;
     height: $progress-bar-height;
     background-color: $df-green-color;
-    color: $df-dark-blue-color;
-    margin-left: 14px;
+    color: white;
+
+    .percent-equal-to-zero {
+      padding-left: 30px;
+    }
   }
 }
 </style>
