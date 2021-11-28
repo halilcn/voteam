@@ -193,7 +193,14 @@
   }
 }
 
-@mixin text-length-limit{
+@mixin text-length-limit {
   word-wrap: break-word;
   word-break: break-word;
+}
+
+@mixin button-disable {
+  background-color: $df-light-black !important;
+  color: #8C8C8C !important;
+  cursor: default !important;
+  pointer-events: none !important;
 }

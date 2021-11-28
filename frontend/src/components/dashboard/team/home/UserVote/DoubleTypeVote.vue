@@ -1,16 +1,19 @@
 <template>
   <div class="vote-text">
-    Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir. Lorem Ipsum, adı bilinmeyen bir matbaacının
-    bir hurufat numune kitabı oluşturmak üzere bir yazı galerisini alarak karıştırdığı 1500'lerden beri endüstri
-    standardı sahte metinler olarak kullanılmıştır. Beşyüz yıl boyunca varlığını sürdürmekle kalmamış, aynı zamanda pek
-    değişmeden
+    {{ voteData.message }}
   </div>
   <div class="vote-actions">
-    <div class="btn accept-button">
+    <div
+        @click="$emit('postAnswerVote',true)"
+        :class="{disable:isLoading}"
+        class="btn accept-button">
       <i class="bi bi-check-circle"></i>
       Kabul Et
     </div>
-    <div class="btn refuse-button">
+    <div
+        @click="$emit('postAnswerVote',false)"
+        :class="{disable:isLoading}"
+        class="btn refuse-button">
       <i class="bi bi-x-circle"></i>
       Reddet
     </div>
@@ -19,7 +22,8 @@
 
 <script>
 export default {
-  name: 'DoubleTypeVote'
+  name: 'DoubleTypeVote',
+  props: ['voteData', 'isLoading']
 };
 </script>
 
@@ -41,28 +45,39 @@ export default {
     padding: 7px;
     border-radius: 5px;
     cursor: pointer;
-    margin: 0 20px;
+    margin: 0 15px;
     text-align: center;
     transition: .2s;
-    border: 1px solid transparent;;
+    border: 1px solid transparent;
+
+    &:hover {
+      color: white !important;
+    }
+
+    i {
+      margin-right: 5px;
+    }
+
+    &.disable {
+      @include button-disable;
+      border-color: $df-light-black !important;
+    }
 
     &.accept-button {
       color: $df-green-color;
-      background-color: $df-very-light-green-color;
-      border-color: #dbfff1;
+      border-color: $df-green-color;
 
       &:hover {
-        background-color: #dbfff1;
+        background-color: $df-green-color;
       }
     }
 
     &.refuse-button {
       color: $df-red-color;
-      background-color: $df-very-light-red-color;
-      border-color: #ffe5e5;
+      border-color: $df-red-color;
 
       &:hover {
-        background-color: #ffe5e5;
+        background-color: $df-red-color;
       }
     }
   }

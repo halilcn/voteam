@@ -65,10 +65,6 @@ export default {
     async checkTimeForPostPowerTypeVote({ getters }) {
       const { data } = await axios.get(`teams/${getters.teamId}/vote-types/power/check-time`);
       return data;
-    },
-    async getVote({ getters }, payload) {
-      const { data } = (await axios.get(`teams/${getters.teamId}/votes/${payload}`)).data;
-      return data;
     }
   },
   getters: {

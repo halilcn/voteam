@@ -5,7 +5,7 @@
       :is-enable="isEnable">
     <template v-slot:content>
       <loading-animation
-          v-if="isLoadingVote"
+          v-if="isLoading.vote"
           :textLineCount="5"
           :text-count="2"/>
       <div v-else class="user-vote">
@@ -15,8 +15,9 @@
         <div class="vote-area vote-content">
           <component
               :is="vote.type+'-type-vote'"
-              :data="vote.options"
-              @post-vote="postVoteAction"/>
+              :vote-data="vote.options"
+              :is-loading="isLoading.answer"
+              @post-answer-vote="postAnswerVoteAction"/>
         </div>
         <div class="vote-area vote-info">
           <div class="text">
@@ -47,8 +48,10 @@ export default {
   props: ['isEnable', 'voteId'],
   data() {
     return {
-      isLoadingVote: true,
-      voteType: 'multiple-type-vote',
+      isLoading: {
+        vote: true,
+        answer: false
+      },
       vote: {}
     };
   },
@@ -65,19 +68,29 @@ export default {
     LoadingAnimation
   },
   methods: {
-    ...mapActions('vote', ['getVote']),
+    ...mapActions('userVote', ['getVote', 'postAnswerVote']),
     getVoteAction() {
       this.handle(async () => {
-        this.isLoadingVote = true;
+        this.isLoading.vote = true;
         this.vote = await this.getVote(this.voteId);
         console.log(this.vote);
       })
           .finally(() => {
-            this.isLoadingVote = false;
+            this.isLoading.vote = false;
           });
     },
-    postVoteAction(option) {
-      console.log(option);
+    postAnswerVoteAction(answer) {
+      this.handle(async () => {
+        this.isLoading.answer = true;
+        await this.postAnswerVote({ answer, voteId: this.voteId });
+        this.createdAnswerVote();
+      })
+          .finally(() => {
+            this.isLoading.answer = false;
+          });
+    },
+    createdAnswerVote() {
+      this.$emit('update:should-get-votes', true);
     }
   }
 };

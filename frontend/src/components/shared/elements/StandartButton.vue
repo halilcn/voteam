@@ -41,10 +41,7 @@ export default {
   }
 
   &.disable {
-    background-color: $df-light-black;
-    color: #8C8C8C;
-    cursor: default;
-    pointer-events: none;
+    @include button-disable;
   }
 }
 </style>
