@@ -3,9 +3,10 @@
 namespace App\Providers;
 
 use App\Models\Vote;
+use App\Models\VotedUser;
+use App\Policies\VotedUserPolicy;
 use App\Policies\VotePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -16,7 +17,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
-        Vote::class => VotePolicy::class
+        Vote::class => VotePolicy::class,
+        VotedUser::class => VotedUserPolicy::class
     ];
 
     /**

@@ -68,6 +68,17 @@ class Vote extends Model
     }
 
     /**
+     * Check if the user has voted
+     * @param  Builder  $query
+     * @param  int  $userId
+     * @return bool
+     */
+    public function scopeHasUserVoted(Builder $query, int $userId): bool
+    {
+        return $this->votedUsers()->where('user_id', $userId)->exists();
+    }
+
+    /**
      * Get percentage of user who voted
      * @return int
      */

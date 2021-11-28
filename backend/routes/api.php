@@ -7,7 +7,7 @@ use App\Http\Controllers\API\Other\FileController;
 use App\Http\Controllers\API\Team\TeamController;
 use App\Http\Controllers\API\Team\TeamInfoController;
 use App\Http\Controllers\API\Team\TeamJoinWithCodeController;
-use App\Http\Controllers\API\Vote\UserVotedController;
+use App\Http\Controllers\API\Vote\VotedUserController;
 use App\Http\Controllers\API\Vote\VoteController;
 use App\Http\Controllers\API\Vote\VotePowerTypeActionsController;
 use Illuminate\Http\Request;
@@ -45,7 +45,7 @@ Route::group(['prefix' => 'v1'], function () {
         });
 
         //TODO: Review code
-        Route::post('votes/{vote}/voted-users', [UserVotedController::class, 'store']);
+        Route::post('votes/{vote}/voted-users', [VotedUserController::class, 'store']);
 
         Route::post('teams/join', [TeamJoinWithCodeController::class]);
 

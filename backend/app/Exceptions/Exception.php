@@ -10,6 +10,7 @@ namespace App\Exceptions;
  * @method static registerException($message = '')
  * @method static joinTeamException($message = '')
  * @method static powerVoteTypeException($message = '')
+ * @method static votedUserException($message = '')
  */
 class Exception
 {
