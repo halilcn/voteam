@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Vote;
 use App\Exceptions\Exception;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Vote\VoteRequest;
+use App\Http\Resources\Vote\VoteResource;
 use App\Http\Resources\Vote\VotesResource;
 use App\Models\Team;
 use App\Models\Vote;
@@ -20,7 +21,7 @@ class VoteController extends Controller
      */
     public function index(Team $team): VotesResource
     {
-        $this->authorize('show', [Vote::class, $team]);
+        $this->authorize('view', [Vote::class, $team]);
 
         // TODO: query problem.
         return VotesResource::make(
@@ -31,7 +32,6 @@ class VoteController extends Controller
                 ->get()
         );
     }
-
 
     /**
      * @param  VoteRequest  $request
@@ -75,5 +75,19 @@ class VoteController extends Controller
         $team->votes()->create($request->validated());
 
         return $this->createdResponse();
+    }
+
+    public function show(Team $team, Vote $vote)
+    {
+        //TODO: vote type'e göre return ?
+        //TODO: power vote olunca?
+
+        $this->authorize('view', [Vote::class, $team]);
+
+        if ($vote->type === Vote::$TYPES['POWER']) {
+            $vote->options = $team->users()->select('name', 'image')->get();
+        }
+
+        return VoteResource::make($vote);
     }
 }

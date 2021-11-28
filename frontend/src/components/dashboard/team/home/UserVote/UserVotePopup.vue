@@ -4,13 +4,18 @@
       @handleDisable="$emit('handlePopup')"
       :is-enable="isEnable">
     <template v-slot:content>
-      <div class="user-vote">
+      <loading-animation
+          v-if="isLoadingVote"
+          :textLineCount="5"
+          :text-count="2"/>
+      <div v-else class="user-vote">
         <div class="vote-area vote-title">
-          Geleneksel Yemek Oylaması
+          {{ vote.title }}
         </div>
         <div class="vote-area vote-content">
           <component
-              :is="voteType"
+              :is="vote.type+'-type-vote'"
+              :data="vote.options"
               @post-vote="postVoteAction"/>
         </div>
         <div class="vote-area vote-info">
@@ -19,10 +24,10 @@
               Kullanılmış Oy Oranı
             </div>
             <div class="time">
-              (7 saat sonra bitiyor)
+              ({{ $dayjs($helpers.convertTimeToUtc(vote.end_date)).fromNow() }} bitiyor)
             </div>
           </div>
-          <progress-bar class="progress-bar" percent="65.12"/>
+          <progress-bar class="progress-bar" :percent="vote.voted_percentage"/>
         </div>
       </div>
     </template>
@@ -34,22 +39,43 @@ import Popup from '../../../../shared/Popup';
 import DoubleTypeVote from './DoubleTypeVote';
 import MultipleTypeVote from './MultipleTypeVote';
 import ProgressBar from '../../../../shared/ProgressBar';
+import LoadingAnimation from '../../../../shared/LoadingAnimation';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'UserVote',
-  props: ['isEnable'],
+  props: ['isEnable', 'voteId'],
   data() {
     return {
-      voteType: 'multiple-type-vote'
+      isLoadingVote: true,
+      voteType: 'multiple-type-vote',
+      vote: {}
     };
+  },
+  watch: {
+    voteId() {
+      this.getVoteAction();
+    }
   },
   components: {
     Popup,
     DoubleTypeVote,
     ProgressBar,
-    MultipleTypeVote
+    MultipleTypeVote,
+    LoadingAnimation
   },
   methods: {
+    ...mapActions('vote', ['getVote']),
+    getVoteAction() {
+      this.handle(async () => {
+        this.isLoadingVote = true;
+        this.vote = await this.getVote(this.voteId);
+        console.log(this.vote);
+      })
+          .finally(() => {
+            this.isLoadingVote = false;
+          });
+    },
     postVoteAction(option) {
       console.log(option);
     }

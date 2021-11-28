@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Team;
 use App\Models\User;
-use App\Models\Vote;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class VotePolicy
@@ -26,7 +25,7 @@ class VotePolicy
      * @param  Team  $team
      * @return bool
      */
-    public function show(User $user, Team $team): bool
+    public function view(User $user, Team $team): bool
     {
         return $team->hasUser($user->id);
     }

@@ -37,6 +37,7 @@ $progress-bar-height: 23px;
     height: $progress-bar-height;
     background-color: $df-green-color;
     color: $df-dark-blue-color;
+    margin-left: 14px;
   }
 }
 </style>

@@ -10,6 +10,7 @@
   <user-vote-popup
       @handlePopup="toggleUserVotePopup"
       :is-enable="isEnableUserVotePopup"
+      :vote-id="voteIdForUserVote"
       v-model:should-get-votes="shouldGetVotes"/>
   <div class="home-content votes">
     <div class="title votes-title">
@@ -52,6 +53,7 @@
             <template v-if="votes.active.length > 0">
               <div v-for="(vote,index) in votes.active"
                    :key="index"
+                   @click="showUserVotePopup(vote.id)"
                    class="item-container">
                 <div class="item"
                      :class="{voted:vote.is_voted,'everyone-voted':vote.voted_percentage === 100}">
@@ -140,13 +142,14 @@ export default {
     return {
       isEnableCreateVotePopup: false,
       isEnableCreatePowerVotePopup: false,
-      isEnableUserVotePopup: true,
+      isEnableUserVotePopup: false,
       isLoading: {
         votes: true,
         votesActions: true
       },
       hasPowerTypeVote: false,
-      shouldGetVotes: false
+      shouldGetVotes: false,
+      voteIdForUserVote: null
     };
   },
   watch: {
@@ -191,6 +194,10 @@ export default {
     },
     toggleUserVotePopup() {
       this.isEnableUserVotePopup = !this.isEnableUserVotePopup;
+    },
+    showUserVotePopup(voteId) {
+      this.voteIdForUserVote = voteId;
+      this.toggleUserVotePopup();
     }
   },
   computed: {
