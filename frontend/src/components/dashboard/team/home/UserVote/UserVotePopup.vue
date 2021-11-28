@@ -40,7 +40,7 @@ export default {
   props: ['isEnable'],
   data() {
     return {
-      voteType: 'double-type-vote'
+      voteType: 'multiple-type-vote'
     };
   },
   components: {
@@ -50,8 +50,8 @@ export default {
     MultipleTypeVote
   },
   methods: {
-    postVoteAction() {
-      alert();
+    postVoteAction(option) {
+      console.log(option);
     }
   }
 };
