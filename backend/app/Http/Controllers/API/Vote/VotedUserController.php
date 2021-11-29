@@ -22,7 +22,7 @@ class VotedUserController extends Controller
 
         $userId = $request->user()->id;
 
-        if ($vote->all_users_voted) {
+        if ($vote->all_users_voted || $vote->end_date->isPast()) {
             return Exception::votedUserException();
         }
 
