@@ -4,35 +4,36 @@
       :is-enable="isEnableImagePopup"
       :path="pathForImageOption"/>
   <div class="options">
-    <div
-        v-for="(option,index) in test"
+    <radio-button
+        v-for="(option,index) in voteData"
         :key="index"
+        :id="index"
+        @click="selectOption(index)"
         :class="{selected:selectedOptionIndex===index}"
         class="item">
-      <radio-button @click="selectOption(index)" :id="index">
-        <template v-slot:content>
-          <div class="option" :class="isTextTypeOption(option.type) ? 'text' : 'image'">
-             <span v-if="isTextTypeOption(option.type)">
+      <template v-slot:content>
+        <div class="option-content"
+             :class="isTextTypeOption(option.type) ? 'text' : 'image'">
+          <span v-if="isTextTypeOption(option.type)">
                {{ option.message }}
-             </span>
-            <template v-else>
-              <div class="info">
-                <i class="bi bi-image"></i>
-                Fotoğraflı Seçenek
-              </div>
-              <a @click.stop.prevent="showImage(option.path)"
-                 class="show-image-popup">
-                Görüntüle
-              </a>
-            </template>
-          </div>
-        </template>
-      </radio-button>
-    </div>
+          </span>
+          <template v-else>
+            <div class="info">
+              <i class="bi bi-image"></i>
+              Fotoğraflı Seçenek
+            </div>
+            <a @click.stop.prevent="showImage(option.path)"
+               class="show-image-popup">
+              Görüntüle
+            </a>
+          </template>
+        </div>
+      </template>
+    </radio-button>
     <standart-button
         class="post-vote-btn"
         :is-disable="isDisablePostVoteButton"
-        @click="$emit('postVote',selectedOption)"
+        @click="sendAnswerVote"
         text="Oy Ver"/>
   </div>
 </template>
@@ -43,51 +44,16 @@ import ImagePopup from '../../../../shared/ImagePopup';
 import StandartButton from '../../../../shared/elements/StandartButton';
 import constants from '../../../../../store/constants';
 
-//TODO: verilerin cevaplar şıklarda olmalı. backend kontrol
-
 export default {
   name: 'MultipleTypeVote',
-  emits: ['postVote'],
+  emits: ['postAnswerVote'],
+  props: ['voteData', 'isLoading'],
   data() {
     return {
       isEnableImagePopup: false,
       pathForImageOption: '',
       selectedOptionIndex: null,
-      selectedOption: {},
-      test: [
-        {
-          type: 'image',
-          path: 'https://res.cloudinary.com/voteam/image/upload//v1635595083/vote-images/jmmj7kqi4rmdtqsmccfo.jpg'
-        },
-        {
-          type: 'text',
-          message: 'yazı yazıasıdas daskdas dasja'
-        },
-        {
-          type: 'image',
-          path: 'https://res.cloudinary.com/voteam/image/upload//v1635595083/vote-images/jmmj7kqi4rmdtqsmccfo.jpg'
-        },
-        {
-          type: 'text',
-          message: 'yazı yazıasıdas daskdas dasja'
-        },
-        {
-          type: 'image',
-          path: 'https://res.cloudinary.com/voteam/image/upload//v1635595083/vote-images/jmmj7kqi4rmdtqsmccfo.jpg'
-        },
-        {
-          type: 'text',
-          message: 'yazı yazıasıdas daskdas dasja'
-        },
-        {
-          type: 'image',
-          path: 'https://res.cloudinary.com/voteam/image/upload//v1635595083/vote-images/jmmj7kqi4rmdtqsmccfo.jpg'
-        },
-        {
-          type: 'text',
-          message: 'yazı yazıasıdas daskdas dasja'
-        }
-      ]
+      selectedOption: {}
     };
   },
   components: {
@@ -97,9 +63,8 @@ export default {
   },
   methods: {
     selectOption(index) {
-      // TODO: Duplicate click
       this.selectedOptionIndex = index;
-      this.selectedOption = this.test[index];
+      this.selectedOption = this.voteData[index];
     },
     toggleImagePopup() {
       this.isEnableImagePopup = !this.isEnableImagePopup;
@@ -110,11 +75,14 @@ export default {
     },
     isTextTypeOption(type) {
       return type === constants.VOTE_OPTIONS_TYPES['TEXT'];
+    },
+    sendAnswerVote() {
+      this.$emit('postAnswerVote', this.selectedOption);
     }
   },
   computed: {
     isDisablePostVoteButton() {
-      return this.selectedOptionIndex === null;
+      return this.selectedOptionIndex === null || this.isLoading;
     }
   }
 };
@@ -123,10 +91,9 @@ export default {
 <style lang="scss" scoped>
 .options {
   .item {
-    padding: 10px;
-    // background-color: $df-very-light-blue-color;
-    margin: 8px 0;
-    border-radius: 5px;
+    padding: 14px;
+    margin-bottom: 12px;
+    border-radius: 10px;
     border: 2px solid $df-very-light-blue-color;
     transition: .2s;
 
@@ -136,11 +103,10 @@ export default {
     }
 
     &:not(.selected):hover {
-      background-color: #fafafa;
+      background-color: #f6f6f6;
     }
 
-    .option {
-      //color: $df-dark-blue-color;
+    .option-content {
       color: #084b73;
       font-weight: 300;
 
@@ -158,7 +124,7 @@ export default {
 
         .show-image-popup {
           color: $df-blue-color;
-          margin-left: 10px;
+          margin-left: 15px;
           text-decoration: underline;
 
           &:hover {

@@ -41,6 +41,7 @@ $progress-bar-height: 23px;
 
     .percent-equal-to-zero {
       padding-left: 30px;
+      color: $df-green-color;
     }
   }
 }

@@ -23,7 +23,7 @@ export default {
     name: {
       type: String,
       required: false,
-      default: 'radio_btn_name'
+      default: 'radio_btn_default_name'
     }
   }
 };
