@@ -39,6 +39,7 @@
 import Popup from '../../../../shared/Popup';
 import DoubleTypeVote from './DoubleTypeVote';
 import MultipleTypeVote from './MultipleTypeVote';
+import PowerTypeVote from './PowerTypeVote';
 import ProgressBar from '../../../../shared/ProgressBar';
 import LoadingAnimation from '../../../../shared/LoadingAnimation';
 import { mapActions } from 'vuex';
@@ -65,6 +66,7 @@ export default {
     DoubleTypeVote,
     ProgressBar,
     MultipleTypeVote,
+    PowerTypeVote,
     LoadingAnimation
   },
   methods: {
