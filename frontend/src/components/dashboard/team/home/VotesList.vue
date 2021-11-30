@@ -22,7 +22,8 @@
                          class="loading-votes-actions"
                          :textLineCount="1"/>
       <div v-else class="vote-actions">
-        <div v-if="!hasPowerTypeVote"
+        {{dataForPowerType.user_has_user_power}}
+        <div v-if="!dataForPowerType.power_vote_voted"
              @click="toggleCreatePowerVotePopup"
              class="create-power-vote btn">
           Güç Oylaması
@@ -30,10 +31,11 @@
         <div
             @click="toggleCreateVotePopup"
             class="create-vote btn"
-            :class="{disable:!hasPowerTypeVote}">
+            :class="{disable:!dataForPowerType.power_vote_voted || !dataForPowerType.user_has_user_power}">
           <div class="power-vote-info">
             <i class="bi bi-exclamation-triangle-fill"></i>
-            Güç oylaması gerekir
+            {{!dataForPowerType.power_vote_voted ? 'Güç oylaması gerekir' : ''}}
+            {{!dataForPowerType.user_has_user_power ? 'Güç dağılımı olmalı' : ''}}
           </div>
           <i class="bi bi-plus-circle-fill"></i>
           Oylama Başlat
@@ -136,6 +138,7 @@ import LoadingAnimation from '../../../shared/LoadingAnimation';
 import UserVotePopup from './UserVote/UserVotePopup';
 import { mapActions, mapState } from 'vuex';
 
+//TODO: text'ler düzgün değil. Vote list'e disable eklenmeli.(user_has_user_power için)
 export default {
   name: 'VotesList',
   data() {
@@ -147,7 +150,7 @@ export default {
         votes: true,
         votesActions: true
       },
-      hasPowerTypeVote: false,
+      dataForPowerType: {},
       shouldGetVotes: false,
       voteIdForUserVote: null
     };
@@ -179,8 +182,7 @@ export default {
     checkHasPowerTypeVoteAction() {
       this.handle(async () => {
         this.isLoading.votesActions = true;
-        const { power_vote_voted } = await this.checkHasPowerTypeVote();
-        this.hasPowerTypeVote = power_vote_voted;
+        this.dataForPowerType = await this.checkHasPowerTypeVote();
       })
           .finally(() => {
             this.isLoading.votesActions = false;

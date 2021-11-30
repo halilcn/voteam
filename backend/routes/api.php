@@ -47,7 +47,7 @@ Route::group(['prefix' => 'v1'], function () {
         //TODO: Review code
         Route::post('votes/{vote}/voted-users', [VotedUserController::class, 'store']);
 
-        Route::post('teams/join', [TeamJoinWithCodeController::class]);
+        Route::post('teams/join', TeamJoinWithCodeController::class);
 
         Route::post('logout', [LogoutController::class, 'handle']);
     });

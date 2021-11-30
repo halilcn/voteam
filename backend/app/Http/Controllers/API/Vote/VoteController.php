@@ -66,9 +66,13 @@ class VoteController extends Controller
         // Check For Other Types
         if ($request->input('type') != Vote::$TYPES['POWER']) {
             $hasCompletedPowerTypeVotes = $team->powerTypeVote()->completedVotes()->exists();
-
             if (!$hasCompletedPowerTypeVotes) {
                 return Exception::powerVoteTypeException();
+            }
+
+            $notHasUserPower = !$team->hasUserPower($request->user()->id);
+            if ($notHasUserPower) {
+                return Exception::userPowerException();
             }
         }
 

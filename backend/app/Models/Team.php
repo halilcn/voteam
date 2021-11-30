@@ -75,6 +75,24 @@ class Team extends Model
     }
 
     /**
+     *  User of team has user power
+     * @param  Builder  $query
+     * @param  int  $userId
+     * @return bool
+     */
+    public function scopeHasUserPower(Builder $query, int $userId): bool
+    {
+        return false;
+
+        return $this
+                ->users()
+                ->wherePivot('user_id', $userId)
+                ->first()
+                ->member
+                ->userPower != [];
+    }
+
+    /**
      * @return BelongsToMany
      */
     public function users(): BelongsToMany

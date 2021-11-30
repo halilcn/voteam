@@ -22,12 +22,12 @@ class VotedUserController extends Controller
 
         $userId = $request->user()->id;
 
-        if ($vote->all_users_voted || $vote->end_date->isPast()) {
+        if ($vote->all_users_voted || $vote->end_date->isPast() || $vote->hasUserVoted($userId)) {
             return Exception::votedUserException();
         }
 
-        if ($vote->hasUserVoted($userId)) {
-            return Exception::votedUserException();
+        if (!$vote->team()->hasUserPower($request->user()->id)) {
+            return Exception::userPowerException();
         }
 
         $vote->votedUsers()->create([
