@@ -16,8 +16,8 @@ helpers.getLanguage = () => {
 
   if (storedLang !== null) return storedLang;
 
-  const defaultLang = window.navigator.language || process.env.DEFAULT_LANGUAGE;
-  this.setLanguage(defaultLang);
+  const defaultLang = window.navigator.language.substring(0, 2) || process.env.DEFAULT_LANGUAGE;
+  helpers.setLanguage(defaultLang);
   return defaultLang;
 };
 
