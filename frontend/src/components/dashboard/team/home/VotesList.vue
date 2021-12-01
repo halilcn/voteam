@@ -22,7 +22,7 @@
                          class="loading-votes-actions"
                          :textLineCount="1"/>
       <div v-else class="vote-actions">
-        {{dataForPowerType.user_has_user_power}}
+        {{ dataForPowerType.user_has_user_power }}
         <div v-if="!dataForPowerType.power_vote_voted"
              @click="toggleCreatePowerVotePopup"
              class="create-power-vote btn">
@@ -34,8 +34,11 @@
             :class="{disable:!dataForPowerType.power_vote_voted || !dataForPowerType.user_has_user_power}">
           <div class="power-vote-info">
             <i class="bi bi-exclamation-triangle-fill"></i>
-            {{!dataForPowerType.power_vote_voted ? 'Güç oylaması gerekir' : ''}}
-            {{!dataForPowerType.user_has_user_power ? 'Güç dağılımı olmalı' : ''}}
+            {{
+              !dataForPowerType.power_vote_voted
+                  ? 'Güç oylaması gerekir'
+                  : userHasNotUserPower ? 'Güç oylamasına katılman gerekir' : ''
+            }}
           </div>
           <i class="bi bi-plus-circle-fill"></i>
           Oylama Başlat
@@ -58,7 +61,7 @@
                    class="item-container">
                 <div class="item"
                      @click="showUserVotePopup(vote.id)"
-                     :class="{voted:vote.is_voted,'everyone-voted':vote.voted_percentage === 100}">
+                     :class="activeVoteItemClass(vote)">
                   <div class="top">
                     <div class="voted-percentage">
                       %{{ vote.voted_percentage }}
@@ -136,9 +139,9 @@ import CreatePowerVote from './CreateVote/CreateFirstPowerVote';
 import InfoTooltip from '../../../shared/InfoTooltip';
 import LoadingAnimation from '../../../shared/LoadingAnimation';
 import UserVotePopup from './UserVote/UserVotePopup';
+import constants from '../../../../store/constants';
 import { mapActions, mapState } from 'vuex';
 
-//TODO: text'ler düzgün değil. Vote list'e disable eklenmeli.(user_has_user_power için)
 export default {
   name: 'VotesList',
   data() {
@@ -200,10 +203,20 @@ export default {
     showUserVotePopup(voteId) {
       this.voteIdForUserVote = voteId;
       this.toggleUserVotePopup();
+    },
+    activeVoteItemClass(vote) {
+      return {
+        voted: vote.is_voted,
+        'everyone-voted': vote.voted_percentage === 100,
+        'user-has-not-user-power': this.userHasNotUserPower && vote.type !== constants.VOTE_TYPES['POWER']
+      };
     }
   },
   computed: {
-    ...mapState('vote', ['votes'])
+    ...mapState('vote', ['votes']),
+    userHasNotUserPower() {
+      return !this.dataForPowerType.user_has_user_power;
+    }
   },
   created() {
     this.checkHasPowerTypeVoteAction();
@@ -268,15 +281,17 @@ export default {
             pointer-events: none;
 
             .power-vote-info {
-              display: block;
+              display: flex;
+              align-items: center;
             }
           }
 
           .power-vote-info {
             background-color: $df-warning-yellow-bg-color;
             color: $df-warning-yellow-color;
+            border: 1px solid #fff2d7;;
             position: absolute;
-            bottom: -25px;
+            top: 33px;
             left: 0;
             font-size: 9px;
             padding: 4px;
@@ -288,7 +303,6 @@ export default {
           }
         }
       }
-
     }
   }
 
@@ -432,6 +446,11 @@ export default {
             background-color: $df-green-color;
             color: white;
           }
+        }
+
+        &.user-has-not-user-power {
+          pointer-events: none;
+          filter: grayscale(100%);
         }
 
         .top {
