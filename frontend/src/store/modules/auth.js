@@ -1,4 +1,5 @@
 import axios from 'axios';
+import router from '../../router/index';
 
 export default {
   state: {
@@ -18,6 +19,7 @@ export default {
     async postLogin({ commit }, payload) {
       const { data } = await axios.post('login', payload);
       commit('setUser', data);
+      await router.push({ name: 'TeamsList' });
     },
     async postRegister({ dispatch }, payload) {
       await axios.post('register', payload);
@@ -31,6 +33,7 @@ export default {
     async postLogout({ commit }) {
       await axios.post('logout');
       commit('removeUser');
+      await router.push({ name: 'Home' });
     }
   },
   namespaced: true

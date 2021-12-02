@@ -99,7 +99,6 @@ export default {
     logout() {
       this.handle(async () => {
         await this.postLogout();
-        this.$router.push({ name: 'Home' });
       });
     }
   },

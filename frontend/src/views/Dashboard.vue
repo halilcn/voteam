@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import TopHeader from '../components/dashboard/TopHeader';
+import TopHeader from '../components/dashboard/top-header/TopHeader';
 import LeftSidebar from '../components/dashboard/LeftSidebar';
 
 export default {
