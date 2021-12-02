@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 
@@ -18,8 +19,8 @@ class TeamUser extends Pivot
         return $this->belongsTo(Role::class);
     }
 
-    public function userPower(): BelongsTo
+    public function userPower(): HasOne
     {
-        return $this->belongsTo(TeamUserPower::class);
+        return $this->hasOne(TeamUserPower::class, 'team_user_id', 'id');
     }
 }

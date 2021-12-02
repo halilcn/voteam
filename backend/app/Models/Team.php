@@ -82,8 +82,6 @@ class Team extends Model
      */
     public function scopeHasUserPower(Builder $query, int $userId): bool
     {
-        return false;
-
         return $this
                 ->users()
                 ->wherePivot('user_id', $userId)
@@ -99,7 +97,7 @@ class Team extends Model
     {
         return $this->belongsToMany(User::class)
             ->using(TeamUser::class)
-            ->withPivot('role_id')
+            ->withPivot('role_id','id')
             ->as('member')
             ->withTimestamps();
     }

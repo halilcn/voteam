@@ -26,7 +26,7 @@ class VotedUserController extends Controller
             return Exception::votedUserException();
         }
 
-        if (!$vote->team()->hasUserPower($request->user()->id)) {
+        if ($vote->type != Vote::$TYPES["POWER"] && !$vote->team()->hasUserPower($userId)) {
             return Exception::userPowerException();
         }
 

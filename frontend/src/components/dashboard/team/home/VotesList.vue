@@ -22,7 +22,6 @@
                          class="loading-votes-actions"
                          :textLineCount="1"/>
       <div v-else class="vote-actions">
-        {{ dataForPowerType.user_has_user_power }}
         <div v-if="!dataForPowerType.power_vote_voted"
              @click="toggleCreatePowerVotePopup"
              class="create-power-vote btn">
@@ -283,6 +282,7 @@ export default {
             .power-vote-info {
               display: flex;
               align-items: center;
+              justify-content: center;
             }
           }
 
@@ -296,7 +296,6 @@ export default {
             font-size: 9px;
             padding: 4px;
             width: 100%;
-            text-align: center;
             border-radius: 20px;
             font-weight: 300;
             display: none;
