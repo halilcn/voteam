@@ -1,4 +1,5 @@
 <template>
+  <user-edit-popup/>
   <div @click="toggleUserMenuDropdown" class="user-info">
     <div class="btn">
       <img class="image" :src="user.image" alt="user-image"/>
@@ -18,6 +19,7 @@
 </template>
 
 <script>
+import UserEditPopup from './UserEditPopup';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -26,6 +28,9 @@ export default {
     return {
       isShowUserMenuDropdown: false
     };
+  },
+  components: {
+    UserEditPopup
   },
   methods: {
     ...mapActions('auth', ['postLogout']),
