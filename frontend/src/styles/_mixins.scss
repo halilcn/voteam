@@ -198,6 +198,12 @@
   word-break: break-word;
 }
 
+@mixin text-width-limit{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 @mixin button-disable {
   background-color: $df-light-black !important;
   color: #8C8C8C !important;
