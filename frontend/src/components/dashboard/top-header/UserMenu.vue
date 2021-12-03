@@ -1,5 +1,7 @@
 <template>
-  <user-edit-popup/>
+  <user-edit-popup
+      :is-enable="isEnableUserEditPopup"
+      @handlePopup="toggleUserEditPopup"/>
   <div @click="toggleUserMenuDropdown" class="user-info">
     <div class="btn">
       <img class="image" :src="user.image" alt="user-image"/>
@@ -26,7 +28,8 @@ export default {
   name: 'UserMenu',
   data() {
     return {
-      isShowUserMenuDropdown: false
+      isShowUserMenuDropdown: false,
+      isEnableUserEditPopup: true
     };
   },
   components: {
@@ -36,6 +39,9 @@ export default {
     ...mapActions('auth', ['postLogout']),
     toggleUserMenuDropdown() {
       this.isShowUserMenuDropdown = !this.isShowUserMenuDropdown;
+    },
+    toggleUserEditPopup() {
+      this.isEnableUserEditPopup = !this.isEnableUserEditPopup;
     }
   },
   computed: {

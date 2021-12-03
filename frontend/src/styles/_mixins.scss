@@ -80,7 +80,7 @@
   }
 
   &:hover:not(:focus) {
-    background-color: #f6f6f6;;
+    background-color: #f6f6f6;
   }
 
   &.has-error {
@@ -198,7 +198,7 @@
   word-break: break-word;
 }
 
-@mixin text-width-limit{
+@mixin text-width-limit {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
