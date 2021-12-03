@@ -98,6 +98,7 @@ export default {
     border-color: $df-very-light-blue-color;
     overflow: auto;
     font-size: 14px;
+    z-index: 9;
 
     .item {
       display: flex;

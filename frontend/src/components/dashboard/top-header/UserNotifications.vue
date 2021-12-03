@@ -52,7 +52,6 @@ export default {
 <style lang="scss" scoped>
 .user-notifications {
   position: relative;
-  margin-right: 40px;
 
   .icon {
     font-size: 18px;
@@ -75,6 +74,7 @@ export default {
     position: absolute;
     background-color: white;
     right: 0;
+    top: 43px;
     overflow: auto;
     z-index: 9;
 

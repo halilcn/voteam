@@ -1,20 +1,22 @@
 <template>
-  <user-edit-popup
-      :is-enable="isEnableUserEditPopup"
-      @handlePopup="toggleUserEditPopup"/>
-  <div @click="toggleUserMenuDropdown" class="user-info">
-    <div class="btn">
-      <img class="image" :src="user.image" alt="user-image"/>
-      <div class="name">{{ user.name }}</div>
-    </div>
-    <div v-if="isShowUserMenuDropdown" class="menu-dropdown">
-      <div class="item">
-        <i class="bi bi-person"></i>
-        Profili Düzenle
+  <div class="user-menu">
+    <user-edit-popup
+        :is-enable="isEnableUserEditPopup"
+        @handlePopup="toggleUserEditPopup"/>
+    <div @click="toggleUserMenuDropdown" class="user-info">
+      <div class="btn">
+        <img class="image" :src="user.image" alt="user-image"/>
+        <div class="name">{{ user.name }}</div>
       </div>
-      <div @click="postLogout" class="item close">
-        <i class="bi bi-door-closed"></i>
-        Çıkış
+      <div v-if="isShowUserMenuDropdown" class="menu-dropdown">
+        <div @click="toggleUserEditPopup" class="item">
+          <i class="bi bi-person"></i>
+          Profili Düzenle
+        </div>
+        <div @click="postLogout" class="item close">
+          <i class="bi bi-door-closed"></i>
+          Çıkış
+        </div>
       </div>
     </div>
   </div>
@@ -61,7 +63,7 @@ export default {
     display: flex;
     align-items: center;
     cursor: pointer;
-    padding: 7px 13px;
+    padding: 5px 9px;
     border-radius: 5px;
 
     &:hover {
