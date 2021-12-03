@@ -16,6 +16,11 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public static array $LANGUAGES = [
+        'TR' => 'tr',
+        'EN' => 'en'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -24,8 +29,9 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'language',
         'image',
-        'password',
+        'password'
     ];
 
     /**

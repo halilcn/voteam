@@ -35,6 +35,10 @@ export default {
       commit('removeUser');
       await router.push({ name: 'Home' });
     },
+    async updateUserLanguage(_, payload) {
+      console.log({ ...payload });
+      //await axios.put('user/language',{});
+    },
     async updateUserSettings({ dispatch }, payload) {
       if (payload.image instanceof File) {
         const { secure_url } = await dispatch(
