@@ -34,6 +34,23 @@ export default {
       await axios.post('logout');
       commit('removeUser');
       await router.push({ name: 'Home' });
+    },
+    async updateUserSettings({ dispatch }, payload) {
+      if (payload.image instanceof File) {
+        const { secure_url } = await dispatch(
+          'cloudinary/postImage',
+          {
+            file: payload.image,
+            folder: 'user-images'
+          },
+          { root: true });
+        console.log(secure_url);
+
+        payload.image = secure_url;
+      }
+
+      const res = await axios.put('user/settings', payload);
+      console.log(res);
     }
   },
   namespaced: true

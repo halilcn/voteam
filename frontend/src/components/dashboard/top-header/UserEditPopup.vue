@@ -42,7 +42,10 @@
             <input type="number">
           </div>
         </div>
-        <standart-button class="post-btn" text="Kaydet"/>
+        <standart-button
+            class="post-btn"
+            @click="updateUserSettingsAction"
+            text="Kaydet"/>
       </div>
     </template>
   </popup>
@@ -52,10 +55,11 @@
 //TODO:Hiç değişikli yoksa btn disable yapma.
 //TODO:Vuelidate ?
 //TODO:UTC max min utc belirleme
+//TODO:image post etme, url database gönderme
 
 import Popup from '../../shared/Popup';
 import StandartButton from '../../shared/elements/StandartButton';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'UserEditPopup',
@@ -70,9 +74,16 @@ export default {
     StandartButton
   },
   methods: {
+    ...mapActions('auth', ['updateUserSettings']),
     onChangeFile(event) {
       this.user.image = event.target.files[0];
       this.temporaryUserImageUrl = this.$helpers.createTemporaryUrl(this.user.image);
+    },
+    updateUserSettingsAction() {
+      this.handle(async () => {
+        await this.updateUserSettings(this.user);
+      });
+
     }
   },
   computed: {
