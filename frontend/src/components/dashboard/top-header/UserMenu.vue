@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       isShowUserMenuDropdown: false,
-      isEnableUserEditPopup: true
+      isEnableUserEditPopup: false
     };
   },
   components: {

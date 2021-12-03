@@ -31,6 +31,7 @@ class User extends Authenticatable
         'email',
         'language',
         'image',
+        'utc',
         'password'
     ];
 

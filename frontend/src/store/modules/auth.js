@@ -11,6 +11,11 @@ export default {
       localStorage.setItem('user', JSON.stringify(payload));
       state.user = payload;
     },
+    setUserSettings(state, payload) {
+      console.log(payload);
+      state.user.name = payload.name;
+      state.user.image = payload.image;
+    },
     removeUser(state) {
       localStorage.removeItem('user');
       state.user = null;
@@ -46,8 +51,10 @@ export default {
         });
       }
     },
-    async updateUserSettings({ dispatch }, payload) {
+    async updateUserSettings({ dispatch, commit }, payload) {
       if (payload.image instanceof File) {
+        console.log(payload.image);
+
         const { secure_url } = await dispatch(
           'cloudinary/postImage',
           {
@@ -55,13 +62,12 @@ export default {
             folder: 'user-images'
           },
           { root: true });
-        console.log(secure_url);
 
         payload.image = secure_url;
       }
 
-      const res = await axios.put('user/settings', payload);
-      console.log(res);
+      await axios.put('user/settings', payload);
+      commit('setUserSettings', payload);
     }
   },
   namespaced: true

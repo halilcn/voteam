@@ -10,7 +10,7 @@
             E-mail
           </div>
           <div class="content readonly">
-            <input v-model="user.email" type="email">
+            <input v-model="user.email" type="email" readonly>
           </div>
         </div>
         <div class="item">
@@ -18,7 +18,7 @@
             Ad ve Soyad
           </div>
           <div class="content">
-            <input type="text">
+            <input type="text" v-model="user.name">
           </div>
         </div>
         <div class="item">
@@ -34,14 +34,17 @@
           </div>
         </div>
         <div class="item">
-          {{ user }}
           <div class="title">
-            Saat Dilimi (UTC+14,UTC-12)
+            Saat Dilimi (UTC+14,UTC-12) ***
           </div>
           <div class="content hours-utc">
-            <input type="number">
+            <input type="number" v-model="user.utc">
           </div>
         </div>
+        {{ v$.user.$error }}
+        <errors
+            v-if="v$.user.$error"
+            :content="['Boş bırakmaa']"/>
         <standart-button
             class="post-btn"
             @click="updateUserSettingsAction"
@@ -59,19 +62,38 @@
 
 import Popup from '../../shared/Popup';
 import StandartButton from '../../shared/elements/StandartButton';
+import validateMixin from '../../../mixins/validateMixin';
+import Errors from '../../shared/Errors';
 import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'UserEditPopup',
+  mixins: [validateMixin],
   props: ['isEnable'],
   data() {
     return {
-      temporaryUserImageUrl: ''
+      v$: this.useVuelidate(),
+      temporaryUserImageUrl: '',
+      user: {}
+    };
+  },
+  validations() {
+    return {
+      user: {
+        name: {
+          required: this.multipleLangError('errors.required', this.validators.required)
+        },
+        utc: {
+          required: this.multipleLangError('errors.required', this.validators.required),
+          between: this.multipleLangError('errors.between', this.validators.between(14, -12))
+        }
+      }
     };
   },
   components: {
     Popup,
-    StandartButton
+    StandartButton,
+    Errors
   },
   methods: {
     ...mapActions('auth', ['updateUserSettings']),
@@ -83,13 +105,19 @@ export default {
       this.handle(async () => {
         await this.updateUserSettings(this.user);
       });
-
     }
   },
   computed: {
-    ...mapState('auth', ['user']),
+    ...mapState({
+      temporaryUserData: (state) => state.auth.user
+    }),
     userImageUrl() {
       return this.temporaryUserImageUrl === '' ? this.user.image : this.temporaryUserImageUrl;
+    }
+  },
+  watch: {
+    isEnable(newValue) {
+      if (newValue) this.user = { ...this.temporaryUserData };
     }
   }
 };
