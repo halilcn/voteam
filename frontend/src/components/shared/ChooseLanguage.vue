@@ -35,7 +35,6 @@ export default {
   },
   methods: {
     ...mapActions('auth', ['updateUserLanguage']),
-    //TODO ilk açılışta istek gitsin ?
     handleDropdownList() {
       this.isShowDropdownList = !this.isShowDropdownList;
     },
@@ -43,8 +42,7 @@ export default {
       this.$helpers.setLanguage(lang);
       this.$i18n.locale = lang;
       this.handleDropdownList();
-
-      this.updateUserLanguage(this.$helpers.getLanguage());
+      this.updateUserLanguage(lang);
     }
   },
   computed: {

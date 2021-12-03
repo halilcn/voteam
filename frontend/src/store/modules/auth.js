@@ -1,5 +1,6 @@
 import axios from 'axios';
 import router from '../../router/index';
+import helpers from '../../helpers';
 
 export default {
   state: {
@@ -16,10 +17,11 @@ export default {
     }
   },
   actions: {
-    async postLogin({ commit }, payload) {
+    async postLogin({ commit, dispatch }, payload) {
       const { data } = await axios.post('login', payload);
       commit('setUser', data);
-      await router.push({ name: 'TeamsList' });
+      await dispatch('updateUserLanguage', helpers.getLanguage());
+      await window.location.reload();
     },
     async postRegister({ dispatch }, payload) {
       await axios.post('register', payload);
@@ -35,9 +37,14 @@ export default {
       commit('removeUser');
       await router.push({ name: 'Home' });
     },
-    async updateUserLanguage(_, payload) {
-      console.log({ ...payload });
-      //await axios.put('user/language',{});
+    async updateUserLanguage({ state }, payload) {
+      if (state.user != null) {
+        await axios.put('user/language', { language: payload }, {
+          headers: {
+            Authorization: `Bearer ${state.user.token}`
+          }
+        });
+      }
     },
     async updateUserSettings({ dispatch }, payload) {
       if (payload.image instanceof File) {

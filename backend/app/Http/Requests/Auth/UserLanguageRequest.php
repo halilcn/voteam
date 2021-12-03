@@ -25,7 +25,7 @@ class UserLanguageRequest extends FormRequest
     public function rules()
     {
         return [
-            'language' => ['required', 'in:'.implode(',', array_values(User::$LANGUAGES))]
+            'language' => ['required', 'string', 'in:'.implode(',', array_values(User::$LANGUAGES))]
         ];
     }
 }
