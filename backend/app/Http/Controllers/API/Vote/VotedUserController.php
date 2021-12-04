@@ -18,6 +18,10 @@ class VotedUserController extends Controller
      */
     public function store(Vote $vote, VotedUserRequest $request): object
     {
+        //TODO: power vote için özel durumlar ?
+        //TODO: power vote tamamlandığında, nasıl bir kurgu kurulmalı ?
+        //TODO: Toplam 1000 puan power birimi kullanılmalıdır.
+
         $this->authorize('create', [VotedUser::class, $vote]);
 
         $userId = $request->user()->id;

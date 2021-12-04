@@ -1,118 +1,40 @@
 <template>
-  {{voteData}}
   <div class="user-list">
-    <div class="item">
+    <div v-for="(user,index) in voteData "
+         :key="index"
+         class="item">
       <div class="user-info">
-        <img class="image" src="http://127.0.0.1:8080/img/me.07564627.jpg" alt="user-image">
+        <img class="image"
+             :src="user.image"
+             alt="user-image">
         <div title="Halil" class="name">
-          Halil Can asdadjasıdasdh ajsdhasjda jhdas
+          {{ user.name }} {{ user.team_user_id }}
         </div>
       </div>
       <div class="power-percentage">
         <div class="power-percentage-info">
-          <input v-model="test" type="number">
+          <input v-model="userPowers.find(item=>item.team_user_id === user.team_user_id).power" type="number">
           birim güç
         </div>
         <div class="power-range">
-          <input v-model="test" type="range" min="0" max="50" step="1">
-        </div>
-      </div>
-    </div>
-    <div class="item">
-      <div class="user-info">
-        <img class="image" src="http://127.0.0.1:8080/img/me.07564627.jpg" alt="user-image">
-        <div title="Halil" class="name">
-          Halil Can asdadjasıdasdh ajsdhasjda jhdas
-        </div>
-      </div>
-      <div class="power-percentage">
-        <div class="power-percentage-info">
-          <input v-model="test" type="number">
-          birim güç
-        </div>
-        <div class="power-range">
-          <input v-model="test" type="range" min="0" max="50" step="1">
-        </div>
-      </div>
-    </div>
-    <div class="item">
-      <div class="user-info">
-        <img class="image" src="http://127.0.0.1:8080/img/me.07564627.jpg" alt="user-image">
-        <div title="Halil" class="name">
-          Halil Can asdadjasıdasdh ajsdhasjda jhdas
-        </div>
-      </div>
-      <div class="power-percentage">
-        <div class="power-percentage-info">
-          <input v-model="test" type="number">
-          birim güç
-        </div>
-        <div class="power-range">
-          <input v-model="test" type="range" min="0" max="50" step="1">
-        </div>
-      </div>
-    </div>
-    <div class="item">
-      <div class="user-info">
-        <img class="image" src="http://127.0.0.1:8080/img/me.07564627.jpg" alt="user-image">
-        <div title="Halil" class="name">
-          Halil Can asdadjasıdasdh ajsdhasjda jhdas
-        </div>
-      </div>
-      <div class="power-percentage">
-        <div class="power-percentage-info">
-          <input v-model="test" type="number">
-          birim güç
-        </div>
-        <div class="power-range">
-          <input v-model="test" type="range" min="0" max="50" step="1">
-        </div>
-      </div>
-    </div>
-    <div class="item">
-      <div class="user-info">
-        <img class="image" src="http://127.0.0.1:8080/img/me.07564627.jpg" alt="user-image">
-        <div title="Halil" class="name">
-          Halil Can asdadjasıdasdh ajsdhasjda jhdas
-        </div>
-      </div>
-      <div class="power-percentage">
-        <div class="power-percentage-info">
-          <input v-model="test" type="number">
-          birim güç
-        </div>
-        <div class="power-range">
-          <input v-model="test" type="range" min="0" max="50" step="1">
-        </div>
-      </div>
-    </div>
-    <div class="item">
-      <div class="user-info">
-        <img class="image" src="http://127.0.0.1:8080/img/me.07564627.jpg" alt="user-image">
-        <div title="Halil" class="name">
-          Halil Can asdadjasıdasdh ajsdhasjda jhdas
-        </div>
-      </div>
-      <div class="power-percentage">
-        <div class="power-percentage-info">
-          <input v-model="test" type="number">
-          birim güç
-        </div>
-        <div class="power-range">
-          <input v-model="test" type="range" min="0" max="50" step="1">
+          <input v-model="userPowers.find(item=>item.team_user_id === user.team_user_id).power" type="range" min="0"
+                 :max="remainingPower" step="1">
         </div>
       </div>
     </div>
   </div>
   <div class="power-vote-bottom">
     <div class="total-power-info">
-      Toplam Kalan 1000 Güç
+      Toplam Kalan {{ remainingPower }} Güç
     </div>
-    <standart-button text="Güç Ver"/>
+    <standart-button text="Güç Ver"
+                     @click="postAnswerVoteAction"/>
   </div>
 </template>
 
 <script>
+//TODO: max 100 puan olabilir !
+
 import StandartButton from '../../../../shared/elements/StandartButton';
 
 export default {
@@ -121,11 +43,31 @@ export default {
   props: ['voteData', 'isLoading'],
   data() {
     return {
-      test: 0
+      test: 0,
+      userPowers: []
     };
   },
   components: {
     StandartButton
+  },
+  methods: {
+    postAnswerVoteAction() {
+      this.handle(async () => {
+        await this.$emit('postAnswerVote', this.userPowers);
+      });
+    }
+  },
+  computed: {
+    remainingPower() {
+      const POWER_LIMIT = 1000;
+      const totalPowerOfUsers = this.userPowers.reduce((a, b) => +a + +b.power, 0);
+      return POWER_LIMIT - totalPowerOfUsers;
+    }
+  },
+  created() {
+    this.voteData.forEach(({ team_user_id }) => {
+      this.userPowers.push({ team_user_id, power: 0 });
+    });
   }
 };
 </script>
