@@ -18,7 +18,7 @@
             Ad ve Soyad
           </div>
           <div class="content">
-            <input type="text" v-model="user.name">
+            <input type="text" v-model="v$.user.name.$model">
           </div>
         </div>
         <div class="item">
@@ -35,20 +35,29 @@
         </div>
         <div class="item">
           <div class="title">
-            Saat Dilimi (UTC+14,UTC-12) ***
+            Saat Dilimi (UTC+14/-12)
           </div>
           <div class="content hours-utc">
-            <input type="number" v-model="user.utc">
+            <input type="number" v-model="v$.user.utc.$model">
           </div>
         </div>
-        {{ v$.user.$error }}
         <errors
-            v-if="v$.user.$error"
-            :content="['Boş bırakmaa']"/>
-        <standart-button
-            class="post-btn"
-            @click="updateUserSettingsAction"
-            text="Kaydet"/>
+            v-if="v$.user.$invalid"
+            :content="[$t('customErrors.userEditError')]"/>
+        <div class="btn-container">
+          <lottie-player
+              v-show="isLoadingUpdateUserSettings"
+              class="loading-icon"
+              src="https://assets10.lottiefiles.com/packages/lf20_6m7gsdxq.json"
+              background="transparent"
+              speed="1"
+              style="width: 40px; height: 40px;" loop autoplay/>
+          <standart-button
+              class="post-btn"
+              @click="updateUserSettingsAction"
+              :is-disable="v$.user.$invalid || isLoadingUpdateUserSettings"
+              text="Kaydet"/>
+        </div>
       </div>
     </template>
   </popup>
@@ -74,7 +83,8 @@ export default {
     return {
       v$: this.useVuelidate(),
       temporaryUserImageUrl: '',
-      user: {}
+      user: {},
+      isLoadingUpdateUserSettings: false
     };
   },
   validations() {
@@ -85,7 +95,7 @@ export default {
         },
         utc: {
           required: this.multipleLangError('errors.required', this.validators.required),
-          between: this.multipleLangError('errors.between', this.validators.between(14, -12))
+          between: this.multipleLangError('errors.between', this.validators.between(-12, 14)) //TODO:constants alma ?
         }
       }
     };
@@ -103,8 +113,13 @@ export default {
     },
     updateUserSettingsAction() {
       this.handle(async () => {
+        this.isLoadingUpdateUserSettings = true;
         await this.updateUserSettings(this.user);
-      });
+        this.$notify.success('Bilgiler güncellendi'); //TODO: multiple language
+      })
+          .finally(() => {
+            this.isLoadingUpdateUserSettings = false;
+          });
     }
   },
   computed: {
@@ -129,11 +144,12 @@ export default {
   flex-direction: column;
 
   .item {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 
     .title {
       font-size: 15px;
       color: $df-dark-blue-color;
+      font-weight: 500;
     }
 
     .content {
@@ -167,6 +183,10 @@ export default {
           background-color: #f1f1f1;
           border-radius: 5px;
           color: $df-dark-blue-color;
+
+          &:hover {
+            background-color: #eaeaea;
+          }
         }
       }
 
@@ -176,8 +196,15 @@ export default {
     }
   }
 
-  .post-btn {
-    margin-left: auto;
+  .btn-container {
+    margin-top: 17px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    .post-btn {
+      margin-left: 10px;
+    }
   }
 }
 </style>

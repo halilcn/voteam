@@ -26,7 +26,7 @@ class UserSettingsRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'image' => ['required'],
-            'utc' => ['required', 'numeric'] //TODO: beetwen ? static model içinde ?
+            'utc' => ['required', 'integer', 'between:-12,14'] //TODO: static model içinde ?
         ];
     }
 }

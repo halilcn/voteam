@@ -12,7 +12,6 @@ export default {
       state.user = payload;
     },
     setUserSettings(state, payload) {
-      console.log(payload);
       state.user.name = payload.name;
       state.user.image = payload.image;
     },
@@ -53,13 +52,12 @@ export default {
     },
     async updateUserSettings({ dispatch, commit }, payload) {
       if (payload.image instanceof File) {
-        console.log(payload.image);
-
+        //TODO: vote-images name değiştirilecek.user-images yapılacak
         const { secure_url } = await dispatch(
           'cloudinary/postImage',
           {
             file: payload.image,
-            folder: 'user-images'
+            folder: 'vote-images'
           },
           { root: true });
 
