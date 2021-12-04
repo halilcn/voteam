@@ -20,6 +20,10 @@ export default {
   },
   IMAGE: {
     MAX_SIZE_KB: 3000
+  },
+  USER_TIME_UTC: {
+    MAX_UTC: 14,
+    MIN_UTC: -12
   }
 };
 

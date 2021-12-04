@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserSettingsRequest extends FormRequest
@@ -26,7 +27,7 @@ class UserSettingsRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'image' => ['required'],
-            'utc' => ['required', 'integer', 'between:-12,14'] //TODO: static model içinde ?
+            'utc' => ['required', 'integer', 'min:'.User::$CONSTANTS['MIN_UTC'], 'max:'.User::$CONSTANTS['MAX_UTC']]
         ];
     }
 }

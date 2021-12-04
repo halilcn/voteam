@@ -21,6 +21,11 @@ class User extends Authenticatable
         'EN' => 'en'
     ];
 
+    public static array $CONSTANTS = [
+        'MIN_UTC' => '-12',
+        'MAX_UTC' => '14',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *

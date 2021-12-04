@@ -10,7 +10,7 @@
             E-mail
           </div>
           <div class="content readonly">
-            <input v-model="user.email" type="email" readonly>
+            <input type="email" v-model="user.email" readonly>
           </div>
         </div>
         <div class="item">
@@ -64,16 +64,12 @@
 </template>
 
 <script>
-//TODO:Hiç değişikli yoksa btn disable yapma.
-//TODO:Vuelidate ?
-//TODO:UTC max min utc belirleme
-//TODO:image post etme, url database gönderme
-
 import Popup from '../../shared/Popup';
 import StandartButton from '../../shared/elements/StandartButton';
 import validateMixin from '../../../mixins/validateMixin';
 import Errors from '../../shared/Errors';
 import { mapState, mapActions } from 'vuex';
+import constants from '../../../store/constants';
 
 export default {
   name: 'UserEditPopup',
@@ -95,10 +91,15 @@ export default {
         },
         utc: {
           required: this.multipleLangError('errors.required', this.validators.required),
-          between: this.multipleLangError('errors.between', this.validators.between(-12, 14)) //TODO:constants alma ?
+          between: this.multipleLangError('errors.between', this.validators.between(constants.USER_TIME_UTC['MIN_UTC'], constants.USER_TIME_UTC['MAX_UTC']))
         }
       }
     };
+  },
+  watch: {
+    isEnable(newValue) {
+      if (newValue) this.user = { ...this.temporaryUserData };
+    }
   },
   components: {
     Popup,
@@ -129,11 +130,6 @@ export default {
     userImageUrl() {
       return this.temporaryUserImageUrl === '' ? this.user.image : this.temporaryUserImageUrl;
     }
-  },
-  watch: {
-    isEnable(newValue) {
-      if (newValue) this.user = { ...this.temporaryUserData };
-    }
   }
 };
 </script>
@@ -148,18 +144,16 @@ export default {
 
     .title {
       font-size: 15px;
-      color: $df-dark-blue-color;
       font-weight: 500;
+      color: $df-dark-blue-color;
     }
 
     .content {
       margin-top: 5px;
 
-      &.readonly {
-        input {
-          pointer-events: none;
-          background-color: #f6f6f6;
-        }
+      &.readonly input {
+        pointer-events: none;
+        background-color: #f6f6f6;
       }
 
       &.user-image {
