@@ -4,6 +4,7 @@ use App\Http\Controllers\API\Auth\LoginController;
 use App\Http\Controllers\API\Auth\LogoutController;
 use App\Http\Controllers\API\Auth\RegisterController;
 use App\Http\Controllers\API\Auth\UserLanguageController;
+use App\Http\Controllers\API\Auth\UserNotificationController;
 use App\Http\Controllers\API\Auth\UserSettingsController;
 use App\Http\Controllers\API\Other\FileController;
 use App\Http\Controllers\API\Team\TeamController;
@@ -36,6 +37,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::put('user/language', UserLanguageController::class);
         Route::put('user/settings', [UserSettingsController::class, 'update']);
+        Route::resource('user/notifications', UserNotificationController::class);
 
         Route::resource('file', FileController::class);
 

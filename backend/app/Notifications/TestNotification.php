@@ -44,13 +44,15 @@ class TestNotification extends Notification
     {
         if ($notifiable->language === User::$LANGUAGES['TR']) {
             return [
-                'Bur bir test bilidirimidir.'
+                'message' => 'Bur bir test bilidirimidir.',
+                'action' => User::$NOTIFICATION_ACTIONS['CELEBRATION']
             ];
         }
 
         if ($notifiable->language === User::$LANGUAGES['EN']) {
             return [
-                'This is a example notification.'
+                'message' => 'This is a example notification.',
+                'action' => User::$NOTIFICATION_ACTIONS['CELEBRATION']
             ];
         }
     }

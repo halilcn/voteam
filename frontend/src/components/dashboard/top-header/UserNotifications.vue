@@ -10,19 +10,21 @@
           Bildirimler
         </div>
       </div>
-      <div class="item">
+      <div v-for="(notification,index) in notifications"
+           :key="index"
+           class="item">
         <div class="content">
-          <img class="notification-icon" src="../../../assets/icons/notifications-celebration.png"/>
-          <div class="text">
-            notificationasokdoas sdfjks ofdsf asdad asdsad asdasd asdasdasdasdj aıdjasdaasdkdoas sdfjks ofdsf asdad
-            asdsad asdasd asdasdasdasdj aıdjasdaa
+          <img class="notification-icon"
+               :src="actionIconOfNotification(notification.action)"/>
+          <div class="text new-notification">
+            {{ notification.message }}
           </div>
         </div>
-        <div class="delete-btn">
+        <div @click="deleteNotificationAction(notification.id)" class="delete-btn">
           <i class="bi bi-x-lg"></i>
         </div>
       </div>
-      <div class="item more-notifications-btn">
+      <div @click="moreGetNotifications" class="item more-notifications-btn">
         daha fazla yükle
       </div>
     </div>
@@ -31,17 +33,60 @@
 
 <script>
 //TODO: Multiple language için lang parametreside gönder ?
+
+import { mapActions, mapState } from 'vuex';
+
 export default {
   name: 'UserNotifications',
   data() {
     return {
-      isShowNotificationListDropdown: false
+      isShowNotificationListDropdown: false,
+      USER_NOTIFICATIONS_ACTION_ICONS: {
+        'celebration': 'celebration.png',
+        'information': 'information.png'
+      }
     };
   },
+  watch: {
+    isShowNotificationListDropdown(newValue) {
+      if (newValue) this.getNotificationsAction();
+    }
+  },
   methods: {
+    //TODO: method sıraları
+    ...mapActions('userNotification', ['getNotifications', 'deleteNotification']),
     toggleNotificationListDropdown() {
       this.isShowNotificationListDropdown = !this.isShowNotificationListDropdown;
+    },
+    getNotificationsAction() {
+      this.handle(async () => {
+        await this.getNotifications();
+      });
+    },
+    actionIconOfNotification(action) {
+      const ICON_PATH_PREFIX = '../../../assets/icons/notifications/';
+      const DEFAULT_ICON = 'information.png';
+
+      try {
+        return require('../../../assets/icons/notifications/' + this.USER_NOTIFICATIONS_ACTION_ICONS[action]);
+      } catch (e) {
+        return require(ICON_PATH_PREFIX + DEFAULT_ICON);
+      }
+    },
+    moreGetNotifications() {
+      this.handle(async () => {
+        await this.getNotifications(this.notifications[this.notifications.length - 1].id);
+      });
+      //TODO: burada son notification id alınıp, post isteği atılacak
+    },
+    deleteNotificationAction(paylaod) {
+      this.handle(async () => {
+        await this.deleteNotification(paylaod);
+      });
     }
+  },
+  computed: {
+    ...mapState('userNotification', ['notifications'])
   },
   created() {
     this.$helpers.clickOutside(this, 'isShowNotificationListDropdown');
@@ -68,7 +113,7 @@ export default {
   .notifications-list-dropdown {
     @include center-md-box-shadow;
     width: 400px;
-    height: 400px;
+    max-height: 400px;
     font-size: 14px;
     border-radius: 5px;
     position: absolute;
@@ -128,6 +173,11 @@ export default {
           font-size: 12px;
           font-weight: 300;
           margin-left: 10px;
+          color: $df-dark-blue-color;
+
+          &.new-notification {
+            font-weight: 400;
+          }
         }
       }
 

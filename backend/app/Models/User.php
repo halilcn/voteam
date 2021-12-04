@@ -21,6 +21,11 @@ class User extends Authenticatable
         'EN' => 'en'
     ];
 
+    public static array $NOTIFICATION_ACTIONS = [
+        'CELEBRATION' => 'celebration',
+        'INFORMATION' => 'information'
+    ];
+
     public static array $CONSTANTS = [
         'MIN_UTC' => '-12',
         'MAX_UTC' => '14',
