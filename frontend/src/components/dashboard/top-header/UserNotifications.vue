@@ -10,30 +10,37 @@
           Bildirimler
         </div>
       </div>
-      <div v-for="(notification,index) in notifications"
-           :key="index"
-           class="item">
-        <div class="content">
-          <img class="notification-icon"
-               :src="actionIconOfNotification(notification.action)"/>
-          <div class="text new-notification">
-            {{ notification.message }}
+      <loading-animation v-if="isLoadingNotifications"
+                         :textLineCount="9"
+                         :textLineHeight="15"/>
+      <div v-else>
+        <div v-for="(notification,index) in notifications"
+             :key="index"
+             class="item">
+          <div class="content">
+            <img class="notification-icon"
+                 :src="actionIconOfNotification(notification.action)"/>
+            <div class="text" :class="{'new-notification':!notification.read_at}">
+              {{ notification.message }}
+            </div>
+          </div>
+          <div @click="deleteNotificationAction(notification.id)" class="delete-btn">
+            <i class="bi bi-x-lg"></i>
           </div>
         </div>
-        <div @click="deleteNotificationAction(notification.id)" class="delete-btn">
-          <i class="bi bi-x-lg"></i>
+        <div
+            v-if="hasMoreNotifications"
+            @click="moreGetNotifications"
+            class="item more-notifications-btn">
+          daha fazla yükle
         </div>
-      </div>
-      <div @click="moreGetNotifications" class="item more-notifications-btn">
-        daha fazla yükle
       </div>
     </div>
   </div>
 </template>
 
 <script>
-//TODO: Multiple language için lang parametreside gönder ?
-
+import LoadingAnimation from '../../shared/LoadingAnimation';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -41,6 +48,7 @@ export default {
   data() {
     return {
       isShowNotificationListDropdown: false,
+      isLoadingNotifications: true,
       USER_NOTIFICATIONS_ACTION_ICONS: {
         'celebration': 'celebration.png',
         'information': 'information.png'
@@ -52,6 +60,9 @@ export default {
       if (newValue) this.getNotificationsAction();
     }
   },
+  components: {
+    LoadingAnimation
+  },
   methods: {
     //TODO: method sıraları
     ...mapActions('userNotification', ['getNotifications', 'deleteNotification']),
@@ -60,8 +71,12 @@ export default {
     },
     getNotificationsAction() {
       this.handle(async () => {
+        this.isLoadingNotifications = true;
         await this.getNotifications();
-      });
+      })
+          .finally(() => {
+            this.isLoadingNotifications = false;
+          });
     },
     actionIconOfNotification(action) {
       const ICON_PATH_PREFIX = '../../../assets/icons/notifications/';
@@ -75,7 +90,7 @@ export default {
     },
     moreGetNotifications() {
       this.handle(async () => {
-        await this.getNotifications(this.notifications[this.notifications.length - 1].id);
+        await this.getNotifications(this.notifications[this.notifications.length - 1].created_at);
       });
       //TODO: burada son notification id alınıp, post isteği atılacak
     },
@@ -86,7 +101,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('userNotification', ['notifications'])
+    ...mapState('userNotification', ['notifications', 'hasMoreNotifications'])
   },
   created() {
     this.$helpers.clickOutside(this, 'isShowNotificationListDropdown');
@@ -149,7 +164,6 @@ export default {
       padding: 10px;
       transition: .2s;
       position: relative;
-      border-radius: 5px;
 
       &:hover {
         background-color: #f6f6f6;

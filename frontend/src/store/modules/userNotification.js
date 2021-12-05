@@ -2,7 +2,8 @@ import axios from 'axios';
 
 export default {
   state: {
-    notifications: []
+    notifications: [],
+    hasMoreNotifications: false
   },
   mutations: {
     setNotification(state, payload) {
@@ -17,20 +18,24 @@ export default {
     },
     removeNotification(state, payload) {
       state.notifications = state.notifications.filter(({ id }) => id !== payload);
+    },
+    removeAllNotifications(state) {
+      state.notifications = [];
+    },
+    setHasMoreNotifications(state, payload) {
+      const NOTIFICATION_LIMIT = 7;
+      state.hasMoreNotifications = NOTIFICATION_LIMIT % payload === 0;
     }
   },
   actions: {
     async getNotifications({ commit }, payload) {
-      const idOfLastNotification = payload ? payload : null;
-      console.log(idOfLastNotification);
+      const createdAtOfLastNotification = payload ? `?createdAtOfLastNotification=${payload}` : '';
 
-      if (typeof payload == 'undefined') {
-        data.test = '2';
-      }
+      if (typeof payload == 'undefined') commit('removeAllNotifications');
 
-      //TODO: eğer ilk get isteği ise, notifications state temizle !
-      const { data } = (await axios.get(`user/notifications${idOfLastNotification ? 'lastId' + idOfLastNotification : ''}`)).data;
+      const { data } = (await axios.get(`user/notifications${createdAtOfLastNotification}`)).data;
       console.log(data);
+      commit('setHasMoreNotifications', data.length);
       commit('setNotification', data);
     },
     async deleteNotification({ commit }, payload) {
