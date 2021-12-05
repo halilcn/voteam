@@ -19,10 +19,6 @@ export default {
       const { data } = await axios.get('teams');
       commit('setTeam', data);
     },
-    async getTeamInfo() {
-      const { data } = await axios.get(`teams/${router.currentRoute.value.params.teamId}/info`);
-      return data.data;
-    },
     async postCreateTeam({ commit }, payload) {
       const { data } = await axios.post('teams', payload);
       commit('setTeam', data);
@@ -32,6 +28,10 @@ export default {
       commit('setTeam', data);
     }
   },
-  getters: {},
+  getters: {
+    teamId() {
+      return router.currentRoute.value.params.teamId;
+    }
+  },
   namespaced: true
 };

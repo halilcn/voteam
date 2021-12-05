@@ -10,6 +10,7 @@ use App\Http\Controllers\API\Other\FileController;
 use App\Http\Controllers\API\Team\TeamController;
 use App\Http\Controllers\API\Team\TeamInfoController;
 use App\Http\Controllers\API\Team\TeamJoinWithCodeController;
+use App\Http\Controllers\API\Team\TeamSettingsController;
 use App\Http\Controllers\API\Vote\VotedUserController;
 use App\Http\Controllers\API\Vote\VoteController;
 use App\Http\Controllers\API\Vote\VotePowerTypeActionsController;
@@ -42,6 +43,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::resource('file', FileController::class);
 
         Route::resource('teams', TeamController::class);
+        Route::get('teams/{team}/settings', [TeamSettingsController::class, 'index']);
+        Route::put('teams/{team}/settings', [TeamSettingsController::class, 'update']);
         Route::get('teams/{team:key}/info', TeamInfoController::class);
 
         Route::resource('teams.votes', VoteController::class)->scoped(['team' => 'key']);

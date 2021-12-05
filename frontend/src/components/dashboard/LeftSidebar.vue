@@ -54,9 +54,11 @@
       </router-link>
     </div>
     <div class="team">
-      <div class="team-list-btn">
+      <router-link
+          class="team-list-btn"
+          :to="{name:'TeamsList'}">
         <i class="fas fa-list"></i>
-      </div>
+      </router-link>
       <img class="active-team" src="../../assets/test/team.png" alt="team-image"/>
     </div>
   </div>
@@ -147,10 +149,12 @@ export default {
         font-size: 11px;
         left: 70px;
         background-color: white;
+        color: $df-mdl-dark-black-color;
         padding: 4px 8px;
         border-radius: 10px;
         opacity: 0;
         transition: .2s;
+        z-index: 9;
       }
     }
   }

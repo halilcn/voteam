@@ -65,28 +65,28 @@ const routes = [
     beforeEnter: auth
   },
   {
-    path: '/',
+    path: '/teams/:teamId',
     name: 'Dashboard',
     component: () => import('../views/Dashboard.vue'),
     beforeEnter: auth,
     children: [
       {
-        path: '/teams/:teamId/home',
+        path: 'home',
         name: 'TeamDashboardHome',
         component: () => import('../components/dashboard/team/home/Home')
       },
       {
-        path: '/teams/:teamId/members',
+        path: 'members',
         name: 'TeamDashboardMembers',
         component: () => import('../components/dashboard/team/Members')
       },
       {
-        path: '/teams/:teamId/settings',
+        path: 'settings',
         name: 'TeamDashboardSettings',
         component: () => import('../components/dashboard/team/Settings')
       },
       {
-        path: '/teams/:teamId/notifications',
+        path: 'notifications',
         name: 'TeamDashboardNotifications',
         component: () => import('../components/dashboard/team/Notifications')
       }

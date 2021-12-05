@@ -5,6 +5,7 @@ import vote from './modules/vote';
 import userVote from './modules/userVote';
 import cloudinary from './modules/cloudinary';
 import userNotification from './modules/userNotification';
+import activeTeam from './modules/activeTeam';
 import axios from 'axios';
 import constants from './constants';
 
@@ -19,6 +20,7 @@ export default createStore({
   modules: {
     auth,
     team,
+    activeTeam,
     vote,
     userVote,
     userNotification,

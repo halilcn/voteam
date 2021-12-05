@@ -85,7 +85,7 @@ export default {
     LoadingAnimation
   },
   methods: {
-    ...mapActions('team', ['getTeamInfo']),
+    ...mapActions('activeTeam', ['getTeamInfo']),
     copyCode(text) {
       this.$helpers.copyText(text.substring(1));
       this.isCopiedCode = true;
