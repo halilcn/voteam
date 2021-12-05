@@ -19,6 +19,8 @@ class TeamInfoController extends Controller
         $VOTE_LOWER_LIMIT = 3;
         $USER_LOWER_LIMIT = 3;
 
+        $this->authorize('view', $team);
+
         $team->loadCount('users', 'votes');
 
         $finishedVotes = $team->votes()->where('end_date', '<', now());
