@@ -59,14 +59,21 @@
           :to="{name:'TeamsList'}">
         <i class="fas fa-list"></i>
       </router-link>
-      <img class="active-team" src="../../assets/test/team.png" alt="team-image"/>
+      <img :src="teamSettings.image"
+           class="active-team"
+           alt="team-image"/>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
-  name: 'LeftSidebar'
+  name: 'LeftSidebar',
+  computed: {
+    ...mapState('activeTeam', ['teamSettings'])
+  }
 };
 </script>
 

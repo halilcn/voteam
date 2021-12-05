@@ -46,8 +46,8 @@ Route::group(['prefix' => 'v1'], function () {
 
         Route::resource('teams', TeamController::class);
         Route::get('teams/{team:key}/check-user', TeamCheckUserController::class);
-        Route::get('teams/{team}/settings', [TeamSettingsController::class, 'index']);
-        Route::put('teams/{team}/settings', [TeamSettingsController::class, 'update']);
+        Route::get('teams/{team:key}/settings', [TeamSettingsController::class, 'index']);
+        Route::put('teams/{team:key}/settings', [TeamSettingsController::class, 'update']);
         Route::get('teams/{team:key}/info', TeamInfoController::class);
 
         Route::resource('teams.votes', VoteController::class)->scoped(['team' => 'key']);

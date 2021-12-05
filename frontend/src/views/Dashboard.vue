@@ -19,6 +19,9 @@ export default {
   components: {
     TopHeader,
     LeftSidebar
+  },
+  beforeCreate() {
+    this.$store.dispatch('activeTeam/getTeamSettings');
   }
 };
 </script>
