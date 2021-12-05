@@ -14,26 +14,32 @@
                          :textLineCount="9"
                          :textLineHeight="15"/>
       <div v-else>
-        <div v-for="(notification,index) in notifications"
-             :key="index"
-             class="item">
-          <div class="content">
-            <img class="notification-icon"
-                 alt="notification-action-icon"
-                 :src="actionIconOfNotification(notification.action)"/>
-            <div class="text" :class="{'new-notification':!notification.read_at}">
-              {{ notification.message }}
+        <div>
+          <div v-for="(notification,index) in notifications"
+               :key="index"
+               class="item">
+            <div class="content">
+              <img class="notification-icon"
+                   alt="notification-action-icon"
+                   :src="actionIconOfNotification(notification.action)"/>
+              <div class="text" :class="{'new-notification':!notification.read_at}">
+                {{ notification.message }}
+              </div>
+            </div>
+            <div @click="deleteNotificationAction(notification.id)" class="delete-btn">
+              <i class="bi bi-x-lg"></i>
             </div>
           </div>
-          <div @click="deleteNotificationAction(notification.id)" class="delete-btn">
-            <i class="bi bi-x-lg"></i>
+          <div
+              v-if="hasMoreNotifications"
+              @click="moreGetNotifications"
+              class="item more-notifications-btn">
+            daha fazla yükle
           </div>
         </div>
-        <div
-            v-if="hasMoreNotifications"
-            @click="moreGetNotifications"
-            class="item more-notifications-btn">
-          daha fazla yükle
+        <div class="no-notifications">
+          <i class="bi bi-emoji-frown"></i>
+          Hiç bildirim yok
         </div>
       </div>
     </div>
@@ -218,6 +224,18 @@ export default {
       &:hover {
         background-color: initial;
         text-decoration: underline;
+      }
+    }
+
+    .no-notifications {
+      padding: 12px;
+      font-size: 13px;
+      font-weight: 300;
+      text-align: center;
+      color: $df-mdl-dark-black-color;
+
+      i {
+        margin-right: 5px;
       }
     }
   }
