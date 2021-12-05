@@ -68,7 +68,18 @@ const routes = [
     path: '/teams/:teamId',
     name: 'Dashboard',
     component: () => import('../views/Dashboard.vue'),
-    beforeEnter: auth,
+    beforeEnter: (to, from, next) => {
+      // Auth
+      if (!checkAuth()) next({ name: 'Home' });
+
+      store.dispatch('activeTeam/checkTeamUser', to.params.teamId)
+        .then(res => {
+          if (!res) next({ name: 'TeamsList' });
+        })
+        .finally(() => {
+          next();
+        });
+    },
     children: [
       {
         path: 'home',
