@@ -34,9 +34,8 @@ export default {
       if (typeof payload == 'undefined') commit('removeAllNotifications');
 
       const { data } = (await axios.get(`user/notifications${createdAtOfLastNotification}`)).data;
-      console.log(data);
-      commit('setHasMoreNotifications', data.length);
       commit('setNotification', data);
+      commit('setHasMoreNotifications', data.length);
     },
     async deleteNotification({ commit }, payload) {
       await axios.delete(`user/notifications/${payload}`);

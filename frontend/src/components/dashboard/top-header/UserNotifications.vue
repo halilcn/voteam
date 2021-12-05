@@ -19,6 +19,7 @@
              class="item">
           <div class="content">
             <img class="notification-icon"
+                 alt="notification-action-icon"
                  :src="actionIconOfNotification(notification.action)"/>
             <div class="text" :class="{'new-notification':!notification.read_at}">
               {{ notification.message }}
@@ -64,7 +65,6 @@ export default {
     LoadingAnimation
   },
   methods: {
-    //TODO: method sıraları
     ...mapActions('userNotification', ['getNotifications', 'deleteNotification']),
     toggleNotificationListDropdown() {
       this.isShowNotificationListDropdown = !this.isShowNotificationListDropdown;
@@ -79,24 +79,22 @@ export default {
           });
     },
     actionIconOfNotification(action) {
-      const ICON_PATH_PREFIX = '../../../assets/icons/notifications/';
       const DEFAULT_ICON = 'information.png';
 
       try {
         return require('../../../assets/icons/notifications/' + this.USER_NOTIFICATIONS_ACTION_ICONS[action]);
       } catch (e) {
-        return require(ICON_PATH_PREFIX + DEFAULT_ICON);
+        return require('../../../assets/icons/notifications/' + DEFAULT_ICON);
       }
     },
     moreGetNotifications() {
       this.handle(async () => {
         await this.getNotifications(this.notifications[this.notifications.length - 1].created_at);
       });
-      //TODO: burada son notification id alınıp, post isteği atılacak
     },
-    deleteNotificationAction(paylaod) {
+    deleteNotificationAction(payload) {
       this.handle(async () => {
-        await this.deleteNotification(paylaod);
+        await this.deleteNotification(payload);
       });
     }
   },
@@ -161,7 +159,7 @@ export default {
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      padding: 10px;
+      padding: 12px;
       transition: .2s;
       position: relative;
 

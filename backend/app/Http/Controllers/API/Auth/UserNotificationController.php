@@ -9,7 +9,11 @@ use Illuminate\Support\Carbon;
 
 class UserNotificationController extends Controller
 {
-    public function index(Request $request)
+    /**
+     * @param  Request  $request
+     * @return object
+     */
+    public function index(Request $request): object
     {
         $NOTIFICATION_LIMIT = 7;
         $createdAtOfLastNotification = $request->input('createdAtOfLastNotification');
@@ -28,7 +32,13 @@ class UserNotificationController extends Controller
         return UserNotificationResource::collection($userNotifications);
     }
 
-    public function destroy(Request $request, string $id)
+
+    /**
+     * @param  Request  $request
+     * @param  string  $id
+     * @return object
+     */
+    public function destroy(Request $request, string $id): object
     {
         $request->user()->notifications()->find($id)->delete();
 

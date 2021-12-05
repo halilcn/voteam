@@ -15,10 +15,8 @@ class UserNotificationResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
             'message' => $this->data['message'],
             'action' => $this->data['action'],
-            'type' => $this->type,
             'read_at' => $this->read_at,
             'created_at' => $this->created_at
         ];
