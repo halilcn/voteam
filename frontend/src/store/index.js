@@ -1,6 +1,7 @@
 import { createStore } from 'vuex';
 import auth from './modules/auth';
 import team from './modules/team';
+import teamUser from './modules/teamUser';
 import vote from './modules/vote';
 import userVote from './modules/userVote';
 import cloudinary from './modules/cloudinary';
@@ -20,6 +21,7 @@ export default createStore({
   modules: {
     auth,
     team,
+    teamUser,
     activeTeam,
     vote,
     userVote,
