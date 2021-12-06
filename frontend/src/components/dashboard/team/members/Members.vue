@@ -1,11 +1,13 @@
 <template>
+  <user-invitation-popup :is-enable="isEnableUserInvitationPopup"
+                         @handlePopup="toggleUserInvitationPopup"/>
   <page-title>
     <i class="bi bi-people"></i>
     Üyeler
   </page-title>
   <div class="users">
     <div class="users-actions">
-      <div class="add-user-btn">
+      <div @click="toggleUserInvitationPopup" class="add-user-btn">
         <i class="bi bi-person-plus"></i>
         Üye Daveti
       </div>
@@ -108,16 +110,17 @@
                 üye
               </div>
             </div>
-            <div class="user-waiting-invitation">
-              <!-- <i class="fas fa-user-clock"></i>-->
-              <i class="bi bi-hourglass-split"></i>
-            </div>
+            <info-tooltip
+                class="user-waiting-invitation"
+                iconClass="bi bi-hourglass-split"
+                text="Davet bekliyor..."/>
           </div>
         </div>
         <div class="bottom">
           <div class="user-info-list">
             <div class="item">
               <div class="title">
+                <i class="fas fa-poll"></i>
                 Toplam Başlatılan Oylama
               </div>
               <div class="content">
@@ -255,6 +258,34 @@
           </div>
         </div>
       </div>
+      <div class="item">
+        <div class="top">
+          <div class="profile-info">
+            <img class="user-image"
+                 src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
+            <div class="user-texts">
+              <div class="user-name">
+                Halil Can
+              </div>
+              <div class="user-role">
+                üye
+              </div>
+            </div>
+            <div class="delete-user-btn">
+              <i class="bi bi-person-dash"></i>
+              çıkar
+            </div>
+          </div>
+        </div>
+        <div class="bottom">
+          <div class="user-info-list">
+            <div class="item no-votes">
+              <i class="bi bi-emoji-frown"></i>
+              Henüz oylama başlatmamış
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -262,15 +293,27 @@
 <script>
 
 import PageTitle from '../shared/PageTitle';
+import InfoTooltip from '../../../shared/InfoTooltip';
+import UserInvitationPopup from './UserInvitationPopup';
 import { mapActions } from 'vuex';
 
 export default {
   name: 'Members',
+  data() {
+    return {
+      isEnableUserInvitationPopup: false
+    };
+  },
   components: {
-    PageTitle
+    PageTitle,
+    InfoTooltip,
+    UserInvitationPopup
   },
   methods: {
-    ...mapActions('teamUser', ['getUsersOfTeam'])
+    ...mapActions('teamUser', ['getUsersOfTeam']),
+    toggleUserInvitationPopup() {
+      this.isEnableUserInvitationPopup = !this.isEnableUserInvitationPopup;
+    }
   },
   created() {
     this.getUsersOfTeam();
@@ -306,7 +349,7 @@ $item-border-color: #dde6f8;
   }
 
   .user-list {
-    margin-top: 20px;
+    margin-top: 30px;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -322,9 +365,13 @@ $item-border-color: #dde6f8;
       margin-bottom: 20px;
       transition: .2s;
 
-      &:hover , &:hover .bottom{
-      //  transform: scale(1.04);
+      &:hover, &:hover .bottom {
+        //  transform: scale(1.04);
         border-color: #b2cdff;
+      }
+
+      &:hover .top .profile-info .delete-user-btn {
+        opacity: 1;
       }
 
       .top {
@@ -364,7 +411,7 @@ $item-border-color: #dde6f8;
           }
 
           .user-waiting-invitation {
-            margin-left: auto;
+            margin-left: auto !important;
           }
 
           .delete-user-btn {
@@ -372,8 +419,19 @@ $item-border-color: #dde6f8;
             margin-left: auto;
             background-color: $df-very-light-red-color;
             color: $df-red-color;
-            padding: 2px 5px;
+            padding: 3px 6px;
             cursor: pointer;
+            border-radius: 4px;
+            opacity: 0;
+            transition: .2s;
+
+            &:hover {
+              background-color: #ffe5e5;
+            }
+
+            i {
+              margin-right: 3px;
+            }
           }
         }
       }
@@ -389,14 +447,24 @@ $item-border-color: #dde6f8;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            color: $df-black-and-blue-color;
+            font-weight: 300;
+
+            &.no-votes {
+              font-style: italic;
+              font-size: 12px;
+              justify-content: center;
+
+              i {
+                margin-right: 6px;
+              }
+            }
 
             .title {
-              font-size: 14px;
-              font-weight: 300;
+              font-size: 13px;
             }
 
             .content {
-              font-weight: 300;
             }
           }
         }
