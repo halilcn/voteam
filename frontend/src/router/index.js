@@ -89,17 +89,17 @@ const routes = [
       {
         path: 'members',
         name: 'TeamDashboardMembers',
-        component: () => import('../components/dashboard/team/Members')
+        component: () => import('../components/dashboard/team/members/Members')
       },
       {
         path: 'settings',
         name: 'TeamDashboardSettings',
-        component: () => import('../components/dashboard/team/Settings')
+        component: () => import('../components/dashboard/team/settings/Settings')
       },
       {
         path: 'notifications',
         name: 'TeamDashboardNotifications',
-        component: () => import('../components/dashboard/team/Notifications')
+        component: () => import('../components/dashboard/team/shared/Notifications')
       }
     ]
   }
