@@ -31,6 +31,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 //TODO: Routes
+//TODO: team:key olayını her yerde yazmak yerine, tek bir yerde tanımlamak?
 
 Route::group(['prefix' => 'v1'], function () {
     Route::post('register', [RegisterController::class, 'handle']);
@@ -58,7 +59,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('check-time', [VotePowerTypeActionsController::class, 'checkTime']);
         });
 
-        Route::resource('teams.users', TeamUserController::class);
+        Route::resource('teams.users', TeamUserController::class)->scoped(['team' => 'key']);;
 
         //TODO: Review code
         Route::post('votes/{vote}/voted-users', [VotedUserController::class, 'store']);
