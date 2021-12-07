@@ -91,6 +91,24 @@ class Team extends Model
     }
 
     /**
+     * User of team has role that came as $role
+     * @param  Builder  $query
+     * @param  int  $user_id
+     * @param  string  $role
+     * @return bool
+     */
+    public function scopeHasUserAndRole(Builder $query, int $userId, string $role): bool
+    {
+        return $this
+                ->users()
+                ->where('user_id', $userId)
+                ->first()
+                ->member
+                ->role
+                ->name === $role;
+    }
+
+    /**
      * @return BelongsToMany
      */
     public function users(): BelongsToMany

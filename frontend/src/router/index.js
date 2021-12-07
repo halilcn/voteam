@@ -102,6 +102,11 @@ const routes = [
         component: () => import('../components/dashboard/team/shared/Notifications')
       }
     ]
+  },
+  {
+    path: '/team-join/user-invitation/:invitationKey',
+    name: 'TeamUserInvitation',
+    component: () => import('../views/TeamUserInvitation.vue')
   }
 ];
 

@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Models\Team;
+use App\Models\TeamUserInvitation;
 use App\Models\Vote;
 use App\Models\VotedUser;
 use App\Policies\TeamPolicy;
+use App\Policies\TeamUserInvitationPolicy;
 use App\Policies\VotedUserPolicy;
 use App\Policies\VotePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -21,7 +23,8 @@ class AuthServiceProvider extends ServiceProvider
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
         Vote::class => VotePolicy::class,
         VotedUser::class => VotedUserPolicy::class,
-        Team::class => TeamPolicy::class
+        Team::class => TeamPolicy::class,
+        TeamUserInvitation::class => TeamUserInvitationPolicy::class
     ];
 
     /**
