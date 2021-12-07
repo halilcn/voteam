@@ -66,8 +66,7 @@ Route::group(['prefix' => 'v1'], function () {
         //TODO: Review code
         Route::post('votes/{vote}/voted-users', [VotedUserController::class, 'store']);
 
-        //TODO: join/join-code olabilir mi ?
-        Route::post('teams/join', TeamJoinWithCodeController::class);
+        Route::post('team/join/team-code', TeamJoinWithCodeController::class);
         Route::post('team/join/user-invitation', TeamJoinWithInvitationController::class);
 
         Route::resource('teams.invitations', TeamUserInvitationController::class)->scoped(['team' => 'key']);;;
