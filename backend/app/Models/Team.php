@@ -97,7 +97,7 @@ class Team extends Model
     {
         return $this->belongsToMany(User::class)
             ->using(TeamUser::class)
-            ->withPivot('role_id','id')
+            ->withPivot('role_id', 'id')
             ->as('member')
             ->withTimestamps();
     }
@@ -116,5 +116,13 @@ class Team extends Model
     public function notifications(): HasMany
     {
         return $this->hasMany(TeamNotification::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function invitations(): HasMany
+    {
+        return $this->hasMany(TeamUserInvitation::class);
     }
 }

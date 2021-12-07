@@ -13,6 +13,7 @@ use App\Http\Controllers\API\Team\TeamJoinWithCodeController;
 use App\Http\Controllers\API\Team\TeamSettingsController;
 use App\Http\Controllers\API\Team\TeamCheckUserController;
 use App\Http\Controllers\API\TeamUser\TeamUserController;
+use App\Http\Controllers\API\TeamUser\TeamUserInvitationController;
 use App\Http\Controllers\API\Vote\VotedUserController;
 use App\Http\Controllers\API\Vote\VoteController;
 use App\Http\Controllers\API\Vote\VotePowerTypeActionsController;
@@ -65,6 +66,10 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('votes/{vote}/voted-users', [VotedUserController::class, 'store']);
 
         Route::post('teams/join', TeamJoinWithCodeController::class);
+
+        Route::resource('teams.invitations', TeamUserInvitationController::class)->scoped(['team' => 'key']);;;
+        //get /teams/invitation?joinCode=121212
+
 
         Route::post('logout', [LogoutController::class, 'handle']);
     });
