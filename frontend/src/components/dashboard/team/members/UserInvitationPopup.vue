@@ -9,7 +9,7 @@
             Ad ve Soyad
           </div>
           <div class="content">
-            <input placeholder="Ahmet Güneş" type="email">
+            <input type="email" v-model="invitation.name">
           </div>
         </div>
         <div class="item">
@@ -18,11 +18,20 @@
             <info-tooltip class="info-email" text="Eğer kayıtlı ise kayıtlı olduğu e-mail'i yazınız"/>
           </div>
           <div class="content">
-            <input placeholder="ahmetgunes@gmail.com" type="email">
+            <input type="email"
+                   v-model="v$.invitation.email.$model"
+                   :class="{'has-error':v$.invitation.email.$error}">
+            <errors
+                v-if="v$.invitation.email.$error"
+                is-input-error="true"
+                :content="getOnlyErrors(v$.invitation.email.$errors)"/>
           </div>
         </div>
         <div class="post-invitation-btn-container">
-          <standart-button text="Davetiye Gönder"/>
+          <standart-button
+              :is-disable="v$.invitation.$invalid || isLoadingPostInvitation"
+              @click="postUserInvitationAction"
+              text="Davetiye Gönder"/>
         </div>
       </div>
     </template>
@@ -32,15 +41,58 @@
 <script>
 import Popup from '../../../shared/Popup';
 import InfoTooltip from '../../../shared/InfoTooltip';
+import Errors from '../../../shared/Errors';
 import StandartButton from '../../../shared/elements/StandartButton';
+import validateMixin from '../../../../mixins/validateMixin';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'UserInvitationPopup',
+  mixins: [validateMixin],
   props: ['isEnable'],
+  data() {
+    return {
+      v$: this.useVuelidate(),
+      isLoadingPostInvitation: false,
+      invitation: {
+        email: 'halil@gmail.com',
+        name: 'halil'
+      }
+    };
+  },
+  validations() {
+    return {
+      invitation: {
+        email: {
+          required: this.multipleLangError('errors.required', this.validators.required),
+          email: this.multipleLangError('errors.email', this.validators.email)
+        }
+      }
+    };
+  },
   components: {
     Popup,
     InfoTooltip,
+    Errors,
     StandartButton
+  },
+  methods: {
+    ...mapActions('teamUser', ['postUserInvitation']),
+    postUserInvitationAction() {
+      this.handle(async () => {
+        this.isLoadingPostInvitation = true;
+        await this.postUserInvitation(this.invitation);
+        this.invitationSent();
+      })
+          .finally(() => {
+            this.isLoadingPostInvitation = false;
+          });
+    },
+    invitationSent() {
+      this.$notify.success('Davetiye gönderildi'); //TODO: multiple language
+      //this.invitation = this.$helpers.clearItems(this.invitation);
+      //TODO: Popup kapansın ?
+    }
   }
 };
 </script>
