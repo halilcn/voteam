@@ -59,8 +59,8 @@ export default {
       isLoadingPostInvitation: false,
       isUserAlreadyMember: false,
       invitation: {
-        email: 'halil@gmail.com',
-        name: 'halil'
+        email: '',
+        name: ''
       }
     };
   },
@@ -88,7 +88,10 @@ export default {
         await this.postUserInvitation(this.invitation);
         this.invitationSent();
       }, (err) => {
-        if (err.response.status === 400) this.isUserAlreadyMember = true;
+        if (err.response.status === 400) {
+          this.isUserAlreadyMember = true;
+          return true;
+        }
       })
           .finally(() => {
             this.isLoadingPostInvitation = false;
@@ -96,7 +99,8 @@ export default {
     },
     invitationSent() {
       this.$notify.success(this.$t('notifyMessages.successPostUserInvitation'));
-      // this.invitation = this.$helpers.clearItems(this.invitation);
+      this.invitation = this.$helpers.clearItems(this.invitation);
+      this.v$.invitation.$reset();
     }
   }
 };

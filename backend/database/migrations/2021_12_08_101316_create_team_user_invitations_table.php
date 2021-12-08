@@ -15,9 +15,10 @@ class CreateTeamUserInvitationsTable extends Migration
     {
         Schema::create('team_user_invitations', function (Blueprint $table) {
             $table->id();
+            $table->string('random_key')->unique();
             $table->foreignId('team_id')->constrained();
             $table->string('email');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->timestamps();
         });
     }
