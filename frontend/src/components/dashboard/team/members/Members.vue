@@ -32,192 +32,8 @@
           <div class="user-info-list">
             <div class="item">
               <div class="title">
-                Toplam Başlatılan Oylama
-              </div>
-              <div class="content">
-                4
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="top">
-          <div class="profile-info">
-            <img class="user-image"
-                 src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-            <div class="user-texts">
-              <div class="user-name">
-                Halil Can
-              </div>
-              <div class="user-role">
-                üye
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="bottom">
-          <div class="user-info-list">
-            <div class="item">
-              <div class="title">
-                Toplam Başlatılan Oylama
-              </div>
-              <div class="content">
-                4
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="top">
-          <div class="profile-info">
-            <img class="user-image"
-                 src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-            <div class="user-texts">
-              <div class="user-name">
-                Halil Can
-              </div>
-              <div class="user-role">
-                üye
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="bottom">
-          <div class="user-info-list">
-            <div class="item">
-              <div class="title">
-                Toplam Başlatılan Oylama
-              </div>
-              <div class="content">
-                4
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="top">
-          <div class="profile-info">
-            <img class="user-image"
-                 src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-            <div class="user-texts">
-              <div class="user-name">
-                Halil Can
-              </div>
-              <div class="user-role">
-                üye
-              </div>
-            </div>
-            <info-tooltip
-                class="user-waiting-invitation"
-                iconClass="bi bi-hourglass-split"
-                text="Davet bekliyor..."/>
-          </div>
-        </div>
-        <div class="bottom">
-          <div class="user-info-list">
-            <div class="item">
-              <div class="title">
-                <i class="fas fa-poll"></i>
-                Toplam Başlatılan Oylama
-              </div>
-              <div class="content">
-                4
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="top">
-          <div class="profile-info">
-            <img class="user-image"
-                 src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-            <div class="user-texts">
-              <div class="user-name">
-                Halil Can
-              </div>
-              <div class="user-role">
-                üye
-              </div>
-            </div>
-            <div class="user-waiting-invitation">
-              <!-- <i class="fas fa-user-clock"></i>-->
-              <i class="bi bi-hourglass-split"></i>
-            </div>
-          </div>
-        </div>
-        <div class="bottom">
-          <div class="user-info-list">
-            <div class="item">
-              <div class="title">
-                Toplam Başlatılan Oylama
-              </div>
-              <div class="content">
-                4
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="top">
-          <div class="profile-info">
-            <img class="user-image"
-                 src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-            <div class="user-texts">
-              <div class="user-name">
-                Halil Can
-              </div>
-              <div class="user-role">
-                üye
-              </div>
-            </div>
-            <div class="user-waiting-invitation">
-              <!-- <i class="fas fa-user-clock"></i>-->
-              <i class="bi bi-hourglass-split"></i>
-            </div>
-          </div>
-        </div>
-        <div class="bottom">
-          <div class="user-info-list">
-            <div class="item">
-              <div class="title">
-                Toplam Başlatılan Oylama
-              </div>
-              <div class="content">
-                4
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="top">
-          <div class="profile-info">
-            <img class="user-image"
-                 src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-            <div class="user-texts">
-              <div class="user-name">
-                Halil Can
-              </div>
-              <div class="user-role">
-                üye
-              </div>
-            </div>
-            <div class="user-waiting-invitation">
-              <!-- <i class="fas fa-user-clock"></i>-->
-              <i class="bi bi-hourglass-split"></i>
-            </div>
-          </div>
-        </div>
-        <div class="bottom">
-          <div class="user-info-list">
-            <div class="item">
-              <div class="title">
-                Toplam Başlatılan Oylama
+                <i class="far fa-chart-bar"></i>
+                Toplam Oylama
               </div>
               <div class="content">
                 4
@@ -286,6 +102,56 @@
           </div>
         </div>
       </div>
+
+      <div class="item user-waiting-invitation">
+        <div class="content">
+          <div class="info">
+            <div class="text">
+              <i class="bi bi-envelope"></i>
+              Davetiye gönderildi
+            </div>
+            <div class="time">
+              6 gün önce
+            </div>
+          </div>
+          <div class="user-info">
+            <div class="email">
+              halil@gmail.com
+            </div>
+          </div>
+        </div>
+        <!--  <div class="top">
+           <div class="profile-info">
+             <img class="user-image"
+                  src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
+             <div class="user-texts">
+               <div class="user-name">
+                 Halil Can
+               </div>
+               <div class="user-role">
+                 üye
+               </div>
+             </div>
+             <info-tooltip
+                 class="user-waiting-invitation"
+                 iconClass="bi bi-hourglass-split"
+                 text="Davet bekliyor..."/>
+           </div>
+         </div>
+         <div class="bottom">
+           <div class="user-info-list">
+             <div class="item">
+               <div class="title">
+                 <i class="fas fa-poll"></i>
+                 Toplam Başlatılan Oylama
+               </div>
+               <div class="content">
+                 4
+               </div>
+             </div>
+           </div>
+         </div>-->
+      </div>
     </div>
   </div>
 </template>
@@ -293,7 +159,6 @@
 <script>
 
 import PageTitle from '../shared/PageTitle';
-import InfoTooltip from '../../../shared/InfoTooltip';
 import UserInvitationPopup from './UserInvitationPopup';
 import { mapActions } from 'vuex';
 
@@ -306,7 +171,6 @@ export default {
   },
   components: {
     PageTitle,
-    InfoTooltip,
     UserInvitationPopup
   },
   methods: {
@@ -323,6 +187,8 @@ export default {
 
 <style lang="scss" scoped>
 $item-border-color: #dde6f8;
+
+//TODO:dynmaic css !
 
 .users {
   .users-actions {
@@ -360,6 +226,7 @@ $item-border-color: #dde6f8;
       border: 1px solid $item-border-color;
       background-color: #fbfcff;
       width: 250px;
+      height: 125px;
       border-radius: 5px;
       //margin-right: 20px;
       margin-bottom: 20px;
@@ -372,6 +239,52 @@ $item-border-color: #dde6f8;
 
       &:hover .top .profile-info .delete-user-btn {
         opacity: 1;
+      }
+
+      &.user-waiting-invitation {
+        padding: 12px;
+        font-size: 13px;
+        border-color: #93eac7;
+        text-align: center;
+
+        .content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 100%;
+
+          .info {
+            .text {
+              font-weight: 500;
+              color: $df-green-color;
+
+              i {
+                margin-right: 4px;
+              }
+            }
+
+            .time {
+              font-style: italic;
+              font-weight: 300;
+              color: $df-black-and-blue-color;
+            }
+          }
+
+          .user-info {
+            margin-top: 10px;
+
+            .email {
+              background-color: $df-very-light-blue-color;
+              color: $df-blue-color;
+              padding: 3px 10px;
+              border-radius: 4px;
+              margin-top: 5px;
+            }
+          }
+        }
+
+
       }
 
       .top {
@@ -461,7 +374,13 @@ $item-border-color: #dde6f8;
             }
 
             .title {
+              display: flex;
+              align-items: center;
               font-size: 13px;
+
+              i {
+                margin-right: 7px;
+              }
             }
 
             .content {
@@ -476,7 +395,6 @@ $item-border-color: #dde6f8;
 @media only screen and (max-width: 1420px) {
   .user-list > .item {
     &:nth-child(2n+1) {
-
     }
   }
 }
