@@ -9,8 +9,7 @@ export default {
       console.log(await axios.get(`teams/${getters.teamId}/users`));
     },
     async postUserInvitation({ getters }, payload) {
-      console.log(payload);
-      console.log(await (axios.post(`teams/${getters.teamId}/invitations`, payload)));
+      await axios.post(`teams/${getters.teamId}/invitations`, payload);
     }
   },
   getters: {

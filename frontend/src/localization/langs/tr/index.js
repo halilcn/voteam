@@ -1,5 +1,6 @@
 import errors from './errors';
 import customErrors from './custom-errors';
+import notifyMessages from './notify-messages';
 
 export default {
   general: {
@@ -25,9 +26,7 @@ export default {
         about: 'Hakkında'
       }
     },
-    content:{
-
-    }
+    content: {}
   },
   pricing: {
     title: {
@@ -58,6 +57,14 @@ export default {
   footer: {
     text: '© Copyright 2021. Tüm hakları saklıdır.'
   },
+  dashboard: {
+    members: {
+      invitation: {
+        isUserAlreadyMember: 'Bu kullanıcı zaten üye'
+      }
+    }
+  },
   errors,
-  customErrors
+  customErrors,
+  notifyMessages
 };

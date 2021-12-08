@@ -1,5 +1,6 @@
 import errors from './errors';
 import customErrors from './custom-errors';
+import notifyMessages from './notify-messages';
 
 export default {
   general: {
@@ -56,6 +57,14 @@ export default {
   footer: {
     text: '© Copyright 2021. All rights reserved.'
   },
+  dashboard: {
+    members: {
+      invitation: {
+        isUserAlreadyMember: 'This user is already a member'
+      }
+    }
+  },
   errors,
-  customErrors
+  customErrors,
+  notifyMessages
 };

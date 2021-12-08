@@ -9,13 +9,14 @@
             Ad ve Soyad
           </div>
           <div class="content">
-            <input type="email" v-model="invitation.name">
+            <input type="text" v-model="invitation.name">
           </div>
         </div>
         <div class="item">
           <div class="title">
-            E-mail *
-            <info-tooltip class="info-email" text="Eğer kayıtlı ise kayıtlı olduğu e-mail'i yazınız"/>
+            E-mail*
+            <info-tooltip class="info-email"
+                          text="Eğer kayıtlı kullanıcıyı davet etmek istiyorsanız, kayıt olduğu e-mail adresini yazmalısınız."/>
           </div>
           <div class="content">
             <input type="email"
@@ -27,11 +28,13 @@
                 :content="getOnlyErrors(v$.invitation.email.$errors)"/>
           </div>
         </div>
+        <errors v-if="isUserAlreadyMember"
+                :content="[$t('dashboard.members.invitation.isUserAlreadyMember')]"/>
         <div class="post-invitation-btn-container">
           <standart-button
+              text="Davetiye Gönder"
               :is-disable="v$.invitation.$invalid || isLoadingPostInvitation"
-              @click="postUserInvitationAction"
-              text="Davetiye Gönder"/>
+              @click="postUserInvitationAction"/>
         </div>
       </div>
     </template>
@@ -54,6 +57,7 @@ export default {
     return {
       v$: this.useVuelidate(),
       isLoadingPostInvitation: false,
+      isUserAlreadyMember: false,
       invitation: {
         email: 'halil@gmail.com',
         name: 'halil'
@@ -83,15 +87,16 @@ export default {
         this.isLoadingPostInvitation = true;
         await this.postUserInvitation(this.invitation);
         this.invitationSent();
+      }, (err) => {
+        if (err.response.status === 400) this.isUserAlreadyMember = true;
       })
           .finally(() => {
             this.isLoadingPostInvitation = false;
           });
     },
     invitationSent() {
-      this.$notify.success('Davetiye gönderildi'); //TODO: multiple language
-      //this.invitation = this.$helpers.clearItems(this.invitation);
-      //TODO: Popup kapansın ?
+      this.$notify.success(this.$t('notifyMessages.successPostUserInvitation'));
+      // this.invitation = this.$helpers.clearItems(this.invitation);
     }
   }
 };
@@ -104,7 +109,9 @@ export default {
 
     .title {
       display: flex;
+      align-items: center;
       font-size: 15px;
+      color: $df-dark-blue-color;
 
       .info-email {
         margin-left: 8px;
@@ -123,6 +130,7 @@ export default {
   .post-invitation-btn-container {
     display: flex;
     justify-content: flex-end;
+    margin-top: 30px;
   }
 }
 </style>
