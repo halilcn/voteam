@@ -2,21 +2,24 @@ import axios from 'axios';
 import router from '../../router/index';
 import helpers from '../../helpers';
 
+const LOCAL_STORAGE_USER = 'user';
+
 export default {
   state: {
-    user: JSON.parse(localStorage.getItem('user')) ?? null
+    user: JSON.parse(localStorage.getItem(LOCAL_STORAGE_USER)) ?? null
   },
   mutations: {
     setUser(state, payload) {
-      localStorage.setItem('user', JSON.stringify(payload));
+      localStorage.setItem(LOCAL_STORAGE_USER, JSON.stringify(payload));
       state.user = payload;
     },
     setUserSettings(state, payload) {
       state.user.name = payload.name;
       state.user.image = payload.image;
+      localStorage.setItem(LOCAL_STORAGE_USER, JSON.stringify(state.user));
     },
     removeUser(state) {
-      localStorage.removeItem('user');
+      localStorage.removeItem(LOCAL_STORAGE_USER);
       state.user = null;
     }
   },
