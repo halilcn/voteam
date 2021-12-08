@@ -29,14 +29,14 @@ class TeamUserInvitation extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        $INVITATION_URL = 'join?joinCode='.$this->teamUserInvitation->random_key;
+        $INVITATION_URL = 'team-join/user-invitation/'.$this->teamUserInvitation->random_key;
 
         return $this
             ->view('emails.team.user-invitation')
             ->with([
                        'name' => $this->teamUserInvitation->name,
                        'team_name' => $this->teamUserInvitation->team->name,
-                       'url' => config('app.frontend_url').$INVITATION_URL
+                       'invitation_url' => config('app.frontend_url').$INVITATION_URL
                    ])
             ->subject(config('app.name').' | '.'Team User Invitation');
     }

@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Jobs\SendTeamUserInvitationEmail;
 use App\Models\TeamUserInvitation;
 use App\Models\User;
+use App\Notifications\TeamUserInvitationNotification;
 use Illuminate\Support\Str;
 
 class TeamUserInvitationObserver
@@ -25,8 +26,8 @@ class TeamUserInvitationObserver
      */
     public function created(TeamUserInvitation $teamUserInvitation)
     {
-        //    $user = User::where('email', $teamUserInvitation->email)->first();
-        //   $user?->notify(new TeamUserInvitation());
+        $user = User::where('email', $teamUserInvitation->email)->first();
+        $user?->notify(new TeamUserInvitationNotification($teamUserInvitation->team->name));
 
         SendTeamUserInvitationEmail::dispatch($teamUserInvitation);
     }

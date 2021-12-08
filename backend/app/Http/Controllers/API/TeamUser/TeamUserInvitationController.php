@@ -12,25 +12,23 @@ use Illuminate\Http\Request;
 
 class TeamUserInvitationController extends Controller
 {
-    public function store(Team $team, TeamUserInvitationRequest $request)
+    /**
+     * @param  Team  $team
+     * @param  TeamUserInvitationRequest  $request
+     * @return object
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function store(Team $team, TeamUserInvitationRequest $request): object
     {
-        //TODO: verilen e-mail sisteme kayıtlı mı ? kayıtlıysa bildirimde gitsin !
-        //TODO: email gidecek. Email url nasıl olmalı ?
-        //TODO: Eğer üye değilse kayıt/login olup, belirtilen url'e mi gönderilecek ?
-        //TODO: Leader ve manager farkı ? Hangileri oluşturabilir ?
-
-
-        /**/
-        //$this->authorize('create', [TeamUserInvitation::class, $team]);
+        $this->authorize('create', [TeamUserInvitation::class, $team]);
 
         if ($team->users()->where('email', $request->input('email'))->exists()) {
             return Exception::teamUserInvitationException();
         }
 
+        $team->invitations()->where('email', $request->input('email'))->delete();
         $team->invitations()->create($request->validated());
 
-
-        //return $team->invitations()->create();
-        return $team->invitations;
+        return $this->createdResponse();
     }
 }

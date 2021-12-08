@@ -23,7 +23,8 @@ class User extends Authenticatable
 
     public static array $NOTIFICATION_ACTIONS = [
         'CELEBRATION' => 'celebration',
-        'INFORMATION' => 'information'
+        'INFORMATION' => 'information',
+        'Invitation' => 'invitation'
     ];
 
     public static array $CONSTANTS = [

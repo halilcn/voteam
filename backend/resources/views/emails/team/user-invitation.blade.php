@@ -10,6 +10,6 @@
 Sayın Halil Can*****,
 Test Takımı size bir davetiye gönderdi !
 Bu linke tıklayarak takıma katılabilirsiniz.
-{{$team_name}} {{$name}}  {{$url}}
+{{$team_name}} -- {{$name}} -- {{$invitation_url}}
 </body>
 </html>
