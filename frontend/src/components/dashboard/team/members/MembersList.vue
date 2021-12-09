@@ -14,8 +14,8 @@
                  :src="user.image"
                  alt="user-image">
             <div class="user-texts">
-              <div class="user-name">
-                {{ user.name }}
+              <div :title="user.name" class="user-name">
+                {{ user.name }} asdasdasd asdasdas asdadas dsa
               </div>
               <div class="user-role">
                 {{ convertRoleOfMemberToLocalLanguage(user.role) }}
@@ -54,7 +54,7 @@
         <div class="content">
           <div class="info">
             <div class="text">
-              <i class="bi bi-envelope"></i>
+              <i class="bi bi-envelope-fill"></i>
               Davetiye gönderildi
             </div>
             <div class="time">
@@ -92,16 +92,17 @@ export default {
 
 <style lang="scss" scoped>
 $item-border-color: #dde6f8;
+$default-padding: 12px;
+
+$responsive-max-width-large-screen: 1420px;
+$responsive-max-width-medium-screen: 1160px;
+$responsive-max-width-small-screen: 920px;
 
 .user-list {
-  height: 100%;
   overflow-y: auto;
-  //background-color: blue;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
   margin-top: 15px;
-
 
   &::-webkit-scrollbar {
     width: 6px;
@@ -110,8 +111,6 @@ $item-border-color: #dde6f8;
   .item-container {
     display: flex;
     justify-content: center;
-    //background-color: red;
-    height: 125px; // !
     width: 20%;
     margin: 10px 0;
 
@@ -119,24 +118,26 @@ $item-border-color: #dde6f8;
       display: flex;
       flex-direction: column;
       border: 1px solid $item-border-color;
-      background-color: #fbfcff;
       width: 250px;
       height: 125px;
       border-radius: 5px;
-      //margin-right: 20px;
       transition: .2s;
 
-      &:hover, &:hover .bottom {
-        //  transform: scale(1.04);
+      &:hover {
+        transform: scale(1.04);
         border-color: #b2cdff;
-      }
 
-      &:hover .top .profile-info .delete-user-btn {
-        opacity: 1;
+        .bottom {
+          border-color: #b2cdff;
+        }
+
+        .top .profile-info .delete-user-btn {
+          opacity: 1;
+        }
       }
 
       &.user-waiting-invitation {
-        padding: 12px;
+        padding: $default-padding;
         font-size: 13px;
         border-color: #93eac7;
         text-align: center;
@@ -166,23 +167,20 @@ $item-border-color: #dde6f8;
           }
 
           .user-info {
-            margin-top: 10px;
+            margin-top: 15px;
 
             .email {
               background-color: $df-very-light-blue-color;
               color: $df-blue-color;
               padding: 3px 10px;
               border-radius: 4px;
-              margin-top: 5px;
             }
           }
         }
-
-
       }
 
       .top {
-        padding: 12px;
+        padding: $default-padding;
 
         .profile-info {
           display: flex;
@@ -200,9 +198,11 @@ $item-border-color: #dde6f8;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            margin-left: 10px;
+            margin-left: 13px;
 
             .user-name {
+              @include text-width-limit;
+              width: 80px;
               font-size: 15px;
               color: $df-dark-blue-color;
             }
@@ -217,15 +217,10 @@ $item-border-color: #dde6f8;
             }
           }
 
-          .user-waiting-invitation {
-            margin-left: auto !important;
-          }
-
           .delete-user-btn {
             border: 1px solid $df-very-light-red-color;
             font-size: 12px;
             margin-left: auto;
-            //background-color: $df-very-light-red-color;
             color: $df-red-color;
             padding: 3px 6px;
             cursor: pointer;
@@ -238,20 +233,19 @@ $item-border-color: #dde6f8;
             }
 
             i {
-              margin-right: 3px;
+              margin-right: 4px;
             }
           }
         }
       }
 
       .bottom {
-        transition: .2s; // TODO:dynamic
+        transition: .2s;
         border-top: 1px solid $item-border-color;
         height: 100%;
 
-
         .user-info-list {
-          padding: 12px;
+          padding: $default-padding;
           height: 100%;
           display: flex;
           flex-direction: column;
@@ -263,10 +257,10 @@ $item-border-color: #dde6f8;
             justify-content: space-between;
             color: $df-black-and-blue-color;
             font-weight: 300;
+            font-size: 13px;
 
             &.no-votes {
               font-style: italic;
-              font-size: 12px;
               justify-content: center;
               color: #909fb0;
 
@@ -278,14 +272,10 @@ $item-border-color: #dde6f8;
             .title {
               display: flex;
               align-items: center;
-              font-size: 13px;
 
               i {
                 margin-right: 7px;
               }
-            }
-
-            .content {
             }
           }
         }
@@ -294,19 +284,19 @@ $item-border-color: #dde6f8;
   }
 }
 
-@media only screen and (max-width: 1420px) {
+@media only screen and (max-width: $responsive-max-width-large-screen) {
   .user-list > .item-container {
     width: 25% !important;
   }
 }
 
-@media only screen and (max-width: 1160px) {
+@media only screen and (max-width: $responsive-max-width-medium-screen) {
   .user-list > .item-container {
     width: 33.33% !important;
   }
 }
 
-@media only screen and (max-width: 920px) {
+@media only screen and (max-width: $responsive-max-width-small-screen) {
   .user-list > .item-container {
     width: 50% !important;
   }
