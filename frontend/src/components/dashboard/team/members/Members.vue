@@ -5,7 +5,16 @@
     <i class="bi bi-people"></i>
     Üyeler
   </page-title>
-  <div class="users">
+  <div v-if="isLoading.users" class="loading">
+    <loading-animation
+        class="loading-users-top"
+        :text-line-count="2"
+        :text-line-height="15"/>
+    <loading-animation
+        class="loading-users"
+        :text-line-count="10"/>
+  </div>
+  <div v-else class="users">
     <div class="users-top">
       <div class="user-info">
         <div class="item">
@@ -13,15 +22,15 @@
             <img src="../../../../assets/icons/users.png"/>
           </div>
           <div class="content">
-            12 üye
+            {{ users.length }} üye
           </div>
         </div>
-        <div class="item">
+        <div v-if="user_invitations.length > 0" class="item">
           <div class="title">
             <img src="../../../../assets/icons/notifications/invitation.png"/>
           </div>
           <div class="content">
-            12 davet bekliyor
+            {{ user_invitations.length }} davet bekliyor
           </div>
         </div>
       </div>
@@ -33,94 +42,42 @@
       </div>
     </div>
     <div class="user-list">
-      <div class="item-container">
+      <div
+          v-for="(user,index) in users"
+          :key="index"
+          class="item-container">
         <div class="item">
           <div class="top">
             <div class="profile-info">
               <img class="user-image"
-                   src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
+                   :src="user.image"
+                   alt="user-image">
               <div class="user-texts">
                 <div class="user-name">
-                  Halil Can
+                  {{ user.name }}
                 </div>
                 <div class="user-role">
-                  Lider
+                  {{ convertRoleOfMemberToLocalLanguage(user.role) }}
                 </div>
+              </div>
+              <div class="delete-user-btn">
+                <i class="bi bi-person-dash"></i>
+                çıkar
               </div>
             </div>
           </div>
           <div class="bottom">
             <div class="user-info-list">
-              <div class="item">
+              <div v-if="user.votes_count > 0" class="item">
                 <div class="title">
                   <i class="far fa-chart-bar"></i>
                   Toplam Oylama
                 </div>
                 <div class="content">
-                  4
+                  {{ user.votes_count }}
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item">
-          <div class="top">
-            <div class="profile-info">
-              <img class="user-image"
-                   src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-              <div class="user-texts">
-                <div class="user-name">
-                  Halil Can
-                </div>
-                <div class="user-role">
-                  üye
-                </div>
-              </div>
-              <div class="delete-user-btn">
-                <i class="bi bi-person-dash"></i>
-                çıkar
-              </div>
-            </div>
-          </div>
-          <div class="bottom">
-            <div class="user-info-list">
-              <div class="item">
-                <div class="title">
-                  Toplam Başlatılan Oylama
-                </div>
-                <div class="content">
-                  4
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item">
-          <div class="top">
-            <div class="profile-info">
-              <img class="user-image"
-                   src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-              <div class="user-texts">
-                <div class="user-name">
-                  Halil Can
-                </div>
-                <div class="user-role">
-                  üye
-                </div>
-              </div>
-              <div class="delete-user-btn">
-                <i class="bi bi-person-dash"></i>
-                çıkar
-              </div>
-            </div>
-          </div>
-          <div class="bottom">
-            <div class="user-info-list">
-              <div class="item no-votes">
+              <div v-else class="item no-votes">
                 <i class="bi bi-emoji-frown"></i>
                 Henüz oylama başlatmamış
               </div>
@@ -128,7 +85,10 @@
           </div>
         </div>
       </div>
-      <div class="item-container">
+      <div
+          v-for="(invitation,index) in user_invitations"
+          :key="index"
+          class="item-container">
         <div class="item user-waiting-invitation">
           <div class="content">
             <div class="info">
@@ -137,878 +97,15 @@
                 Davetiye gönderildi
               </div>
               <div class="time">
-                6 gün önce
+                ({{ $dayjs($helpers.convertTimeToLocalTime(invitation.created_at)).fromNow() }})
               </div>
             </div>
             <div class="user-info">
               <div class="email">
-                halil@gmail.com
+                {{ invitation.email }}
               </div>
             </div>
           </div>
-          <!--  <div class="top">
-             <div class="profile-info">
-               <img class="user-image"
-                    src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-               <div class="user-texts">
-                 <div class="user-name">
-                   Halil Can
-                 </div>
-                 <div class="user-role">
-                   üye
-                 </div>
-               </div>
-               <info-tooltip
-                   class="user-waiting-invitation"
-                   iconClass="bi bi-hourglass-split"
-                   text="Davet bekliyor..."/>
-             </div>
-           </div>
-           <div class="bottom">
-             <div class="user-info-list">
-               <div class="item">
-                 <div class="title">
-                   <i class="fas fa-poll"></i>
-                   Toplam Başlatılan Oylama
-                 </div>
-                 <div class="content">
-                   4
-                 </div>
-               </div>
-             </div>
-           </div>-->
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item">
-          <div class="top">
-            <div class="profile-info">
-              <img class="user-image"
-                   src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-              <div class="user-texts">
-                <div class="user-name">
-                  Halil Can
-                </div>
-                <div class="user-role">
-                  üye
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="bottom">
-            <div class="user-info-list">
-              <div class="item">
-                <div class="title">
-                  <i class="far fa-chart-bar"></i>
-                  Toplam Oylama
-                </div>
-                <div class="content">
-                  4
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item">
-          <div class="top">
-            <div class="profile-info">
-              <img class="user-image"
-                   src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-              <div class="user-texts">
-                <div class="user-name">
-                  Halil Can
-                </div>
-                <div class="user-role">
-                  üye
-                </div>
-              </div>
-              <div class="delete-user-btn">
-                <i class="bi bi-person-dash"></i>
-                çıkar
-              </div>
-            </div>
-          </div>
-          <div class="bottom">
-            <div class="user-info-list">
-              <div class="item">
-                <div class="title">
-                  Toplam Başlatılan Oylama
-                </div>
-                <div class="content">
-                  4
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item">
-          <div class="top">
-            <div class="profile-info">
-              <img class="user-image"
-                   src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-              <div class="user-texts">
-                <div class="user-name">
-                  Halil Can
-                </div>
-                <div class="user-role">
-                  üye
-                </div>
-              </div>
-              <div class="delete-user-btn">
-                <i class="bi bi-person-dash"></i>
-                çıkar
-              </div>
-            </div>
-          </div>
-          <div class="bottom">
-            <div class="user-info-list">
-              <div class="item no-votes">
-                <i class="bi bi-emoji-frown"></i>
-                Henüz oylama başlatmamış
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item user-waiting-invitation">
-          <div class="content">
-            <div class="info">
-              <div class="text">
-                <i class="bi bi-envelope"></i>
-                Davetiye gönderildi
-              </div>
-              <div class="time">
-                6 gün önce
-              </div>
-            </div>
-            <div class="user-info">
-              <div class="email">
-                halil@gmail.com
-              </div>
-            </div>
-          </div>
-          <!--  <div class="top">
-             <div class="profile-info">
-               <img class="user-image"
-                    src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-               <div class="user-texts">
-                 <div class="user-name">
-                   Halil Can
-                 </div>
-                 <div class="user-role">
-                   üye
-                 </div>
-               </div>
-               <info-tooltip
-                   class="user-waiting-invitation"
-                   iconClass="bi bi-hourglass-split"
-                   text="Davet bekliyor..."/>
-             </div>
-           </div>
-           <div class="bottom">
-             <div class="user-info-list">
-               <div class="item">
-                 <div class="title">
-                   <i class="fas fa-poll"></i>
-                   Toplam Başlatılan Oylama
-                 </div>
-                 <div class="content">
-                   4
-                 </div>
-               </div>
-             </div>
-           </div>-->
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item">
-          <div class="top">
-            <div class="profile-info">
-              <img class="user-image"
-                   src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-              <div class="user-texts">
-                <div class="user-name">
-                  Halil Can
-                </div>
-                <div class="user-role">
-                  üye
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="bottom">
-            <div class="user-info-list">
-              <div class="item">
-                <div class="title">
-                  <i class="far fa-chart-bar"></i>
-                  Toplam Oylama
-                </div>
-                <div class="content">
-                  4
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item">
-          <div class="top">
-            <div class="profile-info">
-              <img class="user-image"
-                   src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-              <div class="user-texts">
-                <div class="user-name">
-                  Halil Can
-                </div>
-                <div class="user-role">
-                  üye
-                </div>
-              </div>
-              <div class="delete-user-btn">
-                <i class="bi bi-person-dash"></i>
-                çıkar
-              </div>
-            </div>
-          </div>
-          <div class="bottom">
-            <div class="user-info-list">
-              <div class="item">
-                <div class="title">
-                  Toplam Başlatılan Oylama
-                </div>
-                <div class="content">
-                  4
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item">
-          <div class="top">
-            <div class="profile-info">
-              <img class="user-image"
-                   src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-              <div class="user-texts">
-                <div class="user-name">
-                  Halil Can
-                </div>
-                <div class="user-role">
-                  üye
-                </div>
-              </div>
-              <div class="delete-user-btn">
-                <i class="bi bi-person-dash"></i>
-                çıkar
-              </div>
-            </div>
-          </div>
-          <div class="bottom">
-            <div class="user-info-list">
-              <div class="item no-votes">
-                <i class="bi bi-emoji-frown"></i>
-                Henüz oylama başlatmamış
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item user-waiting-invitation">
-          <div class="content">
-            <div class="info">
-              <div class="text">
-                <i class="bi bi-envelope"></i>
-                Davetiye gönderildi
-              </div>
-              <div class="time">
-                6 gün önce
-              </div>
-            </div>
-            <div class="user-info">
-              <div class="email">
-                halil@gmail.com
-              </div>
-            </div>
-          </div>
-          <!--  <div class="top">
-             <div class="profile-info">
-               <img class="user-image"
-                    src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-               <div class="user-texts">
-                 <div class="user-name">
-                   Halil Can
-                 </div>
-                 <div class="user-role">
-                   üye
-                 </div>
-               </div>
-               <info-tooltip
-                   class="user-waiting-invitation"
-                   iconClass="bi bi-hourglass-split"
-                   text="Davet bekliyor..."/>
-             </div>
-           </div>
-           <div class="bottom">
-             <div class="user-info-list">
-               <div class="item">
-                 <div class="title">
-                   <i class="fas fa-poll"></i>
-                   Toplam Başlatılan Oylama
-                 </div>
-                 <div class="content">
-                   4
-                 </div>
-               </div>
-             </div>
-           </div>-->
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item">
-          <div class="top">
-            <div class="profile-info">
-              <img class="user-image"
-                   src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-              <div class="user-texts">
-                <div class="user-name">
-                  Halil Can
-                </div>
-                <div class="user-role">
-                  üye
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="bottom">
-            <div class="user-info-list">
-              <div class="item">
-                <div class="title">
-                  <i class="far fa-chart-bar"></i>
-                  Toplam Oylama
-                </div>
-                <div class="content">
-                  4
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item">
-          <div class="top">
-            <div class="profile-info">
-              <img class="user-image"
-                   src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-              <div class="user-texts">
-                <div class="user-name">
-                  Halil Can
-                </div>
-                <div class="user-role">
-                  üye
-                </div>
-              </div>
-              <div class="delete-user-btn">
-                <i class="bi bi-person-dash"></i>
-                çıkar
-              </div>
-            </div>
-          </div>
-          <div class="bottom">
-            <div class="user-info-list">
-              <div class="item">
-                <div class="title">
-                  Toplam Başlatılan Oylama
-                </div>
-                <div class="content">
-                  4
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item">
-          <div class="top">
-            <div class="profile-info">
-              <img class="user-image"
-                   src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-              <div class="user-texts">
-                <div class="user-name">
-                  Halil Can
-                </div>
-                <div class="user-role">
-                  üye
-                </div>
-              </div>
-              <div class="delete-user-btn">
-                <i class="bi bi-person-dash"></i>
-                çıkar
-              </div>
-            </div>
-          </div>
-          <div class="bottom">
-            <div class="user-info-list">
-              <div class="item no-votes">
-                <i class="bi bi-emoji-frown"></i>
-                Henüz oylama başlatmamış
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item user-waiting-invitation">
-          <div class="content">
-            <div class="info">
-              <div class="text">
-                <i class="bi bi-envelope"></i>
-                Davetiye gönderildi
-              </div>
-              <div class="time">
-                6 gün önce
-              </div>
-            </div>
-            <div class="user-info">
-              <div class="email">
-                halil@gmail.com
-              </div>
-            </div>
-          </div>
-          <!--  <div class="top">
-             <div class="profile-info">
-               <img class="user-image"
-                    src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-               <div class="user-texts">
-                 <div class="user-name">
-                   Halil Can
-                 </div>
-                 <div class="user-role">
-                   üye
-                 </div>
-               </div>
-               <info-tooltip
-                   class="user-waiting-invitation"
-                   iconClass="bi bi-hourglass-split"
-                   text="Davet bekliyor..."/>
-             </div>
-           </div>
-           <div class="bottom">
-             <div class="user-info-list">
-               <div class="item">
-                 <div class="title">
-                   <i class="fas fa-poll"></i>
-                   Toplam Başlatılan Oylama
-                 </div>
-                 <div class="content">
-                   4
-                 </div>
-               </div>
-             </div>
-           </div>-->
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item user-waiting-invitation">
-          <div class="content">
-            <div class="info">
-              <div class="text">
-                <i class="bi bi-envelope"></i>
-                Davetiye gönderildi
-              </div>
-              <div class="time">
-                6 gün önce
-              </div>
-            </div>
-            <div class="user-info">
-              <div class="email">
-                halil@gmail.com
-              </div>
-            </div>
-          </div>
-          <!--  <div class="top">
-             <div class="profile-info">
-               <img class="user-image"
-                    src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-               <div class="user-texts">
-                 <div class="user-name">
-                   Halil Can
-                 </div>
-                 <div class="user-role">
-                   üye
-                 </div>
-               </div>
-               <info-tooltip
-                   class="user-waiting-invitation"
-                   iconClass="bi bi-hourglass-split"
-                   text="Davet bekliyor..."/>
-             </div>
-           </div>
-           <div class="bottom">
-             <div class="user-info-list">
-               <div class="item">
-                 <div class="title">
-                   <i class="fas fa-poll"></i>
-                   Toplam Başlatılan Oylama
-                 </div>
-                 <div class="content">
-                   4
-                 </div>
-               </div>
-             </div>
-           </div>-->
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item">
-          <div class="top">
-            <div class="profile-info">
-              <img class="user-image"
-                   src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-              <div class="user-texts">
-                <div class="user-name">
-                  Halil Can
-                </div>
-                <div class="user-role">
-                  üye
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="bottom">
-            <div class="user-info-list">
-              <div class="item">
-                <div class="title">
-                  <i class="far fa-chart-bar"></i>
-                  Toplam Oylama
-                </div>
-                <div class="content">
-                  4
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item">
-          <div class="top">
-            <div class="profile-info">
-              <img class="user-image"
-                   src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-              <div class="user-texts">
-                <div class="user-name">
-                  Halil Can
-                </div>
-                <div class="user-role">
-                  üye
-                </div>
-              </div>
-              <div class="delete-user-btn">
-                <i class="bi bi-person-dash"></i>
-                çıkar
-              </div>
-            </div>
-          </div>
-          <div class="bottom">
-            <div class="user-info-list">
-              <div class="item">
-                <div class="title">
-                  Toplam Başlatılan Oylama
-                </div>
-                <div class="content">
-                  4
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item">
-          <div class="top">
-            <div class="profile-info">
-              <img class="user-image"
-                   src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-              <div class="user-texts">
-                <div class="user-name">
-                  Halil Can
-                </div>
-                <div class="user-role">
-                  üye
-                </div>
-              </div>
-              <div class="delete-user-btn">
-                <i class="bi bi-person-dash"></i>
-                çıkar
-              </div>
-            </div>
-          </div>
-          <div class="bottom">
-            <div class="user-info-list">
-              <div class="item no-votes">
-                <i class="bi bi-emoji-frown"></i>
-                Henüz oylama başlatmamış
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item user-waiting-invitation">
-          <div class="content">
-            <div class="info">
-              <div class="text">
-                <i class="bi bi-envelope"></i>
-                Davetiye gönderildi
-              </div>
-              <div class="time">
-                6 gün önce
-              </div>
-            </div>
-            <div class="user-info">
-              <div class="email">
-                halil@gmail.com
-              </div>
-            </div>
-          </div>
-          <!--  <div class="top">
-             <div class="profile-info">
-               <img class="user-image"
-                    src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-               <div class="user-texts">
-                 <div class="user-name">
-                   Halil Can
-                 </div>
-                 <div class="user-role">
-                   üye
-                 </div>
-               </div>
-               <info-tooltip
-                   class="user-waiting-invitation"
-                   iconClass="bi bi-hourglass-split"
-                   text="Davet bekliyor..."/>
-             </div>
-           </div>
-           <div class="bottom">
-             <div class="user-info-list">
-               <div class="item">
-                 <div class="title">
-                   <i class="fas fa-poll"></i>
-                   Toplam Başlatılan Oylama
-                 </div>
-                 <div class="content">
-                   4
-                 </div>
-               </div>
-             </div>
-           </div>-->
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item user-waiting-invitation">
-          <div class="content">
-            <div class="info">
-              <div class="text">
-                <i class="bi bi-envelope"></i>
-                Davetiye gönderildi
-              </div>
-              <div class="time">
-                6 gün önce
-              </div>
-            </div>
-            <div class="user-info">
-              <div class="email">
-                halil@gmail.com
-              </div>
-            </div>
-          </div>
-          <!--  <div class="top">
-             <div class="profile-info">
-               <img class="user-image"
-                    src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-               <div class="user-texts">
-                 <div class="user-name">
-                   Halil Can
-                 </div>
-                 <div class="user-role">
-                   üye
-                 </div>
-               </div>
-               <info-tooltip
-                   class="user-waiting-invitation"
-                   iconClass="bi bi-hourglass-split"
-                   text="Davet bekliyor..."/>
-             </div>
-           </div>
-           <div class="bottom">
-             <div class="user-info-list">
-               <div class="item">
-                 <div class="title">
-                   <i class="fas fa-poll"></i>
-                   Toplam Başlatılan Oylama
-                 </div>
-                 <div class="content">
-                   4
-                 </div>
-               </div>
-             </div>
-           </div>-->
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item">
-          <div class="top">
-            <div class="profile-info">
-              <img class="user-image"
-                   src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-              <div class="user-texts">
-                <div class="user-name">
-                  Halil Can
-                </div>
-                <div class="user-role">
-                  üye
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="bottom">
-            <div class="user-info-list">
-              <div class="item">
-                <div class="title">
-                  <i class="far fa-chart-bar"></i>
-                  Toplam Oylama
-                </div>
-                <div class="content">
-                  4
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item">
-          <div class="top">
-            <div class="profile-info">
-              <img class="user-image"
-                   src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-              <div class="user-texts">
-                <div class="user-name">
-                  Halil Can
-                </div>
-                <div class="user-role">
-                  üye
-                </div>
-              </div>
-              <div class="delete-user-btn">
-                <i class="bi bi-person-dash"></i>
-                çıkar
-              </div>
-            </div>
-          </div>
-          <div class="bottom">
-            <div class="user-info-list">
-              <div class="item">
-                <div class="title">
-                  Toplam Başlatılan Oylama
-                </div>
-                <div class="content">
-                  4
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item">
-          <div class="top">
-            <div class="profile-info">
-              <img class="user-image"
-                   src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-              <div class="user-texts">
-                <div class="user-name">
-                  Halil Can
-                </div>
-                <div class="user-role">
-                  üye
-                </div>
-              </div>
-              <div class="delete-user-btn">
-                <i class="bi bi-person-dash"></i>
-                çıkar
-              </div>
-            </div>
-          </div>
-          <div class="bottom">
-            <div class="user-info-list">
-              <div class="item no-votes">
-                <i class="bi bi-emoji-frown"></i>
-                Henüz oylama başlatmamış
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="item-container">
-        <div class="item user-waiting-invitation">
-          <div class="content">
-            <div class="info">
-              <div class="text">
-                <i class="bi bi-envelope"></i>
-                Davetiye gönderildi
-              </div>
-              <div class="time">
-                6 gün önce
-              </div>
-            </div>
-            <div class="user-info">
-              <div class="email">
-                halil@gmail.com
-              </div>
-            </div>
-          </div>
-          <!--  <div class="top">
-             <div class="profile-info">
-               <img class="user-image"
-                    src="https://res.cloudinary.com/voteam/image/upload/v1638612621/vote-images/xpmplop9dicpgn5idh61.png">
-               <div class="user-texts">
-                 <div class="user-name">
-                   Halil Can
-                 </div>
-                 <div class="user-role">
-                   üye
-                 </div>
-               </div>
-               <info-tooltip
-                   class="user-waiting-invitation"
-                   iconClass="bi bi-hourglass-split"
-                   text="Davet bekliyor..."/>
-             </div>
-           </div>
-           <div class="bottom">
-             <div class="user-info-list">
-               <div class="item">
-                 <div class="title">
-                   <i class="fas fa-poll"></i>
-                   Toplam Başlatılan Oylama
-                 </div>
-                 <div class="content">
-                   4
-                 </div>
-               </div>
-             </div>
-           </div>-->
         </div>
       </div>
     </div>
@@ -1016,30 +113,51 @@
 </template>
 
 <script>
-
 import PageTitle from '../shared/PageTitle';
 import UserInvitationPopup from './UserInvitationPopup';
+import LoadingAnimation from '../../../shared/LoadingAnimation';
 import { mapActions } from 'vuex';
 
 export default {
   name: 'Members',
   data() {
     return {
-      isEnableUserInvitationPopup: false
+      isEnableUserInvitationPopup: false,
+      users: [],
+      user_invitations: [],
+      isLoading: {
+        users: false
+      }
     };
   },
   components: {
     PageTitle,
-    UserInvitationPopup
+    UserInvitationPopup,
+    LoadingAnimation
   },
   methods: {
     ...mapActions('teamUser', ['getUsersOfTeam']),
     toggleUserInvitationPopup() {
       this.isEnableUserInvitationPopup = !this.isEnableUserInvitationPopup;
+    },
+    getUsersOfTeamAction() {
+      this.handle(async () => {
+        this.isLoading.users = true;
+        const { user_invitations, users } = await this.getUsersOfTeam();
+        this.user_invitations = user_invitations;
+        this.users = users;
+      })
+          .finally(() => {
+            this.isLoading.users = false;
+          });
+    },
+    convertRoleOfMemberToLocalLanguage(role) {
+      //TODO:multiple language!
+      return role;
     }
   },
   created() {
-    this.getUsersOfTeam();
+    this.getUsersOfTeamAction();
   }
 };
 </script>
@@ -1048,6 +166,12 @@ export default {
 $item-border-color: #dde6f8;
 
 //TODO:dynmaic css !
+
+.loading {
+  .loading-users {
+    margin-top: 70px;
+  }
+}
 
 .users {
   height: 100%;
@@ -1244,7 +368,7 @@ $item-border-color: #dde6f8;
               border: 1px solid $df-very-light-red-color;
               font-size: 12px;
               margin-left: auto;
-             //background-color: $df-very-light-red-color;
+              //background-color: $df-very-light-red-color;
               color: $df-red-color;
               padding: 3px 6px;
               cursor: pointer;

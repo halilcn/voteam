@@ -6,7 +6,9 @@ export default {
   mutations: {},
   actions: {
     async getUsersOfTeam({ getters }) {
-      console.log(await axios.get(`teams/${getters.teamId}/users`));
+      const { data } = (await axios.get(`teams/${getters.teamId}/users`)).data;
+      console.log(data);
+      return data;
     },
     async postUserInvitation({ getters }, payload) {
       await axios.post(`teams/${getters.teamId}/invitations`, payload);
