@@ -104,7 +104,10 @@ class User extends Authenticatable
             ->withTimestamps();
     }
 
-    public function votes()
+    /**
+     * @return HasMany
+     */
+    public function votes(): HasMany
     {
         return $this->hasMany(Vote::class);
     }

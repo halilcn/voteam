@@ -19,7 +19,7 @@ class TeamUserMemberResource extends JsonResource
             'email' => $this->email,
             'image' => $this->image,
             'team_user_id' => $this->member->id,
-            'test' => $this->member->role->name,
+            'role' => $this->member->role->name,
             'votes_count' => $this->votes_count
         ];
     }

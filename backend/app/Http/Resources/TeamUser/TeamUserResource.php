@@ -15,8 +15,8 @@ class TeamUserResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'users' => TeamUserMemberResource::collection($this['teamUsers']),
-            'user_invitations' => TeamUserInvitationResource::collection($this['userInvitations'])
+            'users' => TeamUserMemberResource::collection($this->users),
+            'user_invitations' => TeamUserInvitationResource::collection($this->invitations)
         ];
     }
 }
