@@ -3,11 +3,13 @@
     <members-top
         :is-loading="isLoadingUsers"
         :user-invitations-length="userInvitations.length"
-        :users-length="users.length"/>
+        :users-length="users.length"
+        v-model:should-get-users-of-team="shouldGetUsersOfTeam"/>
     <members-list
         :is-loading="isLoadingUsers"
         :userInvitations="userInvitations"
-        :users="users"/>
+        :users="users"
+        v-model:should-get-users-of-team="shouldGetUsersOfTeam"/>
   </div>
 </template>
 
@@ -22,8 +24,14 @@ export default {
     return {
       users: [],
       userInvitations: [],
-      isLoadingUsers: false
+      isLoadingUsers: false,
+      shouldGetUsersOfTeam: false
     };
+  },
+  watch: {
+    shouldGetUsersOfTeam() {
+      this.getUsersOfTeamAction();
+    }
   },
   components: {
     MembersList,

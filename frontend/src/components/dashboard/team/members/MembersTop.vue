@@ -1,7 +1,8 @@
 <template>
   <user-invitation-popup
       :is-enable="isEnableUserInvitationPopup"
-      @handlePopup="toggleUserInvitationPopup"/>
+      @handlePopup="toggleUserInvitationPopup"
+      @update:should-get-users-of-team="$emit('update:should-get-users-of-team',$event)"/>
   <page-title>
     <i class="bi bi-people"></i>
     Üyeler
@@ -45,6 +46,7 @@ import LoadingAnimation from '../../../shared/LoadingAnimation';
 
 export default {
   name: 'MembersTop',
+  emits: ['update:should-get-users-of-team'],
   props: ['userInvitationsLength', 'usersLength', 'isLoading'],
   data() {
     return {

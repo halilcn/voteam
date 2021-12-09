@@ -52,6 +52,7 @@ import { mapActions } from 'vuex';
 export default {
   name: 'UserInvitationPopup',
   mixins: [validateMixin],
+  emits: ['update:should-get-users-of-team'],
   props: ['isEnable'],
   data() {
     return {
@@ -98,6 +99,7 @@ export default {
           });
     },
     invitationSent() {
+      this.$emit('update:should-get-users-of-team', true);
       this.$notify.success(this.$t('notifyMessages.successPostUserInvitation'));
       this.invitation = this.$helpers.clearItems(this.invitation);
       this.v$.invitation.$reset();
