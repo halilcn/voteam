@@ -1,4 +1,8 @@
 <template>
+  <continue-popup
+      :is-enable="isEnableContinuePopup"
+      @handlePopup="toggleContinuePopup"
+      @continue="testContinue"/>
   <loading-animation
       v-if="isLoading"
       :text-line-count="10"/>
@@ -74,17 +78,30 @@
 
 <script>
 import LoadingAnimation from '../../../shared/LoadingAnimation';
+import ContinuePopup from '../../../shared/ContinuePopup';
 
 export default {
   name: 'MembersList',
   props: ['users', 'userInvitations', 'isLoading'],
+  data() {
+    return {
+      isEnableContinuePopup: true
+    };
+  },
   components: {
-    LoadingAnimation
+    LoadingAnimation,
+    ContinuePopup
   },
   methods: {
     convertRoleOfMemberToLocalLanguage(role) {
       //TODO:multiple language!
       return role;
+    },
+    toggleContinuePopup() {
+      this.isEnableContinuePopup = !this.isEnableContinuePopup;
+    },
+    testContinue() {
+      alert();
     }
   }
 };

@@ -7,11 +7,13 @@ export default {
   actions: {
     async getUsersOfTeam({ getters }) {
       const { data } = (await axios.get(`teams/${getters.teamId}/users`)).data;
-      console.log(data);
       return data;
     },
     async postUserInvitation({ getters }, payload) {
       await axios.post(`teams/${getters.teamId}/invitations`, payload);
+    },
+    async deleteUserOfTeam() {
+      alert('ok');
     }
   },
   getters: {
