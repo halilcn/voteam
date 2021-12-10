@@ -39,12 +39,17 @@ export default {
 .actions {
   display: flex;
   justify-content: space-evenly;
+  padding: 10px 0;
 
   .btn {
     border-radius: 5px;
     padding: 10px 50px;
     cursor: pointer;
     transition: .2s;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
 
     i {
       margin-right: 3px;
