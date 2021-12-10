@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\TeamUser;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TeamUser\TeamUserResource;
 use App\Models\Team;
+use App\Models\TeamUser;
 use App\Models\TeamUserInvitation;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -27,11 +28,34 @@ class TeamUserController extends Controller
                                                         }
                                                     ]);
                        },
-                       'invitations:team_id,email,name,created_at'
+                       'invitations:team_id,email,created_at'
                    ])
             ->first();
 
         // TODO: her role için 1 sorgu atıyor ?
         return TeamUserResource::make($responseTeam);
+    }
+
+    public function destroy(Team $team, string $teamUserId): object
+    {
+        $this->authorize('delete', [TeamUser::class, $team]);
+
+        $this->transaction(function () use ($team, $teamUserId) {
+            $teamUsers = $team->users();
+
+            //TODO:incele!!
+            //TODO:delete power
+            /*$teamUsers
+                ->where()
+                ->userPower()
+                ->delete();*/
+
+            $teamUsers
+                ->wherePivot('id', $teamUserId)
+                ->detach();
+        });
+
+
+        return $this->successResponse();
     }
 }

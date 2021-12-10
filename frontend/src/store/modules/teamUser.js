@@ -12,8 +12,8 @@ export default {
     async postUserInvitation({ getters }, payload) {
       await axios.post(`teams/${getters.teamId}/invitations`, payload);
     },
-    async deleteUserOfTeam() {
-      alert('ok');
+    async deleteUserOfTeam({ getters }, payload) {
+      console.log(await axios.delete(`teams/${getters.teamId}/users/${payload}`));
     }
   },
   getters: {

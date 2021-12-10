@@ -16,7 +16,6 @@ class TeamUserInvitationResource extends JsonResource
     {
         return [
             'email' => $this->email,
-            'name' => $this->name,
             'created_at' => $this->created_at
         ];
     }

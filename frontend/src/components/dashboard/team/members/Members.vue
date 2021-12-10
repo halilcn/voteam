@@ -29,8 +29,8 @@ export default {
     };
   },
   watch: {
-    shouldGetUsersOfTeam() {
-      this.getUsersOfTeamAction();
+    shouldGetUsersOfTeam(newValue) {
+      if (newValue) this.getUsersOfTeamAction();
     }
   },
   components: {

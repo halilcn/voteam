@@ -2,7 +2,7 @@
   <continue-popup
       :is-enable="isEnableContinuePopup"
       @handlePopup="toggleContinuePopup"
-      @continue="testContinue"/>
+      @continue="deleteUserOfTeamAction"/>
   <loading-animation
       v-if="isLoading"
       :text-line-count="10"/>
@@ -25,7 +25,7 @@
                 {{ convertRoleOfMemberToLocalLanguage(user.role) }}
               </div>
             </div>
-            <div class="delete-user-btn">
+            <div @click="deleteUserOfTeamContinue(user.team_user_id)" class="delete-user-btn">
               <i class="bi bi-person-dash"></i>
               çıkar
             </div>
@@ -79,13 +79,15 @@
 <script>
 import LoadingAnimation from '../../../shared/LoadingAnimation';
 import ContinuePopup from '../../../shared/ContinuePopup';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'MembersList',
   props: ['users', 'userInvitations', 'isLoading'],
   data() {
     return {
-      isEnableContinuePopup: true
+      isEnableContinuePopup: false,
+      teamUserIdForDelete: null
     };
   },
   components: {
@@ -93,6 +95,7 @@ export default {
     ContinuePopup
   },
   methods: {
+    ...mapActions('teamUser', ['deleteUserOfTeam']),
     convertRoleOfMemberToLocalLanguage(role) {
       //TODO:multiple language!
       return role;
@@ -100,8 +103,18 @@ export default {
     toggleContinuePopup() {
       this.isEnableContinuePopup = !this.isEnableContinuePopup;
     },
-    testContinue() {
-      alert();
+    deleteUserOfTeamContinue(teamUserId) {
+      this.teamUserIdForDelete = teamUserId;
+      this.toggleContinuePopup();
+    },
+    deleteUserOfTeamAction() {
+      this.handle(async () => {
+        //TODO: 2 kere delete yapınca loading olmuuyor.
+        await this.deleteUserOfTeam(this.teamUserIdForDelete);
+      })
+          .finally(() => {
+            this.$emit('update:should-get-users-of-team', true);
+          });
     }
   }
 };
