@@ -15,8 +15,15 @@ use Illuminate\Http\Request;
 
 class TeamUserController extends Controller
 {
-    public function index(Team $team)
+    /**
+     * @param  Team  $team
+     * @return object
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function index(Team $team): object
     {
+        $this->authorize('view', [TeamUser::class, $team]);
+
         $teamId = $team->id;
 
         $responseTeam = Team::query()
@@ -36,7 +43,6 @@ class TeamUserController extends Controller
         // TODO: her role için 1 sorgu atıyor ?
         return TeamUserResource::make($responseTeam);
     }
-
 
     /**
      * @param  Team  $team

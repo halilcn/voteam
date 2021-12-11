@@ -26,6 +26,16 @@ class TeamUserPolicy
      * @param  Team  $team
      * @return bool
      */
+    public function view(User $user, Team $team): bool
+    {
+        return $team->hasUser($user->id);
+    }
+
+    /**
+     * @param  User  $user
+     * @param  Team  $team
+     * @return bool
+     */
     public function delete(User $user, Team $team): bool
     {
         return $team->hasUserAndRole($user->id, Role::$ROLES['LEAD']);
