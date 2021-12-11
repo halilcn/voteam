@@ -19,7 +19,7 @@
                  alt="user-image">
             <div class="user-texts">
               <div :title="user.name" class="user-name">
-                {{ user.name }} asdasdasd asdasdas asdadas dsa
+                {{ user.name }}
               </div>
               <div class="user-role">
                 {{ convertRoleOfMemberToLocalLanguage(user.role) }}
@@ -109,7 +109,6 @@ export default {
     },
     deleteUserOfTeamAction() {
       this.handle(async () => {
-        //TODO: 2 kere delete yapınca loading olmuuyor.
         await this.deleteUserOfTeam(this.teamUserIdForDelete);
       })
           .finally(() => {

@@ -61,7 +61,8 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('check-time', [VotePowerTypeActionsController::class, 'checkTime']);
         });
 
-        Route::resource('teams.users', TeamUserController::class)->scoped(['team' => 'key']);;
+        Route::delete('teams/{team:key}/users/{team_user}', [TeamUserController::class, 'destroy']);
+        Route::resource('teams.users', TeamUserController::class)->scoped(['team' => 'key']);
 
         //TODO: Review code
         Route::post('votes/{vote}/voted-users', [VotedUserController::class, 'store']);

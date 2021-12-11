@@ -31,6 +31,7 @@ export default {
   watch: {
     shouldGetUsersOfTeam(newValue) {
       if (newValue) this.getUsersOfTeamAction();
+      this.shouldGetUsersOfTeam = false;
     }
   },
   components: {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\TeamUser;
 
+use App\Exceptions\Exception;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TeamUser\TeamUserResource;
 use App\Models\Team;
@@ -36,25 +37,25 @@ class TeamUserController extends Controller
         return TeamUserResource::make($responseTeam);
     }
 
-    public function destroy(Team $team, string $teamUserId): object
+
+    /**
+     * @param  Team  $team
+     * @param  TeamUser  $teamUser
+     * @return object
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function destroy(Team $team, TeamUser $teamUser): object
     {
         $this->authorize('delete', [TeamUser::class, $team]);
 
-        $this->transaction(function () use ($team, $teamUserId) {
-            $teamUsers = $team->users();
+        if (!$team->hasUser($teamUser->user_id)) {
+            return Exception::teamUserException();
+        }
 
-            //TODO:incele!!
-            //TODO:delete power
-            /*$teamUsers
-                ->where()
-                ->userPower()
-                ->delete();*/
-
-            $teamUsers
-                ->wherePivot('id', $teamUserId)
-                ->detach();
+        $this->transaction(function () use ($team, $teamUser) {
+            $teamUser->userPower()->delete();
+            $teamUser->delete();
         });
-
 
         return $this->successResponse();
     }
