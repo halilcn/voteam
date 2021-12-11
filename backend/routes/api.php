@@ -15,6 +15,7 @@ use App\Http\Controllers\API\Team\TeamCheckUserController;
 use App\Http\Controllers\API\TeamUser\TeamJoinWithInvitationController;
 use App\Http\Controllers\API\TeamUser\TeamUserController;
 use App\Http\Controllers\API\TeamUser\TeamUserInvitationController;
+use App\Http\Controllers\API\TeamUser\TeamUserPermissionController;
 use App\Http\Controllers\API\Vote\VotedUserController;
 use App\Http\Controllers\API\Vote\VoteController;
 use App\Http\Controllers\API\Vote\VotePowerTypeActionsController;
@@ -61,8 +62,11 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('check-time', [VotePowerTypeActionsController::class, 'checkTime']);
         });
 
+        //TODO:bunu düzelt! Resource contoller controller içine alınacak !
         Route::delete('teams/{team:key}/users/{team_user}', [TeamUserController::class, 'destroy']);
         Route::resource('teams.users', TeamUserController::class)->scoped(['team' => 'key']);
+
+        Route::get('teams/{team:key}/my-permissions', TeamUserPermissionController::class);
 
         //TODO: Review code
         Route::post('votes/{vote}/voted-users', [VotedUserController::class, 'store']);

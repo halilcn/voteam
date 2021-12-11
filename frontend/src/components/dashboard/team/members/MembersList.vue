@@ -25,7 +25,10 @@
                 {{ convertRoleOfMemberToLocalLanguage(user.role) }}
               </div>
             </div>
-            <div @click="deleteUserOfTeamContinue(user.team_user_id)" class="delete-user-btn">
+            <div
+                @click="deleteUserOfTeamContinue(user.team_user_id)"
+                :class="{disable:!userHasPermissions}"
+                class="delete-user-btn">
               <i class="bi bi-person-dash"></i>
               çıkar
             </div>
@@ -83,7 +86,7 @@ import { mapActions } from 'vuex';
 
 export default {
   name: 'MembersList',
-  props: ['users', 'userInvitations', 'isLoading'],
+  props: ['users', 'userInvitations', 'isLoading', 'userHasPermissions'],
   data() {
     return {
       isEnableContinuePopup: false,
@@ -259,6 +262,10 @@ $responsive-max-width-small-screen: 920px;
 
             &:hover {
               background-color: $df-very-light-red-color;
+            }
+
+            &.disable {
+              display: none;
             }
 
             i {

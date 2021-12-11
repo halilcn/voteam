@@ -13,7 +13,10 @@ export default {
       await axios.post(`teams/${getters.teamId}/invitations`, payload);
     },
     async deleteUserOfTeam({ getters }, payload) {
-      console.log(await axios.delete(`teams/${getters.teamId}/users/${payload}`));
+      await axios.delete(`teams/${getters.teamId}/users/${payload}`);
+    },
+    async getPermissionsUserOfTeam({ getters }) {
+      return (await axios.get(`teams/${getters.teamId}/my-permissions`)).data;
     }
   },
   getters: {

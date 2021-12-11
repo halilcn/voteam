@@ -4,11 +4,13 @@
         :is-loading="isLoadingUsers"
         :user-invitations-length="userInvitations.length"
         :users-length="users.length"
+        :userHasPermissions="userHasPermissions"
         v-model:should-get-users-of-team="shouldGetUsersOfTeam"/>
     <members-list
         :is-loading="isLoadingUsers"
         :userInvitations="userInvitations"
         :users="users"
+        :userHasPermissions="userHasPermissions"
         v-model:should-get-users-of-team="shouldGetUsersOfTeam"/>
   </div>
 </template>
@@ -25,7 +27,8 @@ export default {
       users: [],
       userInvitations: [],
       isLoadingUsers: false,
-      shouldGetUsersOfTeam: false
+      shouldGetUsersOfTeam: false,
+      userHasPermissions: false
     };
   },
   watch: {
@@ -39,7 +42,7 @@ export default {
     MembersTop
   },
   methods: {
-    ...mapActions('teamUser', ['getUsersOfTeam']),
+    ...mapActions('teamUser', ['getUsersOfTeam', 'getPermissionsUserOfTeam']),
     getUsersOfTeamAction() {
       this.handle(async () => {
         this.isLoadingUsers = true;
@@ -50,10 +53,17 @@ export default {
           .finally(() => {
             this.isLoadingUsers = false;
           });
+    },
+    getPermissionsUserOfTeamAction() {
+      this.handle(async () => {
+        const { all_permissions } = await this.getPermissionsUserOfTeam();
+        this.userHasPermissions = all_permissions;
+      });
     }
   },
   created() {
     this.getUsersOfTeamAction();
+    this.getPermissionsUserOfTeamAction();
   }
 };
 </script>

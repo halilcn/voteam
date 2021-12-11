@@ -31,7 +31,9 @@
       </div>
     </div>
     <div class="users-actions">
-      <div @click="toggleUserInvitationPopup" class="add-user-btn">
+      <div @click="toggleUserInvitationPopup"
+           :class="{disable:!userHasPermissions}"
+           class="add-user-btn">
         <i class="bi bi-person-plus-fill"></i>
         Üye Daveti
       </div>
@@ -47,7 +49,7 @@ import LoadingAnimation from '../../../shared/LoadingAnimation';
 export default {
   name: 'MembersTop',
   emits: ['update:should-get-users-of-team'],
-  props: ['userInvitationsLength', 'usersLength', 'isLoading'],
+  props: ['userInvitationsLength', 'usersLength', 'isLoading', 'userHasPermissions'],
   data() {
     return {
       isEnableUserInvitationPopup: false
@@ -112,6 +114,10 @@ $default-border-radius: 5px;
 
       &:hover {
         background-color: $df-blue-color-hover-dark;
+      }
+
+      &.disable {
+        display: none;
       }
 
       i {
