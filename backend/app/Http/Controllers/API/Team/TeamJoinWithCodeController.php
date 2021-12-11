@@ -6,6 +6,7 @@ use App\Exceptions\Exception;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Team\TeamJoinCodeRequest;
 use App\Http\Resources\Team\TeamResource;
+use App\Jobs\JoinTeam;
 use App\Models\Role;
 use App\Models\Team;
 use Illuminate\Database\Eloquent\Builder;
@@ -25,14 +26,7 @@ class TeamJoinWithCodeController extends Controller
             })
             ->first();
 
-        if (!$team) {
-            return Exception::joinTeamException();
-        }
-
-        $role = Role::query()
-            ->where('name', Role::$ROLES['MEMBER'])
-            ->first('id');
-        $request->user()->teams()->attach($team->id, ['role_id' => $role->id ?? 0]);
+        JoinTeam::dispatchSync($team);
 
         $team->loadCount('users');
 
