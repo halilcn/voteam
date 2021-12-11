@@ -26,6 +26,9 @@ export default {
     async postJoinTeam({ commit }, payload) {
       const { data } = await axios.post('team/join/team-code', payload);
       commit('setTeam', data);
+    },
+    async postJoinTeamWithInvitation(_, payload) {
+      await axios.post('team/join/user-invitation', { invitationKey: payload });
     }
   },
   getters: {

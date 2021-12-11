@@ -107,6 +107,11 @@ const routes = [
     path: '/team-join/user-invitation/:invitationKey',
     name: 'TeamUserInvitation',
     component: () => import('../views/TeamUserInvitation.vue')
+  },
+  {
+    path: '/404',
+    name: 'NoPage',
+    component: () => import('../views/NoPage')
   }
 ];
 

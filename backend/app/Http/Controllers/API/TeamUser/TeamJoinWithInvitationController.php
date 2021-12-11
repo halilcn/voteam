@@ -26,7 +26,14 @@ class TeamJoinWithInvitationController extends Controller
             return Exception::teamUserInvitationException();
         }
 
-        JoinTeam::dispatchSync(Team::find($teamInvitation->team_id));
+        $team = Team::find($teamInvitation->team_id);
+
+        if ($team->hasUser($request->user()->id)) {
+            $teamInvitation->delete();
+            return Exception::teamUserException();
+        }
+
+        JoinTeam::dispatchSync($team);
         $teamInvitation->delete();
 
         return $this->successResponse();
