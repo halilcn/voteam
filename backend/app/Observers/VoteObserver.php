@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Jobs\SendVoteCreatedEmail;
+use App\Jobs\TeamNotifications\VoteCreatedNotification;
 use App\Models\TeamNotification;
 use App\Models\Vote;
 use Illuminate\Support\Facades\Notification;
@@ -25,16 +26,7 @@ class VoteObserver
      */
     public function created(Vote $vote)
     {
-        $vote->team->notifications()->create(
-            [
-                'type' => TeamNotification::$NOTIFICATIONS_TYPES['VOTE_CREATED'],
-                'data' => [
-                    'message' => 'Oylama oluşturuldu !',
-                    'created_at' => $vote->created_at
-                ]
-            ]
-        );
-
+        VoteCreatedNotification::dispatch($vote->team);
         SendVoteCreatedEmail::dispatch($vote);
     }
 
