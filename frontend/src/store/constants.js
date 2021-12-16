@@ -24,6 +24,7 @@ export default {
   USER_TIME_UTC: {
     MAX_UTC: 14,
     MIN_UTC: -12
-  }
+  },
+  MAX_WIDTH_PERMISSION: 950
 };
 

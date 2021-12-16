@@ -1,8 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import store from '../store';
+import constants from '../store/constants';
 
 const checkAuth = () => {
   return !!store.state.auth.user;
+};
+
+const checkMobilePermission = () => {
+  return window.screen.width > constants.MAX_WIDTH_PERMISSION;
 };
 
 const guest = (to, from, next) => {
@@ -69,7 +74,6 @@ const routes = [
     name: 'Dashboard',
     component: () => import('../views/Dashboard.vue'),
     beforeEnter: (to, from, next) => {
-      // Auth
       if (!checkAuth()) next({ name: 'Home' });
 
       store.dispatch('activeTeam/checkTeamUser', to.params.teamId)
@@ -79,6 +83,8 @@ const routes = [
         .finally(() => {
           next();
         });
+
+      if (!checkMobilePermission()) next({ name: 'MobileWarning' });
     },
     children: [
       {
@@ -112,6 +118,11 @@ const routes = [
     path: '/404',
     name: 'NoPage',
     component: () => import('../views/NoPage')
+  },
+  {
+    path: '/mobile-warning',
+    name: 'MobileWarning',
+    component: () => import('../views/MobileWarning')
   }
 ];
 
