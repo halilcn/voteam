@@ -72,7 +72,7 @@
       <standart-button
           class="continue-btn"
           :text="$t('register.registerButton')"
-          :is-disable="v$.user.$invalid || v$.email.$invalid || isLoading.register"
+          :is-disable="registerButtonDisable"
           @click="register"/>
     </div>
   </div>
@@ -190,6 +190,11 @@ export default {
     },
     isCodeSent() {
       return this.email.key;
+    },
+    registerButtonDisable() {
+      return this.v$.user.$invalid
+          || this.v$.email.code.required.$invalid
+          || this.isLoading.register;
     }
   }
 };
