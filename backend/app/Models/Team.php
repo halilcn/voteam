@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
+use AjCastro\EagerLoadPivotRelations\EagerLoadPivotTrait;
 
 class Team extends Model
 {
-    use HasFactory;
+    use HasFactory,EagerLoadPivotTrait;
 
     protected $table = 'teams';
     protected $fillable = ['key', 'join_code', 'name', 'image'];

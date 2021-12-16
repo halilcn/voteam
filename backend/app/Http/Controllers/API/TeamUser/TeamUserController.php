@@ -7,11 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\TeamUser\TeamUserResource;
 use App\Models\Team;
 use App\Models\TeamUser;
-use App\Models\TeamUserInvitation;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Http\Request;
 
 class TeamUserController extends Controller
 {
@@ -29,18 +26,18 @@ class TeamUserController extends Controller
         $responseTeam = Team::query()
             ->where('id', $teamId)
             ->with([
+                       'invitations:team_id,email,created_at',
+                       'users.member.role',
                        'users' => function (BelongsToMany $query) use ($teamId) {
                            return $query->withCount([
                                                         'votes' => function (Builder $query) use ($teamId) {
                                                             return $query->where('team_id', $teamId);
                                                         }
                                                     ]);
-                       },
-                       'invitations:team_id,email,created_at'
+                       }
                    ])
             ->first();
 
-        // TODO: her role için 1 sorgu atıyor ?
         return TeamUserResource::make($responseTeam);
     }
 
