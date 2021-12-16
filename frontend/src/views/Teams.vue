@@ -5,6 +5,7 @@
   <join-team-popup
       @handlePopup="handleJoinTeamPopup"
       :is-enable="isEnableJoinTeamPopup"/>
+  <welcome-user-popup/>
   <div class="teams">
     <img class="voteam-logo" src="../assets/logos/voteam.png" alt="voteam-logo"/>
     <div class="teams-actions">
@@ -70,6 +71,7 @@
 <script>
 import CreateTeamPopup from '../components/teams/CreateTeamPopup';
 import JoinTeamPopup from '../components/teams/JoinTeamPopup';
+import WelcomeUserPopup from '../components/teams/WelcomeUserPopup';
 import LoadingAnimation from '../components/shared/LoadingAnimation';
 import { mapState, mapActions } from 'vuex';
 
@@ -85,6 +87,7 @@ export default {
   components: {
     CreateTeamPopup,
     JoinTeamPopup,
+    WelcomeUserPopup,
     LoadingAnimation
   },
   methods: {

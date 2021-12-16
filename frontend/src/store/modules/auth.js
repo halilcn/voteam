@@ -3,10 +3,12 @@ import router from '../../router/index';
 import helpers from '../../helpers';
 
 const LOCAL_STORAGE_USER = 'user';
+const LOCAL_STORAGE_NEW_USER = 'new_user_status';
 
 export default {
   state: {
-    user: JSON.parse(localStorage.getItem(LOCAL_STORAGE_USER)) ?? null
+    user: JSON.parse(localStorage.getItem(LOCAL_STORAGE_USER)) ?? null,
+    newUserStatus: localStorage.getItem(LOCAL_STORAGE_NEW_USER) ?? false
   },
   mutations: {
     setUser(state, payload) {
@@ -21,6 +23,14 @@ export default {
     removeUser(state) {
       localStorage.removeItem(LOCAL_STORAGE_USER);
       state.user = null;
+    },
+    setNewUserStatus(state) {
+      localStorage.setItem(LOCAL_STORAGE_NEW_USER, 'true');
+      state.newUser = true;
+    },
+    removeNewUserStatus(state) {
+      localStorage.removeItem(LOCAL_STORAGE_NEW_USER);
+      state.newUser = false;
     }
   },
   actions: {
@@ -30,9 +40,10 @@ export default {
       await dispatch('updateUserLanguage', helpers.getLanguage());
       await window.location.reload();
     },
-    async postRegister({ dispatch }, payload) {
+    async postRegister({ dispatch, commit }, payload) {
       await axios.post('register', payload);
       const { email, password } = payload.user;
+      commit('setNewUserStatus');
       await dispatch('postLogin', { email, password });
     },
     async postRegisterEmail(_, payload) {
