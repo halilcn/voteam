@@ -13,29 +13,49 @@
       </div>
       <div class="power-percentage">
         <div class="power-percentage-info">
-          <input v-model="userPowers.find(item=>item.team_user_id === user.team_user_id).power" type="number">
+          <input v-model.number="userPowers.find(item=>item.team_user_id === user.team_user_id).power" type="number">
           birim güç
         </div>
         <div class="power-range">
-          <input v-model="userPowers.find(item=>item.team_user_id === user.team_user_id).power" type="range" min="0"
-                 :max="remainingPower" step="1">
+          <input v-model.number="userPowers.find(item=>item.team_user_id === user.team_user_id).power"
+                 type="range"
+                 min="0"
+                 max="1000"
+                 step="1">
         </div>
       </div>
     </div>
   </div>
   <div class="power-vote-bottom">
-    <div class="total-power-info">
-      Toplam Kalan {{ remainingPower }} Güç
+    <div class="total-power-info"
+         :class="{'power-warning':remainingPower < 0}">
+      <template v-if="remainingPower < 0">
+        {{ -remainingPower }} güç fazla
+      </template>
+      <template v-else>
+        Toplam Kalan {{ remainingPower }} Güç
+      </template>
+      <info-tooltip
+          class="tooltip-info"
+          text="Toplamda 10 kullanıcı var. Her kullanıcıya 100 güç birimi verilebilir."/>
     </div>
-    <standart-button text="Güç Ver"
+    <div
+        v-if="enablePowerFullButton"
+        @click="fullPower()"
+        class="power-full-btn">
+      kalan güçleri dağıt
+    </div>
+    <standart-button class="post-answer-btn" text="Gönder"
                      @click="postAnswerVoteAction"/>
   </div>
 </template>
 
 <script>
 //TODO: max 100 puan olabilir !
+//TODO: gelen kişilerde kendisinin olmaması gerekiyor.kendisine oy veremez
 
 import StandartButton from '../../../../shared/elements/StandartButton';
+import InfoTooltip from '../../../../shared/InfoTooltip';
 
 export default {
   name: 'PowerTypeVote',
@@ -48,20 +68,49 @@ export default {
     };
   },
   components: {
-    StandartButton
+    StandartButton,
+    InfoTooltip
   },
   methods: {
     postAnswerVoteAction() {
       this.handle(async () => {
         await this.$emit('postAnswerVote', this.userPowers);
       });
+    },
+    fullPower() {
+      const eachUserAddPower = (this.remainingPower / this.userPowers.length).toFixed(2);
+      const test = this.remainingPower - (eachUserAddPower * this.userPowers.length).toFixed(2);
+
+      //string geliyor, o yüzden eklemiyor.
+      this.userPowers.map((user) => {
+        user['power'] = parseFloat(user['power']) + parseFloat(eachUserAddPower);
+      });
+
+      if (test) {
+        alert(test);
+        // this.userPowers[0].power = this.userPowers[0].power + test;
+      }
+      //console.log(this.userPowers);
+
+      //alert(this.userPowers.length);
+      //alert(this.remainingPower);
+    },
+    convertNumber(number) {
+      return number.toFixed(2);
     }
   },
   computed: {
     remainingPower() {
       const POWER_LIMIT = 1000;
       const totalPowerOfUsers = this.userPowers.reduce((a, b) => +a + +b.power, 0);
-      return POWER_LIMIT - totalPowerOfUsers;
+      return this.convertNumber(POWER_LIMIT - totalPowerOfUsers);
+    },
+    enablePowerFullButton() {
+      const POWER_LIMIT_FOR_ENABLE = 60;
+      return this.remainingPower < POWER_LIMIT_FOR_ENABLE;
+    },
+    checkTotalPower() {
+      return this.remainingPower === 0;
     }
   },
   created() {
@@ -119,7 +168,7 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 300px;
+      width: 500px;
 
       .power-percentage-info {
         input {
@@ -150,16 +199,42 @@ export default {
 .power-vote-bottom {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-top: 20px;
   border-top: 1px solid #c7d9ff;
   padding-top: 10px;
 
   .total-power-info {
+    display: flex;
+    align-items: center;
     padding: 5px 10px;
     background-color: $df-very-light-blue-color;
     color: $df-blue-color;
     border-radius: 5px;
+
+    &.power-warning {
+      color: $df-warning-yellow-color;
+      background-color: $df-warning-yellow-bg-color;
+    }
+
+    .tooltip-info {
+      margin-left: 12px;
+    }
+  }
+
+  .power-full-btn {
+    margin-left: 8px;
+    font-size: 12px;
+    color: $df-black-and-blue-color;
+    cursor: pointer;
+
+    &:hover {
+      color: #10253f;
+    }
+  }
+
+  .post-answer-btn {
+    margin-left: auto;
   }
 }
 </style>
