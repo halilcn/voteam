@@ -26,7 +26,7 @@ class VoteObserver
      */
     public function created(Vote $vote)
     {
-        VoteCreatedNotification::dispatch($vote->team);
+        VoteCreatedNotification::dispatch($vote->team, $vote->title);
         SendVoteCreatedEmail::dispatch($vote);
     }
 

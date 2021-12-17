@@ -17,7 +17,7 @@ class TeamUserObserver
      */
     public function created(TeamUser $teamUser)
     {
-        NewMemberNotification::dispatch(Team::find($teamUser->team_id));
+        NewMemberNotification::dispatch(Team::find($teamUser->team_id), $teamUser->user->name);
     }
 
     /**

@@ -20,7 +20,7 @@ class VoteCreatedNotification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(public Team $team)
+    public function __construct(public Team $team, public string $voteTitle)
     {
         //
     }
@@ -39,7 +39,8 @@ class VoteCreatedNotification implements ShouldQueue
                 [
                     'type' => 'VoteCreated',
                     'data' => [
-                        'message' => 'Oylama oluşturuldu !'
+                        'action' => 'test',
+                        'message' => $this->voteTitle.' isimli bir oylama başlatıldı !'
                     ]
                 ]
             );

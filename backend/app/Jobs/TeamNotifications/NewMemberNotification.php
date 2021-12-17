@@ -19,7 +19,7 @@ class NewMemberNotification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(public Team $team)
+    public function __construct(public Team $team, public string $userName)
     {
         //
     }
@@ -38,7 +38,8 @@ class NewMemberNotification implements ShouldQueue
                 [
                     'type' => 'NewMember',
                     'data' => [
-                        'message' => 'new member notificiaton '
+                        'action' => 'test',
+                        'message' => $this->userName.' adlı kullanıcı takıma katıldı !'
                     ]
                 ]
             );
