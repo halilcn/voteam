@@ -12,6 +12,10 @@
       :is-enable="isEnableUserVotePopup"
       :vote-id="voteIdForUserVote"
       v-model:should-get-votes="shouldGetVotes"/>
+  <finished-vote-popup
+      @handlePopup="toggleFinishedVotePopup"
+      :is-enable="isEnableFinishedVotePopup"/>
+
   <div class="home-content votes">
     <div class="title votes-title">
       <div class="txt">
@@ -26,6 +30,11 @@
              @click="toggleCreatePowerVotePopup"
              class="create-power-vote btn">
           Güç Oylaması
+        </div>
+        <div v-else
+             @click="toggleFinishedVotePopup"
+             class="finished-votes-btn btn">
+          Bitmiş Oylamalar
         </div>
         <div
             @click="toggleCreateVotePopup"
@@ -140,6 +149,7 @@ import LoadingAnimation from '../../../shared/LoadingAnimation';
 import UserVotePopup from './UserVote/UserVotePopup';
 import constants from '../../../../store/constants';
 import { mapActions, mapState } from 'vuex';
+import FinishedVotePopup from './FinishedVote/FinishedVotePopup';
 
 export default {
   name: 'VotesList',
@@ -148,6 +158,7 @@ export default {
       isEnableCreateVotePopup: false,
       isEnableCreatePowerVotePopup: false,
       isEnableUserVotePopup: false,
+      isEnableFinishedVotePopup: false,
       isLoading: {
         votes: true,
         votesActions: true
@@ -164,6 +175,7 @@ export default {
     }
   },
   components: {
+    FinishedVotePopup,
     CreateVotePopup,
     CreatePowerVote,
     InfoTooltip,
@@ -198,6 +210,9 @@ export default {
     },
     toggleUserVotePopup() {
       this.isEnableUserVotePopup = !this.isEnableUserVotePopup;
+    },
+    toggleFinishedVotePopup() {
+      this.isEnableFinishedVotePopup = !this.isEnableFinishedVotePopup;
     },
     showUserVotePopup(voteId) {
       this.voteIdForUserVote = voteId;
@@ -299,6 +314,15 @@ export default {
             border-radius: 20px;
             font-weight: 300;
             display: none;
+          }
+        }
+
+        &.finished-votes-btn {
+          color: $df-black-and-blue-color;
+          background-color: #e8ebef;
+
+          &:hover {
+            background-color: #edf0f3;
           }
         }
       }
