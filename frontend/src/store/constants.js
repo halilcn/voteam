@@ -25,6 +25,7 @@ export default {
     MAX_UTC: 14,
     MIN_UTC: -12
   },
-  MAX_WIDTH_PERMISSION: 950
+  MAX_WIDTH_PERMISSION: 950,
+  TOTAL_VOTE_USER_POWER: 10000
 };
 

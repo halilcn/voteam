@@ -1,39 +1,51 @@
 <template>
   <div class="user-list">
-    <div v-for="(user,index) in voteData "
+    <div v-for="(user,index) in voteData"
          :key="index"
          class="item">
       <div class="user-info">
-        <img class="image"
-             :src="user.image"
-             alt="user-image">
+        <img
+            :src="user.image"
+            class="image"
+            alt="user-image">
         <div title="Halil" class="name">
-          {{ user.name }} {{ user.team_user_id }}
+          {{ user.name }}
         </div>
       </div>
       <div class="power-percentage">
         <div class="power-percentage-info">
-          <input v-model.number="userPowers.find(item=>item.team_user_id === user.team_user_id).power" type="number">
+          <input
+              v-model.number="userPowers.find(({team_user_id})=>team_user_id === user.team_user_id).power"
+              type="number"
+              min="0"
+              :max="TOTAL_VOTE_USER_POWER">
           birim güç
         </div>
         <div class="power-range">
-          <input v-model.number="userPowers.find(item=>item.team_user_id === user.team_user_id).power"
-                 type="range"
-                 min="0"
-                 max="1000"
-                 step="1">
+          <input
+              v-model.number="userPowers.find(({team_user_id})=>team_user_id === user.team_user_id).power"
+              type="range"
+              min="0"
+              :max="TOTAL_VOTE_USER_POWER"
+              step="1">
         </div>
       </div>
     </div>
   </div>
   <div class="power-vote-bottom">
     <div class="total-power-info"
-         :class="{'power-warning':remainingPower < 0}">
-      <template v-if="remainingPower < 0">
-        {{ -remainingPower }} güç fazla
+         :class="{'power-warning':hasTooMuchPower,'power-over':isPowerOver}">
+      <template v-if="!isPowerOver">
+        <span v-if="hasTooMuchPower">
+          {{ -remainingPower }} Birim Güç Fazla
+        </span>
+        <span v-else>
+          {{ remainingPower }} Birim Güç Kaldı
+        </span>
       </template>
       <template v-else>
-        Toplam Kalan {{ remainingPower }} Güç
+        <i class="bi bi-check"></i>
+        Tüm Birim Güçler Dağıtıldı
       </template>
       <info-tooltip
           class="tooltip-info"
@@ -41,21 +53,25 @@
     </div>
     <div
         v-if="enablePowerFullButton"
-        @click="fullPower()"
+        @click="fullPower"
         class="power-full-btn">
-      kalan güçleri dağıt
+      kalan birim güçleri dağıt
     </div>
-    <standart-button class="post-answer-btn" text="Gönder"
-                     @click="postAnswerVoteAction"/>
+    <standart-button
+        text="Gönder"
+        :is-disable="isDisablePostVoteButton"
+        @click="sendAnswerVote"
+        class="post-answer-btn"/>
   </div>
 </template>
 
 <script>
-//TODO: max 100 puan olabilir !
+//TODO: max 10.000 puan olabilir !
 //TODO: gelen kişilerde kendisinin olmaması gerekiyor.kendisine oy veremez
 
 import StandartButton from '../../../../shared/elements/StandartButton';
 import InfoTooltip from '../../../../shared/InfoTooltip';
+import constants from '../../../../../store/constants';
 
 export default {
   name: 'PowerTypeVote',
@@ -64,7 +80,8 @@ export default {
   data() {
     return {
       test: 0,
-      userPowers: []
+      userPowers: [],
+      TOTAL_VOTE_USER_POWER: constants.TOTAL_VOTE_USER_POWER
     };
   },
   components: {
@@ -72,25 +89,16 @@ export default {
     InfoTooltip
   },
   methods: {
-    postAnswerVoteAction() {
-      this.handle(async () => {
-        await this.$emit('postAnswerVote', this.userPowers);
-      });
+    sendAnswerVote() {
+      this.$emit('postAnswerVote', this.userPowers);
     },
     fullPower() {
       const eachUserAddPower = (this.remainingPower / this.userPowers.length).toFixed(2);
-      const test = this.remainingPower - (eachUserAddPower * this.userPowers.length).toFixed(2);
 
       //string geliyor, o yüzden eklemiyor.
       this.userPowers.map((user) => {
         user['power'] = parseFloat(user['power']) + parseFloat(eachUserAddPower);
       });
-
-      if (test) {
-        alert(test);
-        // this.userPowers[0].power = this.userPowers[0].power + test;
-      }
-      //console.log(this.userPowers);
 
       //alert(this.userPowers.length);
       //alert(this.remainingPower);
@@ -101,16 +109,26 @@ export default {
   },
   computed: {
     remainingPower() {
-      const POWER_LIMIT = 1000;
       const totalPowerOfUsers = this.userPowers.reduce((a, b) => +a + +b.power, 0);
-      return this.convertNumber(POWER_LIMIT - totalPowerOfUsers);
+      const test = constants.TOTAL_VOTE_USER_POWER - totalPowerOfUsers;
+
+      if (totalPowerOfUsers % 1 === 0) return test;
+      return this.convertNumber(test);
     },
     enablePowerFullButton() {
-      const POWER_LIMIT_FOR_ENABLE = 60;
-      return this.remainingPower < POWER_LIMIT_FOR_ENABLE;
+      const POWER_LIMIT_FOR_ENABLE = 500;
+      return this.remainingPower < POWER_LIMIT_FOR_ENABLE
+          && !this.hasTooMuchPower
+          && !this.isPowerOver;
     },
-    checkTotalPower() {
-      return this.remainingPower === 0;
+    hasTooMuchPower() {
+      return this.remainingPower < 0;
+    },
+    isPowerOver() {
+      return this.remainingPower < 1 && this.remainingPower > -1;
+    },
+    isDisablePostVoteButton() {
+      return !this.isPowerOver || this.isLoading;
     }
   },
   created() {
@@ -127,7 +145,7 @@ export default {
 //TODO: User name width kısıtlama. Üstüne gelince full isim gözükmesi
 
 .user-list {
-  height: 180px; // !
+  height: 225px; // !
   overflow-y: auto;
   padding: 0 8px;
 
@@ -176,10 +194,9 @@ export default {
           padding: 3px !important;
           border-width: 0px;
           text-align: center;
-          width: 40px; // ?
+          width: 55px; // ?
           background-color: #f6f6f6;
         }
-
       }
 
       .power-range {
@@ -215,6 +232,11 @@ export default {
     &.power-warning {
       color: $df-warning-yellow-color;
       background-color: $df-warning-yellow-bg-color;
+    }
+
+    &.power-over {
+      color: $df-green-color;
+      background-color: $df-very-light-green-color;
     }
 
     .tooltip-info {
