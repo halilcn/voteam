@@ -45,16 +45,17 @@ class TeamUserInvitationNotification extends Notification
             'action' => User::$NOTIFICATION_ACTIONS['Invitation']
         ];
 
-        if ($notifiable->language === User::$LANGUAGES['TR']) {
-            return array_merge([
-                                   'message' => $this->teamName.' takımından sana davetiye gönderildi! E-mail hesabını kontrol et',
-                               ], $default);
-        }
-
-        if ($notifiable->language === User::$LANGUAGES['EN']) {
-            return array_merge([
-                                   'message' => $this->teamName.' an invitation has been sent to you! Check your e-mail account',
-                               ], $default);
-        }
+        return [
+            'tr' => [
+                array_merge([
+                                'message' => $this->teamName.' takımından sana davetiye gönderildi ! E-mail hesabını kontrol et',
+                            ], $default)
+            ],
+            'en' => [
+                array_merge([
+                                'message' => $this->teamName.' an invitation has been sent to you ! Check your e-mail account',
+                            ], $default)
+            ]
+        ];
     }
 }

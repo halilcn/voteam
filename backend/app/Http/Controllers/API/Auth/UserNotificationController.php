@@ -13,7 +13,7 @@ class UserNotificationController extends Controller
      * @param  Request  $request
      * @return object
      */
-    public function index(Request $request): object
+    public function index(Request $request)
     {
         $NOTIFICATION_LIMIT = 7;
         $createdAtOfLastNotification = $request->input('createdAtOfLastNotification');
@@ -25,7 +25,13 @@ class UserNotificationController extends Controller
                 return $query->where('created_at', '<', $createdAtOfLastNotification);
             });
 
-        $userNotifications = $userNotificationsQuery->limit($NOTIFICATION_LIMIT)->get();
+        $userNotifications = $userNotificationsQuery
+            ->limit($NOTIFICATION_LIMIT)
+            ->get()
+            ->map(function ($notification) use ($request) {
+                $notification->data = $notification->data[$request->user()->language][0];
+                return $notification;
+            });
 
         $userNotificationsQuery->update(['read_at' => Carbon::now()]);
 

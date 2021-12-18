@@ -24,7 +24,7 @@ export default {
     },
     setHasMoreNotifications(state, payload) {
       const NOTIFICATION_LIMIT = 7;
-      state.hasMoreNotifications = NOTIFICATION_LIMIT % payload === 0;
+      state.hasMoreNotifications = NOTIFICATION_LIMIT % payload === 0 && payload === 7;
     }
   },
   actions: {

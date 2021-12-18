@@ -37,7 +37,7 @@
             daha fazla yükle
           </div>
         </div>
-        <div class="no-notifications">
+        <div v-if="notifications.length === 0" class="no-notifications">
           <i class="bi bi-emoji-frown"></i>
           Hiç bildirim yok
         </div>
