@@ -8,7 +8,7 @@
             :src="user.image"
             class="image"
             alt="user-image">
-        <div title="Halil" class="name">
+        <div :title="user.name" class="name">
           {{ user.name }}
         </div>
       </div>
@@ -49,7 +49,7 @@
       </template>
       <info-tooltip
           class="tooltip-info"
-          text="Toplamda 10 kullanıcı var. Her kullanıcıya 100 güç birimi verilebilir."/>
+          :text="powerVoteInfoText"/>
     </div>
     <div
         v-if="enablePowerFullButton"
@@ -66,9 +66,6 @@
 </template>
 
 <script>
-//TODO: max 10.000 puan olabilir !
-//TODO: gelen kişilerde kendisinin olmaması gerekiyor.kendisine oy veremez
-
 import StandartButton from '../../../../shared/elements/StandartButton';
 import InfoTooltip from '../../../../shared/InfoTooltip';
 import constants from '../../../../../store/constants';
@@ -79,7 +76,6 @@ export default {
   props: ['voteData', 'isLoading'],
   data() {
     return {
-      test: 0,
       userPowers: [],
       TOTAL_VOTE_USER_POWER: constants.TOTAL_VOTE_USER_POWER
     };
@@ -93,33 +89,23 @@ export default {
       this.$emit('postAnswerVote', this.userPowers);
     },
     fullPower() {
-      const eachUserAddPower = (this.remainingPower / this.userPowers.length).toFixed(2);
-
-      //string geliyor, o yüzden eklemiyor.
+      const eachUserAddPower = this.convertToDecimal(this.remainingPower / this.userPowers.length);
       this.userPowers.map((user) => {
         user['power'] = parseFloat(user['power']) + parseFloat(eachUserAddPower);
       });
-
-      //alert(this.userPowers.length);
-      //alert(this.remainingPower);
     },
-    convertNumber(number) {
+    convertToDecimal(number) {
       return number.toFixed(2);
     }
   },
   computed: {
     remainingPower() {
-      const totalPowerOfUsers = this.userPowers.reduce((a, b) => +a + +b.power, 0);
-      const test = constants.TOTAL_VOTE_USER_POWER - totalPowerOfUsers;
+      const totalPowerOfUsers = this.userPowers.reduce((a, b) => a + b.power, 0);
+      const remainingPower = constants.TOTAL_VOTE_USER_POWER - totalPowerOfUsers;
 
-      if (totalPowerOfUsers % 1 === 0) return test;
-      return this.convertNumber(test);
-    },
-    enablePowerFullButton() {
-      const POWER_LIMIT_FOR_ENABLE = 500;
-      return this.remainingPower < POWER_LIMIT_FOR_ENABLE
-          && !this.hasTooMuchPower
-          && !this.isPowerOver;
+      return totalPowerOfUsers % 1 === 0
+          ? remainingPower
+          : this.convertToDecimal(remainingPower);
     },
     hasTooMuchPower() {
       return this.remainingPower < 0;
@@ -127,8 +113,19 @@ export default {
     isPowerOver() {
       return this.remainingPower < 1 && this.remainingPower > -1;
     },
+    enablePowerFullButton() {
+      const POWER_LIMIT_FOR_ENABLE = 500;
+      return this.remainingPower < POWER_LIMIT_FOR_ENABLE
+          && !this.hasTooMuchPower
+          && !this.isPowerOver;
+    },
     isDisablePostVoteButton() {
       return !this.isPowerOver || this.isLoading;
+    },
+    powerVoteInfoText() {
+      return `Toplamda ${this.userPowers.length} üye var.
+      Güçler eşit dağıtılmak istenirse her üyeye
+      ${(this.TOTAL_VOTE_USER_POWER / this.userPowers.length).toFixed(0)} birim güç verilebilir.`; //TODO: multiple language
     }
   },
   created() {
@@ -140,12 +137,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-//TODO: User list scroll !
-//TODO: User name width kısıtlama. Üstüne gelince full isim gözükmesi
-
 .user-list {
-  height: 225px; // !
+  height: 225px;
   overflow-y: auto;
   padding: 0 8px;
 
@@ -156,6 +149,7 @@ export default {
   .item {
     @include center-lg-box-shadow;
     display: flex;
+    align-items: center;
     margin: 10px 0;
     border-radius: 5px;
     padding: 5px;
@@ -178,7 +172,7 @@ export default {
         font-size: 16px;
         font-weight: 400;
         color: $df-dark-blue-color;
-        width: 140px; // bul olmamalı ? width 100% ?
+        width: 130px;
       }
     }
 
@@ -186,17 +180,15 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 500px;
+      width: 100%;
 
-      .power-percentage-info {
-        input {
-          @include std-input;
-          padding: 3px !important;
-          border-width: 0px;
-          text-align: center;
-          width: 55px; // ?
-          background-color: #f6f6f6;
-        }
+      .power-percentage-info input {
+        @include std-input;
+        padding: 3px !important;
+        border-width: 0;
+        text-align: center;
+        width: 55px;
+        background-color: #f6f6f6;
       }
 
       .power-range {
@@ -205,9 +197,7 @@ export default {
 
         input {
           width: 100%;
-          background-color: red;
         }
-
       }
     }
   }
@@ -218,16 +208,16 @@ export default {
   align-items: center;
   justify-content: flex-start;
   margin-top: 20px;
-  border-top: 1px solid #c7d9ff;
+  border-top: 1px solid #dce5ff;
   padding-top: 10px;
 
   .total-power-info {
     display: flex;
     align-items: center;
     padding: 5px 10px;
+    border-radius: 5px;
     background-color: $df-very-light-blue-color;
     color: $df-blue-color;
-    border-radius: 5px;
 
     &.power-warning {
       color: $df-warning-yellow-color;
@@ -251,7 +241,8 @@ export default {
     cursor: pointer;
 
     &:hover {
-      color: #10253f;
+      color: #031328;
+      text-decoration: underline;
     }
   }
 
