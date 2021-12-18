@@ -19,6 +19,8 @@ class VotedUserObserver
         $countVotedUsers = VotedUser::where('vote_id', $votedUser->vote_id)->count();
 
         if ($countUsersOfTeam == $countVotedUsers) {
+            //TODO: power type vote olduğunda hesaplamalar nasıl olacak ? Bir job ?
+            //TODO: Buraya notification eklemek gerekli mi ? Vote sonuçlandı diye
             $votedUser->vote()->update(['all_users_voted' => true]);
         }
     }

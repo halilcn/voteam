@@ -9,6 +9,7 @@ use App\Http\Resources\Vote\VoteResource;
 use App\Http\Resources\Vote\VotesResource;
 use App\Models\Team;
 use App\Models\Vote;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
 class VoteController extends Controller
@@ -87,15 +88,14 @@ class VoteController extends Controller
      * @return VoteResource
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function show(Team $team, Vote $vote): VoteResource
+    public function show(Team $team, Vote $vote, Request $request): VoteResource
     {
-        //TODO:review
-
         $this->authorize('view', [Vote::class, $team]);
 
         if ($vote->type === Vote::$TYPES['POWER']) {
             $vote->options = $team
                 ->users()
+                ->where('user_id', '!=', $request->user()->id)
                 ->select('name', 'image')
                 ->get()
                 ->transform(function ($user) {

@@ -23,6 +23,10 @@ class Vote extends Model
         'IMAGE' => 'image'
     ];
 
+    public static array $TYPES_CONST = [
+        "TOTAL_VOTE_USER_POWER" => 10000
+    ];
+
     protected $table = 'votes';
     protected $fillable = [
         'team_id',

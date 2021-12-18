@@ -15,6 +15,8 @@ namespace App\Exceptions;
  * @method static userPowerException($message = '')
  * @method static teamUserInvitationException($message = '')
  * @method static teamUserException($message = '')
+ * @method static powerVoteTotalUserPowerException($message = '')
+ * @method static powerVoteUserException($message = '')
  */
 class Exception
 {

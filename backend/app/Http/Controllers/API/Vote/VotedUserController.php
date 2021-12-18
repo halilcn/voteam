@@ -18,9 +18,7 @@ class VotedUserController extends Controller
      */
     public function store(Vote $vote, VotedUserRequest $request): object
     {
-        //TODO: power vote için özel durumlar ?
-        //TODO: power vote tamamlandığında, nasıl bir kurgu kurulmalı ?
-        //TODO: Toplam 1000 puan power birimi kullanılmalıdır.
+        //TODO: Bad Code
 
         $this->authorize('create', [VotedUser::class, $vote]);
 
@@ -32,6 +30,30 @@ class VotedUserController extends Controller
 
         if ($vote->type != Vote::$TYPES["POWER"] && !$vote->team()->hasUserPower($userId)) {
             return Exception::userPowerException();
+        }
+
+        // If vote type is power
+        if ($vote->type == Vote::$TYPES["POWER"]) {
+            $answers = collect($request->input('answer'));
+            $userTeamId = $vote
+                ->team
+                ->users()
+                ->where('user_id', $userId)
+                ->first()
+                ->member
+                ->id;
+
+            if ($answers->contains('power', $userTeamId)) {
+                return Exception::powerVoteUserException();
+            }
+
+            $totalVoteUserPower = 0;
+            foreach ($answers->pluck('power') as $item) {
+                $totalVoteUserPower += $item;
+            }
+            if ((int)$totalVoteUserPower != Vote::$TYPES_CONST["TOTAL_VOTE_USER_POWER"]) {
+                return Exception::powerVoteTotalUserPowerException();
+            }
         }
 
         $vote->votedUsers()->create([
