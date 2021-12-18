@@ -29,7 +29,7 @@ class UserNotificationController extends Controller
             ->limit($NOTIFICATION_LIMIT)
             ->get()
             ->map(function ($notification) use ($request) {
-                $notification->data = $notification->data[$request->user()->language][0];
+                $notification->data = $notification->data[$request->user()->language];
                 return $notification;
             });
 

@@ -32,16 +32,46 @@ class VoteCreatedNotification implements ShouldQueue
      */
     public function handle()
     {
+        /*  $default = [
+              'action' => 'test'
+          ];
+
+          $data = [
+              'tr' => [
+                  array_merge([
+                                  'message' => $this->voteTitle.' isimli bir oylama başlatıldı !',
+                              ], $default)
+              ],
+              'en' => [
+                  array_merge([
+                                  'message' => 'en test',
+                              ], $default)
+              ]
+          ];
+  */
+        $data = collect([
+                            'tr' => [
+                                'message' => $this->voteTitle.' isimli bir oylama başlatıldı !',
+                            ],
+                            'en' => [
+                                'message' => 'en test',
+                            ]
+                        ]);
+
+
+        $data->map(function ($t) {
+            $t->action = 'test';
+            return $t;
+        });
+
+
         $this
             ->team
             ->notifications()
             ->create(
                 [
                     'type' => 'VoteCreated',
-                    'data' => [
-                        'action' => 'test',
-                        'message' => $this->voteTitle.' isimli bir oylama başlatıldı !'
-                    ]
+                    'data' => $data
                 ]
             );
     }
