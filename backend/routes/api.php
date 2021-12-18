@@ -10,6 +10,7 @@ use App\Http\Controllers\API\Other\FileController;
 use App\Http\Controllers\API\Team\TeamController;
 use App\Http\Controllers\API\Team\TeamInfoController;
 use App\Http\Controllers\API\Team\TeamJoinWithCodeController;
+use App\Http\Controllers\API\Team\TeamNotificationController;
 use App\Http\Controllers\API\Team\TeamSettingsController;
 use App\Http\Controllers\API\Team\TeamCheckUserController;
 use App\Http\Controllers\API\TeamUser\TeamJoinWithInvitationController;
@@ -61,6 +62,8 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('check-store', [VotePowerTypeActionsController::class, 'checkStore']);
             Route::get('check-time', [VotePowerTypeActionsController::class, 'checkTime']);
         });
+
+        Route::get('teams/{team:key}/notifications', TeamNotificationController::class);
 
         //TODO:bunu düzelt! Resource contoller controller içine alınacak !
         Route::delete('teams/{team:key}/users/{team_user}', [TeamUserController::class, 'destroy']);

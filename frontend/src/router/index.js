@@ -105,7 +105,7 @@ const routes = [
       {
         path: 'notifications',
         name: 'TeamDashboardNotifications',
-        component: () => import('../components/dashboard/team/members/Notifications')
+        component: () => import('../components/dashboard/team/notifications/Notifications')
       }
     ]
   },

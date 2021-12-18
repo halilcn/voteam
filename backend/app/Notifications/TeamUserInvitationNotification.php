@@ -41,21 +41,18 @@ class TeamUserInvitationNotification extends Notification
      */
     public function toArray($notifiable)
     {
-        $default = [
-            'action' => User::$NOTIFICATION_ACTIONS['Invitation']
-        ];
+        $notification = collect([
+                                    User::$LANGUAGES['TR'] => [
+                                        'message' => $this->teamName.' takımından sana davetiye gönderildi ! E-mail hesabını kontrol et',
+                                    ],
+                                    User::$LANGUAGES['EN'] => [
+                                        'message' => $this->teamName.' an invitation has been sent to you ! Check your e-mail account',
+                                    ]
+                                ]);
 
-        return [
-            'tr' => [
-                array_merge([
-                                'message' => $this->teamName.' takımından sana davetiye gönderildi ! E-mail hesabını kontrol et',
-                            ], $default)
-            ],
-            'en' => [
-                array_merge([
-                                'message' => $this->teamName.' an invitation has been sent to you ! Check your e-mail account',
-                            ], $default)
-            ]
-        ];
+        return $notification->map(function ($item) {
+            $item['action'] = User::$NOTIFICATION_ACTIONS['INVITATION'];
+            return $item;
+        })->toArray();
     }
 }

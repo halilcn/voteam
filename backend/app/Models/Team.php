@@ -12,12 +12,19 @@ use AjCastro\EagerLoadPivotRelations\EagerLoadPivotTrait;
 
 class Team extends Model
 {
-    use HasFactory,EagerLoadPivotTrait;
+    use HasFactory, EagerLoadPivotTrait;
 
     protected $table = 'teams';
     protected $fillable = ['key', 'join_code', 'name', 'image'];
 
     public static int $USER_LOWER_LIMIT = 3;
+
+    public static array $NOTIFICATION_ACTIONS = [
+        'CELEBRATION' => 'celebration',
+        'INFORMATION' => 'information',
+        'INVITATION' => 'invitation',
+        'SUCCESS' => 'success'
+    ];
 
     /**
      * @param  string  $value

@@ -3,6 +3,7 @@
 namespace App\Jobs\TeamNotifications;
 
 use App\Models\Team;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -31,16 +32,25 @@ class NewMemberNotification implements ShouldQueue
      */
     public function handle()
     {
+        $data = collect([
+                            User::$LANGUAGES['TR'] => [
+                                'message' => $this->userName.' adlı kullanıcı takıma katıldı !',
+                            ],
+                            User::$LANGUAGES['EN'] => [
+                                'message' => $this->userName.' has joined the team !',
+                            ]
+                        ]);
+
         $this
             ->team
             ->notifications()
             ->create(
                 [
                     'type' => 'NewMember',
-                    'data' => [
-                        'action' => 'test',
-                        'message' => $this->userName.' adlı kullanıcı takıma katıldı !'
-                    ]
+                    'data' => $data->map(function ($item) {
+                        $item['action'] = Team::$NOTIFICATION_ACTIONS['CELEBRATION'];
+                        return $item;
+                    })
                 ]
             );
     }

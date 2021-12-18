@@ -121,11 +121,21 @@
 
 <script>
 import PageTitle from '../shared/PageTitle';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'Notifications',
   components: {
     PageTitle
+  },
+  methods: {
+    ...mapActions('teamNotification', ['getNotificationsOfTeam']),
+    getNotificationsOfTeamAction() {
+      this.getNotificationsOfTeam();
+    }
+  },
+  created() {
+    this.getNotificationsOfTeamAction();
   }
 };
 </script>

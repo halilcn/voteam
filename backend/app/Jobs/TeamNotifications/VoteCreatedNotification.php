@@ -4,6 +4,7 @@ namespace App\Jobs\TeamNotifications;
 
 use App\Models\Team;
 use App\Models\TeamNotification;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -32,38 +33,14 @@ class VoteCreatedNotification implements ShouldQueue
      */
     public function handle()
     {
-        /*  $default = [
-              'action' => 'test'
-          ];
-
-          $data = [
-              'tr' => [
-                  array_merge([
-                                  'message' => $this->voteTitle.' isimli bir oylama başlatıldı !',
-                              ], $default)
-              ],
-              'en' => [
-                  array_merge([
-                                  'message' => 'en test',
-                              ], $default)
-              ]
-          ];
-  */
         $data = collect([
-                            'tr' => [
+                            User::$LANGUAGES['TR'] => [
                                 'message' => $this->voteTitle.' isimli bir oylama başlatıldı !',
                             ],
-                            'en' => [
-                                'message' => 'en test',
+                            User::$LANGUAGES['EN'] => [
+                                'message' => $this->voteTitle.' voting started !',
                             ]
                         ]);
-
-
-        $data->map(function ($t) {
-            $t->action = 'test';
-            return $t;
-        });
-
 
         $this
             ->team
@@ -71,7 +48,10 @@ class VoteCreatedNotification implements ShouldQueue
             ->create(
                 [
                     'type' => 'VoteCreated',
-                    'data' => $data
+                    'data' => $data->map(function ($item) {
+                        $item['action'] = Team::$NOTIFICATION_ACTIONS['INFORMATION'];
+                        return $item;
+                    })
                 ]
             );
     }
