@@ -19,15 +19,15 @@ class TeamNotificationController extends Controller
     {
         $this->authorize('view', $team);
 
-        $NOTIFICATION_LIMIT = 2;
+        $NOTIFICATION_LIMIT = 7;
         $idOfLastNotification = $request->input('idOfLastNotification');
 
         $teamNotifications = $team
             ->notifications()
             ->when($idOfLastNotification, function ($query) use ($idOfLastNotification) {
-                return $query->where('id', '>', $idOfLastNotification);
+                return $query->where('id', '<', $idOfLastNotification);
             })
-            ->orderBy('id')
+            ->orderByDesc('id')
             ->limit($NOTIFICATION_LIMIT)
             ->get()
             ->map(function ($notification) use ($request) {

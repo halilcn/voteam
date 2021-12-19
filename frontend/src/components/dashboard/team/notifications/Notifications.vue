@@ -5,115 +5,29 @@
       Bildirimler
     </page-title>
     <div class="list">
-      <div class="item positive">
+      <loading-animation
+          v-if="isLoading"
+          :text-line-count="3"
+          :text-count="3"/>
+      <div v-for="(notification,index) in notifications"
+           :key="index"
+           class="item"
+           :class="actionColorOfNotification(notification.data.action)">
         <div class="time">
-          20 saat önce
+          {{ $dayjs(notification.created_at).fromNow() }}
         </div>
-        <img class="action-type-icon" src="../../../../assets/icons/notifications/celebration.png"/>
+        <img :src="actionIconOfNotification(notification.data.action)"
+             alt="notification-icon"
+             class="action-type-icon"/>
         <div class="content">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-          standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
-          make a type specimen book
+          {{ notification.data.message }}
         </div>
       </div>
-      <div class="item neutral">
-        <div class="time">
-          20 saat önce
-        </div>
-        <img class="action-type-icon" src="../../../../assets/icons/notifications/invitation.png"/>
-        <div class="content">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-          standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
-          make a type specimen book
-        </div>
-      </div>
-      <div class="item warning">
-        <div class="time">
-          20 saat önce
-        </div>
-        <img class="action-type-icon" src="../../../../assets/icons/notifications/information.png"/>
-        <div class="content">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-          standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
-          make a type specimen book
-        </div>
-      </div>
-      <div class="item positive">
-        <div class="time">
-          20 saat önce
-        </div>
-        <img class="action-type-icon" src="../../../../assets/icons/notifications/success.png"/>
-        <div class="content">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-          standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
-          make a type specimen book
-        </div>
-      </div>
-      <div class="item neutral">
-        <div class="time">
-          20 saat önce
-        </div>
-        <img class="action-type-icon" src="../../../../assets/icons/notifications/invitation.png"/>
-        <div class="content">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-          standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
-          make a type specimen book
-        </div>
-      </div>
-      <div class="item warning">
-        <div class="time">
-          20 saat önce
-        </div>
-        <img class="action-type-icon" src="../../../../assets/icons/notifications/information.png"/>
-        <div class="content">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-          standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
-          make a type specimen book
-        </div>
-      </div>
-      <div class="item positive">
-        <div class="time">
-          20 saat önce
-        </div>
-        <img class="action-type-icon" src="../../../../assets/icons/notifications/success.png"/>
-        <div class="content">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-          standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
-          make a type specimen book
-        </div>
-      </div>
-      <div class="item neutral">
-        <div class="time">
-          20 saat önce
-        </div>
-        <img class="action-type-icon" src="../../../../assets/icons/notifications/invitation.png"/>
-        <div class="content">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-          standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
-          make a type specimen book
-        </div>
-      </div>
-      <div class="item warning">
-        <div class="time">
-          20 saat önce
-        </div>
-        <img class="action-type-icon" src="../../../../assets/icons/notifications/information.png"/>
-        <div class="content">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-          standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
-          make a type specimen book
-        </div>
-      </div>
-      <div class="item positive">
-        <div class="time">
-          20 saat önce
-        </div>
-        <img class="action-type-icon" src="../../../../assets/icons/notifications/success.png"/>
-        <div class="content">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-          standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
-          make a type specimen book
-        </div>
+      <div
+          v-if="hasMoreNotifications"
+          @click="getMoreNotificationsOfTeamAction"
+          class="more-notifications-get-btn">
+        daha fazla göster
       </div>
     </div>
   </div>
@@ -121,18 +35,55 @@
 
 <script>
 import PageTitle from '../shared/PageTitle';
-import { mapActions } from 'vuex';
+import LoadingAnimation from '../../../shared/LoadingAnimation';
+import { mapActions, mapState } from 'vuex';
 
 export default {
   name: 'Notifications',
+  data() {
+    return {
+      isLoading: true,
+      NOTIFICATIONS_ACTION_COLORS: {
+        celebration: 'positive',
+        information: 'warning',
+        invitation: 'neutral',
+        success: 'positive'
+      }
+    };
+  },
   components: {
-    PageTitle
+    PageTitle,
+    LoadingAnimation
   },
   methods: {
     ...mapActions('teamNotification', ['getNotificationsOfTeam']),
     getNotificationsOfTeamAction() {
-      this.getNotificationsOfTeam();
+      this.handle(async () => {
+        this.isLoading = true;
+        await this.getNotificationsOfTeam();
+      })
+          .finally(() => {
+            this.isLoading = false;
+          });
+    },
+    getMoreNotificationsOfTeamAction() {
+      this.handle(async () => {
+        await this.getNotificationsOfTeam(this.notifications[this.notifications.length - 1].id);
+      });
+    },
+    actionIconOfNotification(action) {
+      return this.$helpers.getNotificationIcon(action);
+    },
+    actionColorOfNotification(action) {
+      const DEFAULT_COLOR = 'neutral';
+
+      return typeof this.NOTIFICATIONS_ACTION_COLORS[action] != 'undefined'
+          ? this.NOTIFICATIONS_ACTION_COLORS[action]
+          : DEFAULT_COLOR;
     }
+  },
+  computed: {
+    ...mapState('teamNotification', ['notifications', 'hasMoreNotifications'])
   },
   created() {
     this.getNotificationsOfTeamAction();
@@ -141,15 +92,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .team-notifications {
   height: 100%;
 
   .list {
-    margin-top: 15px;
-    padding: 0 20px 50px 0;
     display: flex;
     flex-direction: column;
+    margin-top: 15px;
+    padding: 0 20px 50px 0;
     height: 100%;
     overflow-y: auto;
 
@@ -192,9 +142,26 @@ export default {
       }
 
       .content {
+        @include text-length-limit;
         margin-left: 25px;
         font-size: 13px;
         color: $df-dark-blue-color;
+      }
+    }
+
+    .more-notifications-get-btn {
+      margin-top: 10px;
+      align-self: center;
+      font-weight: 300;
+      font-size: 14px;
+      cursor: pointer;
+      color: $df-black-and-blue-color;
+      padding: 8px 20px;
+      border-radius: 5px;
+      transition: .2s;
+
+      &:hover {
+        background-color: #f1f1f1;
       }
     }
   }
