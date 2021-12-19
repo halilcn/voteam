@@ -18,6 +18,7 @@ export default {
     setUserSettings(state, payload) {
       state.user.name = payload.name;
       state.user.image = payload.image;
+      state.user.utc = payload.utc;
       localStorage.setItem(LOCAL_STORAGE_USER, JSON.stringify(state.user));
     },
     removeUser(state) {
