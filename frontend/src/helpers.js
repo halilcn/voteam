@@ -1,6 +1,7 @@
 import notify from './others/notify';
 import store from '../src/store';
 import dayjs from 'dayjs';
+import { default as storeConstants } from './store/constants';
 
 const helpers = {};
 
@@ -119,6 +120,16 @@ helpers.convertTimeToUtc = (time) => {
  */
 helpers.convertTimeToLocalTime = (time) => {
   return dayjs(time).add(store.state.auth.user.utc, 'hours');
+};
+
+helpers.getNotificationIcon = (action) => {
+  const DEFAULT_ICON = 'information.png';
+
+  try {
+    return require('/src/assets/icons/notifications/' + storeConstants.NOTIFICATIONS_ACTION_ICONS[action]);
+  } catch (e) {
+    return require('/src/assets/icons/notifications/' + DEFAULT_ICON);
+  }
 };
 
 export default helpers;

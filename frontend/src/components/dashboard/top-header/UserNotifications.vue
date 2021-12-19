@@ -55,11 +55,7 @@ export default {
   data() {
     return {
       isShowNotificationListDropdown: false,
-      isLoadingNotifications: true,
-      USER_NOTIFICATIONS_ACTION_ICONS: {
-        'celebration': 'celebration.png',
-        'information': 'information.png'
-      }
+      isLoadingNotifications: true
     };
   },
   watch: {
@@ -85,13 +81,7 @@ export default {
           });
     },
     actionIconOfNotification(action) {
-      const DEFAULT_ICON = 'information.png';
-
-      try {
-        return require('../../../assets/icons/notifications/' + this.USER_NOTIFICATIONS_ACTION_ICONS[action]);
-      } catch (e) {
-        return require('../../../assets/icons/notifications/' + DEFAULT_ICON);
-      }
+      return this.$helpers.getNotificationIcon(action);
     },
     moreGetNotifications() {
       this.handle(async () => {

@@ -25,6 +25,12 @@ export default {
     MAX_UTC: 14,
     MIN_UTC: -12
   },
+  NOTIFICATIONS_ACTION_ICONS: {
+    celebration: 'celebration.png',
+    information: 'information.png',
+    invitation: 'invitation.png',
+    success: 'success.png'
+  },
   MAX_WIDTH_PERMISSION: 950,
   TOTAL_VOTE_USER_POWER: 10000
 };
