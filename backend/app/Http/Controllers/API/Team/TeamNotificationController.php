@@ -3,14 +3,21 @@
 namespace App\Http\Controllers\API\Team;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Team\TeamNotificationResource;
 use App\Models\Team;
 use Illuminate\Http\Request;
 
 class TeamNotificationController extends Controller
 {
-    public function __invoke(Team $team, Request $request)
+    /**
+     * @param  Team  $team
+     * @param  Request  $request
+     * @return object
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function __invoke(Team $team, Request $request): object
     {
-        //TODO: permissions, belli sayıda çekme
+        $this->authorize('view', $team);
 
         $NOTIFICATION_LIMIT = 2;
         $idOfLastNotification = $request->input('idOfLastNotification');
@@ -28,6 +35,6 @@ class TeamNotificationController extends Controller
                 return $notification;
             });
 
-        return $teamNotifications;
+        return TeamNotificationResource::collection($teamNotifications);
     }
 }
