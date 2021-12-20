@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\ForgotPassword;
 use App\Models\Team;
 use App\Models\TeamUser;
 use App\Models\TeamUserInvitation;
@@ -9,6 +10,7 @@ use App\Models\User;
 use App\Models\UserRegisterCode;
 use App\Models\Vote;
 use App\Models\VotedUser;
+use App\Observers\ForgotPasswordObserver;
 use App\Observers\TeamObserver;
 use App\Observers\TeamUserInvitationObserver;
 use App\Observers\TeamUserObserver;
@@ -48,5 +50,6 @@ class EventServiceProvider extends ServiceProvider
         VotedUser::observe(VotedUserObserver::class);
         TeamUserInvitation::observe(TeamUserInvitationObserver::class);
         TeamUser::observe(TeamUserObserver::class);
+        ForgotPassword::observe(ForgotPasswordObserver::class);
     }
 }

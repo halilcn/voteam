@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Http\Controllers\API\Auth;
+
+use App\Exceptions\Exception;
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Notifications\ForgotPassword;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
+class ForgotPasswordController extends Controller
+{
+    public function store(Request $request)
+    {
+        $user = User::query()
+            ->where('email', $request->input('email'))
+            ->first();
+
+        if (!$user) {
+            return Exception::forgotPasswordException();
+        }
+
+        $user->forgotPassword()->delete();
+
+        $user->forgotPassword()->create(['key' => Str::random()]);
+
+        return $this->createdResponse();
+    }
+
+    public function show(Request $request)
+    {
+        //TODO: link 2 saat aktif kalsın.
+
+    }
+}

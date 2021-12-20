@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\Auth\ForgotPasswordController;
 use App\Http\Controllers\API\Auth\LoginController;
 use App\Http\Controllers\API\Auth\LogoutController;
 use App\Http\Controllers\API\Auth\RegisterController;
@@ -42,6 +43,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('register/email/send', [RegisterController::class, 'sendEmail']);
 
     Route::post('login', [LoginController::class, 'handle']);
+    Route::resource('forgot-password', ForgotPasswordController::class);
+
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::put('user/language', UserLanguageController::class);
