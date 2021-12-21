@@ -83,7 +83,7 @@ export default {
       commit('setUserSettings', payload);
     },
     async postForgotPassword(_, payload) {
-      console.log(await axios.post('forgot-password', payload));
+      await axios.post('forgot-password', payload)
     }
   },
   namespaced: true

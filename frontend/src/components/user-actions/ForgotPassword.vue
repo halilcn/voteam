@@ -4,8 +4,20 @@
       E-mail adresini girerek şifreni değiştirebilirsin.
     </div>
     <div class="content">
-      <!-- TODO:vuelidate -->
-      <div v-if="true" class="first-step">
+      <div v-if="sentCode" class="email-sent-info">
+        <lottie-player
+            src="https://assets4.lottiefiles.com/packages/lf20_zd2j6msi.json"
+            background="transparent"
+            speed="1"
+            style="width: 90px; height: 90px;"
+            loop
+            autoplay/>
+        <div class="text">
+          Şifre sıfırlamak için e-mail gönderildi.
+          2 saat sonra şifre sıfırlama linki otomatik olarak silinir.
+        </div>
+      </div>
+      <div v-else class="first-step">
         <div class="data-field-container">
           <input
               type="email"
@@ -16,29 +28,17 @@
           <errors
               v-if="v$.userEmail.$error"
               is-input-error="true"
-              :content="getOnlyErrors(v$.userEmail.$error)"/>
+              :content="getOnlyErrors(v$.userEmail.$errors)"/>
         </div>
         <standart-button
             class="continue-btn"
             text="Şifre Sıfırla"
             @click="postForgotPasswordAction"
-            :is-disable="false"/>
+            :is-disable="isLoading || v$.userEmail.$invalid"/>
         <errors
             class="wrong-email-error"
-            v-if="true"
-            :content="['Bu e-mail hesabıyla kayıtlı kullanıcı yok']"/>
-      </div>
-      <div v-else class="email-sent-info">
-        <lottie-player
-            src="https://assets4.lottiefiles.com/packages/lf20_zd2j6msi.json"
-            background="transparent"
-            speed="1"
-            style="width: 90px; height: 90px;"
-            loop autoplay/>
-        <div class="text">
-          Şifre sıfırlamak için e-mail gönderildi.
-          2 saat sonra şifre sıfırlama linki otomatik olarak silinir.
-        </div>
+            v-if="isWrongEmail"
+            :content="['Bu e-mail hesabıyla kayıtlı kullanıcı yok']"/> <!-- TODO: multiple language -->
       </div>
     </div>
   </div>
@@ -56,15 +56,17 @@ export default {
   data() {
     return {
       v$: this.useVuelidate(),
+      userEmail: '',
+      isLoading: false,
       isWrongEmail: false,
-      userEmail: ''
+      sentCode: false
     };
   },
   validations() {
     return {
       userEmail: {
-        required: this.multipleLangError('errors.required', this.validators.required)
-        //  email: this.multipleLangError('errors.email', this.validators.email)
+        required: this.multipleLangError('errors.required', this.validators.required),
+        email: this.multipleLangError('errors.email', this.validators.email)
       }
     };
   },
@@ -76,12 +78,16 @@ export default {
     ...mapActions('auth', ['postForgotPassword']),
     postForgotPasswordAction() {
       this.handle(async () => {
+        this.isLoading = true;
         await this.postForgotPassword({ email: this.userEmail });
+        this.sentCode = true;
       }, (err) => {
         if (err.response.status === 400) {
           this.isWrongEmail = true;
           return true;
         }
+      }).finally(() => {
+        this.isLoading = false;
       });
     }
   }
@@ -93,7 +99,7 @@ export default {
   @include user-actions-content;
 
   .wrong-email-error {
-    margin-top: 20px;
+    margin-top: 15px;
   }
 
   .email-sent-info {

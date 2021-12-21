@@ -11,7 +11,11 @@ use Illuminate\Support\Str;
 
 class ForgotPasswordController extends Controller
 {
-    public function store(Request $request)
+    /**
+     * @param  Request  $request
+     * @return object
+     */
+    public function store(Request $request): object
     {
         $user = User::query()
             ->where('email', $request->input('email'))

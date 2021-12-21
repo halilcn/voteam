@@ -41,10 +41,10 @@ class ForgotPassword extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $FORGOT_PASSWORD_URL = 'forgot-password/'.$this->forgotPassword->key;
+        $FORGOT_PASSWORD_URL = config('app.frontend_url').'forgot-password/'.$this->forgotPassword->key;
 
         return (new MailMessage)
-            ->view('emails.users.forgot-password', ['url' => '$FORGOT_PASSWORD_URL'])
+            ->view('emails.users.forgot-password', ['url' => $FORGOT_PASSWORD_URL])
             ->subject(config('app.name').' | '.'Forgot Password');
     }
 }
