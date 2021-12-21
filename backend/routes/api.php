@@ -43,7 +43,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('register/email/send', [RegisterController::class, 'sendEmail']);
 
     Route::post('login', [LoginController::class, 'handle']);
-    Route::resource('forgot-password', ForgotPasswordController::class);
+    Route::resource('forgot-password', ForgotPasswordController::class)->scoped(['forgot_password' => 'key']);
 
 
     Route::group(['middleware' => 'auth:sanctum'], function () {

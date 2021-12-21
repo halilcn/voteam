@@ -18,6 +18,7 @@ namespace App\Exceptions;
  * @method static powerVoteTotalUserPowerException($message = '')
  * @method static powerVoteUserException($message = '')
  * @method static forgotPasswordException($message = '')
+ * @method static forgotPasswordTimeException($message = '')
  */
 class Exception
 {

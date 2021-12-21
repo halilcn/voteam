@@ -123,6 +123,11 @@ const routes = [
     path: '/mobile-warning',
     name: 'MobileWarning',
     component: () => import('../views/MobileWarning')
+  },
+  {
+    path: '/forgot-password/:key',
+    name: 'ChangePassword',
+    component: () => import('../views/ChangePassword')
   }
 ];
 

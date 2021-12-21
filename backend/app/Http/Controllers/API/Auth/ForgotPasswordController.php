@@ -6,6 +6,7 @@ use App\Exceptions\Exception;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Notifications\ForgotPassword;
+use App\Models\ForgotPassword as ForgotPasswordModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -25,14 +26,29 @@ class ForgotPasswordController extends Controller
             return Exception::forgotPasswordException();
         }
 
-        $user->forgotPassword()->delete();
+        $this->transaction(function () use ($user) {
+            $user->forgotPassword()->delete();
 
-        $user->forgotPassword()->create(['key' => Str::random()]);
+            $user->forgotPassword()->create(['key' => Str::random()]);
+        });
 
         return $this->createdResponse();
     }
 
-    public function show(Request $request)
+    /**
+     * @param  ForgotPasswordModel  $forgotPassword
+     * @return object
+     */
+    public function show(ForgotPasswordModel $forgotPassword): object
+    {
+        if ($forgotPassword->has_valid_date) {
+            return $this->successResponse();
+        }
+
+        return Exception::forgotPasswordTimeException();
+    }
+
+    public function destroy(Request $request)
     {
         //TODO: link 2 saat aktif kalsın.
 
