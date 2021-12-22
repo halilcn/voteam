@@ -1,10 +1,7 @@
 <template>
   <div class="forgot-password">
-    <div class="title">
-      E-mail adresini girerek şifreni değiştirebilirsin.
-    </div>
-    <div class="content">
-      <div v-if="sentCode" class="email-sent-info">
+    <div v-if="sentCode" class="content">
+      <div class="email-sent-info">
         <lottie-player
             src="https://assets4.lottiefiles.com/packages/lf20_zd2j6msi.json"
             background="transparent"
@@ -17,7 +14,12 @@
           2 saat sonra şifre sıfırlama linki otomatik olarak silinir.
         </div>
       </div>
-      <div v-else class="first-step">
+    </div>
+    <div v-else class="content">
+      <div class="title">
+        E-mail adresini girerek şifreni değiştirebilirsin.
+      </div>
+      <div class="first-step">
         <div class="data-field-container">
           <input
               type="email"
