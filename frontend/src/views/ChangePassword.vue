@@ -43,8 +43,8 @@
 <script>
 import StandartButton from '../components/shared/elements/StandartButton';
 import Errors from '../components/shared/Errors';
-import validateMixin from '../mixins/validateMixin';
 import confetti from 'canvas-confetti';
+import validateMixin from '../mixins/validateMixin';
 import { mapActions } from 'vuex';
 
 export default {
@@ -97,8 +97,6 @@ export default {
         this.isLoading.postPassword = true;
         await this.postNewPassword({ ...this.user });
         this.passwordChanged();
-      }).finally(() => {
-        this.isLoading.postPassword = false;
       });
     },
     passwordChanged() {
@@ -106,7 +104,7 @@ export default {
       this.$notify.success('Şifre Değiştirildi'); //TODO: multiple language
       setTimeout(() => {
         this.$router.push({ name: 'Login' });
-      }, 2500);
+      }, 2200);
     },
     startConfetti() {
       const myCanvas = document.getElementById('#confetti');
@@ -121,9 +119,6 @@ export default {
       });
     }
   },
-  created() {
-    this.checkForgotPasswordKeyAction();
-  },
   computed: {
     newPasswordSame() {
       const self = this;
@@ -131,6 +126,9 @@ export default {
         return self.user.password === self.user.confirm_password;
       };
     }
+  },
+  created() {
+    this.checkForgotPasswordKeyAction();
   }
 };
 </script>
@@ -160,5 +158,4 @@ export default {
     }
   }
 }
-
 </style>
