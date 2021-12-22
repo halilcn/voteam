@@ -12,6 +12,8 @@ export default {
     input: {
       email: 'Email',
       password: 'Password',
+      newPassword: 'New Password',
+      repeatNewPassword: 'Confirm New Password',
       nameAndSurname: 'Name and Surname'
     },
     others: {

@@ -12,6 +12,8 @@ export default {
     input: {
       email: 'E-mail',
       password: 'Şifre',
+      newPassword: 'Yeni Şifre',
+      repeatNewPassword: 'Yeni Şifre Tekrar',
       nameAndSurname: 'Ad ve Soyad'
     },
     others: {

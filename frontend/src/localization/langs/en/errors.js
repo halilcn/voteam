@@ -6,5 +6,6 @@ export default {
   validCode: 'Invalid code entered',
   nextDate: 'Past date cannot be selected',
   fromStartDate: 'Cannot be selected earlier than the start date',
-  between: 'The entered number is invalid'
+  between: 'The entered number is invalid',
+  sameAsPassword: 'Passwords are not the same'
 };

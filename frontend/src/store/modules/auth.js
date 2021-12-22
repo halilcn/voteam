@@ -85,8 +85,17 @@ export default {
     async postForgotPassword(_, payload) {
       await axios.post('forgot-password', payload);
     },
-    async checkForgotPasswordKey(_, payload) {
-      await axios.get(`forgot-password/${payload}`);
+    async checkForgotPasswordKey({ getters }) {
+      await axios.get(`forgot-password/${getters.forgotPasswordKey}`);
+    },
+    async postNewPassword({ getters }, payload) {
+      console.log(payload);
+      await axios.delete(`forgot-password/${getters.forgotPasswordKey}`, { params: payload });
+    }
+  },
+  getters: {
+    forgotPasswordKey() {
+      return router.currentRoute.value.params.key;
     }
   },
   namespaced: true

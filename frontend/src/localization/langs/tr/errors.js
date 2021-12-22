@@ -6,5 +6,6 @@ export default {
   validCode: 'Kod yanlış girilmiş',
   nextDate: 'Geçmiş tarih seçilemez',
   fromStartDate: 'Başlangıç tarihinden erken seçilemez',
-  between: 'Girilmiş sayı geçersiz'
+  between: 'Girilmiş sayı geçersiz',
+  sameAsPassword: 'Şifreler aynı değil'
 };
