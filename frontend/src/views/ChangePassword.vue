@@ -61,6 +61,7 @@ export default {
         await this.checkForgotPasswordKey(this.key);
       }, () => {
         this.$router.push({ name: 'NoPage' });
+        return true;
       });
     }
   },
