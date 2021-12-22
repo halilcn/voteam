@@ -4,9 +4,9 @@ namespace App\Http\Controllers\API\Auth;
 
 use App\Exceptions\Exception;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\UserPasswordRequest;
 use App\Models\User;
-use App\Notifications\ForgotPassword;
-use App\Models\ForgotPassword as ForgotPasswordModel;
+use App\Models\ForgotPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -36,10 +36,10 @@ class ForgotPasswordController extends Controller
     }
 
     /**
-     * @param  ForgotPasswordModel  $forgotPassword
+     * @param  ForgotPassword  $forgotPassword
      * @return object
      */
-    public function show(ForgotPasswordModel $forgotPassword): object
+    public function show(ForgotPassword $forgotPassword): object
     {
         if ($forgotPassword->has_valid_date) {
             return $this->successResponse();
@@ -48,9 +48,22 @@ class ForgotPasswordController extends Controller
         return Exception::forgotPasswordTimeException();
     }
 
-    public function destroy(Request $request)
+    /**
+     * @param  ForgotPassword  $forgotPassword
+     * @param  UserPasswordRequest  $request
+     * @return object
+     */
+    public function destroy(ForgotPassword $forgotPassword, UserPasswordRequest $request): object
     {
-        //TODO: link 2 saat aktif kalsın.
+        if (!$forgotPassword->has_valid_date) {
+            return Exception::forgotPasswordTimeException();
+        }
 
+        $this->transaction(function () use ($forgotPassword, $request) {
+            $forgotPassword->user()->update(['password' => bcrypt($request->input('password'))]);
+            $forgotPassword->delete();
+        });
+
+        return $this->successResponse();
     }
 }

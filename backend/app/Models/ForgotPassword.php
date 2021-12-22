@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Carbon;
 
 class ForgotPassword extends Model
 {
@@ -19,15 +20,12 @@ class ForgotPassword extends Model
     ];
 
     /**
+     * Check if it is out of date
      * @return bool
      */
     public function getHasValidDateAttribute(): bool
     {
-        return now()->addHours(2) > $this->attributes['created_at'];
-    }
-
-    public function scopeHasValidDate(Builder $query)
-    {
+        return !Carbon::make($this->attributes['created_at'])->addHours(2)->isPast();
     }
 
     /**
