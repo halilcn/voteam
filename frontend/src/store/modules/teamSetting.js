@@ -9,9 +9,23 @@ export default {
       const { data } = (await axios.get(`teams/${getters.teamId}/settings`)).data;
       return data;
     },
-    async updateSettings({ getters }, payload) {
+    async updateSettings({ getters, dispatch }, payload) {
+      if (payload.image instanceof File) {
+        //TODO: vote-images name değiştirilecek.team-images yapılacak
+        const { secure_url } = await dispatch(
+          'cloudinary/postImage',
+          {
+            file: payload.image,
+            folder: 'vote-images'
+          },
+          { root: true });
+
+        payload.image = secure_url;
+      }
+
       console.log(payload);
-      await axios.post(`teams/${getters.teamId}/settings`, payload);
+
+      await axios.put(`teams/${getters.teamId}/settings`, payload);
     }
   },
   getters: {

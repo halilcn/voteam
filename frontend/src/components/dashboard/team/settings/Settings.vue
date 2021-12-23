@@ -3,8 +3,11 @@
     <i class="bi bi-gear"></i>
     Ayarlar
   </page-title>
-  <div class="settings-container">
-    {{ }}
+  <loading-animation
+      v-if="isLoading.userPermission || isLoading.getSettings"
+      :textLineCount="6"
+      :textCount="2"/>
+  <div v-else class="settings-container">
     <div class="team-settings setting">
       <div class="setting-title">
         <i class="bi bi-circle-fill"></i>
@@ -68,6 +71,7 @@
 import PageTitle from '../shared/PageTitle';
 import StandartButton from '../../../shared/elements/StandartButton';
 import Errors from '../../../shared/Errors';
+import LoadingAnimation from '../../../shared/LoadingAnimation';
 import validateMixin from '../../../../mixins/validateMixin';
 import { mapActions } from 'vuex';
 
@@ -81,6 +85,7 @@ export default {
       settingsDataChanged: false,
       userHasPermission: false,
       isLoading: {
+        getSettings: false,
         postSettings: false,
         userPermission: false
       },
@@ -102,7 +107,8 @@ export default {
   components: {
     PageTitle,
     StandartButton,
-    Errors
+    Errors,
+    LoadingAnimation
   },
   methods: {
     ...mapActions('teamSetting', ['getSettings', 'updateSettings']),
@@ -113,19 +119,23 @@ export default {
     },
     getSettingsAction() {
       this.handle(async () => {
+        this.isLoading.getSettings = true;
         this.settings = await this.getSettings();
+      }).finally(() => {
+        this.isLoading.getSettings = false;
       });
     },
     updateSettingsAction() {
       this.handle(async () => {
-        this.isLoading = true;
+        this.isLoading.postSettings = true;
         await this.updateSettings(this.settings);
+        this.$notify.success('Ayarlar Güncellendi');
       }).finally(() => {
-        this.isLoading = false;
+        this.isLoading.postSettings = false;
       });
     },
-    getPermissionsUserOfTeamAction() {
-      this.handle(async () => {
+    async getPermissionsUserOfTeamAction() {
+      await this.handle(async () => {
         this.isLoading.userPermission = true;
         this.userPermission = await this.getPermissionsUserOfTeam();
       }).finally(() => {
@@ -146,11 +156,9 @@ export default {
       deep: true
     }
   },
-  created() {
-    this.getPermissionsUserOfTeamAction();
-
-    this.getSettingsAction()
-    if (this.userPermission) this.getSettingsAction();
+  async created() {
+    await this.getPermissionsUserOfTeamAction();
+    if (this.userPermission) await this.getSettingsAction();
   }
 };
 </script>
