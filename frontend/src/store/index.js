@@ -3,6 +3,7 @@ import auth from './modules/auth';
 import team from './modules/team';
 import teamUser from './modules/teamUser';
 import teamNotification from './modules/teamNotification';
+import teamSetting from './modules/teamSetting';
 import vote from './modules/vote';
 import userVote from './modules/userVote';
 import cloudinary from './modules/cloudinary';
@@ -23,6 +24,7 @@ export default createStore({
     auth,
     team,
     teamNotification,
+    teamSetting,
     teamUser,
     activeTeam,
     vote,
