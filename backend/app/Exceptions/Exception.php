@@ -19,6 +19,7 @@ namespace App\Exceptions;
  * @method static powerVoteUserException($message = '')
  * @method static forgotPasswordException($message = '')
  * @method static forgotPasswordTimeException($message = '')
+ * @method static teamSettingException($message = '')
  */
 class Exception
 {
