@@ -102,12 +102,12 @@ export default {
       align-items: center;
       cursor: pointer;
       padding: 7px 0;
-      border-radius: 5px;
 
       &:not(.selected):hover {
         background-color: #f6f6f6;
 
         .tooltip-title {
+          visibility: visible;
           opacity: 1;
           left: 80px;
         }
@@ -139,7 +139,7 @@ export default {
 
       .icon {
         font-size: 24px;
-        color: $df-mdl-dark-black-color;
+        color: $df-black-and-blue-color;
 
         .fill-icon {
           display: none;
@@ -152,14 +152,16 @@ export default {
 
       .tooltip-title {
         @include center-md-box-shadow;
+        visibility: hidden;
+        opacity: 0;
         position: absolute;
         font-size: 11px;
+        font-weight: 500;
         left: 70px;
         background-color: white;
-        color: $df-mdl-dark-black-color;
+        color: $df-black-and-blue-color;
         padding: 4px 8px;
         border-radius: 10px;
-        opacity: 0;
         transition: .2s;
         z-index: 9;
       }
@@ -174,7 +176,7 @@ export default {
     .team-list-btn {
       padding: 10px 14px;
       border-radius: 100%;
-      color: #657179;
+      color: $df-black-and-blue-color;
       transition: .2s;
       cursor: pointer;
 
@@ -184,14 +186,12 @@ export default {
     }
 
     .active-team {
-      @include center-md-blue-box-shadow;
+      @include center-lg-blue-box-shadow;
       margin: 5px 0;
-      background-color: $df-blue-color;
       width: 40px;
       height: 40px;
       border-radius: 100%;
       transition: .2s;
-      padding: 2px;
     }
   }
 }
