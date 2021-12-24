@@ -8,7 +8,7 @@
       :textLineCount="6"
       :textCount="2"/>
   <div v-else class="settings-container">
-    <div class="team-settings setting">
+    <div v-if="userHasPermission" class="team-settings setting">
       <div class="setting-title">
         <i class="bi bi-circle-fill"></i>
         TAKIM AYARLARI
