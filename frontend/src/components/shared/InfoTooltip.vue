@@ -36,16 +36,18 @@ export default {
     @include center-md-box-shadow;
     font-size: 10px;
     visibility: hidden;
+    opacity: 0;
     width: 120px;
     background-color: white;
     text-align: center;
     border-radius: 6px;
     position: absolute;
     z-index: 5;
-    bottom: 150%;
+    bottom: 170%;
     left: 50%;
     margin-left: -60px;
     padding: 5px;
+    transition: .2s;
 
     &::after {
       content: "";
@@ -61,6 +63,8 @@ export default {
 
   &:hover .tooltiptext {
     visibility: visible;
+    opacity: 1;
+    bottom: 150%;
   }
 }
 </style>
