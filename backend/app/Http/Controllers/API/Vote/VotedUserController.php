@@ -16,7 +16,7 @@ class VotedUserController extends Controller
      * @return object
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(Vote $vote, VotedUserRequest $request)
+    public function store(Vote $vote, VotedUserRequest $request): object
     {
         //TODO: Bad Code
 
@@ -55,11 +55,6 @@ class VotedUserController extends Controller
                 return Exception::powerVoteTotalUserPowerException();
             }
         }
-
-        if ($vote->type == Vote::$TYPES["MULTIPLE"]) {
-            return "ok";
-        }
-
 
         $vote->votedUsers()->create([
                                         'user_id' => $userId,
