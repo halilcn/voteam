@@ -27,7 +27,9 @@
             Takım Fotoğrafı
           </div>
           <div class="content">
-            <img :src="teamImageUrl" class="image" alt="team-image"/>
+            <img :src="teamImageUrl"
+                 class="image"
+                 alt="team-image"/>
             <input @change="onChangeFile" type="file" id="team_image">
             <label for="team_image">
               <i class="bi bi-arrow-repeat"></i>
@@ -35,7 +37,10 @@
             </label>
           </div>
         </div>
-        <errors v-if="v$.settings.$invalid" class="item" :content="['Alanlar boş bırakılamaz']"/>
+        <!--TODO: multiple language -->
+        <errors v-if="v$.settings.$invalid"
+                :content="['Alanlar boş bırakılamaz']"
+                class="item"/>
         <standart-button class="post-team-setting-btn item"
                          text="Kaydet"
                          @click="updateSettingsAction"
@@ -104,6 +109,14 @@ export default {
       }
     };
   },
+  watch: {
+    settings: {
+      handler(newVal, oldVal) {
+        if (Object.keys(oldVal).length !== 0) this.settingsDataChanged = true;
+      },
+      deep: true
+    }
+  },
   components: {
     PageTitle,
     StandartButton,
@@ -129,7 +142,7 @@ export default {
       this.handle(async () => {
         this.isLoading.postSettings = true;
         await this.updateSettings(this.settings);
-        this.$notify.success('Ayarlar Güncellendi');
+        this.$notify.success('Ayarlar Güncellendi'); /*TODO: multiple language */
       }).finally(() => {
         this.isLoading.postSettings = false;
       });
@@ -148,14 +161,6 @@ export default {
       return this.temporaryTeamImageUrl === '' ? this.settings.image : this.temporaryTeamImageUrl;
     }
   },
-  watch: {
-    settings: {
-      handler(newVal, oldVal) {
-        if (Object.keys(oldVal).length !== 0) this.settingsDataChanged = true;
-      },
-      deep: true
-    }
-  },
   async created() {
     await this.getPermissionsUserOfTeamAction();
     if (this.userPermission) await this.getSettingsAction();
@@ -164,11 +169,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .settings-container {
   height: 100%;
   overflow-y: auto;
-  padding: 3px 8px;
+  padding: 3px;
 
   .setting {
     @include center-lg-box-shadow;
@@ -260,48 +264,47 @@ export default {
     }
   }
 
-  .team-user-settings {
-    .list {
-      .item {
-        .leave-team-content {
-          width: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
+  .team-user-settings .list .item .content {
+    &.leave-team-content {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
-          .info {
-            font-size: 14px;
-            font-weight: 300;
-            color: $df-dark-blue-color;
+      .info {
+        font-size: 14px;
+        font-weight: 300;
+        color: $df-dark-blue-color;
 
-            span {
-              font-weight: 400;
-              text-decoration: underline;
-            }
-          }
+        span {
+          font-weight: 400;
+          text-decoration: underline;
+        }
+      }
 
-          .leave-team-btn {
-            padding: 8px 16px;
-            cursor: pointer;
-            color: $df-red-color;
-            font-weight: 500;
-            font-size: 13px;
-            background-color: $df-very-light-red-color;
-            border-radius: 5px;
-            transition: .2s;
+      .leave-team-btn {
+        padding: 8px 16px;
+        cursor: pointer;
+        background-color: #f6f6f6;
+        color: #c4c4c4;
+        font-weight: 500;
+        font-size: 13px;
+        border-radius: 5px;
+        transition: .2s;
 
-            i {
-              margin-right: 5px;
-            }
+        // disable
+        pointer-events: none;
+        opacity: .9;
 
-            &:hover {
-              background-color: #ffe7e7;
-            }
-          }
+        i {
+          margin-right: 5px;
+        }
+
+        &:hover {
+          background-color: #ffe7e7;
         }
       }
     }
   }
 }
-
 </style>

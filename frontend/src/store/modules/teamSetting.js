@@ -23,8 +23,6 @@ export default {
         payload.image = secure_url;
       }
 
-      console.log(payload);
-
       await axios.put(`teams/${getters.teamId}/settings`, payload);
     }
   },
