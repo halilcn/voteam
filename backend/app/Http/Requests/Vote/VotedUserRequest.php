@@ -56,6 +56,13 @@ class VotedUserRequest extends FormRequest
                 ) {
                     return $validator->errors()->add('field', "Answer error.");
                 }
+
+                $teamUsersId = collect($answer)->map(function ($item) {
+                    return $item['team_user_id'];
+                });
+                if ($teamUsersId->contains($this->user()->id)) {
+                    return $validator->errors()->add('field', "Answer error.");
+                }
             }
 
             if ($vote->type === Vote::$TYPES["MULTIPLE"]) {
@@ -63,14 +70,10 @@ class VotedUserRequest extends FormRequest
                     return $validator->errors()->add('field', "Answer error.");
                 }
 
-                $optionsContent = collect();
-                collect($vote->options)->each(function ($item) use ($optionsContent) {
-                    if ($item['type'] === Vote::$OPTIONS_TYPES['TEXT']) {
-                        $optionsContent->push($item['message']);
-                    }
-                    if ($item['type'] === Vote::$OPTIONS_TYPES['IMAGE']) {
-                        $optionsContent->push($item['path']);
-                    }
+                $optionsContent = collect($vote->options)->map(function ($item) {
+                    return array_key_exists('message', $item)
+                        ? $item['message']
+                        : $item['path'];
                 });
 
                 $answerContent = $answer['type'] == Vote::$OPTIONS_TYPES['TEXT']
