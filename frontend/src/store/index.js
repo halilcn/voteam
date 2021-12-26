@@ -5,6 +5,7 @@ import teamUser from './modules/teamUser';
 import teamNotification from './modules/teamNotification';
 import teamSetting from './modules/teamSetting';
 import vote from './modules/vote';
+import finishedVote from './modules/finishedVote';
 import userVote from './modules/userVote';
 import cloudinary from './modules/cloudinary';
 import userNotification from './modules/userNotification';
@@ -28,6 +29,7 @@ export default createStore({
     teamUser,
     activeTeam,
     vote,
+    finishedVote,
     userVote,
     userNotification,
     cloudinary

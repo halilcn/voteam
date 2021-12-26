@@ -39,8 +39,16 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
-  name: 'FinishedVotesList'
+  name: 'FinishedVotesList',
+  methods: {
+    ...mapActions('finishedVote', ['getFinishedVotes'])
+  },
+  created() {
+    this.getFinishedVotes();
+  }
 };
 </script>
 

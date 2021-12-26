@@ -18,6 +18,7 @@ use App\Http\Controllers\API\TeamUser\TeamJoinWithInvitationController;
 use App\Http\Controllers\API\TeamUser\TeamUserController;
 use App\Http\Controllers\API\TeamUser\TeamUserInvitationController;
 use App\Http\Controllers\API\TeamUser\TeamUserPermissionController;
+use App\Http\Controllers\API\Vote\FinishedVoteController;
 use App\Http\Controllers\API\Vote\VotedUserController;
 use App\Http\Controllers\API\Vote\VoteController;
 use App\Http\Controllers\API\Vote\VotePowerTypeActionsController;
@@ -65,6 +66,8 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('check-store', [VotePowerTypeActionsController::class, 'checkStore']);
             Route::get('check-time', [VotePowerTypeActionsController::class, 'checkTime']);
         });
+
+        Route::resource('teams.finished-votes', FinishedVoteController::class)->scoped(['team' => 'key']);
 
         Route::get('teams/{team:key}/notifications', TeamNotificationController::class);
 
