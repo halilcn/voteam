@@ -3,7 +3,9 @@
 namespace App\Observers;
 
 use App\Jobs\SendCalculatedVoteEmail;
+use App\Jobs\TeamNotifications\CalculatedVoteNotification;
 use App\Models\CalculatedVote;
+use App\Models\Vote;
 
 class CalculatedVoteObserver
 {
@@ -15,12 +17,12 @@ class CalculatedVoteObserver
      */
     public function created(CalculatedVote $calculatedVote)
     {
-        $users = $calculatedVote->vote->team->users()->pluck('email')->toArray();
+        $team = $calculatedVote->vote->team;
+        $users = $team->users()->pluck('email')->toArray();
         $voteTitle = $calculatedVote->vote->title;
+
         SendCalculatedVoteEmail::dispatch($users, $voteTitle);
-
-
-        //$calculatedVote->vote->type
+        CalculatedVoteNotification::dispatch($team, $voteTitle);
     }
 
     /**

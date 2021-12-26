@@ -6,13 +6,13 @@ use App\Models\TeamUser;
 use App\Models\TeamUserPower;
 use App\Models\User;
 use App\Models\Vote;
-use Clockwork\Request\Log;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class PowerVoteCalculate implements ShouldQueue
 {
@@ -53,16 +53,16 @@ class PowerVoteCalculate implements ShouldQueue
                     ->sum();
             })
             ->each(function ($totalUserPower, $teamUserId) use ($votedUsersCount, $teamUsersId) {
-                //TODO: Write on log file if user not exists
                 if ($teamUsersId->contains($teamUserId)) {
                     TeamUserPower::updateOrCreate(
                         ['team_user_id' => $teamUserId],
                         ['power' => ($totalUserPower / $votedUsersCount)]
                     );
+                } else {
+                    Log::info("Power Vote Calculate warning !");
                 }
             });
 
-        //TODO: team notification, email bilgilendirme, calculation yazma ???
         $this->vote->calculation()->create([
                                                'data' => [
                                                    User::$LANGUAGES['TR'] => [

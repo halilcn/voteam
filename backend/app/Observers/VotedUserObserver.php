@@ -24,8 +24,7 @@ class VotedUserObserver
                 PowerVoteCalculate::dispatch($votedUser->vote);
             }
 
-            //TODO: power type vote olduğunda hesaplamalar nasıl olacak ? Bir job ?
-            //TODO: Buraya notification eklemek gerekli mi ? Vote sonuçlandı diye
+            //TODO: her vote type için job(oylama hesaplamaları)
             $votedUser->vote()->update(['all_users_voted' => true]);
         }
     }
