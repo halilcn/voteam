@@ -65,8 +65,11 @@ class PowerVoteCalculate implements ShouldQueue
         //TODO: team notification, email bilgilendirme, calculation yazma ???
         $this->vote->calculation()->create([
                                                'data' => [
-                                                   [
-                                                       'message' => 'test 121'
+                                                   User::$LANGUAGES['TR'] => [
+                                                       'message' => 'Güç oylaması tamamlandı',
+                                                   ],
+                                                   User::$LANGUAGES['EN'] => [
+                                                       'message' => 'Power vote completed',
                                                    ]
                                                ]
                                            ]);
