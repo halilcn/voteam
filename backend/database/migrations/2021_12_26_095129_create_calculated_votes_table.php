@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTeamUserPowersTable extends Migration
+class CreateCalculatedVotesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateTeamUserPowersTable extends Migration
      */
     public function up()
     {
-        Schema::create('team_user_powers', function (Blueprint $table) {
+        Schema::create('calculated_votes', function (Blueprint $table) {
             $table->id();
-            $table->integer('team_user_id');
-            $table->integer('power');
+            $table->foreignId('vote_id')->constrained();
+            $table->jsonb('data');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateTeamUserPowersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('team_user_powers');
+        Schema::dropIfExists('calculated_votes');
     }
 }

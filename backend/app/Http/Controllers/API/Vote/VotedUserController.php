@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Vote;
 use App\Exceptions\Exception;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VOte\VotedUserRequest;
+use App\Models\TeamUser;
 use App\Models\Vote;
 use App\Models\VotedUser;
 

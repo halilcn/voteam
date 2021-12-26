@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Jobs\Vote\PowerVoteCalculate;
 use App\Models\Vote;
 use App\Models\VotedUser;
 
@@ -19,6 +20,10 @@ class VotedUserObserver
         $countVotedUsers = VotedUser::where('vote_id', $votedUser->vote_id)->count();
 
         if ($countUsersOfTeam == $countVotedUsers) {
+            if ($votedUser->vote->type === Vote::$TYPES['POWER']) {
+                PowerVoteCalculate::dispatch($votedUser->vote);
+            }
+
             //TODO: power type vote olduğunda hesaplamalar nasıl olacak ? Bir job ?
             //TODO: Buraya notification eklemek gerekli mi ? Vote sonuçlandı diye
             $votedUser->vote()->update(['all_users_voted' => true]);
