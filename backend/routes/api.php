@@ -67,7 +67,9 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('check-time', [VotePowerTypeActionsController::class, 'checkTime']);
         });
 
-        Route::resource('teams.finished-votes', FinishedVoteController::class)->scoped(['team' => 'key']);
+        Route::resource('teams.finished-votes', FinishedVoteController::class)
+            ->parameters(['finished_votes' => 'votes'])
+            ->scoped(['team' => 'key']);
 
         Route::get('teams/{team:key}/notifications', TeamNotificationController::class);
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Vote;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Vote\FinishedVotesResource;
 use App\Models\Team;
+use App\Models\Vote;
 use Illuminate\Http\Request;
 
 class FinishedVoteController extends Controller
@@ -28,5 +29,10 @@ class FinishedVoteController extends Controller
             ->get();
 
         return FinishedVotesResource::collection($finishedVotes);
+    }
+
+    public function show(Team $team, Vote $vote)
+    {
+        return $vote;
     }
 }

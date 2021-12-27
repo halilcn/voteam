@@ -1,7 +1,8 @@
 <template>
   <div class="finished-vote-detail">
+    {{ value }}
     <div class="vote-content-area top">
-      <div class="back-btn">
+      <div @click="showFinishedVoteList" class="back-btn">
         <i class="bi bi-caret-left"></i>
         geri
       </div>
@@ -36,8 +37,31 @@
 </template>
 
 <script>
+import modelValueMixin from '../../../../../../mixins/modelValueMixin';
+import { mapActions } from 'vuex';
+
 export default {
-  name: 'FinishedVoteDetail'
+  name: 'FinishedVoteDetail',
+  mixins: [modelValueMixin],
+  watch: {
+    value() {
+      alert();
+    }
+  },
+  methods: {
+    ...mapActions('finishedVote', ['getFinishedVoteDetail']),
+    showFinishedVoteList() {
+      this.value = null;
+    },
+    getFinishedVoteDetailAction() {
+      this.handle(async () => {
+        await this.getFinishedVoteDetail(this.value);
+      });
+    }
+  },
+  created() {
+    this.getFinishedVoteDetailAction();
+  }
 };
 </script>
 
