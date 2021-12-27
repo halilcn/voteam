@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Jobs\Vote\PowerVoteCalculate;
 use App\Models\Vote;
 use App\Models\VotedUser;
+use Illuminate\Support\Carbon;
 
 class VotedUserObserver
 {
@@ -25,7 +26,7 @@ class VotedUserObserver
             }
 
             //TODO: her vote type için job(oylama hesaplamaları)
-            $votedUser->vote()->update(['all_users_voted' => true]);
+            $votedUser->vote()->update(['all_users_voted' => true, 'end_date' => Carbon::now()]);
         }
     }
 

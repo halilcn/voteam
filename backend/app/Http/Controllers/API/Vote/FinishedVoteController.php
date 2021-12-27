@@ -17,7 +17,7 @@ class FinishedVoteController extends Controller
 
         $this->authorize('view', $team);
 
-        $FINISHED_VOTE_LIMIT = 1;
+        $FINISHED_VOTE_LIMIT = 7;
         //$idOfLastFinishedVote=$request->input('idOfLastFinishedVote',176);
 
         $test=$team
