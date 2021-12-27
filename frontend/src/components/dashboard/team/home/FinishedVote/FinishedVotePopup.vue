@@ -3,7 +3,10 @@
          @handleDisable="$emit('handlePopup')"
          :is-enable="isEnable">
     <template v-slot:content>
-      <finished-votes-list v-if="!activeVoteDetail"/>
+      {{voteDetailId}}
+      <finished-votes-list
+          v-if="!activeVoteDetail"
+          v-model="voteDetailId"/>
       <finished-vote-detail v-else/>
     </template>
   </popup>

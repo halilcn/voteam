@@ -1,53 +1,87 @@
 <template>
   <div class="finished-votes-list">
-    <div class="item">
-      <img class="vote-type-img" src="../../../../../assets/icons/multiple-type-vote.png"/>
-      <div class="vote-info">
-        <div class="title">
-          Vote title test başlık
+    <loading-animation
+        v-if="isLoading"
+        :textLineCount="2"
+        :textCount="4"/>
+    <div class="list-content">
+      <div v-for="(vote,index) in finishedVotes"
+           :key="index"
+           class="item">
+        <img class="vote-type-img"
+             :src="require(`../../../../../assets/icons/${vote.type}-type-vote.png`)"
+             alt="vote-type"/>
+        <div class="vote-info">
+          <div class="title">
+            {{ vote.title }}
+          </div>
+          <div class="time">
+            <i class="bi bi-stopwatch"></i>
+            {{ vote.end_date }}
+          </div>
         </div>
-        <div class="time">
-          <i class="bi bi-stopwatch"></i>
-          12 saat önce
+        <div v-if="vote.calculated"
+             @click="showFinishedVoteDetail(vote.id)"
+             class="right-content show-answer-result">
+          sonuçları gör
+          <i class="bi bi-chevron-compact-right"></i>
+        </div>
+        <div v-else class="right-content wait-info">
+          <i class="bi bi-hourglass-split"></i>
+          sonuçlandırılıyor...
         </div>
       </div>
-      <div class="right-content wait-info">
-        <i class="bi bi-hourglass-split"></i>
-        sonuçlandırılıyor...
+      <div
+          v-if="hasMoreFinishedVotes"
+          @click="getMoreFinishedVotesAction"
+          class="more-finished-votes-btn">
+        daha fazla gör
       </div>
-    </div>
-    <div class="item">
-      <img class="vote-type-img" src="../../../../../assets/icons/multiple-type-vote.png"/>
-      <div class="vote-info">
-        <div class="title">
-          Vote title test başlık
-        </div>
-        <div class="time">
-          <i class="bi bi-stopwatch"></i>
-          12 saat önce
-        </div>
-      </div>
-      <div class="right-content show-answer-result">
-        sonuçları gör
-        <i class="bi bi-chevron-compact-right"></i>
-      </div>
-    </div>
-    <div class="more-finished-votes-btn">
-      daha fazla gör
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import LoadingAnimation from '../../../../shared/LoadingAnimation';
+import modelValueMixin from '../../../../../mixins/modelValueMixin';
+import { mapActions, mapState } from 'vuex';
 
 export default {
   name: 'FinishedVotesList',
+  mixins: [modelValueMixin],
+  data() {
+    return {
+      isLoading: false
+    };
+  },
+  components: {
+    LoadingAnimation
+  },
   methods: {
-    ...mapActions('finishedVote', ['getFinishedVotes'])
+    ...mapActions('finishedVote', ['getFinishedVotes']),
+    getFinishedVotesAction() {
+      this.handle(async () => {
+        this.isLoading = true;
+        await this.getFinishedVotes();
+      })
+          .finally(() => {
+            this.isLoading = false;
+          });
+    },
+    getMoreFinishedVotesAction() {
+      this.handle(async () => {
+        await this.getFinishedVotes(true);
+      });
+    },
+    showFinishedVoteDetail(voteId) {
+      this.value = voteId;
+    }
+  },
+  computed: {
+    ...mapState('finishedVote', ['finishedVotes', 'hasMoreFinishedVotes'])
   },
   created() {
-    this.getFinishedVotes();
+    this.getFinishedVotesAction();
   }
 };
 </script>
@@ -59,7 +93,7 @@ export default {
     display: flex;
     align-items: center;
     padding: 10px;
-    margin: 14px 0;
+    margin: 22px 0;
     border-radius: 5px;
 
     .vote-type-img {
@@ -119,7 +153,7 @@ export default {
       }
 
       &.wait-info {
-        color: $df-black-and-blue-color;
+        color: #8492a2;
 
         i {
           margin-right: 3px;

@@ -11,27 +11,22 @@ class FinishedVoteController extends Controller
 {
     public function index(Team $team, Request $request)
     {
-        //TODO:  gerçekten bitmiş oylamalar, calculate olup olmadığı
-        //TODO: daha fazla yükle btn için hangi parametreler where ile kullanılacak? Oy finished tarihi ?
-
-
         $this->authorize('view', $team);
 
-        $FINISHED_VOTE_LIMIT = 7;
-        //$idOfLastFinishedVote=$request->input('idOfLastFinishedVote',176);
+        $FINISHED_VOTE_LIMIT = 12;
+        $totalFinishedVoteCount = $request->input('totalFinishedVoteCount');
 
-        $test=$team
+        $finishedVotes = $team
             ->votes()
             ->completedVotes()
             ->with('calculation:vote_id')
-            /*->when($idOfLastFinishedVote, function ($query) use ($idOfLastFinishedVote) {
-                return $query->where('id', '<', $idOfLastFinishedVote);
-            })*/
-            ->orderByDesc('id')
+            ->orderByDesc('end_date')
+            ->when($totalFinishedVoteCount, function ($query) use ($totalFinishedVoteCount) {
+                return $query->skip($totalFinishedVoteCount);
+            })
             ->limit($FINISHED_VOTE_LIMIT)
             ->get();
 
-        return FinishedVotesResource::collection($test);
-
+        return FinishedVotesResource::collection($finishedVotes);
     }
 }
