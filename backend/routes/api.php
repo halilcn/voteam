@@ -68,7 +68,7 @@ Route::group(['prefix' => 'v1'], function () {
         });
 
         Route::resource('teams.finished-votes', FinishedVoteController::class)
-            ->parameters(['finished_votes' => 'votes'])
+            ->parameters(['finished_votes' => 'votes']) //?
             ->scoped(['team' => 'key']);
 
         Route::get('teams/{team:key}/notifications', TeamNotificationController::class);

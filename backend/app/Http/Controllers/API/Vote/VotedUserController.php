@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Vote;
 use App\Exceptions\Exception;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VOte\VotedUserRequest;
+use App\Models\Team;
 use App\Models\TeamUser;
 use App\Models\Vote;
 use App\Models\VotedUser;
@@ -22,6 +23,13 @@ class VotedUserController extends Controller
         //TODO: Bad Code
 
         $this->authorize('create', [VotedUser::class, $vote]);
+
+        /*
+        $test=$vote->votedUsers;
+        $test2=$vote->team()->with('users.member.userPower')->get();
+
+        return $this->errorResponse($test2);*/
+        return $this->errorResponse("ok");
 
         $userId = $request->user()->id;
 

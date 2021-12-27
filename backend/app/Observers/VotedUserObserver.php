@@ -26,6 +26,7 @@ class VotedUserObserver
             }
 
             //TODO: her vote type için job(oylama hesaplamaları)
+            //TODO: job'lar cron için tekrar gözden geçirilecek.
             $votedUser->vote()->update(['all_users_voted' => true, 'end_date' => Carbon::now()]);
         }
     }
