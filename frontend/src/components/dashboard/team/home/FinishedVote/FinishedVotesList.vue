@@ -17,7 +17,7 @@
           </div>
           <div class="time">
             <i class="bi bi-stopwatch"></i>
-            {{ vote.end_date }}
+            {{ $dayjs($helpers.convertTimeToUtc(vote.end_date)).fromNow() }}
           </div>
         </div>
         <div v-if="vote.calculated"
@@ -99,7 +99,6 @@ export default {
     .vote-type-img {
       width: 40px;
       height: 40px;
-      //border-radius: 100%;
     }
 
     .vote-info {
@@ -133,7 +132,6 @@ export default {
       transition: .3s;
       border-radius: 5px;
 
-
       &.show-answer-result {
         color: $df-blue-color;
         cursor: pointer;
@@ -160,7 +158,6 @@ export default {
         }
       }
     }
-
   }
 
   .more-finished-votes-btn {

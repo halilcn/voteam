@@ -10,7 +10,13 @@ use Illuminate\Http\Request;
 
 class FinishedVoteController extends Controller
 {
-    public function index(Team $team, Request $request)
+    /**
+     * @param  Team  $team
+     * @param  Request  $request
+     * @return object
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function index(Team $team, Request $request): object
     {
         $this->authorize('view', $team);
 
