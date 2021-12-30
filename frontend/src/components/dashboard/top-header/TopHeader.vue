@@ -23,6 +23,7 @@ export default {
 
 <style lang="scss" scoped>
 .top-header {
+  @include center-lg-box-shadow;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -30,7 +31,7 @@ export default {
   background-color: #fafafa;
   border: 1px solid #f5f5f5;
   border-radius: 5px;
-  padding: 5px;
+  padding: 7px;
 
   .item {
     margin-left: 20px;

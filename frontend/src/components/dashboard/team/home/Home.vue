@@ -24,5 +24,6 @@ export default {
   justify-content: space-between;
   align-items: flex-start;
   height: 100%;
+  padding: 0 5px;
 }
 </style>

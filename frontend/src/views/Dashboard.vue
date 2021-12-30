@@ -35,12 +35,13 @@ export default {
     display: flex;
     flex-direction: column;
     width: 100%;
+    padding: 0 20px;
 
     .router-view-content {
       position: relative;
       height: 100%;
       overflow: hidden;
-      padding: 15px 25px;
+      padding: 25px 0 5px 0;
     }
   }
 }
