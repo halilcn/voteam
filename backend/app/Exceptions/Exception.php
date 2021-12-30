@@ -20,6 +20,7 @@ namespace App\Exceptions;
  * @method static forgotPasswordException($message = '')
  * @method static forgotPasswordTimeException($message = '')
  * @method static teamSettingException($message = '')
+ * @method static voteCalculatedException($message = '')
  */
 class Exception
 {

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\API\Vote;
 
+use App\Exceptions\Exception;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Vote\FinishedVoteDetailResource;
 use App\Http\Resources\Vote\FinishedVotesResource;
 use App\Models\Team;
 use App\Models\Vote;
@@ -37,8 +39,22 @@ class FinishedVoteController extends Controller
         return FinishedVotesResource::collection($finishedVotes);
     }
 
-    public function show(Team $team, Vote $vote)
+    /**
+     * @param  Team  $team
+     * @param $voteId
+     * @return object
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function show(Team $team, $voteId): object
     {
-        return $vote;
+        $this->authorize('view', $team);
+
+        $vote = $team->votes()->with('calculation')->findOrFail($voteId);
+
+        if (!$vote->calculation) {
+            return Exception::voteCalculatedException();
+        }
+
+        return FinishedVoteDetailResource::make($vote);
     }
 }

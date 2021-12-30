@@ -1,35 +1,41 @@
 <template>
   <div class="finished-vote-detail">
-    {{ value }}
-    <div class="vote-content-area top">
-      <div @click="showFinishedVoteList" class="back-btn">
-        <i class="bi bi-caret-left"></i>
-        geri
-      </div>
-      <div class="vote-title">
-        Kkjasdad sdsad asdasdsa asdsadsa
-      </div>
-    </div>
-    <div class="vote-content-area">
-      vote sonuç content
-    </div>
-    <div class="vote-content-area vote-infos">
-      <div class="item">
-        <div class="title">
-          <i class="bi bi-clock-fill"></i>
-          Oylama Bitiş Tarihi
+    <loading-animation
+        v-if="isLoading"
+        :textLineHeight="15"
+        :textCount="2"/>
+    <div v-else class="content">
+      <div class="vote-content-area top">
+        <div @click="showFinishedVoteList"
+             class="back-btn">
+          <i class="bi bi-caret-left"></i>
+          geri
         </div>
-        <div class="content">
-          12 Ocak
+        <div class="vote-title">
+          {{ vote.title }}
         </div>
       </div>
-      <div class="item">
-        <div class="title">
-          <i class="bi bi-stopwatch-fill"></i>
-          Toplam Oylama Süresi
+      <component :is="voteTypeComponent(vote.type)"
+                 :data="vote.data"
+                 class="vote-content-area"/>
+      <div class="vote-content-area vote-infos">
+        <div class="item">
+          <div class="title">
+            <i class="bi bi-clock-fill"></i>
+            Oylama Bitiş Tarihi
+          </div>
+          <div class="content">
+            {{ $dayjs(vote.end_date).format('D MMMM YYYY') }}
+          </div>
         </div>
-        <div class="content">
-          2 gün
+        <div class="item">
+          <div class="title">
+            <i class="bi bi-stopwatch-fill"></i>
+            Toplam Oylama Süresi
+          </div>
+          <div class="content">
+            {{ vote.total_voting_day }} gün
+          </div>
         </div>
       </div>
     </div>
@@ -38,25 +44,45 @@
 
 <script>
 import modelValueMixin from '../../../../../../mixins/modelValueMixin';
+import FinishedDoubleVoteContent from './FinishedDoubleVoteContent';
+import FinishedMultipleVoteContent from './FinishedMultipleVoteContent';
+import FinishedPowerVoteContent from './FinishedPowerVoteContent';
+import LoadingAnimation from '../../../../../shared/LoadingAnimation';
+import constants from '../../../../../../store/constants';
 import { mapActions } from 'vuex';
 
 export default {
   name: 'FinishedVoteDetail',
   mixins: [modelValueMixin],
-  watch: {
-    value() {
-      alert();
-    }
+  data() {
+    return {
+      vote: {},
+      isLoading: false
+    };
+  },
+  components: {
+    FinishedDoubleVoteContent,
+    FinishedMultipleVoteContent,
+    FinishedPowerVoteContent,
+    LoadingAnimation
   },
   methods: {
     ...mapActions('finishedVote', ['getFinishedVoteDetail']),
+    getFinishedVoteDetailAction() {
+      this.handle(async () => {
+        this.isLoading = true;
+        this.vote = await this.getFinishedVoteDetail(this.value);
+      }).finally(() => {
+        this.isLoading = false;
+      });
+    },
     showFinishedVoteList() {
       this.value = null;
     },
-    getFinishedVoteDetailAction() {
-      this.handle(async () => {
-        await this.getFinishedVoteDetail(this.value);
-      });
+    voteTypeComponent(voteType) {
+      if (voteType === constants.VOTE_TYPES['POWER']) return 'FinishedPowerVoteContent';
+      if (voteType === constants.VOTE_TYPES['DOUBLE']) return 'FinishedDoubleVoteContent';
+      if (voteType === constants.VOTE_TYPES['MULTIPLE']) return 'FinishedMultipleVoteContent';
     }
   },
   created() {
@@ -66,69 +92,69 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.finished-vote-detail {
-  .vote-content-area {
-    @include center-lg-box-shadow;
-    padding: 10px;
-    color: $df-dark-blue-color;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid $df-very-light-blue-color;
+$area-padding: 12px;
 
-    &.top {
+.finished-vote-detail .content .vote-content-area {
+  @include center-lg-box-shadow;
+  padding: $area-padding;
+  color: $df-dark-blue-color;
+  margin-bottom: 10px;
+  border: 1px solid $df-very-light-blue-color;
+  border-radius: 5px;
+
+  &.top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    .back-btn {
       display: flex;
       align-items: center;
-      justify-content: center;
-      position: relative;
+      position: absolute;
+      left: 10px;
+      font-size: 13px;
+      font-weight: 300;
+      cursor: pointer;
+      background-color: #f5f5f5;
+      color: $df-black-and-blue-color;
+      padding: 5px 8px;
+      border-radius: 5px;
+      transition: .2s;
 
-      .back-btn {
-        display: flex;
-        align-items: center;
-        position: absolute;
-        left: 10px;
-        font-size: 13px;
-        font-weight: 300;
-        cursor: pointer;
-        background-color: #f5f5f5;
-        color: $df-black-and-blue-color;
-        padding: 5px 8px;
-        border-radius: 5px;
-        transition: .2s;
-
-        &:hover {
-          background-color: #ececec;
-        }
-
-        i {
-          margin-right: 4px;
-        }
+      &:hover {
+        background-color: #ececec;
       }
 
-      .vote-title {
-        color: $df-dark-blue-color;
+      i {
+        margin-right: 4px;
       }
     }
 
-    &.vote-infos {
-      padding: 0 !important; //?
-      .item {
-        padding: 10px; //?
-        margin: 7px 0;
+    .vote-title {
+      color: $df-dark-blue-color;
+    }
+  }
 
-        &:first-child {
-          border-bottom: 1px solid #e2e7ee;
-        }
+  &.vote-infos {
+    padding: 0 !important;
 
-        .title {
-          color: $df-black-and-blue-color;
+    .item {
+      padding: $area-padding;
+      margin: 7px 0;
 
-        }
+      &:first-child {
+        border-bottom: 1px solid #e2e7ee;
+      }
 
-        .content {
-          margin-top: 5px;
-          font-weight: 300;
-          color: $df-dark-blue-color;
-        }
+      .title {
+        color: $df-black-and-blue-color;
+      }
+
+      .content {
+        margin-top: 5px;
+        font-weight: 300;
+        color: $df-dark-blue-color;
       }
     }
   }

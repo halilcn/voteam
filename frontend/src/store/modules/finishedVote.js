@@ -36,7 +36,8 @@ export default {
       commit('setHasMoreFinishedVotes', data.length);
     },
     async getFinishedVoteDetail({ getters }, payload) {
-      console.log(await axios.get(`teams/${getters.teamId}/finished-votes/${payload}`));
+      const { data } = (await axios.get(`teams/${getters.teamId}/finished-votes/${payload}`));
+      return data;
     }
   },
   getters: {
