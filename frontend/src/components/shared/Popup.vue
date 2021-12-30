@@ -47,7 +47,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$animation-time: .3s;
+$animation-time: 250ms;
 
 .bg-filter {
   top: 0;
@@ -69,12 +69,13 @@ $animation-time: .3s;
   border-radius: 5px;
   position: fixed;
   z-index: 999;
-  left: 0;
   right: 0;
-  top: 70px;
-  margin: auto;
   display: flex;
   flex-direction: column;
+  transform-origin: left;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   .top {
     position: relative;
@@ -108,11 +109,10 @@ $animation-time: .3s;
     overflow-y: auto;
 
     .content::-webkit-scrollbar {
-      width: 2px ;
+      width: 2px;
     }
   }
 }
-
 
 .popup-scale-enter-active {
   animation: popup-scale-active $animation-time;
@@ -125,25 +125,24 @@ $animation-time: .3s;
 @keyframes popup-scale-active {
   0% {
     opacity: 0;
-    transform: scale(0.8);
+    transform: scale(0.7)  translate(-50%, -50%);
   }
   100% {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1)  translate(-50%, -50%);
   }
 }
 
 @keyframes popup-scale-leave {
   0% {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translate(-50%, -50%);
   }
   100% {
     opacity: 0;
-    transform: scale(0.8);
+    transform: scale(0.7) translate(-50%, -50%);
   }
 }
-
 
 .bg-fade-enter-active {
   animation: bg-fade-active $animation-time;
