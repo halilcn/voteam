@@ -38,11 +38,9 @@ class SendVoteCreatedEmail implements ShouldQueue
             'teamName' => $this->vote->team->name,
             'voteTitle' => $this->vote->title,
             'voteType' => $this->vote->type,
-            'teamLink' => config('app.frontend_url').'/teams/'.$this->vote->team->key.'/home',
+            'teamLink' => config('app.frontend_url').'teams/'.$this->vote->team->key.'/home',
         ];
 
-        foreach ($emails as $email) {
-            Mail::to($email)->send(new VoteCreated($emailData));
-        }
+        Mail::to($emails)->send(new VoteCreated($emailData));
     }
 }

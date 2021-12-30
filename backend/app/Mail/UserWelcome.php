@@ -31,6 +31,6 @@ class UserWelcome extends Mailable
         return $this
             ->view('emails.users.register.welcome')
             ->with($this->userName)
-            ->subject(config('app.name').' | '.'Welcome !');
+            ->subject(config('app.name').' | '.'Welcome to voteam.net !');
     }
 }

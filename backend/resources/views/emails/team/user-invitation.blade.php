@@ -225,9 +225,14 @@
                                                             mc:edit="bm22-06">
                                                             <multiline>
                                                                 Dear {{$name}},
-                                                                The {{$team_name}} team has sent you an invitation !
+                                                                the <span
+                                                                    style="font-weight: bold;">
+                                                                    {{$team_name}}
+                                                                </span>
+                                                                team
+                                                                has sent you an invitation !
                                                                 You can join the team by clicking this
-                                                                <a href="{{$invitation_url}}">
+                                                                <a style="color: #2575F1;" href="{{$invitation_url}}">
                                                                     link.
                                                                 </a>
                                                             </multiline>
@@ -235,8 +240,14 @@
                                                     </tr>
 
                                                     <tr>
+                                                        <td height="40" align="center" valign="top"
+                                                            style="font-size:20px;line-height:40px;">&nbsp;
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
                                                         <td align="center" valign="top"
-                                                            style="font-family:Arial, Helvetica, sans-serif; font-size:13px; color:#4c4c4c; font-style: italic;"
+                                                            style="font-family:Arial, Helvetica, sans-serif; font-size:13px; color:#a1a1a1; font-style: italic;margin-top: 20px;"
                                                             mc:edit="bm22-06">
                                                             Do not share this link with anyone !
                                                         </td>
@@ -257,35 +268,6 @@
                                             </td>
                                         </tr>
 
-                                        <tr>
-                                            <td align="center" valign="top">
-                                                <table width="100%" border="0" align="center" cellpadding="0"
-                                                       cellspacing="0">
-
-                                                    <tr>
-                                                        <td align="center" valign="top"
-                                                            style="font-family:Arial, Helvetica, sans-serif; font-size:48px; color:#2575F1; font-weight:normal;"
-                                                            mc:edit="bm22-06">
-                                                            <multiline>
-                                                                {{$code}}
-                                                            </multiline>
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td height="20" align="center" valign="top"
-                                                            style="font-size:20px;line-height:20px;">&nbsp;
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td align="center" valign="top"
-                                                            style="font-family:Arial, Helvetica, sans-serif; font-size:18px; color:#e0365a; font-weight:normal; line-height:30px;">
-                                                            &nbsp;
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
                                         <tr>
                                             <td height="60" align="center" valign="top"
                                                 style="font-size:60px; line-height:60px;">&nbsp;
