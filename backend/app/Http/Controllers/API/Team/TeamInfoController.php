@@ -4,7 +4,12 @@ namespace App\Http\Controllers\API\Team;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Team\TeamInfoResource;
+use App\Jobs\SendCalculatedVoteEmail;
+use App\Jobs\SendRegisterCode;
+use App\Jobs\SendTeamUserInvitationEmail;
 use App\Models\Team;
+use App\Models\TeamUserInvitation;
+use App\Models\UserRegisterCode;
 use App\Models\VotedUser;
 
 class TeamInfoController extends Controller
@@ -16,6 +21,8 @@ class TeamInfoController extends Controller
      */
     public function __invoke(Team $team): TeamInfoResource
     {
+        SendTeamUserInvitationEmail::dispatchSync(TeamUserInvitation::find(35));
+
         $VOTE_LOWER_LIMIT = 3;
         $USER_LOWER_LIMIT = 3;
 

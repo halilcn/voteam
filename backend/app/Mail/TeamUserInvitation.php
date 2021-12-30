@@ -35,7 +35,7 @@ class TeamUserInvitation extends Mailable implements ShouldQueue
             ->view('emails.team.user-invitation')
             ->with([
                        'name' => $this->teamUserInvitation->name,
-                       'team_name' => $this->teamUserInvitation->team->name,
+                       'team_name' => $this->teamUserInvitation->team->name ?? 'user',
                        'invitation_url' => config('app.frontend_url').$INVITATION_URL
                    ])
             ->subject(config('app.name').' | '.'Team User Invitation');
