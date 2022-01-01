@@ -83,7 +83,7 @@
                   </div>
                   <div class="bottom-info time">
                     <i class="bi bi-stopwatch-fill"></i>
-                    {{ $dayjs($helpers.convertTimeToUtc(vote.end_date)).fromNow() }}
+                    {{ $dayjs(vote.end_date).from($dayjs().utc()) }}
                   </div>
                   <div class="bottom-info voted-info">
                     <i class="bi bi-check-all"></i>
@@ -123,7 +123,7 @@
                   </div>
                   <div class="bottom-info time">
                     <i class="bi bi-clock-fill"></i>
-                    {{ $dayjs(vote.start_date).format('D MMMM') }}
+                    {{ $dayjs(vote.start_date).from($dayjs().utc()) }}
                   </div>
                 </div>
               </div>

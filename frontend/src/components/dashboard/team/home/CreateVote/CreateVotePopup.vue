@@ -108,6 +108,7 @@ import Error from '../../../../shared/Errors';
 import LoadingAnimation from '../../../../shared/LoadingAnimation';
 import { mapActions } from 'vuex';
 import constants from '../../../../../store/constants';
+import dayjs from 'dayjs';
 
 export default {
   name: 'CreateVotePopup',
@@ -126,8 +127,8 @@ export default {
         title: '',
         type: '',
         options: null,
-        startDate: this.$dayjs().format('YYYY-MM-DD'),
-        endDate: this.$dayjs().add(1, 'day').format('YYYY-MM-DD')
+        startDate: '',
+        endDate: ''
       },
       dataForPostPowerTypeVote: {}
     };
@@ -184,8 +185,8 @@ export default {
     },
     clearVote() {
       this.vote = this.$helpers.clearItems(this.vote);
-      this.vote.startDate = this.$dayjs().format('YYYY-MM-DD');
-      this.vote.endDate = this.$dayjs().add(1, 'day').format('YYYY-MM-DD');
+      this.vote.startDate = this.$dayjs().utc().format('YYYY-MM-DD');
+      this.vote.endDate = this.$dayjs().utc().add(1, 'day').format('YYYY-MM-DD');
       this.v$.vote.$reset();
     },
     clearActiveType() {
@@ -206,12 +207,19 @@ export default {
     postVoteAction() {
       this.handle(async () => {
         this.isLoading.postVote = true;
-        await this.postVote(this.vote);
+        const postVotePayload = this.convertVoteTimesToUtc({ ...this.vote });
+        await this.postVote(postVotePayload);
         this.createdVote();
       })
           .finally(() => {
             this.isLoading.postVote = false;
           });
+    },
+    convertVoteTimesToUtc(vote) {
+      vote.startDate = dayjs(vote.startDate).utc();
+      vote.endDate = dayjs(vote.endDate).utc();
+
+      return vote;
     },
     checkTimeForPostPowerTypeVoteAction() {
       this.handle(async () => {

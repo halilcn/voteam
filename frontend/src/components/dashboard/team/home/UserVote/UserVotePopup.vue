@@ -25,7 +25,7 @@
              Oylamaya Katılım Oranı
             </div>
             <div class="time">
-              ({{ $dayjs($helpers.convertTimeToUtc(vote.end_date)).fromNow() }} bitiyor)
+              ({{ $dayjs(vote.end_date).from($dayjs().utc()) }} bitiyor)
             </div>
           </div>
           <progress-bar class="progress-bar" :percent="vote.voted_percentage"/>

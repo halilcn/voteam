@@ -17,7 +17,7 @@
           </div>
           <div class="time">
             <i class="bi bi-stopwatch"></i>
-            {{ $dayjs($helpers.convertTimeToUtc(vote.end_date)).fromNow() }}
+            {{ $dayjs(vote.end_date).from($dayjs().utc()) }}
           </div>
         </div>
         <div v-if="vote.calculated"

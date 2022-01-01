@@ -14,7 +14,7 @@
            class="item"
            :class="actionColorOfNotification(notification.data.action)">
         <div class="time">
-          {{ $dayjs(notification.created_at).fromNow() }}
+          {{ $dayjs(notification.created_at).from($dayjs().utc()) }}
         </div>
         <img :src="actionIconOfNotification(notification.data.action)"
              alt="notification-icon"
