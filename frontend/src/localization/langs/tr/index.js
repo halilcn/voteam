@@ -52,7 +52,7 @@ export default {
     infoText: 'Takım oluşturmak veya takımlara katılmak için kayıt olmak gerekir.',
     registerButton: 'Hesap Oluştur',
     sendCodeButton: 'Kod Gönder',
-    resendCodeButton: 'Tekrar Kod Gönder',
+    resendCodeButton: 'Tekrar Gönder',
     codeSent: 'Kod gönderildi. Gelen kodu aşağıya yazınız.',
     termsOfServiceText: 'kabul edilmiş sayılır.'
   },
