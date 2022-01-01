@@ -21,8 +21,9 @@ class ActiveVotesResource extends JsonResource
             'type' => $this->type,
             'options' => $this->options,
             'end_date' => $this->end_date,
-            'voted_percentage' => Vote::find($this->id)->voted_percentage,
-            'is_voted' => Vote::find($this->id)->votedUsers()->where('user_id', $request->user()->id)->exists(),
+            'voted_percentage' => 41,//Vote::find($this->id)->voted_percentage,
+            'test' => $this->voted_users,
+            'is_voted' => false,//Vote::find($this->id)->votedUsers()->where('user_id', $request->user()->id)->exists(),
         ];
     }
 }

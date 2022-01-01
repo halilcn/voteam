@@ -15,20 +15,34 @@ use Illuminate\Support\Carbon;
 class VoteController extends Controller
 {
 
-    /**
-     * @param  Team  $team
-     * @return VotesResource
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    public function index(Team $team): VotesResource
+    //TODO: !!
+    public function index(Team $team)
     {
         $this->authorize('view', [Vote::class, $team]);
+
+        // TODO: !
+        return $team
+            ->votes()
+            ->activeVotes()
+            ->with([
+                       'votedUsers:vote_id,user_id',
+                       'team' => function ($query) {
+                           $query->withCount('users');  //Boşuna sorguları kes !
+                       }
+                   ])
+            ->orderBy('start_date')
+            ->get()
+            ->transform(function ($vote) {
+                $vote['voted_users_id'] = $vote['voted_users'];
+                return $vote;
+            });
 
         // TODO: query problem.
         return VotesResource::make(
             $team
                 ->votes()
                 ->activeVotes()
+                ->with('votedUsers:vote_id,user_id')
                 ->orderBy('start_date')
                 ->get()
         );
