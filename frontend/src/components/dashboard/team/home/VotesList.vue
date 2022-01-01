@@ -142,14 +142,14 @@
 </template>
 
 <script>
-import CreateVotePopup from './CreateVote/CreateVotePopup';
-import CreatePowerVote from './CreateVote/CreateFirstPowerVote';
+import CreateVotePopup from './create-vote/CreateVotePopup';
+import CreatePowerVote from './create-vote/CreateFirstPowerVote';
 import InfoTooltip from '../../../shared/InfoTooltip';
 import LoadingAnimation from '../../../shared/LoadingAnimation';
-import UserVotePopup from './UserVote/UserVotePopup';
+import UserVotePopup from './user-vote/UserVotePopup';
 import constants from '../../../../store/constants';
 import { mapActions, mapState } from 'vuex';
-import FinishedVotePopup from './FinishedVote/FinishedVotePopup';
+import FinishedVotePopup from './finished-vote/FinishedVotePopup';
 
 export default {
   name: 'VotesList',
