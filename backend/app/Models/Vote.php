@@ -92,6 +92,17 @@ class Vote extends Model
         $usersCount = $this->team->users()->count();
         $votedUserCount = $this->votedUsers()->count();
 
+        return self::calculateVotedPercentage($votedUserCount, $usersCount);
+    }
+
+    /**
+     * Calculate percentage of user who voted
+     * @param $votedUserCount
+     * @param $usersCount
+     * @return int
+     */
+    public static function calculateVotedPercentage(int $votedUserCount, int $usersCount): int
+    {
         return $votedUserCount * (100 / $usersCount);
     }
 

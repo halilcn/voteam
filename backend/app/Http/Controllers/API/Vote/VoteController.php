@@ -15,37 +15,33 @@ use Illuminate\Support\Carbon;
 class VoteController extends Controller
 {
 
-    //TODO: !!
-    public function index(Team $team)
+    /**
+     * @param  Team  $team
+     * @return object
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function index(Team $team): object
     {
         $this->authorize('view', [Vote::class, $team]);
 
-        // TODO: !
-        return $team
+        $teamUsersCount = $team->users()->count();
+
+        $teamVotes = $team
             ->votes()
             ->activeVotes()
-            ->with([
-                       'votedUsers:vote_id,user_id',
-                       'team' => function ($query) {
-                           $query->withCount('users');  //Boşuna sorguları kes !
-                       }
-                   ])
+            ->with('votedUsers:vote_id,user_id')
             ->orderBy('start_date')
             ->get()
-            ->transform(function ($vote) {
-                $vote['voted_users_id'] = $vote['voted_users'];
+            ->map(function ($vote) use ($teamUsersCount) {
+                $votedUsersCount = $vote->votedUsers->count();
+
+                $vote->votedUsersIds = $vote->votedUsers->pluck('user_id');
+                $vote->calculated_voted_percentage = Vote::calculateVotedPercentage($votedUsersCount, $teamUsersCount);
+
                 return $vote;
             });
 
-        // TODO: query problem.
-        return VotesResource::make(
-            $team
-                ->votes()
-                ->activeVotes()
-                ->with('votedUsers:vote_id,user_id')
-                ->orderBy('start_date')
-                ->get()
-        );
+        return VotesResource::make($teamVotes);
     }
 
     /**
