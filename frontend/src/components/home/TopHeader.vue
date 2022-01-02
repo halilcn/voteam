@@ -65,7 +65,7 @@ export default {
 <style lang="scss" scoped>
 .top-header {
   @include bottom-md-box-shadow;
-  position: sticky;
+  position: fixed;
   z-index: 10;
   top: 0;
   display: flex;
