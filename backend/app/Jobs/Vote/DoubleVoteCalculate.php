@@ -2,6 +2,7 @@
 
 namespace App\Jobs\Vote;
 
+use App\Models\Vote;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -18,7 +19,7 @@ class DoubleVoteCalculate implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(public Vote $vote)
     {
         //
     }

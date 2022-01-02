@@ -25,11 +25,60 @@ class VotedUserController extends Controller
         $this->authorize('create', [VotedUser::class, $vote]);
 
         /*
+         * //TODO: power gücü olanlar sayılır sadece!
         $test=$vote->votedUsers;
         $test2=$vote->team()->with('users.member.userPower')->get();
-
         return $this->errorResponse($test2);*/
-        return $this->errorResponse("ok");
+
+        $votedUsers = $vote
+            ->votedUsers()
+            ->select('user_id', 'vote_id', 'answer')
+            ->get();
+
+        $powerOfUsers = $vote
+            ->team()
+            ->with('users.member.userPower')
+            ->first()
+            ->users
+            ->map(function ($ach) {
+                $teamUser = [];
+
+                $teamUser['user_id'] = $ach->id;
+                $teamUser['power'] = $ach->member->userPower->power;
+
+                return $teamUser;
+            });
+
+        $percentageOfVotedUsers = $votedUsers->count() * (100 / $powerOfUsers->count());
+
+        $answers = [
+            'true' => 0,
+            'false' => 0
+        ];
+
+        foreach ($votedUsers as $votedUser) {
+            $userId = $votedUser['user_id'];
+            $power = $powerOfUsers->where('user_id', $userId)->first()['power'];
+            $answer = $votedUser['answer']['answer'];
+
+            if ($answer) {
+                $answers['true'] += $power;
+                continue;
+            }
+
+            if (!$answer) {
+                $answers['false'] += $power;
+            }
+        }
+
+        $calculateData = collect();
+        if ($answers['true'] >= $answers['false']) {
+            //olumlu cevap
+        } else {
+            //olumsuz cevap
+        }
+
+        return $this->errorResponse($answers);
 
         $userId = $request->user()->id;
 
