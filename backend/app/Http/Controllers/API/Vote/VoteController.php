@@ -36,7 +36,7 @@ class VoteController extends Controller
                 $votedUsersCount = $vote->votedUsers->count();
 
                 $vote->votedUsersIds = $vote->votedUsers->pluck('user_id');
-                $vote->calculated_voted_percentage = Vote::calculateVotedPercentage($votedUsersCount, $teamUsersCount);
+                $vote->calculatedVotedPercentage = Vote::calculateVotedPercentage($votedUsersCount, $teamUsersCount);
 
                 return $vote;
             });

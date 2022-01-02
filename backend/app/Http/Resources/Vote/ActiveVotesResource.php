@@ -21,7 +21,7 @@ class ActiveVotesResource extends JsonResource
             'type' => $this->type,
             'options' => $this->options,
             'end_date' => $this->end_date,
-            'voted_percentage' => $this->calculated_voted_percentage,
+            'voted_percentage' => $this->calculatedVotedPercentage,
             'is_voted' => $this->votedUsersIds->contains($request->user()->id)
         ];
     }
