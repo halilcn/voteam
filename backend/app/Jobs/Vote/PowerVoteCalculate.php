@@ -39,6 +39,10 @@ class PowerVoteCalculate implements ShouldQueue
         $votedUsersCount = $this->vote->votedUsers()->count();
         $teamUsersId = collect(TeamUser::where('team_id', $teamId)->pluck('id'));
 
+        if ($this->vote->calculation()->exists()) {
+            return;
+        }
+
         collect($this->vote->votedUsers)
             ->map(function ($votedUser) {
                 return $votedUser['answer'];
