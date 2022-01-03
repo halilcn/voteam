@@ -32,7 +32,8 @@ class VotedUserController extends Controller
         $test2=$vote->team()->with('users.member.userPower')->get();
         return $this->errorResponse($test2);*/
 
-        DoubleVoteCalculate::dispatchSync($vote);
+
+
 
         return $this->errorResponse();
 
