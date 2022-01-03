@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Jobs\Vote\DoubleVoteCalculate;
 use App\Jobs\Vote\PowerVoteCalculate;
 use App\Models\Vote;
 use App\Models\VotedUser;
@@ -25,9 +26,13 @@ class VotedUserObserver
                 PowerVoteCalculate::dispatch($votedUser->vote);
             }
 
+            if ($votedUser->vote->type === Vote::$TYPES['DOUBLE']) {
+                DoubleVoteCalculate::dispatch($votedUser->vote);
+            }
+
             //TODO: her vote type için job(oylama hesaplamaları)
             //TODO: job'lar cron için tekrar gözden geçirilecek.
-            $votedUser->vote()->update(['all_users_voted' => true, 'end_date' => Carbon::now()]);
+            $votedUser->vote()->update(['all_users_voted' => true]);
         }
     }
 
