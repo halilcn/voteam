@@ -28,6 +28,8 @@ class Vote extends Model
         "TOTAL_VOTE_USER_POWER" => 10000
     ];
 
+    public static int $MINIMUM_VOTED_USERS_PERCENTAGE = 50;
+
     protected $table = 'votes';
     protected $fillable = [
         'team_id',
