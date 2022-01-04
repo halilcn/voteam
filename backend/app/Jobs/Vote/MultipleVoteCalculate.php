@@ -34,5 +34,7 @@ class MultipleVoteCalculate implements ShouldQueue
         if ($this->vote->calculation()->exists()) {
             return;
         }
+
+
     }
 }

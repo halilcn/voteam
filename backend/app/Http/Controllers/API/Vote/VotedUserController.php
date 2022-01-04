@@ -34,9 +34,47 @@ class VotedUserController extends Controller
         $test2=$vote->team()->with('users.member.userPower')->get();
         return $this->errorResponse($test2);*/
 
+        $successStatusData = [
+            User::$LANGUAGES['TR'] => [
+                'status' => true,
+                'data' => []
+            ],
+            User::$LANGUAGES['EN'] => [
+                'status' => true,
+                'message' => 'Voting Accepted'
+            ]
+        ];
+        $negativeStatusData = [
+            User::$LANGUAGES['TR'] => [
+                'status' => false,
+                'message' => 'Oylama Reddedildi'
+            ],
+            User::$LANGUAGES['EN'] => [
+                'status' => false,
+                'message' => 'Voting Rejected'
+            ]
+        ];
 
+        $votedUsers = $vote
+            ->votedUsers()
+            ->select('user_id', 'vote_id', 'answer')
+            ->get();
 
-        return $this->errorResponse();
+        $powerOfUsers = $vote
+            ->team()
+            ->with('users.member.userPower')
+            ->first()
+            ->users
+            ->map(function ($user) {
+                $teamUser = [];
+
+                $teamUser['user_id'] = $user->id;
+                $teamUser['power'] = $user->member->userPower->power;
+
+                return $teamUser;
+            });
+
+        return $this->errorResponse($powerOfUsers);
 
         $userId = $request->user()->id;
 
