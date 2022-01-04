@@ -4,6 +4,9 @@ namespace App\Observers;
 
 use App\Jobs\SendVoteCreatedEmail;
 use App\Jobs\TeamNotifications\VoteCreatedNotification;
+use App\Jobs\Vote\DoubleVoteCalculate;
+use App\Jobs\Vote\MultipleVoteCalculate;
+use App\Jobs\Vote\PowerVoteCalculate;
 use App\Models\TeamNotification;
 use App\Models\Vote;
 use Illuminate\Support\Facades\Notification;
@@ -28,6 +31,20 @@ class VoteObserver
     {
         VoteCreatedNotification::dispatch($vote->team, $vote->title);
         SendVoteCreatedEmail::dispatch($vote);
+
+        $delaySeconds = $vote->end_date->diffInSeconds(now());
+
+        if ($vote->type === Vote::$TYPES['POWER']) {
+            PowerVoteCalculate::dispatch($vote)->delay($delaySeconds);
+        }
+
+        if ($vote->type === Vote::$TYPES['DOUBLE']) {
+            DoubleVoteCalculate::dispatch($vote)->delay($delaySeconds);
+        }
+
+        if ($vote->type === Vote::$TYPES['MULTIPLE']) {
+            MultipleVoteCalculate::dispatch()->delay($delaySeconds);
+        }
     }
 
     /**

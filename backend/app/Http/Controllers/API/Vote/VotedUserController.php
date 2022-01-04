@@ -6,10 +6,12 @@ use App\Exceptions\Exception;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VOte\VotedUserRequest;
 use App\Jobs\Vote\DoubleVoteCalculate;
+use App\Jobs\Vote\MultipleVoteCalculate;
 use App\Models\Team;
 use App\Models\TeamUser;
 use App\Models\Vote;
 use App\Models\VotedUser;
+use Carbon\Carbon;
 
 class VotedUserController extends Controller
 {
@@ -31,7 +33,6 @@ class VotedUserController extends Controller
         $test=$vote->votedUsers;
         $test2=$vote->team()->with('users.member.userPower')->get();
         return $this->errorResponse($test2);*/
-
 
 
 
