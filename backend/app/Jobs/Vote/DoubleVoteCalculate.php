@@ -35,21 +35,21 @@ class DoubleVoteCalculate implements ShouldQueue
         $successStatusData = [
             User::$LANGUAGES['TR'] => [
                 'status' => true,
-                'message' => 'Oylama Kabul Edildi'
+                'message' => 'Oylama Kabul Edildi !'
             ],
             User::$LANGUAGES['EN'] => [
                 'status' => true,
-                'message' => 'Voting Accepted'
+                'message' => 'Voting Accepted !'
             ]
         ];
         $negativeStatusData = [
             User::$LANGUAGES['TR'] => [
                 'status' => false,
-                'message' => 'Oylama Reddedildi'
+                'message' => 'Oylama Reddedildi !'
             ],
             User::$LANGUAGES['EN'] => [
                 'status' => false,
-                'message' => 'Voting Rejected'
+                'message' => 'Voting Rejected !'
             ]
         ];
 

@@ -41,26 +41,24 @@ class MultipleVoteCalculate implements ShouldQueue
         $successStatusData = [
             User::$LANGUAGES['TR'] => [
                 'status' => true,
-                'data' => [
-                    'message' => 'Oylama Sonuçlandı'
-                ]
+                'message' => 'Oylama Sonuçlandı !',
+                'data' => []
             ],
             User::$LANGUAGES['EN'] => [
                 'status' => true,
-                'data' => [
-                    'message' => 'Vote Completed'
-                ]
+                'message' => 'Vote Completed !',
+                'data' => []
             ]
         ];
         $negativeStatusData = [
             User::$LANGUAGES['TR'] => [
                 'status' => false,
-                'message' => 'Oylama Reddedildi',
+                'message' => 'Oylama Reddedildi !',
                 'info_message' => 'Yeterli katılım sağlanılmadı'
             ],
             User::$LANGUAGES['EN'] => [
                 'status' => false,
-                'message' => 'Voting Rejected',
+                'message' => 'Voting Rejected !',
                 'info_message' => 'Not enough participation'
             ]
         ];

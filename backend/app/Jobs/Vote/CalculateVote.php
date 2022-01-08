@@ -19,7 +19,7 @@ class CalculateVote implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(public Vote $vote, public int $delay = 0)
+    public function __construct(public Vote $vote, public $delay = 0)
     {
         //
     }

@@ -70,10 +70,10 @@ class PowerVoteCalculate implements ShouldQueue
         $this->vote->calculation()->create([
                                                'data' => [
                                                    User::$LANGUAGES['TR'] => [
-                                                       'message' => 'Güç oylaması tamamlandı',
+                                                       'message' => 'Güç Oylaması Tamamlandı !',
                                                    ],
                                                    User::$LANGUAGES['EN'] => [
-                                                       'message' => 'Power vote completed',
+                                                       'message' => 'Power Vote Completed !',
                                                    ]
                                                ]
                                            ]);
