@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Jobs\Vote\CalculateVote;
 use App\Jobs\Vote\DoubleVoteCalculate;
 use App\Jobs\Vote\MultipleVoteCalculate;
 use App\Jobs\Vote\PowerVoteCalculate;
@@ -23,21 +24,7 @@ class VotedUserObserver
         $countVotedUsers = VotedUser::where('vote_id', $votedUser->vote_id)->count();
 
         if ($countUsersOfTeam == $countVotedUsers) {
-            if ($votedUser->vote->type === Vote::$TYPES['POWER']) {
-                PowerVoteCalculate::dispatch($votedUser->vote);
-            }
-
-            if ($votedUser->vote->type === Vote::$TYPES['DOUBLE']) {
-                DoubleVoteCalculate::dispatch($votedUser->vote);
-            }
-
-            if ($votedUser->vote->type === Vote::$TYPES['MULTIPLE']) {
-                MultipleVoteCalculate::dispatch();
-            }
-
-            //TODO: yukarıyı daha dinmaik hale getirmek ? (çünkü vote observer'da da aynısı kullanılıyor ?)
-            //TODO: her vote type için job(oylama hesaplamaları)
-            //TODO: job'lar cron için tekrar gözden geçirilecek.
+            CalculateVote::dispatchSync($votedUser->vote);
             $votedUser->vote()->update(['all_users_voted' => true]);
         }
     }
