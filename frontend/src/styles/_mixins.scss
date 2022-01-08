@@ -210,3 +210,48 @@
   cursor: default !important;
   pointer-events: none !important;
 }
+
+@mixin finished-vote {
+  .detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &.success {
+      > .title {
+        color: $df-green-color !important;
+      }
+    }
+
+    &.unsuccessful {
+      > .title {
+        color: $df-red-color !important;
+      }
+
+      .info-message {
+        color: $df-black-and-blue-color;
+        background-color: #f2f4f8;;
+        padding: 7px 15px;
+        border-radius: 5px;
+        font-style: italic;
+        font-weight: 300;
+        font-size: 14px;
+        margin-top: 10px;
+      }
+    }
+
+    > .title {
+      font-size: 18px;
+
+      i {
+        margin-right: 5px;
+      }
+    }
+
+    .result {
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+  }
+}

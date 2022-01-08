@@ -1,7 +1,9 @@
 <template>
-  <div>
-    power vote
-    {{ data }}
+  <div class="detail success">
+    <div class="title">
+      <i class="bi bi-patch-check-fill"></i>
+      {{ data.message }}
+    </div>
   </div>
 </template>
 
@@ -17,6 +19,6 @@ export default {
 };
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+@include finished-vote
 </style>
