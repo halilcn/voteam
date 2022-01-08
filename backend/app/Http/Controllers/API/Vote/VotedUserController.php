@@ -28,10 +28,6 @@ class VotedUserController extends Controller
 
         $this->authorize('create', [VotedUser::class, $vote]);
 
-        MultipleVoteCalculate::dispatchSync($vote);
-
-        return $this->errorResponse("ok");
-
         $userId = $request->user()->id;
 
         if ($vote->all_users_voted || $vote->end_date->isPast() || $vote->hasUserVoted($userId)) {
