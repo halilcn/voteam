@@ -9,6 +9,7 @@ use App\Jobs\Vote\DoubleVoteCalculate;
 use App\Jobs\Vote\MultipleVoteCalculate;
 use App\Models\Team;
 use App\Models\TeamUser;
+use App\Models\User;
 use App\Models\Vote;
 use App\Models\VotedUser;
 use Carbon\Carbon;
@@ -37,21 +38,27 @@ class VotedUserController extends Controller
         $successStatusData = [
             User::$LANGUAGES['TR'] => [
                 'status' => true,
-                'data' => []
+                'data' => [
+                    'message' => 'Oylama Sonlandı ?'
+                ]
             ],
             User::$LANGUAGES['EN'] => [
                 'status' => true,
-                'message' => 'Voting Accepted'
+                'data' => [
+                    'message' => 'Oylama Sonlandı ?'
+                ]
             ]
         ];
         $negativeStatusData = [
             User::$LANGUAGES['TR'] => [
                 'status' => false,
-                'message' => 'Oylama Reddedildi'
+                'message' => 'Oylama Reddedildi ',
+                'info_message' => 'Kişilerden %50 den katılım az'
             ],
             User::$LANGUAGES['EN'] => [
                 'status' => false,
-                'message' => 'Voting Rejected'
+                'message' => 'Oylama Reddedildi ',
+                'info_message' => 'Kişilerden %50 den katılım az'
             ]
         ];
 
@@ -74,7 +81,68 @@ class VotedUserController extends Controller
                 return $teamUser;
             });
 
-        return $this->errorResponse($powerOfUsers);
+        $totalPowersWithAnswers = collect();
+        foreach ($votedUsers as $votedUser) {
+            $power = $powerOfUsers->where('user_id', $votedUser['user_id'])->first()['power'];
+
+            $answer = $votedUser['answer'];
+            $answerType = $votedUser['answer']['type'];
+            $isTextAnswerType = $answerType == Vote::$OPTIONS_TYPES['TEXT'];
+
+            $hasAnswer = $totalPowersWithAnswers
+                ->where('type', $answerType)
+                ->when($isTextAnswerType, function ($query) use ($votedUser) {
+                    return $query->where('message', $votedUser['answer']['message']); //dynamic
+                })
+                ->when(!$isTextAnswerType, function ($query) use ($votedUser) {
+                    return $query->where('path', $votedUser['answer']['path']); //dynamic
+                })
+                ->first();
+
+            if (!$hasAnswer) {
+                //yok ise ekle
+                $answerType1 = $isTextAnswerType ? 'message' : 'path';
+                $answerType2 = $isTextAnswerType ? $votedUser['answer']['message'] : $votedUser['answer']['path'];
+                $totalPowersWithAnswers->push([
+                                                  'type' => $answerType,
+                                                  $answerType1 => $answerType2,
+                                                  'total_power' => 0,
+                                              ]);
+            }
+
+            $totalPowersWithAnswers = $totalPowersWithAnswers
+                ->map(function ($test) use ($isTextAnswerType, $votedUser, $power) {
+                    if ($test['type'] === $votedUser['answer']['type']) {
+                        if ($test['type'] === 'text') {
+                            if ($test['message'] === $votedUser['answer']['message']) {
+                                $test['total_power'] = $test['total_power'] + $power;
+                            }
+                        }
+
+                        if ($test['type'] === 'image') {
+                            if ($test['path'] === $votedUser['answer']['path']) {
+                                $test['total_power'] = $test['total_power'] + $power;
+                            }
+                        }
+                    }
+
+                    return $test;
+                });
+        }
+
+        $max = $totalPowersWithAnswers->max('total_power');
+        $sonuc = $totalPowersWithAnswers->filter(function ($test) use ($max) {
+            return $test['total_power'] === $max;
+        })
+            ->first();
+        unset($sonuc['total_power']);
+
+        $enson = collect($successStatusData)->map(function ($item) use ($sonuc) {
+            $item['data']['selected_option'] = $sonuc;
+            return $item;
+        });
+
+        return $this->errorResponse($enson);
 
         $userId = $request->user()->id;
 
