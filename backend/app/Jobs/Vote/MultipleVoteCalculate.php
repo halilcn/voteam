@@ -41,13 +41,11 @@ class MultipleVoteCalculate implements ShouldQueue
         $successStatusData = [
             User::$LANGUAGES['TR'] => [
                 'status' => true,
-                'message' => 'Oylama Sonuçlandı !',
-                'data' => []
+                'message' => 'Oylama Sonuçlandı !'
             ],
             User::$LANGUAGES['EN'] => [
                 'status' => true,
-                'message' => 'Vote Completed !',
-                'data' => []
+                'message' => 'Vote Completed !'
             ]
         ];
         $negativeStatusData = [
@@ -124,7 +122,7 @@ class MultipleVoteCalculate implements ShouldQueue
             $highestPowerOption = $totalPowersWithAnswers->sortByDesc('total_power')->first();
 
             $calculateData = collect($successStatusData)->map(function ($item) use ($highestPowerOption) {
-                $item['data']['selected_option'] = collect($highestPowerOption)->except('total_power');
+                $item['selected_option'] = collect($highestPowerOption)->except('total_power');
                 return $item;
             });
         }
