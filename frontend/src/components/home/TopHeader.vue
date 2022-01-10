@@ -65,7 +65,7 @@ export default {
 <style lang="scss" scoped>
 .top-header {
   @include bottom-md-box-shadow;
-  position: fixed;
+  position: sticky;
   z-index: 10;
   top: 0;
   display: flex;
@@ -73,6 +73,7 @@ export default {
   padding: 15px $df-dsktp-lr-width-pdn;
   background-color: white;
   width: 100%;
+  border-radius: 5px;
 
   .desktop-logo {
     img {
@@ -98,16 +99,18 @@ export default {
       cursor: pointer;
       font-size: 15px;
       padding-bottom: 4px;
-      border-bottom: 1px solid white;
+      border-bottom: 2px solid white;
       transition: .3s;
+      color: $df-black-and-blue-color;
 
       &:hover {
-        border-bottom-color: #d0d0d0;
+        border-bottom-color: #dbe9ff;
+        border-radius: 2px;
       }
 
       &.selected {
         color: $df-blue-color;
-        border-bottom-color: #d0d0d0;
+        border-bottom-color: #dbe9ff;
       }
 
     }
@@ -115,11 +118,12 @@ export default {
 
   .user-actions {
     display: flex;
+    padding-right: 10px;
 
     a {
       margin: 0 10px;
       cursor: pointer;
-      font-weight: 400;
+      font-weight: 500;
       padding: 5px 10px;
       border-radius: 5px;
       transition: .3s;
@@ -131,7 +135,7 @@ export default {
 
       &:hover {
         background-color: $df-blue-color-hover-dark;
-        transform: translateY(-1px);
+        transform: translateY(-2px);
         @include bottom-lr-box-shadow;
       }
     }
