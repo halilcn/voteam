@@ -73,7 +73,7 @@ export default {
     termsOfServiceText: 'kabul edilmiş sayılır.'
   },
   footer: {
-    text: '© Copyright 2021. Tüm hakları saklıdır.'
+    text: '© Copyright 2022. Tüm hakları saklıdır.'
   },
   dashboard: {
     members: {
