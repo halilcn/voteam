@@ -72,6 +72,12 @@ export default {
     codeSent: 'Code sent. Write the code below.',
     termsOfServiceText: 'are deemed to have been accepted.'
   },
+  forgotPassword: {
+    infoText: 'You can change your password by entering your e-mail address.',
+    sendCodeButton: 'Reset Password',
+    wrongEmail: 'No users registered with this e-mail account',
+    sentCodeInfo: 'Email sent to reset password. Password reset link will be deleted automatically after 2 hours.'
+  },
   footer: {
     text: '© Copyright 2021. All rights reserved.'
   },

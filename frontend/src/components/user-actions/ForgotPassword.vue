@@ -10,14 +10,13 @@
             loop
             autoplay/>
         <div class="text">
-          Şifre sıfırlamak için e-mail gönderildi.
-          2 saat sonra şifre sıfırlama linki otomatik olarak silinir.
+          {{ $t('forgotPassword.sentCodeInfo') }}
         </div>
       </div>
     </div>
     <div v-else class="content">
       <div class="title">
-        E-mail adresini girerek şifreni değiştirebilirsin.
+        {{ $t('forgotPassword.infoText') }}
       </div>
       <div class="first-step">
         <div class="data-field-container">
@@ -34,13 +33,13 @@
         </div>
         <standart-button
             class="continue-btn"
-            text="Şifre Sıfırla"
+            :text="$t('forgotPassword.sendCodeButton')"
             @click="postForgotPasswordAction"
             :is-disable="isLoading || v$.userEmail.$invalid"/>
         <errors
             class="wrong-email-error"
             v-if="isWrongEmail"
-            :content="['Bu e-mail hesabıyla kayıtlı kullanıcı yok']"/> <!-- TODO: multiple language -->
+            :content="[$t('forgotPassword.wrongEmail')]"/>
       </div>
     </div>
   </div>

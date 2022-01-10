@@ -72,6 +72,12 @@ export default {
     codeSent: 'Kod gönderildi. Gelen kodu aşağıya yazınız.',
     termsOfServiceText: 'kabul edilmiş sayılır.'
   },
+  forgotPassword: {
+    infoText: 'E-mail adresini girerek şifreni değiştirebilirsin.',
+    sendCodeButton: 'Şifre Sıfırla',
+    wrongEmail: 'Bu e-mail hesabıyla kayıtlı kullanıcı yok',
+    sentCodeInfo: ' Şifre sıfırlamak için e-mail gönderildi. 2 saat sonra şifre sıfırlama linki otomatik olarak silinir.'
+  },
   footer: {
     text: '© Copyright 2022. Tüm hakları saklıdır.'
   },
