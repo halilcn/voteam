@@ -28,9 +28,9 @@ const routes = [
     beforeEnter: guest
   },
   {
-    path: '/prices',
-    name: 'Prices',
-    component: () => import('../views/Prices.vue'),
+    path: '/how-work',
+    name: 'HowWork',
+    component: () => import('../views/HowWork.vue'),
     beforeEnter: guest
   },
   {

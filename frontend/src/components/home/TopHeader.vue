@@ -23,16 +23,17 @@
       <router-link
           class="item"
           tag="div"
-          :to="{name:'Prices'}"
+          :to="{name:'About'}"
           exact-active-class="selected">
-        {{ $t('home.topHeader.links.pricing') }}
+        {{ $t('home.topHeader.links.about') }}
       </router-link>
       <router-link
           class="item"
           tag="div"
-          :to="{name:'About'}"
+          target="_blank"
+          :to="{name:'HowWork'}"
           exact-active-class="selected">
-        {{ $t('home.topHeader.links.about') }}
+        {{ $t('home.topHeader.links.howWork') }}
       </router-link>
     </div>
     <div class="user-actions">

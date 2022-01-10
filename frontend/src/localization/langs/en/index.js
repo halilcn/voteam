@@ -24,7 +24,7 @@ export default {
     topHeader: {
       links: {
         home: 'Homepage',
-        pricing: 'Pricing',
+        howWork: 'How voteam Works',
         about: 'About'
       }
     },
@@ -55,7 +55,7 @@ export default {
   userActions: {
     helpfulLinks: {
       home: 'Home',
-      pricing: 'Pricing',
+      howWork: 'How voteam Work ?',
       about: 'About'
     }
   },

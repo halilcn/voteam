@@ -46,8 +46,9 @@
       </div>
       <router-link
           class="item"
-          :to="{name:'Prices'}">
-        {{ $t('userActions.helpfulLinks.pricing') }}
+          target="_blank"
+          :to="{name:'HowWork'}">
+        {{ $t('userActions.helpfulLinks.howWork') }}
       </router-link>
       <div class="circle">
         &#9679;
@@ -160,8 +161,8 @@ export default {
     display: flex;
     justify-content: center;
     font-size: 14px;
-    font-weight: 300;
-    color: #171717;
+    font-weight: 500;
+    color: $df-black-and-blue-color;
     margin: 40px 0;
 
     .circle {

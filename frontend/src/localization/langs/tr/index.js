@@ -24,7 +24,7 @@ export default {
     topHeader: {
       links: {
         home: 'Anasayfa',
-        pricing: 'Fiyatlar',
+        howWork: 'Nasıl Çalışır ?',
         about: 'Hakkında'
       }
     },
@@ -54,9 +54,9 @@ export default {
   },
   userActions: {
     helpfulLinks: {
-      home: 'Home',
-      pricing: 'Pricing',
-      about: 'About'
+      home: 'Anasayfa',
+      howWork: 'Nasıl Çalışır ?',
+      about: 'Hakkında'
     }
   },
   login: {
