@@ -28,7 +28,23 @@ export default {
         about: 'About'
       }
     },
-    content: {}
+    content: {
+      itemOne: {
+        title: 'provides next generation voting.',
+        info: 'allows the team to make decisions democratically. If you are looking for a team that makes democratic decisions for work, school or any cause, voteam is for you.',
+        createTeamBtn: 'Create Team'
+      },
+      itemTwo: {
+        title: 'Votes are secret and of varying strength.',
+        info: 'When any type of voting is initiated, the votes of everyone on the team are secret and of varying strength.' +
+          'Voting powers are distributed to each member by their teammates. No one, including the team leader, can see these deployed powers.' +
+          'voteam finalizes voting by passing members\' votes and voting power through certain algorithms.'
+      },
+      itemThree: {
+        title: 'Ensures team integrity.',
+        info: 'voteam, removing power ambiguities among members, allows you to focus on your work.'
+      }
+    }
   },
   pricing: {
     title: {

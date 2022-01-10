@@ -28,7 +28,23 @@ export default {
         about: 'Hakkında'
       }
     },
-    content: {}
+    content: {
+      itemOne: {
+        title: 'yeni nesil oylama sağlar.',
+        info: 'takımdaki kararları demokratik şekilde almayı sağlar. İş, okul ya da herhangi bir sebep için demokratik kararlar alan bir takım arıyorsanız voteam tam sizin içindir.',
+        createTeamBtn: 'Takım Oluştur'
+      },
+      itemTwo: {
+        title: 'Oylar gizlidir ve farklı güçlerdedir.',
+        info: ' Herhangi bir tipte oylama başlatıldığında, takımdaki herkesin verdiği oy gizli ve farklı güçtedir.' +
+          'Oy güçleri her üyeye takım arkadaşları tarafından dağıtılır. Dağıtılan bu güçleri takım lideri dahil hiç kimse göremez.' +
+          'voteam üyelerin oylarını ve oy güçlerini belirli algoritmalardan geçirerek oylamayı sonuçlandırır.'
+      },
+      itemThree: {
+        title: 'Takım bütünlüğünü sağlar.',
+        info: 'voteam üyeler arasındaki güç belirsizliklerini ortadan kaldırarak, işinize odaklanmanızı sağlar.'
+      }
+    }
   },
   pricing: {
     title: {

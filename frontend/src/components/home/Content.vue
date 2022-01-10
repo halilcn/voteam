@@ -3,17 +3,20 @@
     <div class="item main reverse-order">
       <div class="text">
         <div class="title">
-          <span class="voteam">votem</span> takım yönetimini demokratikleştirir
+          <span class="voteam">voteam</span>
+          {{ $t('home.content.itemOne.title') }}
         </div>
         <div class="info">
-          <span class="voteam">voteam</span> herhangi bir takımı demokratik bir şekilde yönetmeye yarar. İş için, okul
-          için ya da herhangi bir sebep
-          için demokratik bir takım yönetimi arıyorsanız <span class="voteam">voteam</span> tam size göredir.
+          <span class="voteam">voteam</span>
+          {{ $t('home.content.itemOne.info') }}
         </div>
-        <div class="create-team-btn">
+        <router-link
+            tag="div"
+            :to="{name:'Register'}"
+            class="create-team-btn">
           <i class="bi bi-patch-plus-fill"></i>
-          Takım Oluştur
-        </div>
+          {{ $t('home.content.itemOne.createTeamBtn') }}
+        </router-link>
       </div>
       <div class="animation">
         <lottie-player
@@ -37,24 +40,20 @@
       </div>
       <div class="text">
         <div class="title">
-          Oylar gizli ve farklı güçtedir
+          {{ $t('home.content.itemTwo.title') }}
         </div>
         <div class="info">
-          Oluşturulan takımlarda bir oylama olduğunda, herkesin verdiği oy gizli ve farklı güçtedir.
-          Takımda bulunan her kişinin gücünü, diğer takıma arkadaşları belirler. Bu sebepler bir takım kurulduğunda ilk
-          yapılacak ilk iş diğer takım arkadaşlarını gücünü belirlemektir. Dağıtılan güçleri grup yöneticiside dahil hiç
-          kimse göremez. Herkes verdiği oyun gücünü bilemez.
+          {{ $t('home.content.itemTwo.info') }}
         </div>
       </div>
     </div>
     <div class="item reverse-order">
       <div class="text">
         <div class="title">
-          Takım bütünlüğü sağlar
+          {{ $t('home.content.itemThree.title') }}
         </div>
         <div class="info">
-          <span class="voteam">voteam</span> takımlar arasında güç tartışmalarını sona erdirir. Hiçkimse kimin ne kadar gücü olduğunu,
-          kim kime ne kadar güç verdiğini bilmediği için takım bütünlüğü sağlanır.
+          {{ $t('home.content.itemThree.info') }}
         </div>
       </div>
       <div class="animation">
@@ -81,17 +80,18 @@ export default {
   padding: 0 $df-dsktp-lr-width-pdn;
 
   .item {
-    margin: 7px 0;
+    margin: 40px 0;
     display: flex;
     align-items: center;
-    color: $df-dark-blue-color;
 
     .text {
       width: 55%;
+      padding: 0 15px;
 
       .title {
         font-weight: 600;
         font-size: 35px;
+        color: $df-dark-blue-color;
 
         .voteam {
           color: $df-blue-color;
@@ -102,11 +102,14 @@ export default {
 
       .info {
         font-weight: 300;
-        font-size: 15px;
-        margin-top: 5px;
+        font-size: 17px;
+        margin-top: 23px;
+        color: $df-black-and-blue-color;
+        word-spacing: 3px;
+        line-height: 30px;
 
         .voteam {
-          font-weight: 400;
+          font-weight: 600;
         }
       }
     }
@@ -125,7 +128,7 @@ export default {
     }
 
     .create-team-btn {
-      font-weight: 500;
+      font-weight: 600;
       display: inline-block;
       padding: 10px 35px;
       margin-top: 35px;
@@ -137,6 +140,11 @@ export default {
 
       &:hover {
         @include center-md-blue-box-shadow;
+        transform: scale(1.03);
+      }
+
+      i {
+        margin-right: 7px;
       }
     }
   }
