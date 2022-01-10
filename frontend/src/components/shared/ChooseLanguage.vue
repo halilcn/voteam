@@ -67,7 +67,7 @@ export default {
   .selected-lang {
     display: flex;
     align-items: center;
-    padding: 3px 7px;
+    padding: 5px 10px;
     border-radius: 4px;
     cursor: pointer;
     background-color: $df-very-light-blue-color;
@@ -77,9 +77,9 @@ export default {
     }
 
     .txt {
-      margin-left: 3px;
-      color: $df-dark-blue-color;
+      margin-left: 7px;
       font-weight: 500;
+      color: $df-black-and-blue-color !important;
     }
   }
 
@@ -110,6 +110,7 @@ export default {
 
       .txt {
         margin-left: 10px;
+        color: $df-dark-blue-color;
       }
     }
   }
