@@ -1,11 +1,11 @@
 <template>
   <popup
-      title="Takıma Katıl"
+      :title="$t('popups.joinTeam.title')"
       @handleDisable="$emit('handlePopup')"
       :is-enable="isEnable">
     <template v-slot:content>
       <div class="team-join">
-        <info class="info-text" text="Takıma katılmak için takımın kodu gerekir."/>
+        <info class="info-text" :text="$t('popups.joinTeam.content.info')"/>
         <div class="form">
           <div class="input-container join-code-input">
             <div class="number-sign">
@@ -17,7 +17,7 @@
                 maxlength="5">
           </div>
           <standart-button
-              text="Katıl"
+              :text="$t('popups.joinTeam.content.join')"
               :is-disable="v$.code.$invalid || isLoadingJoinTeam"
               @click="joinTeam"
               class="join-btn"/>
@@ -25,7 +25,7 @@
         <errors
             v-if="isWrongCode"
             class="join-code-error"
-            content="Girilen kod yanlış ya da bu takıma daha önce katıldın."/>
+            :content="$t('popups.joinTeam.content.wrongCode')"/>
       </div>
     </template>
   </popup>
@@ -74,7 +74,7 @@ export default {
         await this.postJoinTeam({ code: this.code });
         this.code = '';
         this.$emit('handlePopup');
-        notify.success('Takıma katıldın !');
+        notify.success(this.$t('popups.joinTeam.content.joinedTeam'));
       }, (err) => {
         if (err.response.status === 400) {
           this.isWrongCode = true;

@@ -11,15 +11,15 @@
     <div class="teams-actions">
       <div @click="handleCreateTeamPopup" class="create-team-btn">
         <i class="bi bi-plus-lg"></i>
-        <span class="txt">Takım Oluştur</span>
+        <span class="txt">{{ $t('teams.actions.buttons.createTeam') }}</span>
       </div>
       <div @click="handleJoinTeamPopup" class="join-team-btn">
         <i class="bi bi-people-fill"></i>
-        <span class="txt">Takıma Katıl</span>
+        <span class="txt">{{ $t('teams.actions.buttons.joinTeam') }}</span>
       </div>
       <div @click="logout" class="exit-btn">
         <i class="bi bi-box-arrow-right"></i>
-        <span class="txt">Çıkış Yap</span>
+        <span class="txt">{{ $t('teams.actions.buttons.signOut') }}</span>
       </div>
     </div>
     <div class="teams-list">
@@ -38,7 +38,7 @@
             </div>
             <div class="team-infos">
               <div class="title">
-                Takım Kodu
+                {{ $t('teams.list.teamCode') }}
               </div>
               <div class="content">
                 {{ team.join_code }}
@@ -46,7 +46,7 @@
             </div>
             <div class="team-infos">
               <div class="title">
-                Üye Sayısı
+                {{ $t('teams.list.membersCount') }}
               </div>
               <div class="content">
                 {{ team.users_count }} kişi
@@ -56,7 +56,7 @@
         </template>
         <div v-else class="no-team">
           <i class="bi bi-emoji-frown"></i>
-          Şuan hiç takımın yok. Takım oluşturabilir ya da takımlara katılabilirsin.
+          {{ $t('teams.list.noTeams') }}
         </div>
       </template>
       <loading-animation

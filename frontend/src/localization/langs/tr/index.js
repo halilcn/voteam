@@ -81,10 +81,53 @@ export default {
   footer: {
     text: '© Copyright 2022. Tüm hakları saklıdır.'
   },
+  teams: {
+    actions: {
+      buttons: {
+        createTeam: 'Takım Oluştur',
+        joinTeam: 'Takıma Katıl',
+        signOut: 'Çıkış Yap'
+      }
+    },
+    list: {
+      teamCode: 'Takım Kodu',
+      membersCount: 'Üye Sayısı',
+      noTeams: 'Şuan hiç takımın yok. Takım oluşturabilir ya da takımlara katılabilirsin.'
+    }
+
+  },
   dashboard: {
     members: {
       invitation: {
         isUserAlreadyMember: 'Bu kullanıcı zaten üye'
+      }
+    }
+  },
+  popups: {
+    createTeam: {
+      title: 'Takım Oluştur',
+      content: {
+        teamName: 'Takım Adı',
+        info: 'Oluşturduğun takıma lider olarak atanırsın.',
+        create: 'Oluştur'
+      }
+    },
+    joinTeam: {
+      title: 'Takıma Katıl',
+      content: {
+        info: 'Takıma katılmak için takımın kodu gerekir.',
+        join: 'Katıl',
+        wrongCode: 'Girilen kod yanlış ya da bu takıma daha önce katıldın.',
+        joinedTeam: 'Takıma katıldın !'
+      }
+
+    },
+    welcomeUser: {
+      title: 'İlk Bakış',
+      content: {
+        welcome: 'voteam"e hoşgeldin !',
+        firstStep: 'İster kendi takım ismini girerek takım oluştur, ister takım koduyla takıma katıl.',
+        invitationInfo:'Eğer daha önce takım daveti atıldıysa e-mail adresini kontrol etmeyi unutma.'
       }
     }
   },

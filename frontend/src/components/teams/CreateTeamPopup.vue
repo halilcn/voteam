@@ -1,6 +1,6 @@
 <template>
   <popup
-      title="Takım Oluştur"
+      :title="$t('popups.createTeam.title')"
       @handleDisable="$emit('handlePopup')"
       :is-enable="isEnable">
     <template v-slot:content>
@@ -9,7 +9,7 @@
           <div class="input-container">
             <input
                 type="text"
-                placeholder="Takım Adı"
+                :placeholder="$t('popups.createTeam.content.teamName')"
                 v-model="v$.team.name.$model"
                 class="data-field"
                 :class="{'has-error':v$.team.name.$error}">
@@ -18,9 +18,9 @@
                 is-input-error="true"
                 :content="getOnlyErrors(v$.team.name.$errors)"/>
           </div>
-          <info class="info-text" text="Oluşturduğun takıma lider olarak atanırsın."/>
+          <info class="info-text" :text="$t('popups.createTeam.content.info')"/>
           <standart-button
-              text="Oluştur"
+              :text="$t('popups.createTeam.content.create')"
               :is-disable="v$.team.$invalid || isLoadingCreateTeam"
               @click="createTeam"
               class="create-btn"/>

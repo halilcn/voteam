@@ -81,10 +81,52 @@ export default {
   footer: {
     text: '© Copyright 2021. All rights reserved.'
   },
+  teams: {
+    actions: {
+      buttons: {
+        createTeam: 'Create Team',
+        joinTeam: 'Join Team',
+        signOut: 'Sign Out'
+      }
+    },
+    list: {
+      teamCode: 'Team Code',
+      membersCount: 'Members Count',
+      noTeams: 'There are currently no teams. You can create or join teams.'
+    }
+  },
   dashboard: {
     members: {
       invitation: {
         isUserAlreadyMember: 'This user is already a member'
+      }
+    }
+  },
+  popups: {
+    createTeam: {
+      title: 'Create Team',
+      content: {
+        teamName: 'Team Name',
+        info: 'You are assigned as the leader of the team you created.',
+        create: 'Create'
+      }
+    },
+    joinTeam: {
+      title: 'Join Team',
+      content: {
+        info: 'You need the teams code to join the team.',
+        join: 'Join',
+        wrongCode: 'The entered code is incorrect or you have joined this team before.',
+        joinedTeam: 'You joined the team !'
+      }
+
+    },
+    welcomeUser: {
+      title: 'Welcome',
+      content: {
+        welcome: 'Welcome to voteam !',
+        firstStep: 'You can create a team by entering your own team name or join the team with the team code.',
+        invitationInfo: 'If you have been invited to the team before, do not forget to check your e-mail address.'
       }
     }
   },

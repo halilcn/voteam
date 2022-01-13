@@ -1,6 +1,6 @@
 <template>
   <popup
-      title="İlk Bakış"
+      :title="$t('popups.welcomeUser.title')"
       @handleDisable="togglePopup"
       :is-enable="isEnable">
     <template v-slot:content>
@@ -8,18 +8,14 @@
       <div class="celebration">
         <img src="../../assets/icons/celebration.png" alt="celebration-img"/>
         <div class="text">
-          <span>
-            voteam'e
-          </span>
-          hoşgeldin !
+          {{ $t('popups.welcomeUser.content.welcome') }}
         </div>
       </div>
       <div class="first-step-1">
-        İster kendi takım ismini girerek takım oluştur
-        , ister takım koduyla takıma katıl.
+        {{ $t('popups.welcomeUser.content.firstStep') }}
       </div>
       <div class="invitation-info">
-        Eğer daha önce takım daveti atıldıysa e-mail adresini kontrol etmeyi unutma.
+        {{ $t('popups.welcomeUser.content.invitationInfo') }}
       </div>
     </template>
   </popup>
