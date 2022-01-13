@@ -97,6 +97,15 @@ export default {
 
   },
   dashboard: {
+    general: {
+      vote: {
+        types: {
+          multipleVote: 'Çoklu Oylama',
+          acceptRefuseVote: 'Kabul/Red Oylaması',
+          powerVote: 'Güç Oylaması'
+        }
+      }
+    },
     members: {
       invitation: {
         isUserAlreadyMember: 'Bu kullanıcı zaten üye'
@@ -127,7 +136,54 @@ export default {
       content: {
         welcome: 'voteam"e hoşgeldin !',
         firstStep: 'İster kendi takım ismini girerek takım oluştur, ister takım koduyla takıma katıl.',
-        invitationInfo:'Eğer daha önce takım daveti atıldıysa e-mail adresini kontrol etmeyi unutma.'
+        invitationInfo: 'Eğer daha önce takım daveti atıldıysa e-mail adresini kontrol etmeyi unutma.'
+      }
+    },
+    createVote: {
+      title: 'Oylama Başlat',
+      content: {
+        back: 'geri',
+        createVote: 'Oylama Başlat',
+        startedVote: 'Oylama Başlatıldı',
+        items: {
+          endDate: {
+            endTime: 'Bitiş Zamanı',
+            day: 'gün'
+          },
+          startDate: {
+            startTime: 'Başlama Zamanı',
+            startNow: 'Hemen Başlat',
+            startNextDate: 'İleri Tarih Seç'
+          },
+          title: {
+            text: 'Başlık'
+          }
+        },
+        multipleVote: {
+          options: 'Oy Seçenekleri',
+          optionText: 'Oy seçeneğini kısaca açıkla...',
+          selectedImage: 'Fotoğraf Seçildi.',
+          showImage: 'Görüntüle',
+          noOptions: 'Henüz oy seçeneği eklenmemiş',
+          add: 'ekle'
+        },
+        doubleVote: {
+          voteTitle: 'Ne Oylanacak ?',
+          voteExplanation: 'Oylanacak konuyu kısaca açıkla...'
+        }
+      }
+    },
+    firstPowerVote: {
+      title: 'Güç Oylaması',
+      content: {
+        info: {
+          hasMoreThanLowerLimitUsers: 'İlk güç oylamasını başlatmak için en az 3 üye bulunmalıdır.',
+          hasActiveVote: 'Güç oylaması başlatılmış. Oylama sonlandığında, farklı tipte oylamalar başlatılabilir.',
+          powerVote: 'Takım oluşturulduktan sonra güç oylaması yapılması zorunludur. İlk güç oylaması yapıldıktan sonra diğer tip oylamalar başlatılabilir.'
+        },
+        createVote: 'Güç Oylamasını Başlat',
+        firstPowerVoteText: 'İlk Güç Oylaması',
+        startedVote: 'Oylama başlatıldı'
       }
     }
   },

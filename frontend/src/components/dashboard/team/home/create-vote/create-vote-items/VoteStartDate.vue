@@ -1,7 +1,7 @@
 <template>
   <div class="form-item">
     <div class="title">
-      Başlama Zamanı
+      {{ $t('popups.createVote.content.items.startDate.startTime') }}
     </div>
     <div class="content vote-start-date">
       <div class="vote-start-date-options">
@@ -9,13 +9,13 @@
             @click="selectDateTime('now')"
             class="start-now-btn "
             :class="{'selected':!isSelectedNextDate}">
-          Hemen Başlat
+          {{ $t('popups.createVote.content.items.startDate.startNow') }}
         </div>
         <div
             @click="selectDateTime('next')"
             class="start-next-date-btn"
             :class="{'selected':isSelectedNextDate}">
-          İleri Tarih Seç
+          {{ $t('popups.createVote.content.items.startDate.startNextDate') }}
         </div>
       </div>
       <template v-if="isSelectedNextDate">

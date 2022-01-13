@@ -1,7 +1,7 @@
 <template>
   <div class="form-item">
     <div class="title">
-      Başlık
+      {{ $t('popups.createVote.content.items.title.text') }}
     </div>
     <div class="content">
       <input

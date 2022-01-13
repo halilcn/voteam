@@ -1,21 +1,21 @@
 <template>
   <popup
-      title="Güç Oylaması"
+      :title="$t('popups.firstPowerVote.title')"
       @handleDisable="$emit('handlePopup')"
       :is-enable="isEnable">
     <template v-slot:content>
       <loading-animation v-if="isLoading.powerTypeData"/>
       <div v-else class="create-power-vote-content">
         <warning v-if="!powerTypeVoteData.has_more_than_lower_limit_users"
-                 text="İlk güç oylamasını başlatmak için en az 3 üye bulunmalıdır."/>
+                 :text="$t('popups.firstPowerVote.content.hasMoreThanLowerLimitUsersInfo')"/>
         <success v-if="hasActiveVote"
-                 text="Güç oylaması başlatılmış. Oylama sonlandığında, diğer tür oylamalarda başlatılabilir."/>
+                 :text="$t('popups.firstPowerVote.content.hasActiveVote')"/>
         <template v-if="!hasActiveVote">
           <info class="power-vote-info"
-                text="İlk oylama olarak güç oylaması yapılması zorunludur. Bu oylamadan sonra güç oylaması otomatik olarak her ay tanımlanır.(Her üye takıma katıldıktan sonra güç oylaması yapılması tavsiye edilir)"/>
+                :text="$t('popups.firstPowerVote.content.powerVote')"/>
           <standart-button
               class="create-power-vote"
-              text="Güç Oylamasını Başlat"
+              :text="$t('popups.firstPowerVote.createVote')"
               :is-disable="isDisablePostVoteButton"
               @click="postVoteAction"/>
         </template>
@@ -41,7 +41,7 @@ export default {
     return {
       powerTypeVoteData: {},
       vote: {
-        title: 'İlk Güç Oylaması',
+        title: this.$t('popups.firstPowerVote.firstPowerVoteText'),
         type: constants.VOTE_TYPES['POWER'],
         options: constants.POWER_VOTE_DEFAULT_OPTIONS,
         start_date: this.$dayjs(),
@@ -91,7 +91,7 @@ export default {
     },
     createdVote() {
       this.$emit('handlePopup');
-      this.$notify.success('Oylama başlatıldı');
+      this.$notify.success(this.$t('popups.firstPowerVote.startedVote'));
       this.$emit('update:should-get-votes', true);
     }
   },

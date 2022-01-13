@@ -96,6 +96,15 @@ export default {
     }
   },
   dashboard: {
+    general: {
+      vote: {
+        types: {
+          multipleVote: 'Multiple Vote',
+          acceptRefuseVote: 'Accept/Refuse Vote',
+          powerVote: 'Power Vote'
+        }
+      }
+    },
     members: {
       invitation: {
         isUserAlreadyMember: 'This user is already a member'
@@ -127,6 +136,53 @@ export default {
         welcome: 'Welcome to voteam !',
         firstStep: 'You can create a team by entering your own team name or join the team with the team code.',
         invitationInfo: 'If you have been invited to the team before, do not forget to check your e-mail address.'
+      }
+    },
+    createVote: {
+      title: 'Start Vote',
+      content: {
+        back: 'back',
+        createVote: 'Start Vote',
+        startedVote: 'Started Vote',
+        items: {
+          endDate: {
+            endTime: 'End Time',
+            day: 'day'
+          },
+          startDate: {
+            startTime: 'Start Time',
+            startNow: 'Start Now',
+            startNextDate: 'Select Next Date'
+          },
+          title: {
+            text: 'Title'
+          }
+        },
+        multipleVote: {
+          options: 'Vote Options',
+          optionText: 'Explain vote option...',
+          selectedImage: 'Selected Image.',
+          showImage: 'Show',
+          noOptions: 'No vote option has been added yet',
+          add: 'add'
+        },
+        doubleVote: {
+          voteTitle: 'What is the event to vote ?',
+          voteExplanation: 'Explain the topic to be voted on...'
+        }
+      }
+    },
+    firstPowerVote: {
+      title: 'Power Vote',
+      content: {
+        info: {
+          hasMoreThanLowerLimitUsers: 'A minimum of 3 members must be present to initiate the first power vote.',
+          hasActiveVote: 'Power voting has started. When voting ends, different types of voting can be started.',
+          powerVote: 'After the team is formed, a power vote is mandatory. Other types of voting may be initiated after the first power vote has been taken.'
+        },
+        createVote: 'Start Power Vote',
+        firstPowerVoteText: 'First Power Vote',
+        startedVote: 'Started vote'
       }
     }
   },

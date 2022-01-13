@@ -1,6 +1,6 @@
 <template>
   <popup
-      title="Oylama Başlat"
+      :title="$t('popups.createVote.title')"
       @handleDisable="$emit('handlePopup')"
       :is-enable="isEnable">
     <template v-slot:content>
@@ -9,7 +9,7 @@
           <img src="../../../../../assets/icons/multiple-type-vote.png" class="vote-icon"
                alt="multiple-options-vote"/>
           <div class="text">
-            Çoklu Oylama
+            {{ $t('dashboard.general.vote.types.multipleVote') }}
           </div>
           <div class="right-icon">
             <i class="fas fa-angle-right"></i>
@@ -18,7 +18,7 @@
         <div @click="selectVoteType('create-double-options-vote')" class="item">
           <img src="../../../../../assets/icons/double-type-vote.png" class="vote-icon" alt="double-options-vote"/>
           <div class="text">
-            Kabul/Red Oylaması
+            {{ $t('dashboard.general.vote.types.acceptRefuseVote') }}
           </div>
           <div class="right-icon">
             <i class="fas fa-angle-right"></i>
@@ -34,7 +34,7 @@
              class="item">
           <img src="../../../../../assets/icons/power-type-vote.png" class="vote-icon" alt="power-options-vote"/>
           <div class="text">
-            Güç Oylaması
+            {{ $t('dashboard.general.vote.types.powerVote') }}
           </div>
           <div v-if="dataForPostPowerTypeVote.has_power_type_vote_this_month" class="power-vote-time-info">
             <i class="bi bi-clock"></i>
@@ -72,7 +72,7 @@
         </div>
         <div class="bottom">
           <div @click="clearActiveType" class="cancel-btn">
-            geri
+            {{ $t('popups.createVote.content.back') }}
           </div>
           <div class="create-vote-btn">
             <lottie-player
@@ -83,7 +83,7 @@
                 speed="1"
                 style="width: 40px; height: 40px;" loop autoplay/>
             <standart-button
-                text="Oylama Başlat"
+                :text="$t('popups.createVote.content.createVote')"
                 :is-disable="isDisablePostVoteButton"
                 @click="postVoteAction"/>
           </div>
@@ -193,14 +193,14 @@ export default {
       this.activeVoteType = '';
     },
     selectedPowerVote() {
-      this.vote.title = 'Güç Oylaması'; // TODO: $t() multiple lang
+      this.vote.title = this.$t('dashboard.general.vote.types.powerVote');
       this.vote.options = constants.POWER_VOTE_DEFAULT_OPTIONS;
     },
     createdVote() {
       this.clearActiveType();
       this.clearVote();
 
-      this.$notify.success('Oylama Başlatıldı'); // TODO: $t() multiple language
+      this.$notify.success(this.$t('dashboard.general.vote.types.powerVote'));
       this.$emit('update:should-get-votes', true);
       this.$emit('handlePopup');
     },

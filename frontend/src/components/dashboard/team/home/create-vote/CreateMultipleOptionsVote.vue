@@ -5,7 +5,7 @@
       :path="pathOfImageOnPopup"/>
   <div class="form-item">
     <div class="title">
-      Oy Seçenekleri
+      {{ $t('popups.createVote.content.multipleVote.options') }}
     </div>
     <div class="content options-list">
       <template v-if="options.length > 0">
@@ -15,7 +15,7 @@
              class="item-container text-item">
         <textarea
             v-if="isTextVoteType(option.type)"
-            placeholder="Oy seçeneğini kısaca açıkla..."
+            :placeholder="$t('popups.createVote.content.multipleVote.optionText')"
             v-model.trim="option.message"
             class="content-text item"/>
           <template v-else>
@@ -29,7 +29,10 @@
                 v-else
                 class="content-text"
                 :class="{'selected-image':isSelectedImage(option.image)}">
-              Fotoğraf Seçildi. <span @click="showImage(index)" class="show-image">Görüntüle</span>
+              {{ $t('popups.createVote.content.multipleVote.selectedImage') }}
+              <span @click="showImage(index)" class="show-image">
+                 {{ $t('popups.createVote.content.multipleVote.showImage') }}
+               </span>
             </div>
           </template>
           <div @click="deleteOption(index)" class="delete">
@@ -38,13 +41,13 @@
         </div>
       </template>
       <div v-else class="no-options">
-        Henüz oy seçeneği eklenmemiş
+        {{ $t('popups.createVote.content.multipleVote.noOptions') }}
       </div>
     </div>
     <div class="add-options-list-item-btn">
       <div @click="toggleOptionsList" class="btn">
         <i class="bi bi-plus"></i>
-        ekle
+        {{ $t('popups.createVote.content.multipleVote.add') }}
       </div>
       <div
           v-if="isEnableOptionsList"

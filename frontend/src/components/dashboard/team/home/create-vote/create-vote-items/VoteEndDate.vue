@@ -1,7 +1,7 @@
 <template>
   <div class="form-item">
     <div class="title">
-      Bitiş Zamanı
+      {{ $t('popups.createVote.content.items.endDate.endTime') }}
     </div>
     <div class="content">
       <input
@@ -16,7 +16,8 @@
           :content="errors"/>
       <div v-if="!hasError" class="date-info-text">
         <i class="bi bi-stopwatch-fill"></i>
-        {{ differenceDayBetweenStartDateAndEndDate }} gün
+        {{ differenceDayBetweenStartDateAndEndDate }}
+        {{ $t('popups.createVote.content.items.endDate.day') }}
       </div>
     </div>
   </div>

@@ -1,12 +1,12 @@
 <template>
   <div class="form-item">
     <div class="title">
-      Ne Oylanacak ?
+      {{ $t('popups.createVote.content.doubleVote.voteTitle') }}
     </div>
     <div class="content vote-text">
       <textarea
           v-model="v$.vote.message.$model"
-          placeholder="Oylanacak konuyu kısaca açıkla..."
+          :placeholder="$t('popups.createVote.doubleVote.voteExplanation')"
           class="content-text"/>
     </div>
   </div>
