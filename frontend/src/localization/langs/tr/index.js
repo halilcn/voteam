@@ -110,6 +110,16 @@ export default {
         }
       }
     },
+    home: {
+      teamInfo: {
+        team: 'Takım',
+        codeCopied: 'Kod kopyalandı !',
+        membersCount: 'Üye Sayısı',
+        totalStartedVotes: 'Toplam Başlatılan Oylama',
+        membersTurnoutToVote: 'Oylara Katılım Oranı',
+        notCalculated: 'Henüz hesaplanmamış'
+      }
+    },
     members: {
       invitation: {
         isUserAlreadyMember: 'Bu kullanıcı zaten üye'
@@ -230,7 +240,7 @@ export default {
         },
         acceptRefuseVote: {
           accept: 'Kabul Et',
-          reject:'Reddet'
+          reject: 'Reddet'
         }
       }
     }

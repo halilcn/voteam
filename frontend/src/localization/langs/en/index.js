@@ -109,6 +109,16 @@ export default {
         }
       }
     },
+    home: {
+      teamInfo: {
+        team: 'Team',
+        codeCopied: 'Code copied !',
+        membersCount: 'Members Count',
+        totalStartedVotes: 'Total Started Votes',
+        membersTurnoutToVote: 'Members Turnout To Vote',
+        notCalculated: 'Not Calculated'
+      }
+    },
     members: {
       invitation: {
         isUserAlreadyMember: 'This user is already a member'

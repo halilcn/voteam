@@ -2,7 +2,7 @@
   <div class="home-content team">
     <div class="title">
       <i class="fas fa-users"></i>
-      Takım
+      {{ $t('dashboard.home.teamInfo.team') }}
     </div>
     <div class="content team-info">
       <loading-animation v-if="isLoadingInfo"
@@ -21,7 +21,7 @@
               {{ info.join_code }}
               <info-tooltip
                   class="copied-code-info"
-                  text="Kod kopyalandı !"
+                  :text="$t('dashboard.home.teamInfo.codeCopied')"
                   icon-class="bi bi-check-circle"/>
             </div>
           </div>
@@ -29,7 +29,7 @@
         <div class="info">
           <div class="info-title">
             <div class="text">
-              Üye Sayısı
+              {{ $t('dashboard.home.teamInfo.membersCount') }}
             </div>
           </div>
           <div class="info-content">
@@ -39,7 +39,7 @@
         <div class="info">
           <div class="info-title">
             <div class="text">
-              Toplam Başlatılan Oylama
+              {{ $t('dashboard.home.teamInfo.totalStartedVotes') }}
             </div>
           </div>
           <div class="info-content">
@@ -49,7 +49,7 @@
         <div class="info">
           <div class="info-title">
             <div class="text">
-              Oylara Katılım Oranı
+              {{ $t('dashboard.home.teamInfo.membersTurnoutToVote') }}
             </div>
           </div>
           <div class="info-content">
@@ -57,7 +57,7 @@
               %{{ info.vote_join_percentage.toFixed(2) }}
             </template>
             <div v-else class="voted-percentage-error">
-              Henüz hesaplanmamış
+              {{ $t('dashboard.home.teamInfo.notCalculated') }}
             </div>
           </div>
         </div>
