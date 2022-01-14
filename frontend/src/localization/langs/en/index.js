@@ -102,7 +102,9 @@ export default {
           multipleVote: 'Multiple Vote',
           acceptRefuseVote: 'Accept/Refuse Vote',
           powerVote: 'Power Vote'
-        }
+        },
+        yes: 'Yes',
+        no: 'No'
       }
     },
     members: {
@@ -183,6 +185,25 @@ export default {
         createVote: 'Start Power Vote',
         firstPowerVoteText: 'First Power Vote',
         startedVote: 'Started vote'
+      }
+    },
+    finishedVote: {
+      title: 'Finished Votes',
+      content: {
+        list: {
+          showAnswer: 'show answer',
+          waitInfo: 'calculating',
+          moreFinishedVote: 'more finished votes'
+        },
+        detail: {
+          back: 'back',
+          endTime: 'End Date Of Vote',
+          totalVoteTime: 'Total Time Of Vote',
+          day: 'day',
+          multipleVote: {
+            showImage: 'Show Image'
+          }
+        }
       }
     }
   },

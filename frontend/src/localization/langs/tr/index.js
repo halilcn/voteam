@@ -103,7 +103,9 @@ export default {
           multipleVote: 'Çoklu Oylama',
           acceptRefuseVote: 'Kabul/Red Oylaması',
           powerVote: 'Güç Oylaması'
-        }
+        },
+        yes:'Evet',
+        no:'Hayır'
       }
     },
     members: {
@@ -184,6 +186,25 @@ export default {
         createVote: 'Güç Oylamasını Başlat',
         firstPowerVoteText: 'İlk Güç Oylaması',
         startedVote: 'Oylama başlatıldı'
+      }
+    },
+    finishedVote: {
+      title: 'Bitmiş Oylamalar',
+      content: {
+        list: {
+          showAnswer: 'sonuçları gör',
+          waitInfo: 'sonuçlandırılıyor',
+          moreFinishedVote: 'daha fazla gör'
+        },
+        detail: {
+          back: 'geri',
+          endTime: 'Oylama Bitiş Tarihi',
+          totalVoteTime: 'Toplam Oylama Süresi',
+          day: 'gün',
+          multipleVote:{
+            showImage:'Fotoğrafı Görüntüle'
+          }
+        }
       }
     }
   },

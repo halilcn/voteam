@@ -9,7 +9,7 @@
         <div @click="showFinishedVoteList"
              class="back-btn">
           <i class="bi bi-caret-left"></i>
-          geri
+          {{ $t('popups.finishedVote.content.detail.back') }}
         </div>
         <div class="vote-title">
           {{ vote.title }}
@@ -22,7 +22,7 @@
         <div class="item">
           <div class="title">
             <i class="bi bi-clock-fill"></i>
-            Oylama Bitiş Tarihi
+            {{ $t('popups.finishedVote.content.detail.endTime') }}
           </div>
           <div class="content">
             {{ $dayjs(vote.end_date).format('D MMMM YYYY') }}
@@ -31,10 +31,10 @@
         <div class="item">
           <div class="title">
             <i class="bi bi-stopwatch-fill"></i>
-            Toplam Oylama Süresi
+            {{ $t('popups.finishedVote.content.detail.totalVoteTime') }}
           </div>
           <div class="content">
-            {{ vote.total_voting_day }} gün
+            {{ vote.total_voting_day }} {{ $t('popups.finishedVote.content.detail.day') }}
           </div>
         </div>
       </div>

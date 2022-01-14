@@ -23,19 +23,19 @@
         <div v-if="vote.calculated"
              @click="showFinishedVoteDetail(vote.id)"
              class="right-content show-answer-result">
-          sonuçları gör
+          {{ $t('popups.finishedVote.content.list.showAnswer') }}
           <i class="bi bi-chevron-compact-right"></i>
         </div>
         <div v-else class="right-content wait-info">
           <i class="bi bi-hourglass-split"></i>
-          sonuçlandırılıyor...
+          {{ $t('popups.finishedVote.content.list.waitInfo') }}...
         </div>
       </div>
       <div
           v-if="hasMoreFinishedVotes"
           @click="getMoreFinishedVotesAction"
           class="more-finished-votes-btn">
-        daha fazla gör
+        {{ $t('popups.finishedVote.content.list.moreFinished') }}
       </div>
     </div>
   </div>

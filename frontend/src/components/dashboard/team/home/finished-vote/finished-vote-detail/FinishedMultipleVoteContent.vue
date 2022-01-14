@@ -14,7 +14,7 @@
     </div>
     <div v-else class="result image-option">
       <div @click="showImage(data.selected_option.path)" class="show-img-btn">
-        Fotoğrafı Görüntüle
+        {{ $t('popups.finishedVote.content.detail.multipleVote.showImage') }}
       </div>
     </div>
   </div>

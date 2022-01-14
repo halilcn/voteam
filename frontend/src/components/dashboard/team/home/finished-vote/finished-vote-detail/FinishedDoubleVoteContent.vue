@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     translateResult(status) {
-      return status ? 'Evet' : 'Hayır';       //TODO:multiple language
+      return status ? this.$t('dashboard.general.vote.yes') : this.$t('dashboard.general.vote.no');
     }
   }
 };

@@ -1,5 +1,5 @@
 <template>
-  <popup title="Bitmiş Oylamalar"
+  <popup :title="$t('popups.finishedVote.title')"
          @handleDisable="$emit('handlePopup')"
          :is-enable="isEnable">
     <template v-slot:content>
