@@ -20,11 +20,11 @@
           <template v-else>
             <div class="info">
               <i class="bi bi-image"></i>
-              Fotoğraflı Seçenek
+              {{ $t('popups.userVote.content.multipleVote.imageVote') }}
             </div>
             <a @click.stop.prevent="showImage(option.path)"
                class="show-image-popup">
-              Görüntüle
+              {{ $t('popups.userVote.content.multipleVote.show') }}
             </a>
           </template>
         </div>
@@ -34,7 +34,7 @@
         class="post-vote-btn"
         :is-disable="isDisablePostVoteButton"
         @click="sendAnswerVote"
-        text="Oy Ver"/>
+        :text="$t('popups.userVote.content.multipleVote.send')"/>
   </div>
 </template>
 

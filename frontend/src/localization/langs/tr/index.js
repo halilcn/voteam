@@ -208,6 +208,31 @@ export default {
           }
         }
       }
+    },
+    userVote: {
+      title: 'Oy Ver',
+      content: {
+        percentageOfUsersVoted: 'Oylamaya Katılım Oranı',
+        endTime: '{day} bitiyor',
+        voted: 'Oy Verildi !',
+        powerVote: {
+          power: 'birim güç',
+          tooMuchPower: 'Birim Güç Kaldı',
+          allPowerDeployed: 'Tüm Birim Güçler Dağıtıldı',
+          fullPower: 'kalan birim güçleri dağıt',
+          voteInfo: 'Toplamda {usersCount} üye var. Güçler eşit dağıtılmak istenirse her üyeye {power} birim güç verilebilir.',
+          send: 'Gönder'
+        },
+        multipleVote: {
+          imageVote: 'Fotoğraflı Seçenek',
+          show: 'Görüntüle',
+          send: 'Oy Ver'
+        },
+        acceptRefuseVote: {
+          accept: 'Kabul Et',
+          reject:'Reddet'
+        }
+      }
     }
   },
   errors,

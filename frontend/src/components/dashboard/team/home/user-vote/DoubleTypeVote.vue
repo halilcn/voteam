@@ -7,13 +7,13 @@
          :class="{disable:isLoading}"
          class="btn accept-button">
       <i class="bi bi-check-circle"></i>
-      Kabul Et
+      {{ $t('popups.userVote.content.acceptRefuseVote.accept') }}
     </div>
     <div @click="sendAnswerVote(false)"
          :class="{disable:isLoading}"
          class="btn refuse-button">
       <i class="bi bi-x-circle"></i>
-      Reddet
+      {{ $t('popups.userVote.content.acceptRefuseVote.reject') }}
     </div>
   </div>
 </template>

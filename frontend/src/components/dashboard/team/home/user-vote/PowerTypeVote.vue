@@ -19,7 +19,7 @@
               type="number"
               min="0"
               :max="TOTAL_VOTE_USER_POWER">
-          birim güç
+          {{ $t('popups.userVote.content.powerVote.power') }}
         </div>
         <div class="power-range">
           <input
@@ -37,15 +37,18 @@
          :class="{'power-warning':hasTooMuchPower,'power-over':isPowerOver}">
       <template v-if="!isPowerOver">
         <span v-if="hasTooMuchPower">
-          {{ -remainingPower }} Birim Güç Fazla
+          {{ -remainingPower }}
+          {{ $t('popups.userVote.content.powerVote.power') }}
+          Birim Güç Fazla
         </span>
         <span v-else>
-          {{ remainingPower }} Birim Güç Kaldı
+          {{ remainingPower }}
+          {{ $t('popups.userVote.content.powerVote.tooMuchPower') }}
         </span>
       </template>
       <template v-else>
         <i class="bi bi-check"></i>
-        Tüm Birim Güçler Dağıtıldı
+        {{ $t('popups.userVote.content.powerVote.allPowerDeployed') }}
       </template>
       <info-tooltip
           class="tooltip-info"
@@ -55,10 +58,10 @@
         v-if="enablePowerFullButton"
         @click="fullPower"
         class="power-full-btn">
-      kalan birim güçleri dağıt
+      {{ $t('popups.userVote.content.powerVote.fullPower') }}
     </div>
     <standart-button
-        text="Gönder"
+        :text="$t('popups.userVote.content.powerVote.send')"
         :is-disable="isDisablePostVoteButton"
         @click="sendAnswerVote"
         class="post-answer-btn"/>
@@ -123,9 +126,10 @@ export default {
       return !this.isPowerOver || this.isLoading;
     },
     powerVoteInfoText() {
-      return `Toplamda ${this.userPowers.length} üye var.
-      Güçler eşit dağıtılmak istenirse her üyeye
-      ${(this.TOTAL_VOTE_USER_POWER / this.userPowers.length).toFixed(0)} birim güç verilebilir.`; //TODO: multiple language
+      return this.$t('popups.userVote.content.powerVote.voteInfo', {
+        usersCount: this.userPowers.length,
+        power: (this.TOTAL_VOTE_USER_POWER / this.userPowers.length).toFixed(0)
+      });
     }
   },
   created() {

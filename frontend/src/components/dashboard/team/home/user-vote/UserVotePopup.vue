@@ -1,6 +1,6 @@
 <template>
   <popup
-      title="Oy Ver"
+      :title="$t('popups.userVote.title')"
       @handleDisable="$emit('handlePopup')"
       :is-enable="isEnable">
     <template v-slot:content>
@@ -22,10 +22,10 @@
         <div class="vote-area vote-info">
           <div class="text">
             <div class="title">
-             Oylamaya Katılım Oranı
+              {{ $t('popups.userVote.content.percentageOfUsersVoted') }}
             </div>
             <div class="time">
-              ({{ $dayjs(vote.end_date).from($dayjs().utc()) }} bitiyor)
+              ({{ $t('popups.userVote.content.endTime', { day: $dayjs(vote.end_date).from($dayjs().utc()) }) }})
             </div>
           </div>
           <progress-bar class="progress-bar" :percent="vote.voted_percentage"/>
@@ -93,7 +93,7 @@ export default {
     createdAnswerVote() {
       this.$emit('handlePopup');
       this.$emit('update:should-get-votes', true);
-      this.$notify.success('Oy Verildi');
+      this.$notify.success(this.$t('popups.userVote.content.voted'));
     }
   }
 };

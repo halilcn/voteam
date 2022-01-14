@@ -103,7 +103,7 @@ export default {
           acceptRefuseVote: 'Accept/Refuse Vote',
           powerVote: 'Power Vote'
         },
-        acceptRefuseVote:{
+        acceptRefuseVote: {
           accepted: 'Accepted',
           rejected: 'Rejected'
         }
@@ -205,6 +205,31 @@ export default {
           multipleVote: {
             showImage: 'Show Image'
           }
+        }
+      }
+    },
+    userVote: {
+      title: 'Send Vote',
+      content: {
+        percentageOfUsersVoted: 'Percentage Of Users Voted',
+        endTime: 'end in {day}',
+        voted: 'Voted !',
+        powerVote: {
+          power: 'unit power',
+          tooMuchPower: '2 Units Of Power Left',
+          allPowerDeployed: 'All Unit Powers Distributed',
+          fullPower: 'distribute the remaining unit forces',
+          voteInfo: 'There are {usersCount} members in total. If the powers are to be distributed equally, {power} units of power can be given to each member.',
+          send: 'Send'
+        },
+        multipleVote: {
+          imageVote: 'Photo Option',
+          show: 'Show',
+          send: 'Vote'
+        },
+        acceptRefuseVote: {
+          accept: 'Accept',
+          reject: 'Reject'
         }
       }
     }
