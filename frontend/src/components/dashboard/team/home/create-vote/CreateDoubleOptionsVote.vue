@@ -6,7 +6,7 @@
     <div class="content vote-text">
       <textarea
           v-model="v$.vote.message.$model"
-          :placeholder="$t('popups.createVote.doubleVote.voteExplanation')"
+          :placeholder="$t('popups.createVote.content.doubleVote.voteExplanation')"
           class="content-text"/>
     </div>
   </div>

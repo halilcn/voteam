@@ -7,15 +7,15 @@
       <loading-animation v-if="isLoading.powerTypeData"/>
       <div v-else class="create-power-vote-content">
         <warning v-if="!powerTypeVoteData.has_more_than_lower_limit_users"
-                 :text="$t('popups.firstPowerVote.content.hasMoreThanLowerLimitUsersInfo')"/>
+                 :text="$t('popups.firstPowerVote.content.info.hasMoreThanLowerLimitUsers')"/>
         <success v-if="hasActiveVote"
-                 :text="$t('popups.firstPowerVote.content.hasActiveVote')"/>
+                 :text="$t('popups.firstPowerVote.content.info.hasActiveVote')"/>
         <template v-if="!hasActiveVote">
           <info class="power-vote-info"
-                :text="$t('popups.firstPowerVote.content.powerVote')"/>
+                :text="$t('popups.firstPowerVote.content.info.powerVote')"/>
           <standart-button
               class="create-power-vote"
-              :text="$t('popups.firstPowerVote.createVote')"
+              :text="$t('popups.firstPowerVote.content.createVote')"
               :is-disable="isDisablePostVoteButton"
               @click="postVoteAction"/>
         </template>
