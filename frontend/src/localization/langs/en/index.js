@@ -103,8 +103,10 @@ export default {
           acceptRefuseVote: 'Accept/Refuse Vote',
           powerVote: 'Power Vote'
         },
-        yes: 'Yes',
-        no: 'No'
+        acceptRefuseVote:{
+          accepted: 'Accepted',
+          rejected: 'Rejected'
+        }
       }
     },
     members: {

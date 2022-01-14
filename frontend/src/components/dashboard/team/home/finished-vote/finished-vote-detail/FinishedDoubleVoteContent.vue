@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     translateResult(status) {
-      return status ? this.$t('dashboard.general.vote.yes') : this.$t('dashboard.general.vote.no');
+      return status ? this.$t('dashboard.general.vote.acceptRefuseVote.accepted') : this.$t('dashboard.general.vote.acceptRefuseVote.rejected');
     }
   }
 };

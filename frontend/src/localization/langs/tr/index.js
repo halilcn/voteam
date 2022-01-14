@@ -104,8 +104,10 @@ export default {
           acceptRefuseVote: 'Kabul/Red Oylaması',
           powerVote: 'Güç Oylaması'
         },
-        yes:'Evet',
-        no:'Hayır'
+        acceptRefuseVote: {
+          accepted: 'Kabul Edilmiş',
+          rejected: 'Reddedilmiş'
+        }
       }
     },
     members: {
@@ -201,8 +203,8 @@ export default {
           endTime: 'Oylama Bitiş Tarihi',
           totalVoteTime: 'Toplam Oylama Süresi',
           day: 'gün',
-          multipleVote:{
-            showImage:'Fotoğrafı Görüntüle'
+          multipleVote: {
+            showImage: 'Fotoğrafı Görüntüle'
           }
         }
       }
