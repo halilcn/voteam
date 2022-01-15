@@ -151,6 +151,10 @@ export default {
         notStartVote: 'Henüz oylama başlatmamış',
         sentInvitation: 'Davetiye gönderildi'
       }
+    },
+    notifications: {
+      notifications: 'Bildirimler',
+      moreNotifications: 'daha fazla göster'
     }
   },
   popups: {

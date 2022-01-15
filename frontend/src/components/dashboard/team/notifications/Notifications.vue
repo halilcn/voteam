@@ -2,7 +2,7 @@
   <div class="team-notifications">
     <page-title>
       <i class="bi bi-bell"></i>
-      Bildirimler
+      {{ $t('dashboard.notifications.notifications') }}
     </page-title>
     <div class="list">
       <loading-animation
@@ -27,7 +27,7 @@
           v-if="hasMoreNotifications"
           @click="getMoreNotificationsOfTeamAction"
           class="more-notifications-get-btn">
-        daha fazla göster
+        {{ $t('dashboard.notifications.moreNotifications') }}
       </div>
     </div>
   </div>

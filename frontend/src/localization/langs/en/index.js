@@ -150,6 +150,10 @@ export default {
         notStartVote: 'There are no votes',
         sentInvitation: 'Invitation sent'
       }
+    },
+    notifications: {
+      notifications: 'Notifications',
+      moreNotifications: 'show more'
     }
   },
   popups: {
