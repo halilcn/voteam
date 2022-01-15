@@ -121,6 +121,12 @@ export default {
         noNotification: 'Hiç bildirim yok'
       }
     },
+    leftSideBar: {
+      home: 'Anasayfa',
+      members: 'Üyeler',
+      notifications: 'Bildirimler',
+      settings: 'Ayarlar'
+    },
     home: {
       voteList: {
         votes: 'Oylamalar',
@@ -325,6 +331,13 @@ export default {
         updatedSettings: 'Bilgiler güncellendi',
         save: 'Kaydet'
       }
+    },
+    continue: {
+      yes: 'evet',
+      no: 'hayır'
+    },
+    image: {
+      title: 'Image'
     }
   },
   errors,

@@ -13,7 +13,7 @@
           <i class="bi bi-house normal-icon"></i>
         </div>
         <div class="tooltip-title">
-          Anasayfa
+          {{ $t('dashboard.leftSideBar.home') }}
         </div>
       </router-link>
       <router-link
@@ -25,7 +25,7 @@
           <i class="bi bi-people normal-icon"></i>
         </div>
         <div class="tooltip-title">
-          Üyeler
+          {{ $t('dashboard.leftSideBar.members') }}
         </div>
       </router-link>
       <router-link
@@ -37,7 +37,8 @@
           <i class="bi bi-bell normal-icon"></i>
         </div>
         <div class="tooltip-title">
-          Bildirimler
+          {{ $t('dashboard.leftSideBar.notifications') }}
+
         </div>
       </router-link>
       <router-link
@@ -49,7 +50,7 @@
           <i class="bi bi-gear normal-icon"></i>
         </div>
         <div class="tooltip-title">
-          Ayarlar
+          {{ $t('dashboard.leftSideBar.settings') }}
         </div>
       </router-link>
     </div>

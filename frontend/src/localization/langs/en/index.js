@@ -79,7 +79,7 @@ export default {
     sentCodeInfo: 'Email sent to reset password. Password reset link will be deleted automatically after 2 hours.'
   },
   footer: {
-    text: '© Copyright 2021. All rights reserved.'
+    text: '© Copyright 2022. All rights reserved.'
   },
   teams: {
     actions: {
@@ -119,6 +119,12 @@ export default {
         loadMore: 'load more',
         noNotification: 'no notifications'
       }
+    },
+    leftSideBar: {
+      home: 'Home',
+      members: 'Members',
+      notifications: 'Notifications',
+      settings: 'Settings'
     },
     home: {
       voteList: {
@@ -321,9 +327,16 @@ export default {
         image: 'Image',
         uploadImage: 'Upload Image',
         timeZone: 'Time Zone (UTC+14/-12)',
-        updatedSettings: 'Updated profile',
+        updatedSettings: 'Profile updated',
         save: 'Save'
       }
+    },
+    continue: {
+      yes: 'continue',
+      no: 'back'
+    },
+    image: {
+      title: 'Fotoğraf'
     }
   },
   errors,

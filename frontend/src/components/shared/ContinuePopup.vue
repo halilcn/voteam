@@ -6,11 +6,11 @@
       <div class="actions">
         <div @click="$emit('handlePopup')" class="btn cancel">
           <i class="bi bi-x-circle"></i>
-          Hayır
+          {{ $t('popups.continue.no') }}
         </div>
         <div @click="continueAction" class="btn continue">
           <i class="bi bi-check-circle"></i>
-          Evet
+          {{ $t('popups.continue.yes') }}
         </div>
       </div>
     </template>

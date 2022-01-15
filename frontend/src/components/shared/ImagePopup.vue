@@ -1,6 +1,6 @@
 <template>
   <popup
-      title="Fotoğraf"
+      :title="$t('popups.image.title')"
       width="340"
       @handleDisable="$emit('handlePopup')"
       :is-enable="isEnable">
