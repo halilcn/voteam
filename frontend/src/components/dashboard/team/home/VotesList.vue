@@ -20,7 +20,7 @@
     <div class="title votes-title">
       <div class="txt">
         <i class="fas fa-poll"></i>
-        Oylamalar
+        {{ $t('dashboard.home.voteList.votes') }}
       </div>
       <loading-animation v-if="isLoading.votesActions"
                          class="loading-votes-actions"
@@ -29,12 +29,12 @@
         <div v-if="!dataForPowerType.power_vote_voted"
              @click="toggleCreatePowerVotePopup"
              class="create-power-vote btn">
-          Güç Oylaması
+          {{ $t('dashboard.home.voteList.powerVote') }}
         </div>
         <div v-else
              @click="toggleFinishedVotePopup"
              class="finished-votes-btn btn">
-          Bitmiş Oylamalar
+          {{ $t('dashboard.home.voteList.finishedVotes') }}
         </div>
         <div
             @click="toggleCreateVotePopup"
@@ -44,12 +44,12 @@
             <i class="bi bi-exclamation-triangle-fill"></i>
             {{
               !dataForPowerType.power_vote_voted
-                  ? 'Güç oylaması gerekir'
-                  : userHasNotUserPower ? 'Güç oylamasına katılman gerekir' : ''
+                  ? $t('dashboard.home.voteList.powerVoteNeeded')
+                  : userHasNotUserPower ? $t('dashboard.home.voteList.needToJoinPowerVote') : ''
             }}
           </div>
           <i class="bi bi-plus-circle-fill"></i>
-          Oylama Başlat
+          {{ $t('dashboard.home.voteList.startVote') }}
         </div>
       </div>
     </div>
@@ -60,7 +60,7 @@
       <template v-else>
         <div class="votes-type-list active-votes">
           <div class="content-title">
-            Aktif Oylamalar
+            {{ $t('dashboard.home.voteList.activeVotes.title') }}
           </div>
           <div class="list">
             <template v-if="votes.active.length > 0">
@@ -87,7 +87,7 @@
                   </div>
                   <div class="bottom-info voted-info">
                     <i class="bi bi-check-all"></i>
-                    Oy Verilmiş !
+                    {{ $t('dashboard.home.voteList.activeVotes.voted') }}
                   </div>
                 </div>
               </div>
@@ -95,15 +95,15 @@
             <div v-else class="no-data">
               <img src="../../../../assets/icons/no-vote.png" alt="no-vote"/>
               <div class="text">
-                Aktif oylama hiç yok
+                {{ $t('dashboard.home.voteList.activeVotes.noActiveVotes') }}
               </div>
             </div>
           </div>
         </div>
         <div class="votes-type-list next-votes">
           <div class="content-title">
-            Gelecek Oylamalar
-            <info-tooltip text="Güç Oylaması ve Lider Oylaması her ay yapılır."
+            {{ $t('dashboard.home.voteList.nextVotes.title') }}
+            <info-tooltip :text="$t('dashboard.home.voteList.nextVotes.shouldPowerVoteInfo')"
                           class="next-vote-info"/>
           </div>
           <div class="list">
@@ -131,7 +131,7 @@
             <div v-else class="no-data">
               <img src="../../../../assets/icons/no-vote.png" alt="note-vote"/>
               <div class="text">
-                Gelecek oylama hiç yok
+                {{ $t('dashboard.home.voteList.nextVotes.noNextVotes') }}
               </div>
             </div>
           </div>

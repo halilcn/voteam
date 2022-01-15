@@ -111,6 +111,24 @@ export default {
       }
     },
     home: {
+      voteList: {
+        votes: 'Oylamalar',
+        powerVote: 'Güç Oylaması',
+        finishedVotes: 'Bitmiş Oylamalar',
+        startVote: 'Oylama Başlat',
+        powerVoteNeeded:'Güç oylaması gerekir',
+        needToJoinPowerVote:'Güç oylamasına katılman gerekir',
+        activeVotes: {
+          title: 'Aktif Oylamalar',
+          voted: 'Oy Verilmiş !',
+          noActiveVotes: 'Aktif oylama hiç yok'
+        },
+        nextVotes: {
+          title: 'Gelecek Oylamalar',
+          shouldPowerVoteInfo: 'Güç oylamasının her ay yapılması zorunludur',
+          noNextVotes: 'Gelecek oylama hiç yok'
+        }
+      },
       teamInfo: {
         team: 'Takım',
         codeCopied: 'Kod kopyalandı !',

@@ -110,6 +110,24 @@ export default {
       }
     },
     home: {
+      voteList: {
+        votes: 'Votes',
+        powerVote: 'Power Vote',
+        finishedVotes: 'Finished Votes',
+        startVote: 'Start Vote',
+        powerVoteNeeded: 'Power vote required',
+        needToJoinPowerVote: 'Must participate in the power vote',
+        activeVotes: {
+          title: 'Active Votes',
+          voted: 'Voted',
+          noActiveVotes: 'No active vote'
+        },
+        nextVotes: {
+          title: 'Next Votes',
+          shouldPowerVoteInfo: 'Power vote have to be start every month',
+          noNextVotes: 'No next vote'
+        }
+      },
       teamInfo: {
         team: 'Team',
         codeCopied: 'Code copied !',
