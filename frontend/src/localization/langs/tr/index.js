@@ -302,6 +302,18 @@ export default {
         isUserAlreadyMember: 'Bu kullanıcı zaten üye',
         sendInvitation: 'Davetiye Gönder'
       }
+    },
+    userEdit: {
+      title: 'Profili Düzenle',
+      content: {
+        email: 'E-mail',
+        nameAndSurname: 'Ad ve Soyad',
+        image: 'Fotoğraf',
+        uploadImage: 'Fotoğraf Yükle',
+        timeZone: 'Saat Dilimi (UTC+14/-12)',
+        updatedSettings:'Bilgiler güncellendi',
+        save: 'Kaydet'
+      }
     }
   },
   errors,

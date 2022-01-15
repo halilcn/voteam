@@ -1,13 +1,13 @@
 <template>
   <popup
-      title="Profili Düzenle"
+      :title="$t('popups.userEdit.title')"
       @handleDisable="$emit('handlePopup')"
       :is-enable="isEnable">
     <template v-slot:content>
       <div class="user-edit">
         <div class="item">
           <div class="title">
-            E-mail
+            {{ $t('popups.userEdit.content.email') }}
           </div>
           <div class="content readonly">
             <input type="email" v-model="user.email" readonly>
@@ -15,7 +15,7 @@
         </div>
         <div class="item">
           <div class="title">
-            Ad ve Soyad
+            {{ $t('popups.userEdit.content.nameAndSurname') }}
           </div>
           <div class="content">
             <input type="text" v-model="v$.user.name.$model">
@@ -23,19 +23,19 @@
         </div>
         <div class="item">
           <div class="title">
-            Fotoğraf
+            {{ $t('popups.userEdit.content.image') }}
           </div>
           <div class="content user-image">
             <img :src="userImageUrl" alt="user-image"/>
             <input @change="onChangeFile" type="file" id="user_image">
             <label for="user_image">
-              Fotoğraf Yükle
+              {{ $t('popups.userEdit.content.uploadImage') }}
             </label>
           </div>
         </div>
         <div class="item">
           <div class="title">
-            Saat Dilimi (UTC+14/-12)
+            {{ $t('popups.userEdit.content.timeZone') }}
           </div>
           <div class="content hours-utc">
             <input type="number" v-model="v$.user.utc.$model">
@@ -56,7 +56,7 @@
               class="post-btn"
               @click="updateUserSettingsAction"
               :is-disable="v$.user.$invalid || isLoadingUpdateUserSettings"
-              text="Kaydet"/>
+              :text="$t('popups.userEdit.content.save')"/>
         </div>
       </div>
     </template>
@@ -116,7 +116,7 @@ export default {
       this.handle(async () => {
         this.isLoadingUpdateUserSettings = true;
         await this.updateUserSettings(this.user);
-        this.$notify.success('Bilgiler güncellendi'); //TODO: multiple language
+        this.$notify.success(this.$t('popups.userEdit.content.updatedSettings'));
       })
           .finally(() => {
             this.isLoadingUpdateUserSettings = false;

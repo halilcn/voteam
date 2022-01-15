@@ -301,6 +301,18 @@ export default {
         isUserAlreadyMember: 'This user is already a member',
         sendInvitation: 'Send Invitation'
       }
+    },
+    userEdit: {
+      title: 'Edit Profile',
+      content: {
+        email: 'E-mail',
+        nameAndSurname: 'Name ve Surname',
+        image: 'Image',
+        uploadImage: 'Upload Image',
+        timeZone: 'Time Zone (UTC+14/-12)',
+        updatedSettings: 'Updated profile',
+        save: 'Save'
+      }
     }
   },
   errors,
