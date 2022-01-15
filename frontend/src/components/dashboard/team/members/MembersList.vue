@@ -65,7 +65,7 @@
               {{ $t('dashboard.members.list.sentInvitation') }}
             </div>
             <div class="time">
-              ({{ $dayjs($helpers.convertTimeToLocalTime(invitation.created_at)).fromNow() }})
+              ({{ $dayjs(invitation.created_at).fromNow() }})
             </div>
           </div>
           <div class="user-info">
