@@ -138,8 +138,17 @@ export default {
       }
     },
     members: {
-      invitation: {
-        isUserAlreadyMember: 'This user is already a member'
+      top: {
+        members: 'Members',
+        member: 'member',
+        invitesWaiting: 'invites waiting',
+        memberInvitation: 'Member Invitation'
+      },
+      list: {
+        delete: 'delete',
+        totalVotes: 'Total Votes',
+        notStartVote: 'There are no votes',
+        sentInvitation: 'Invitation sent'
       }
     }
   },
@@ -259,6 +268,16 @@ export default {
           accept: 'Accept',
           reject: 'Reject'
         }
+      }
+    },
+    userInvitation: {
+      title: 'Member Invitation',
+      content: {
+        name: 'Name ve Surname',
+        email: 'E-mail',
+        emailInfo: 'If you want to invite the registered user, you must write the registered e-mail address.',
+        isUserAlreadyMember: 'This user is already a member',
+        sendInvitation: 'Send Invitation'
       }
     }
   },

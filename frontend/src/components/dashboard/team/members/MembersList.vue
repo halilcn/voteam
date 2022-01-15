@@ -30,7 +30,7 @@
                 :class="{disable:!userHasPermissions}"
                 class="delete-user-btn">
               <i class="bi bi-person-dash"></i>
-              çıkar
+              {{ $t('dashboard.members.list.delete') }}
             </div>
           </div>
         </div>
@@ -39,7 +39,7 @@
             <div v-if="user.votes_count > 0" class="item">
               <div class="title">
                 <i class="far fa-chart-bar"></i>
-                Toplam Oylama
+                {{ $t('dashboard.members.list.totalVotes') }}
               </div>
               <div class="content">
                 {{ user.votes_count }}
@@ -47,7 +47,7 @@
             </div>
             <div v-else class="item no-votes">
               <i class="bi bi-emoji-frown"></i>
-              Henüz oylama başlatmamış
+              {{ $t('dashboard.members.list.notStartVote') }}
             </div>
           </div>
         </div>
@@ -62,7 +62,7 @@
           <div class="info">
             <div class="text">
               <i class="bi bi-envelope-fill"></i>
-              Davetiye gönderildi
+              {{ $t('dashboard.members.list.sentInvitation') }}
             </div>
             <div class="time">
               ({{ $dayjs($helpers.convertTimeToLocalTime(invitation.created_at)).fromNow() }})

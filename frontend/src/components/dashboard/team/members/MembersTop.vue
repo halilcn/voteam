@@ -5,7 +5,7 @@
       @update:should-get-users-of-team="$emit('update:should-get-users-of-team',$event)"/>
   <page-title>
     <i class="bi bi-people"></i>
-    Üyeler
+    {{ $t('dashboard.members.top.members') }}
   </page-title>
   <loading-animation
       v-if="isLoading"
@@ -18,7 +18,7 @@
           <img src="../../../../assets/icons/users.png" alt="users-icon"/>
         </div>
         <div class="content">
-          {{ usersLength }} üye
+          {{ usersLength }} {{ $t('dashboard.members.top.member') }}
         </div>
       </div>
       <div v-if="userInvitationsLength > 0" class="item">
@@ -26,7 +26,7 @@
           <img src="../../../../assets/icons/notifications/invitation.png" alt="invitation-icon"/>
         </div>
         <div class="content">
-          {{ userInvitationsLength }} davet bekliyor
+          {{ userInvitationsLength }} {{ $t('dashboard.members.top.invitesWaiting') }}
         </div>
       </div>
     </div>
@@ -35,7 +35,7 @@
            :class="{disable:!userHasPermissions}"
            class="add-user-btn">
         <i class="bi bi-person-plus-fill"></i>
-        Üye Daveti
+        {{ $t('dashboard.members.top.memberInvitation') }}
       </div>
     </div>
   </div>

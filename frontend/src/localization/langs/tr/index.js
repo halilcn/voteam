@@ -116,8 +116,8 @@ export default {
         powerVote: 'Güç Oylaması',
         finishedVotes: 'Bitmiş Oylamalar',
         startVote: 'Oylama Başlat',
-        powerVoteNeeded:'Güç oylaması gerekir',
-        needToJoinPowerVote:'Güç oylamasına katılman gerekir',
+        powerVoteNeeded: 'Güç oylaması gerekir',
+        needToJoinPowerVote: 'Güç oylamasına katılman gerekir',
         activeVotes: {
           title: 'Aktif Oylamalar',
           voted: 'Oy Verilmiş !',
@@ -139,8 +139,17 @@ export default {
       }
     },
     members: {
-      invitation: {
-        isUserAlreadyMember: 'Bu kullanıcı zaten üye'
+      top: {
+        members: 'Üyeler',
+        member: 'üye',
+        invitesWaiting: 'davet bekliyor',
+        memberInvitation: 'Üye Daveti'
+      },
+      list: {
+        delete: 'çıkar',
+        totalVotes: 'Toplam Oylama',
+        notStartVote: 'Henüz oylama başlatmamış',
+        sentInvitation: 'Davetiye gönderildi'
       }
     }
   },
@@ -260,6 +269,16 @@ export default {
           accept: 'Kabul Et',
           reject: 'Reddet'
         }
+      }
+    },
+    userInvitation: {
+      title: 'Üye Daveti',
+      content: {
+        name: 'Ad ve Soyad',
+        email: 'E-mail',
+        emailInfo: 'Eğer kayıtlı kullanıcıyı davet etmek istiyorsanız, kayıt olduğu e-mail adresini yazmalısınız.',
+        isUserAlreadyMember: 'Bu kullanıcı zaten üye',
+        sendInvitation: 'Davetiye Gönder'
       }
     }
   },

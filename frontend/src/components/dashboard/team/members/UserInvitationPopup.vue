@@ -1,12 +1,12 @@
 <template>
-  <popup title="Üye Daveti"
+  <popup :title="$t('popups.userInvitation.title')"
          @handleDisable="$emit('handlePopup')"
          :is-enable="isEnable">
     <template v-slot:content>
       <div class="user-invitation">
         <div class="item">
           <div class="title">
-            Ad ve Soyad
+            {{ $t('popups.userInvitation.content.name') }}
           </div>
           <div class="content">
             <input type="text" v-model="invitation.name">
@@ -14,9 +14,9 @@
         </div>
         <div class="item">
           <div class="title">
-            E-mail*
+            {{ $t('popups.userInvitation.content.email') }}*
             <info-tooltip class="info-email"
-                          text="Eğer kayıtlı kullanıcıyı davet etmek istiyorsanız, kayıt olduğu e-mail adresini yazmalısınız."/>
+                          :text="$t('popups.userInvitation.content.emailInfo')"/>
           </div>
           <div class="content">
             <input type="email"
@@ -29,10 +29,10 @@
           </div>
         </div>
         <errors v-if="isUserAlreadyMember"
-                :content="[$t('dashboard.members.invitation.isUserAlreadyMember')]"/>
+                :content="[$t('popups.userInvitation.content.isUserAlreadyMember')]"/>
         <div class="post-invitation-btn-container">
           <standart-button
-              text="Davetiye Gönder"
+              :text="$t('popups.userInvitation.content.sendInvitation')"
               :is-disable="v$.invitation.$invalid || isLoadingPostInvitation"
               @click="postUserInvitationAction"/>
         </div>
