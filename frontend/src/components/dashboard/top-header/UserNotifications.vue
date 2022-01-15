@@ -7,7 +7,7 @@
       <div class="top">
         <div class="title">
           <i class="bi bi-bell-fill"></i>
-          Bildirimler
+          {{ $t('dashboard.top.userNotifications.title') }}
         </div>
       </div>
       <loading-animation v-if="isLoadingNotifications"
@@ -34,12 +34,12 @@
               v-if="hasMoreNotifications"
               @click="moreGetNotifications"
               class="item more-notifications-btn">
-            daha fazla yükle
+            {{ $t('dashboard.top.userNotifications.loadMore') }}
           </div>
         </div>
         <div v-if="notifications.length === 0" class="no-notifications">
           <i class="bi bi-emoji-frown"></i>
-          Hiç bildirim yok
+          {{ $t('dashboard.top.userNotifications.noNotification') }}
         </div>
       </div>
     </div>

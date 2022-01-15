@@ -110,6 +110,17 @@ export default {
         }
       }
     },
+    top: {
+      userMenu: {
+        editProfile: 'Profili Düzenle',
+        logout: 'Çıkış Yap'
+      },
+      userNotifications: {
+        title: 'Bildirimler',
+        loadMore: 'daha fazla yükle',
+        noNotification: 'Hiç bildirim yok'
+      }
+    },
     home: {
       voteList: {
         votes: 'Oylamalar',
@@ -311,7 +322,7 @@ export default {
         image: 'Fotoğraf',
         uploadImage: 'Fotoğraf Yükle',
         timeZone: 'Saat Dilimi (UTC+14/-12)',
-        updatedSettings:'Bilgiler güncellendi',
+        updatedSettings: 'Bilgiler güncellendi',
         save: 'Kaydet'
       }
     }

@@ -11,11 +11,11 @@
       <div v-if="isShowUserMenuDropdown" class="menu-dropdown">
         <div @click="toggleUserEditPopup" class="item">
           <i class="bi bi-person"></i>
-          Profili Düzenle
+          {{$t('dashboard.top.userMenu.editProfile')}}
         </div>
         <div @click="postLogout" class="item close">
           <i class="bi bi-door-closed"></i>
-          Çıkış
+          {{$t('dashboard.top.userMenu.logout')}}
         </div>
       </div>
     </div>

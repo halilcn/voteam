@@ -109,6 +109,17 @@ export default {
         }
       }
     },
+    top: {
+      userMenu: {
+        editProfile: 'Edit Profile',
+        logout: 'Logout'
+      },
+      userNotifications: {
+        title: 'Notifications',
+        loadMore: 'load more',
+        noNotification: 'no notifications'
+      }
+    },
     home: {
       voteList: {
         votes: 'Votes',
