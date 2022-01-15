@@ -37,7 +37,6 @@
             </label>
           </div>
         </div>
-        <!--TODO: multiple language -->
         <errors v-if="v$.settings.$invalid"
                 :content="[$t('dashboard.settings.team.fieldEmptyInfo')]"
                 class="item"/>
@@ -142,7 +141,7 @@ export default {
       this.handle(async () => {
         this.isLoading.postSettings = true;
         await this.updateSettings(this.settings);
-        this.$notify.success(this.$t('dashboard.settings.member.updatedSettings'));
+        this.$notify.success(this.$t('dashboard.settings.updatedSettings'));
       }).finally(() => {
         this.isLoading.postSettings = false;
       });
@@ -150,7 +149,8 @@ export default {
     async getPermissionsUserOfTeamAction() {
       await this.handle(async () => {
         this.isLoading.userPermission = true;
-        this.userPermission = await this.getPermissionsUserOfTeam();
+        const { all_permissions } = await this.getPermissionsUserOfTeam();
+        this.userHasPermission = all_permissions;
       }).finally(() => {
         this.isLoading.userPermission = false;
       });
@@ -163,7 +163,7 @@ export default {
   },
   async created() {
     await this.getPermissionsUserOfTeamAction();
-    if (this.userPermission) await this.getSettingsAction();
+    if (this.userHasPermission) await this.getSettingsAction();
   }
 };
 </script>
