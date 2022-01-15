@@ -153,8 +153,26 @@ export default {
       }
     },
     notifications: {
-      notifications: 'Bildirimler',
+      title: 'Bildirimler',
       moreNotifications: 'daha fazla göster'
+    },
+    settings: {
+      title: 'Ayarlar',
+      updatedSettings: 'Ayarlar Güncellendi',
+      team: {
+        title: 'TAKIM AYARLARI',
+        name: 'Takım Adı',
+        image: 'Takım Fotoğrafı',
+        change: 'Değiştir',
+        fieldEmptyInfo: 'Alanlar boş bırakılamaz',
+        save: 'Kaydet'
+      },
+      member: {
+        title: 'ÜYE AYARLARI',
+        leaveTeamInfo: 'Takımdan çıktığında başlattığın oylamalar veya verdiğin oylar silinmez.',
+        leaveTeamInfoUnderlined: 'Sahip olduğun güç puanı silinir.',
+        leaveTeam: 'Takımdan Çık'
+      }
     }
   },
   popups: {

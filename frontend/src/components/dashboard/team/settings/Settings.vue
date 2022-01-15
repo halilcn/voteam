@@ -1,7 +1,7 @@
 <template>
   <page-title>
     <i class="bi bi-gear"></i>
-    Ayarlar
+    {{ $t('dashboard.settings.title') }}
   </page-title>
   <loading-animation
       v-if="isLoading.userPermission || isLoading.getSettings"
@@ -11,12 +11,12 @@
     <div v-if="userHasPermission" class="team-settings setting">
       <div class="setting-title">
         <i class="bi bi-circle-fill"></i>
-        TAKIM AYARLARI
+        {{ $t('dashboard.settings.team.title') }}
       </div>
       <div class="list">
         <div class="item">
           <div class="title">
-            Takım Adı
+            {{ $t('dashboard.settings.team.name') }}
           </div>
           <div class="content">
             <input v-model="settings.name" type="text">
@@ -24,7 +24,7 @@
         </div>
         <div class="item team-image">
           <div class="title">
-            Takım Fotoğrafı
+            {{ $t('dashboard.settings.team.image') }}
           </div>
           <div class="content">
             <img :src="teamImageUrl"
@@ -33,16 +33,16 @@
             <input @change="onChangeFile" type="file" id="team_image">
             <label for="team_image">
               <i class="bi bi-arrow-repeat"></i>
-              Değiştir
+              {{ $t('dashboard.settings.team.change') }}
             </label>
           </div>
         </div>
         <!--TODO: multiple language -->
         <errors v-if="v$.settings.$invalid"
-                :content="['Alanlar boş bırakılamaz']"
+                :content="[$t('dashboard.settings.team.fieldEmptyInfo')]"
                 class="item"/>
         <standart-button class="post-team-setting-btn item"
-                         text="Kaydet"
+                         :text="$t('dashboard.settings.team.save')"
                          @click="updateSettingsAction"
                          :is-disable="isLoading.postSettings || !settingsDataChanged || v$.settings.$invalid"/>
       </div>
@@ -50,20 +50,20 @@
     <div class="team-user-settings setting">
       <div class="setting-title">
         <i class="bi bi-circle-fill"></i>
-        ÜYE AYARLARI
+        {{ $t('dashboard.settings.member.title') }}
       </div>
       <div class="list">
         <div class="item">
           <div class="content leave-team-content">
             <div class="info">
-              Takımdan çıktığında başlattığın oylamalar veya verdiğin oylar silinmez.
+              {{ $t('dashboard.settings.member.leaveTeamInfo') }}
               <span>
-                Sahip olduğun güç puanı silinir
+               {{ $t('dashboard.settings.member.leaveTeamInfoUnderlined') }}
               </span>
             </div>
             <div class="leave-team-btn">
               <i class="bi bi-door-closed-fill"></i>
-              Takımdan Çık
+              {{ $t('dashboard.settings.member.leaveTeam') }}
             </div>
           </div>
         </div>
@@ -142,7 +142,7 @@ export default {
       this.handle(async () => {
         this.isLoading.postSettings = true;
         await this.updateSettings(this.settings);
-        this.$notify.success('Ayarlar Güncellendi'); /*TODO: multiple language */
+        this.$notify.success(this.$t('dashboard.settings.member.updatedSettings'));
       }).finally(() => {
         this.isLoading.postSettings = false;
       });

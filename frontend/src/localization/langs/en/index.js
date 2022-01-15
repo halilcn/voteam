@@ -152,8 +152,26 @@ export default {
       }
     },
     notifications: {
-      notifications: 'Notifications',
+      title: 'Notifications',
       moreNotifications: 'show more'
+    },
+    settings: {
+      title: 'Settings',
+      updatedSettings: 'Updated Settings',
+      team: {
+        title: 'TEAM SETTINGS',
+        name: 'Team Name',
+        image: 'Team Photo',
+        change: 'Change',
+        fieldEmptyInfo: 'Fields cannot be left empty',
+        save: 'Save'
+      },
+      member: {
+        title: 'MEMBER SETTINGS',
+        leaveTeamInfo: 'When you leave the team, the votes you started or the votes you cast are not deleted.',
+        leaveTeamInfoUnderlined: 'Your power points will be deleted.',
+        leaveTeam: 'Leave Team'
+      }
     }
   },
   popups: {

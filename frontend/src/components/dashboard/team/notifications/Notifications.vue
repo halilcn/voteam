@@ -2,7 +2,7 @@
   <div class="team-notifications">
     <page-title>
       <i class="bi bi-bell"></i>
-      {{ $t('dashboard.notifications.notifications') }}
+      {{ $t('dashboard.notifications.title') }}
     </page-title>
     <div class="list">
       <loading-animation
