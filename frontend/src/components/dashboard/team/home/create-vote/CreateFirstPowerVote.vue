@@ -41,7 +41,7 @@ export default {
     return {
       powerTypeVoteData: {},
       vote: {
-        title: this.$t('popups.firstPowerVote.firstPowerVoteText'),
+        title: this.$t('popups.firstPowerVote.content.firstPowerVoteText'),
         type: constants.VOTE_TYPES['POWER'],
         options: constants.POWER_VOTE_DEFAULT_OPTIONS,
         start_date: this.$dayjs(),
@@ -91,7 +91,7 @@ export default {
     },
     createdVote() {
       this.$emit('handlePopup');
-      this.$notify.success(this.$t('popups.firstPowerVote.startedVote'));
+      this.$notify.success(this.$t('popups.firstPowerVote.content.startedVote'));
       this.$emit('update:should-get-votes', true);
     }
   },
