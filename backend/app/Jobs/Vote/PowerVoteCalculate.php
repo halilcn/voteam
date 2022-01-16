@@ -35,6 +35,9 @@ class PowerVoteCalculate implements ShouldQueue
      */
     public function handle()
     {
+        //todo: yeterli katılım olmazsa ?
+        //todo: frontned yeterli katılım sağlanamadı yazısı ?
+
         $teamId = $this->vote->team->id;
         $votedUsersCount = $this->vote->votedUsers()->count();
         $teamUsersId = collect(TeamUser::where('team_id', $teamId)->pluck('id'));

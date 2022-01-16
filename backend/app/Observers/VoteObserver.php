@@ -8,6 +8,7 @@ use App\Jobs\Vote\CalculateVote;
 use App\Jobs\Vote\DoubleVoteCalculate;
 use App\Jobs\Vote\MultipleVoteCalculate;
 use App\Jobs\Vote\PowerVoteCalculate;
+use App\Jobs\Vote\PowerVoteForEveryMonth;
 use App\Models\TeamNotification;
 use App\Models\Vote;
 use Illuminate\Support\Facades\Notification;
@@ -33,6 +34,14 @@ class VoteObserver
         VoteCreatedNotification::dispatch($vote->team, $vote->title);
         SendVoteCreatedEmail::dispatch($vote);
         CalculateVote::dispatchSync($vote, $vote->end_date->diffInSeconds(now()));
+
+        if ($vote->type == 'power') {
+            PowerVoteForEveryMonth::dispatch($vote->team);
+            /*PowerVoteForEveryMonth::dispatch($vote->team)->delay(
+                now()->addMonth()->startOfMonth()->diffInSeconds(now())
+            //ayın son 2 gün
+            );*/
+        }
     }
 
     /**
