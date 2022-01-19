@@ -332,11 +332,20 @@ export default {
       }
     },
     continue: {
+      title: 'Do you want to continue ?',
       yes: 'continue',
       no: 'back'
     },
     image: {
       title: 'Fotoğraf'
+    },
+    deleteUser: {
+      title: 'Do you want to continue ?',
+      content: {
+        info: 'Warning ! Active votes initiated by the user leaving the team, votes given to active votes and power points are deleted. Do you want to continue ?',
+        yes: 'continue',
+        no: 'back'
+      }
     }
   },
   errors,

@@ -1,16 +1,19 @@
 <template>
-  <popup :title="$t('popups.continue.title')"
+  <popup :title="$t('popups.deleteUser.title')"
          @handleDisable="$emit('handlePopup')"
          :is-enable="isEnable">
     <template v-slot:content>
+      <div class="info">
+        {{ $t('popups.deleteUser.content.info') }}
+      </div>
       <div class="actions">
         <div @click="$emit('handlePopup')" class="btn cancel">
           <i class="bi bi-x-circle"></i>
-          {{ $t('popups.continue.no') }}
+          {{ $t('popups.deleteUser.content.no') }}
         </div>
         <div @click="continueAction" class="btn continue">
           <i class="bi bi-check-circle"></i>
-          {{ $t('popups.continue.yes') }}
+          {{ $t('popups.deleteUser.content.yes') }}
         </div>
       </div>
     </template>
@@ -18,10 +21,10 @@
 </template>
 
 <script>
-import Popup from './Popup';
+import Popup from '../../../shared/Popup';
 
 export default {
-  name: 'ContinuePopup',
+  name: 'DeleteUserPopup',
   props: ['isEnable'],
   components: {
     Popup
@@ -36,6 +39,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.info {
+  padding: 20px;
+  color: $df-black-and-blue-color;
+  font-size: 17px;
+  font-weight: 300;
+}
+
 .actions {
   display: flex;
   justify-content: space-evenly;

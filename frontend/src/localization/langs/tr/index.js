@@ -333,11 +333,20 @@ export default {
       }
     },
     continue: {
+      title: 'Devam etmek istiyor musun ?',
       yes: 'evet',
       no: 'hayır'
     },
     image: {
       title: 'Image'
+    },
+    deleteUser: {
+      title: 'Devam etmek istiyor musun ?',
+      content: {
+        info: 'Uyarı ! Takımdan çıkan kullanıcının başlattığı aktif oylamalar, aktif oylamalara verdiği oylar ve güç puanı silinir. Devam etmek istiyor musunuz ?',
+        yes: 'evet',
+        no: 'hayır'
+      }
     }
   },
   errors,

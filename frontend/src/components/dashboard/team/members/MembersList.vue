@@ -1,5 +1,5 @@
 <template>
-  <continue-popup
+  <delete-user-popup
       :is-enable="isEnableContinuePopup"
       @handlePopup="toggleContinuePopup"
       @continue="deleteUserOfTeamAction"/>
@@ -81,7 +81,7 @@
 
 <script>
 import LoadingAnimation from '../../../shared/LoadingAnimation';
-import ContinuePopup from '../../../shared/ContinuePopup';
+import DeleteUserPopup from '../shared/DeleteUserPopup';
 import { mapActions } from 'vuex';
 
 export default {
@@ -94,8 +94,8 @@ export default {
     };
   },
   components: {
-    LoadingAnimation,
-    ContinuePopup
+    DeleteUserPopup,
+    LoadingAnimation
   },
   methods: {
     ...mapActions('teamUser', ['deleteUserOfTeam']),
