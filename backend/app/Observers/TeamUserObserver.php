@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Jobs\SendLeftTeam;
 use App\Jobs\TeamNotifications\NewMemberNotification;
 use App\Models\Team;
 use App\Models\TeamNotification;
@@ -39,7 +40,8 @@ class TeamUserObserver
      */
     public function deleted(TeamUser $teamUser)
     {
-        //
+        //TODO:
+        SendLeftTeam::dispatch(['SDSA' => 'ADASXL']);
     }
 
     /**
