@@ -48,10 +48,12 @@ class PowerVoteCalculate implements ShouldQueue
         $negativeStatusData = [
             User::$LANGUAGES['TR'] => [
                 'status' => false,
+                'message' => 'Güç Oylaması Tamamlanamadı !',
                 'info_message' => 'Yeterli katılım sağlanılmadı !',
             ],
             User::$LANGUAGES['EN'] => [
                 'status' => false,
+                'message' => 'Power Vote Failed to Complete !',
                 'info_message' => 'Not enough participation !',
             ]
         ];
