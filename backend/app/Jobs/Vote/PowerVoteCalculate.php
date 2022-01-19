@@ -35,8 +35,26 @@ class PowerVoteCalculate implements ShouldQueue
      */
     public function handle()
     {
-        //todo: yeterli katılım olmazsa ?
-        //todo: frontned yeterli katılım sağlanamadı yazısı ?
+        $successStatusData = [
+            User::$LANGUAGES['TR'] => [
+                'status' => true,
+                'message' => 'Güç Oylaması Tamamlandı !',
+            ],
+            User::$LANGUAGES['EN'] => [
+                'status' => true,
+                'message' => 'Power Vote Completed !',
+            ]
+        ];
+        $negativeStatusData = [
+            User::$LANGUAGES['TR'] => [
+                'status' => false,
+                'info_message' => 'Yeterli katılım sağlanılmadı !',
+            ],
+            User::$LANGUAGES['EN'] => [
+                'status' => false,
+                'info_message' => 'Not enough participation !',
+            ]
+        ];
 
         $teamId = $this->vote->team->id;
         $votedUsersCount = $this->vote->votedUsers()->count();
@@ -46,39 +64,43 @@ class PowerVoteCalculate implements ShouldQueue
             return;
         }
 
-        collect($this->vote->votedUsers)
-            ->map(function ($votedUser) {
-                return $votedUser['answer'];
-            })
-            ->collapse()
-            ->groupBy('team_user_id')
-            ->map(function ($userAnswer) {
-                return collect($userAnswer)
-                    ->transform(function ($answer) {
-                        return $answer['power'];
-                    })
-                    ->sum();
-            })
-            ->each(function ($totalUserPower, $teamUserId) use ($votedUsersCount, $teamUsersId) {
-                if ($teamUsersId->contains($teamUserId)) {
-                    TeamUserPower::updateOrCreate(
-                        ['team_user_id' => $teamUserId],
-                        ['power' => ($totalUserPower / $votedUsersCount)]
-                    );
-                } else {
-                    Log::info("Power Vote Calculate warning !");
-                }
-            });
+        $percentageOfVotedUsers = $votedUsersCount * (100 / $this->vote->team->users()->count());
+        if ($percentageOfVotedUsers < Vote::$MINIMUM_VOTED_USERS_PERCENTAGE) {
+            if (!$this->vote->team->powerTypeVote()->exists()) {
+                $this->vote->votedUsers()->delete();
+                $this->vote->delete();
+                return;
+            }
 
-        $this->vote->calculation()->create([
-                                               'data' => [
-                                                   User::$LANGUAGES['TR'] => [
-                                                       'message' => 'Güç Oylaması Tamamlandı !',
-                                                   ],
-                                                   User::$LANGUAGES['EN'] => [
-                                                       'message' => 'Power Vote Completed !',
-                                                   ]
-                                               ]
-                                           ]);
+            $data = $negativeStatusData;
+        } else {
+            $data = $successStatusData;
+
+            collect($this->vote->votedUsers)
+                ->map(function ($votedUser) {
+                    return $votedUser['answer'];
+                })
+                ->collapse()
+                ->groupBy('team_user_id')
+                ->map(function ($userAnswer) {
+                    return collect($userAnswer)
+                        ->transform(function ($answer) {
+                            return $answer['power'];
+                        })
+                        ->sum();
+                })
+                ->each(function ($totalUserPower, $teamUserId) use ($votedUsersCount, $teamUsersId) {
+                    if ($teamUsersId->contains($teamUserId)) {
+                        TeamUserPower::updateOrCreate(
+                            ['team_user_id' => $teamUserId],
+                            ['power' => ($totalUserPower / $votedUsersCount)]
+                        );
+                    } else {
+                        Log::info("Power Vote Calculate warning !");
+                    }
+                });
+        }
+
+        $this->vote->calculation()->create(['data' => $data]);
     }
 }

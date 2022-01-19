@@ -33,7 +33,7 @@ class VoteObserver
     {
         VoteCreatedNotification::dispatch($vote->team, $vote->title);
         SendVoteCreatedEmail::dispatch($vote);
-        CalculateVote::dispatchSync($vote, $vote->end_date->diffInSeconds(now()));
+            CalculateVote::dispatchSync($vote, 15); //$vote->end_date->diffInSeconds(now())
     }
 
     /**
