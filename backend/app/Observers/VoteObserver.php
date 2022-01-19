@@ -34,14 +34,6 @@ class VoteObserver
         VoteCreatedNotification::dispatch($vote->team, $vote->title);
         SendVoteCreatedEmail::dispatch($vote);
         CalculateVote::dispatchSync($vote, $vote->end_date->diffInSeconds(now()));
-
-        if ($vote->type == 'power') {
-            PowerVoteForEveryMonth::dispatch($vote->team);
-            /*PowerVoteForEveryMonth::dispatch($vote->team)->delay(
-                now()->addMonth()->startOfMonth()->diffInSeconds(now())
-            //ayın son 2 gün
-            );*/
-        }
     }
 
     /**
