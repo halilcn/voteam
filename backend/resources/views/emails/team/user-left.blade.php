@@ -256,12 +256,13 @@
                                                             style="font-family:Arial, Helvetica, sans-serif; font-size:20px; color:#3d3d3d; font-weight:normal;"
                                                             mc:edit="bm22-06">
                                                             <multiline>
-                                                                Dear {{$user}},
+                                                                Dear {{$userName}},
 
-                                                                <a style="color: #2575F1;font-weight: bold;"
-                                                                   href="https://voteam.net/">
-                                                                    {{$team}}
-                                                                </a> !
+                                                                you left the
+                                                                <span style="color: #2575F1;font-weight: bold;">
+                                                                    {{$teamName}}
+                                                                </span>
+                                                                team!
                                                             </multiline>
                                                         </td>
                                                     </tr>

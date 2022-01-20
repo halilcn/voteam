@@ -32,16 +32,19 @@ class TeamUserObserver
         //
     }
 
+
     /**
-     * Handle the TeamUser "deleted" event.
-     *
-     * @param  \App\Models\TeamUser  $teamUser
-     * @return void
+     * @param  TeamUser  $teamUser
      */
     public function deleted(TeamUser $teamUser)
     {
-        //TODO:
-        SendLeftTeam::dispatch(['SDSA' => 'ADASXL']);
+        $info = [
+            'email' => $teamUser->user->email,
+            'userName' => $teamUser->user->name,
+            'teamName' => $teamUser->team->name,
+        ];
+
+        SendLeftTeam::dispatch($info);
     }
 
     /**

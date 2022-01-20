@@ -17,7 +17,7 @@ class LefTeam extends Mailable
      *
      * @return void
      */
-    public function __construct(public $teamUser)
+    public function __construct(public array $info)
     {
         //
     }
@@ -31,7 +31,7 @@ class LefTeam extends Mailable
     {
         return $this
             ->view('emails.team.user-left')
-            ->with(['team' => 'adsa', 'user' => 'asdasdsakoda']) //$this->teamUser->user->name
-            ->subject(config('app.name').' | '.'You Left The ${} Team');
+            ->with(['teamName' => $this->info['teamName'], 'userName' => $this->info['userName']])
+            ->subject(config('app.name').' | '.'You Left The '.$this->info['teamName'].' Team');
     }
 }

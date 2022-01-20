@@ -21,7 +21,7 @@ class SendLeftTeam implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(public  $teamUser)
+    public function __construct(public array $info)
     {
         //
     }
@@ -33,7 +33,6 @@ class SendLeftTeam implements ShouldQueue
      */
     public function handle()
     {
-        //$this->teamUser->user->name
-        Mail::to('halil@gmail.com')->send(new LefTeam($this->teamUser));
+        Mail::to($this->info['email'])->send(new LefTeam($this->info));
     }
 }
