@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\TeamUser;
 use App\Exceptions\Exception;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TeamUser\TeamUserResource;
+use App\Jobs\DeleteUserOfTeam;
 use App\Models\Team;
 use App\Models\TeamUser;
 use Illuminate\Database\Eloquent\Builder;
@@ -55,21 +56,7 @@ class TeamUserController extends Controller
             return Exception::teamUserException();
         }
 
-        $this->transaction(function () use ($team, $teamUser) {
-            $teamUser->userPower()->delete();
-            $team->votes()->activeVotes()->each(
-                function ($activeVote) use ($teamUser) {
-                    $activeVote->votedUsers()->where('user_id', $teamUser->user_id)->delete();
-                }
-            );
-            $team->votes()->activeVotes()->where('user_id', $teamUser->user_id)->each(
-                function ($activeVote) use ($teamUser) {
-                    $activeVote->votedUsers()->delete();
-                }
-            );
-            $team->votes()->activeVotes()->where('user_id', $teamUser->user_id)->delete();
-            $teamUser->delete();
-        });
+        DeleteUserOfTeam::dispatchSync($team, $teamUser);
 
         return $this->successResponse();
     }

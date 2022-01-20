@@ -17,6 +17,7 @@ use App\Http\Controllers\API\Team\TeamCheckUserController;
 use App\Http\Controllers\API\TeamUser\TeamJoinWithInvitationController;
 use App\Http\Controllers\API\TeamUser\TeamUserController;
 use App\Http\Controllers\API\TeamUser\TeamUserInvitationController;
+use App\Http\Controllers\API\TeamUser\TeamUserLeaveFromTeamController;
 use App\Http\Controllers\API\TeamUser\TeamUserPermissionController;
 use App\Http\Controllers\API\Vote\FinishedVoteController;
 use App\Http\Controllers\API\Vote\VotedUserController;
@@ -72,7 +73,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('teams/{team:key}/notifications', TeamNotificationController::class);
 
         //TODO:bunu düzelt! Resource contoller controller içine alınacak !
-        Route::delete('teams/{team:key}/users/{team_user}', [TeamUserController::class, 'destroy']);
+        Route::delete('teams/{team:key}/users/me', TeamUserLeaveFromTeamController::class);
+        Route::delete('teams/{team:key}/users/{team_user}', [TeamUserController::class, 'destroy']); //? altla aynı ?
         Route::resource('teams.users', TeamUserController::class)->scoped(['team' => 'key']);
 
         Route::get('teams/{team:key}/my-permissions', TeamUserPermissionController::class);
