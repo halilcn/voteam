@@ -15,6 +15,9 @@ export default {
     async deleteUserOfTeam({ getters }, payload) {
       await axios.delete(`teams/${getters.teamId}/users/${payload}`);
     },
+    async deleteMeFromTeam({ getters }) {
+      await axios.delete(`teams/${getters.teamId}/users/me`);
+    },
     async getPermissionsUserOfTeam({ getters }) {
       const { data } = (await axios.get(`teams/${getters.teamId}/my-permissions`));
       return data;

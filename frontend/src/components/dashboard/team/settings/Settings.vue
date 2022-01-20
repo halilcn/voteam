@@ -8,6 +8,10 @@
       :textLineCount="6"
       :textCount="2"/>
   <div v-else class="settings-container">
+    <delete-user-popup
+        :is-enable="isEnableContinuePopup"
+        @handlePopup="toggleContinuePopup"
+        @continue="leaveTheTeamAction"/>
     <div v-if="userHasPermission" class="team-settings setting">
       <div class="setting-title">
         <i class="bi bi-circle-fill"></i>
@@ -60,7 +64,7 @@
                {{ $t('dashboard.settings.member.leaveTeamInfoUnderlined') }}
               </span>
             </div>
-            <div class="leave-team-btn">
+            <div @click="toggleContinuePopup" class="leave-team-btn">
               <i class="bi bi-door-closed-fill"></i>
               {{ $t('dashboard.settings.member.leaveTeam') }}
             </div>
@@ -74,6 +78,7 @@
 <script>
 import PageTitle from '../shared/PageTitle';
 import StandartButton from '../../../shared/elements/StandartButton';
+import DeleteUserPopup from '../shared/DeleteUserPopup';
 import Errors from '../../../shared/Errors';
 import LoadingAnimation from '../../../shared/LoadingAnimation';
 import validateMixin from '../../../../mixins/validateMixin';
@@ -93,7 +98,8 @@ export default {
         postSettings: false,
         userPermission: false
       },
-      settings: {}
+      settings: {},
+      isEnableContinuePopup: false
     };
   },
   validations() {
@@ -120,11 +126,12 @@ export default {
     PageTitle,
     StandartButton,
     Errors,
-    LoadingAnimation
+    LoadingAnimation,
+    DeleteUserPopup
   },
   methods: {
     ...mapActions('teamSetting', ['getSettings', 'updateSettings']),
-    ...mapActions('teamUser', ['getPermissionsUserOfTeam']),
+    ...mapActions('teamUser', ['getPermissionsUserOfTeam', 'deleteMeFromTeam']),
     onChangeFile(event) {
       this.settings.image = event.target.files[0];
       this.temporaryTeamImageUrl = this.$helpers.createTemporaryUrl(this.settings.image);
@@ -153,6 +160,15 @@ export default {
         this.userHasPermission = all_permissions;
       }).finally(() => {
         this.isLoading.userPermission = false;
+      });
+    },
+    toggleContinuePopup() {
+      this.isEnableContinuePopup = !this.isEnableContinuePopup;
+    },
+    leaveTheTeamAction() {
+      this.handle(async () => {
+        await this.deleteMeFromTeam();
+        this.$router.push({ name: 'TeamsList' });
       });
     }
   },
@@ -285,16 +301,12 @@ export default {
       .leave-team-btn {
         padding: 8px 16px;
         cursor: pointer;
-        background-color: #f6f6f6;
-        color: #c4c4c4;
+        background-color: #fff2f2;
+        color: $df-red-color;
         font-weight: 500;
         font-size: 13px;
         border-radius: 5px;
         transition: .2s;
-
-        // disable
-        pointer-events: none;
-        opacity: .9;
 
         i {
           margin-right: 5px;
