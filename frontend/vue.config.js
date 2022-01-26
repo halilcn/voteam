@@ -1,4 +1,7 @@
 module.exports = {
+  devServer: {
+    disableHostCheck: true
+  },
   css: {
     loaderOptions: {
       sass: {
@@ -8,4 +11,4 @@ module.exports = {
       }
     }
   }
-}
+};
