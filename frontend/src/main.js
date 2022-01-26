@@ -8,7 +8,10 @@ import helpers from './helpers';
 import notify from './others/notify';
 import dayjs from './others/dayjs';
 import vClickOutside from 'click-outside-vue3';
+import dotenv from 'dotenv';
 import { VuelidatePlugin } from '@vuelidate/core';
+
+dotenv.config();
 
 const app = createApp(App)
   .use(store)

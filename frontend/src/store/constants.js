@@ -1,5 +1,5 @@
 export default {
-  BACKEND_BASE_URL: 'http://127.0.0.1:8000/api/v1/',
+  BACKEND_BASE_URL: process.env.VUE_APP_BACKEND_API,
   TEAM_ROLLERS: [
     'lead',
     'manager',
