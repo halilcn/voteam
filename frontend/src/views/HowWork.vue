@@ -1,6 +1,6 @@
 <template>
   <div>
-    how work ?
+    Bu sayfa henüz hazır deği
   </div>
 </template>
 
