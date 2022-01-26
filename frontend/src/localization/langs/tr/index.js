@@ -46,11 +46,8 @@ export default {
       }
     }
   },
-  pricing: {
-    title: {
-      first: 'Ömür boyu tamamen',
-      second: 'ücretsiz'
-    }
+  about: {
+    text: 'Bu proje tamamen açık kaynaklıdır.'
   },
   userActions: {
     helpfulLinks: {
