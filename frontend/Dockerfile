@@ -10,10 +10,10 @@ RUN npm install
 
 COPY .. .
 
+ENV VUE_APP_BACKEND_API=test.com
+
 RUN npm run build
 
 EXPOSE 8080
-
-ENV VUE_APP_BACKEND_API=${VUE_APP_BACKEND_API}
 
 CMD [ "http-server", "dist" ]
