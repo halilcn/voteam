@@ -8,6 +8,7 @@ use App\Http\Controllers\API\Auth\UserLanguageController;
 use App\Http\Controllers\API\Auth\UserNotificationController;
 use App\Http\Controllers\API\Auth\UserSettingsController;
 use App\Http\Controllers\API\Other\FileController;
+use App\Http\Controllers\API\Other\VersionController;
 use App\Http\Controllers\API\Team\TeamController;
 use App\Http\Controllers\API\Team\TeamInfoController;
 use App\Http\Controllers\API\Team\TeamJoinWithCodeController;
@@ -39,6 +40,8 @@ use Illuminate\Support\Facades\Route;
 
 //TODO: Routes
 //TODO: team:key olayını her yerde yazmak yerine, tek bir yerde tanımlamak?
+
+Route::get('version', VersionController::class);
 
 Route::group(['prefix' => 'v1'], function () {
     Route::post('register', [RegisterController::class, 'handle']);
