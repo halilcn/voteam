@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API\Vote;
 
 use App\Exceptions\Exception;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\VOte\VotedUserRequest;
+use App\Http\Requests\Vote\VotedUserRequest;
 use App\Jobs\Vote\DoubleVoteCalculate;
 use App\Jobs\Vote\MultipleVoteCalculate;
 use App\Models\Team;
