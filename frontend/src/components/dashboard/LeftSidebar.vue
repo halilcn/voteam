@@ -1,8 +1,5 @@
 <template>
   <div class="left-sidebar">
-    <div class="logo">
-      logo
-    </div>
     <div class="menu">
       <router-link
           class="item"
@@ -81,21 +78,16 @@ export default {
 <style lang="scss" scoped>
 .left-sidebar {
   @include center-lg-box-shadow;
+  position: relative;
   background-color: white;
   width: 70px;
   height: 100%;
   display: flex;
+  justify-content: center;
   flex-direction: column;
   border-radius: 0 10px 10px 0;
 
-  .logo {
-
-  }
-
   .menu {
-    margin-top: auto;
-    margin-bottom: auto;
-
     .item {
       position: relative;
       display: flex;
@@ -170,6 +162,9 @@ export default {
   }
 
   .team {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -188,7 +183,7 @@ export default {
 
     .active-team {
       @include center-lg-blue-box-shadow;
-      margin: 5px 0;
+      margin: 18px 0;
       width: 40px;
       height: 40px;
       border-radius: 100%;
