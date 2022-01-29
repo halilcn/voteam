@@ -183,7 +183,6 @@ export default {
       },
       member: {
         title: 'ÜYE AYARLARI',
-        leaveTeamInfo: 'Takımdan çıktığında başlattığın oylamalar veya verdiğin oylar silinmez.',
         leaveTeamInfoUnderlined: 'Sahip olduğun güç puanı silinir.',
         leaveTeam: 'Takımdan Çık'
       }

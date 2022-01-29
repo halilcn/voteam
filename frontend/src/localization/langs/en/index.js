@@ -182,7 +182,6 @@ export default {
       },
       member: {
         title: 'MEMBER SETTINGS',
-        leaveTeamInfo: 'When you leave the team, the votes you started or the votes you cast are not deleted.',
         leaveTeamInfoUnderlined: 'Your power points will be deleted.',
         leaveTeam: 'Leave Team'
       }

@@ -59,7 +59,6 @@
         <div class="item">
           <div class="content leave-team-content">
             <div class="info">
-              {{ $t('dashboard.settings.member.leaveTeamInfo') }}
               <span>
                {{ $t('dashboard.settings.member.leaveTeamInfoUnderlined') }}
               </span>
