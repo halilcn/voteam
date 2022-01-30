@@ -10,7 +10,7 @@
         tag="div"
         :to="{name:'Home'}"
         class="mobile-logo">
-      logo
+      <img src="../../assets/logos/voteam.png" alt="logo"/>
     </router-link>
     <div class="links">
       <router-link
@@ -86,7 +86,7 @@ export default {
     display: none;
 
     img {
-
+       width: 100px;
     }
   }
 
