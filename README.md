@@ -1,5 +1,5 @@
 <p align="center">
-<img src="./resources/logo.png" width="400">
+<img src="./images/voteam.png" width="400">
 </p>
 <p align="center">
  Fair And Modern Voting System
