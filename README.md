@@ -16,7 +16,9 @@
 <br />
 
 <p align="center">
-  <a href="http://voteam.net">www.voteam.net</a> |
+  <h3>
+    <a href="http://voteam.net">www.voteam.net</a>
+  </h3>
 </p>
 
 
