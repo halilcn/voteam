@@ -1,6 +1,6 @@
 <template>
-  <div>
-    Bu sayfa henüz hazır deği
+  <div class="info">
+    Bu sayfa hazır değil
   </div>
 </template>
 
@@ -11,5 +11,9 @@ export default {
 </script>
 
 <style scoped>
-
+.info {
+  padding: 20px;
+  font-size: 15px;
+  text-align: center;
+}
 </style>
