@@ -6,14 +6,16 @@
 
 <br />
 
-<p align="center" > 
- **Fair And Modern Voting System**
-</p>
+**<center>
+Fair And Modern Voting System
+</center>**
 
 <br />
 <br />
 
+<center>
 *[voteam.net](http://voteam.net)*
+</center>
 
 
 ## What is ?
