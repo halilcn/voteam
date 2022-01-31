@@ -4,17 +4,21 @@
 <img src="./images/voteam.png" align="center" width="400" alt="Project icon">
 </div>
 
+<br />
+<br />
+
 <div align="center"> 
-<h3 align="center">
+<h2 align="center">
  Fair And Modern Voting System
-</h3> 
- </div>
-
-
-#### MyProject
+</h2> 
+</div>
 
 <br />
-<br />
+
+<p align="center">
+  <a href="http://voteam.net">www.voteam.net</a> |
+</p>
+
 
  
  ## What is ?
