@@ -3,15 +3,13 @@
 <div align="center">
 <img src="./images/voteam.png" align="center" width="400" alt="Project icon">
 </div>
-
-<br />
 <br />
 
-<div align="center"> 
+<p align="center"> 
 <h2 align="center">
  Fair And Modern Voting System
 </h2> 
-</div>
+</p>
 
 <br />
 
