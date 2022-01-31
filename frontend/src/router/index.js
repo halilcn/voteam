@@ -64,6 +64,11 @@ const routes = [
     ]
   },
   {
+    path: '/terms',
+    name: 'Terms',
+    component: () => import('../views/Terms.vue')
+  },
+  {
     path: '/teams',
     name: 'TeamsList',
     component: () => import('../views/Teams.vue'),

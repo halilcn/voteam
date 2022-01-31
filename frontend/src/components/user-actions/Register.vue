@@ -66,7 +66,12 @@
             :content="getOnlyErrors(v$.user.password.$errors)"/>
       </div>
       <div class="terms-info">
-        <router-link class="terms-link" to="/terms">{{ $t('general.others.termsOfService') }}</router-link>
+        <router-link
+            :to="{name:'Terms'}"
+            target="_blank"
+            class="terms-link">
+          {{ $t('general.others.termsOfService') }}
+        </router-link>
         {{ $t('register.termsOfServiceText') }}
       </div>
       <standart-button
