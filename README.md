@@ -4,9 +4,11 @@
 <img src="./images/voteam.png" align="center" width="400" alt="Project icon">
 </div>
 
-<div align="center">
-### Fair And Modern Voting System
-</div>
+<div align="center"> 
+<h3 align="center">
+ Fair And Modern Voting System
+</h3> 
+ </div>
 
 
 #### MyProject
