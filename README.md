@@ -1,9 +1,20 @@
+<br />
+
 <p align="center">
 <img src="./images/voteam.png" width="400">
 </p>
-<font align="center" size="3"> 
- Fair And Modern Voting System
-</font> 
+
+<br />
+
+<p align="center" > 
+ **Fair And Modern Voting System**
+</p>
+
+<br />
+<br />
+
+*[voteam.net](http://voteam.net)*
+
 
 ## What is ?
 voteam helps you make decisions within any team. What does it mean ?
