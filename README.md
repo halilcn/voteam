@@ -1,12 +1,22 @@
 <p align="center">
 <img src="./images/voteam.png" width="400">
 </p>
-<p align="center">
+<font align="center" size="3"> 
  Fair And Modern Voting System
-</p>
+</font> 
 
-proje nedir ne değildir açılsma
+## What is ?
+voteam helps you make decisions within any team. What does it mean ?
 
+Let's explain. Various types of voting can be initiated within voteam.net.
+Each team member votes. But each member's vote is of different strength.
+Each member's strength is determined by a monthly power vote.
+No one knows the power of another member. These include the leader.
+Everything is secret. All members can see the result of voting when voting is over.
+The result of the voting is determined by algorithms.
+[Click here](http://voteam.net/) if you want to experience.
+
+## Highlights
 özellikler (kuyruk vs vs)
 
 
@@ -26,6 +36,7 @@ Back-end (API)
 - Authentication system for SPA - [Sanctum](https://laravel.com/docs/8.x/sanctum)
 - Used to upload files to remote server - [Cloudinary](https://cloudinary.com/)
 - Database - [Mysql](https://www.mysql.com/)
+- and others...
 
 Deploy
 - [Docker](https://www.docker.com/)
