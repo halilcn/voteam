@@ -1,21 +1,19 @@
 <br />
 
-<p align="center">
-<img src="./images/voteam.png" width="400">
-</p>
+<table align="center">
+<tr>
+<td align="center" width="9999">
+<img src="./images/voteam.png" align="center" width="400" alt="Project icon">
+
+### Fair And Modern Voting System
+
+#### MyProject
+</td>
+</tr>
+</table>
 
 <br />
-
-**<center>
-Fair And Modern Voting System
-</center>**
-
 <br />
-<br />
-
-<center>
-*[voteam.net](http://voteam.net)*
-</center>
 
 
 ## What is ?
