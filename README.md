@@ -60,14 +60,14 @@ Deploy
 - [Digitalocean](https://www.digitalocean.com/)
 
 ## Project Images
-![login](https://github.com/halilcn/voteam/tree/main/resources/images/homepage.png)
-![register](https://github.com/halilcn/voteam/tree/main/resources/images/register.png)
-![dashboard-create-multiple-vote](https://github.com/halilcn/voteam/tree/main/resources/images/dashboard-create-multiple-vote.png)
-### [All Images](https://github.com/halilcn/voteam/tree/main/resources/images)
+homepage.png
+![login](https://github.com/halilcn/voteam/blob/main/resources/images/homepage.png)
+![register](https://github.com/halilcn/voteam/blob/main/resources/images/register.png)
+![dashboard-create-multiple-vote](https://github.com/halilcn/voteam/blob/main/resources/images/dashboard-create-multiple-vote.png)
+### [All Images](https://github.com/halilcn/voteam/blob/main/resources/images)
 
 ## Project Videos
 <video width="320" height="240" controls>
   <source src="./resources/videos/login_and_create_team.mp4" type="video/mp4">
-  <source src="./resources/videos/create_multiple_vote.mp4.mp4" type="video/mp4">
 </video>  
 ### [All Videos](https://github.com/halilcn/voteam/tree/main/resources/videos)
