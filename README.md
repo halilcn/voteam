@@ -19,7 +19,7 @@
 
 
 
-## What is ?
+## What is voteam?
 voteam helps you make decisions within any team. What does it mean ?
 
 Let's explain. Various types of voting can be initiated within voteam.net.
