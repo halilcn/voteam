@@ -67,12 +67,12 @@ export default {
     },
     async updateUserSettings({ dispatch, commit }, payload) {
       if (payload.image instanceof File) {
-        //TODO: vote-images name değiştirilecek.user-images yapılacak
+        //TODO: vote-resources name değiştirilecek.user-resources yapılacak
         const { secure_url } = await dispatch(
           'cloudinary/postImage',
           {
             file: payload.image,
-            folder: 'vote-images'
+            folder: 'vote-resources'
           },
           { root: true });
 

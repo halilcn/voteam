@@ -11,12 +11,12 @@ export default {
     },
     async updateSettings({ getters, dispatch }, payload) {
       if (payload.image instanceof File) {
-        //TODO: vote-images name değiştirilecek.team-images yapılacak
+        //TODO: vote-resources name değiştirilecek.team-resources yapılacak
         const { secure_url } = await dispatch(
           'cloudinary/postImage',
           {
             file: payload.image,
-            folder: 'vote-images'
+            folder: 'vote-resources'
           },
           { root: true });
 

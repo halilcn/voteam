@@ -48,7 +48,7 @@ export default {
         'cloudinary/postImage',
         {
           file: payload,
-          folder: 'vote-images'
+          folder: 'vote-resources'
         },
         { root: true });
 
