@@ -52,8 +52,6 @@ helpers.handle = async (handle, customCatch = () => {}) => {
   } catch (err) {
     if (err.response) if (await customCatch(err)) return;
     await notify.error('Bir hata oluştu.');
-    //TODO: Multiple language
-    /* console.log(i18n); //this.$t(('customErrors.generalError'))*/
   }
 };
 
