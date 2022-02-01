@@ -66,8 +66,7 @@ Deploy
 ### [All Images](https://github.com/halilcn/voteam/blob/main/resources/images)
 
 ## Project Videos
-<video width="320" height="240" controls>
-  <source src="./resources/videos/login_and_create_team.mp4" type="video/mp4">
-</video>  
+
+https://github.com/halilcn/voteam/blob/main/resources/videos/create_multiple_vote.mp4
 
 ### [All Videos](https://github.com/halilcn/voteam/tree/main/resources/videos)
