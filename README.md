@@ -67,6 +67,6 @@ Deploy
 
 ## Project Videos
 
-https://github.com/halilcn/voteam/blob/main/resources/videos/create_multiple_vote.mp4
+https://res.cloudinary.com/voteam/video/upload/v1643734175/general/wr4efb3rzydxaslqvejk.mp4
 
 ### [All Videos](https://github.com/halilcn/voteam/tree/main/resources/videos)
