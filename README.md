@@ -30,13 +30,15 @@ over. The result of the voting is determined by algorithms.
 ## Highlights
 
 - Clean code is written in frontend and backend
-- Special structures were created (e.g handle method
-  in [helpers](https://github.com/halilcn/voteam/blob/main/frontend/src/helpers.js))
-- Using a queue to calculate vote and send mail
+- Special structures were created (e.g handle method in [helpers](https://github.com/halilcn/voteam/blob/main/frontend/src/helpers.js))
+- Queue used to calculate votes and send mail
+- Multi-language support provided
+- CDN used for remote server
+
 
 ## Built With
 
-Front-end (SPA)
+Frontend (SPA)
 
 - Used javascript framework on front-end - [Vue.js](https://vuejs.org/)
 - State management pattern on front-end - [Vuex](https://vuex.vuejs.org/)
@@ -47,9 +49,9 @@ Front-end (SPA)
 - Multiple language - [i18n](https://kazupon.github.io/vue-i18n/)
 - and others...
 
-Back-end (API)
+Backend (API)
 
-- Used back-end framework - [Laravel](https://laravel.com/)
+- Used backend framework - [Laravel](https://laravel.com/)
 - Authentication system for SPA - [Sanctum](https://laravel.com/docs/8.x/sanctum)
 - Used to upload files to remote server - [Cloudinary](https://cloudinary.com/)
 - Database - [Mysql](https://www.mysql.com/)
