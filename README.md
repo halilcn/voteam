@@ -29,7 +29,7 @@ over. The result of the voting is determined by algorithms.
 
 ## Highlights
 
-- Clean code is written in frontend and backend
+- Written in frontend and backend cleanly
 - Special structures were created (e.g handle method in [helpers](https://github.com/halilcn/voteam/blob/main/frontend/src/helpers.js))
 - Queue used to calculate votes and send mail
 - Multi-language support provided
