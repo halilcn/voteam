@@ -30,7 +30,7 @@ over. The result of the voting is determined by algorithms.
 ## Highlights
 
 - Written in frontend and backend cleanly
-- Special structures were created (e.g handle method in [helpers](https://github.com/halilcn/voteam/blob/main/frontend/src/helpers.js))
+- Special structures were created (e.g handle method in [helpers](https://github.com/halilcn/voteam/blob/main/frontend/src/helpers.js?plain=1#L49-L56))
 - Queue used to calculate votes and send mail
 - Multi-language support provided
 - CDN used for remote server
