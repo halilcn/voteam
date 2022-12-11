@@ -20,14 +20,6 @@
 </h2> 
 </p>
 
-<p align="center">
-  <h3 align="center">
-    <a style="text-decoration: line-through;" href="http://voteam.net">www.voteam.net</a>
-  </h3>
-</p>
-
-
-
 ## What is voteam?
 
 voteam helps you make decisions within any team. What does it mean ?
