@@ -1,8 +1,17 @@
 <br />
 
+<p align="center"> 
+<h3 align="center">
+ DEPRECATED
+</h3> 
+</p>
+
+<br />
+
 <div align="center">
 <img src="./resources/images/voteam.png" align="center" width="400" alt="Project icon">
 </div>
+
 <br />
 
 <p align="center"> 
@@ -13,9 +22,11 @@
 
 <p align="center">
   <h3 align="center">
-    <a href="http://voteam.net">www.voteam.net</a>
+    <a style="text-decoration: line-through;" href="http://voteam.net">www.voteam.net</a>
   </h3>
 </p>
+
+
 
 ## What is voteam?
 
@@ -25,7 +36,6 @@ Let's explain. Various types of voting can be initiated within voteam. Each team
 vote is of different strength. Each member's strength is determined by a monthly power vote. No one knows the power of
 another member. These include the leader. Everything is secret. All members can see the result of voting when voting is
 over. The result of the voting is determined by algorithms.
-[Click here](http://voteam.net/) if you want to experience.
 
 ## Highlights
 
