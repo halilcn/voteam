@@ -1,9 +1,9 @@
 <br />
 
 <p align="center"> 
-<h3 align="center">
+<h2 align="center">
  DEPRECATED
-</h3> 
+</h2> 
 </p>
 
 <br />
